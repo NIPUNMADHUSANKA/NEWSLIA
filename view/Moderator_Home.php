@@ -7,6 +7,13 @@
     <title>Moderator_Home</title>
     <link rel="stylesheet" href="../css/base.css">
 </head>
+
+<style>
+  body {
+  overflow: hidden; /* Hide scrollbars */
+  }
+</style>
+
 <body>
 
   <div class="heder">
@@ -74,6 +81,53 @@
       </li>
   </ul>
 
+<!-- Moderator Page Content -->
+<div class="content">
+
+        <div class="content_left">
+          <h1>Welcome to the NEWSLIA's <br> Moderator Interface</h1>
+              
+              <div class="content_left_info">
+
+
+                  <div class="content_left_info_moderate row">
+                    <div class="content_left_info_moderate_key key">
+                        Moderating Area
+                    </div>
+                    <div class="content_left_info_moderate_input input">
+                      
+                    </div>
+                  </div>
+
+
+                  <div class="content_left_info_reading row">
+                    <div class="content_left_info_reading_key key">
+                        Reading Area
+                    </div>
+                    <div class="content_left_info_reading_input input">
+                      
+                    </div>
+                  </div>
+
+
+                  <div class="content_left_info_type row">
+                    <div class="content_left_info_type_key key">
+                        View Posts Type
+                    </div>
+                    <div class="content_left_info_type_input input">
+                      
+                    </div>
+                  </div>
+
+              </div>
+
+        </div>
+
+        <div class="content_right">
+            <img src="../images/background.svg" alt="" srcset="">
+        </div>
+
+  </div>
     
 </body>
 </html>

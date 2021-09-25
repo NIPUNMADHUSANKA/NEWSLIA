@@ -181,3 +181,22 @@
 
 
 /**************************************************/
+
+.content{
+    display: flex;
+    flex-direction: row;    
+}
+
+.content_right{
+    margin-right: -3%;
+}
+.content_right img{
+    width: 61vw;
+}
+
+
+.content_left h1{
+    font-weight:300;
+    text-align: center;
+    padding: 6vw;
+}
