@@ -91,9 +91,9 @@
 
       <div class="imv_sort">
         <div class="imv_sort_bar">
-          <button onclick="" class="drop_area_sort">Select Area</button>
-          <div class="drop_area_sort_cont ent">
-            <input type="text" id="myInput" onkeyup="" placeholder="Search...">
+          <button onclick="showsort()" class="drop_area_sort">Select Area</button>
+          <div class="drop_area_sort_cont" id="sortdrop">
+            <input type="text" id="myInput" onkeyup="filterFunction()" placeholder="Search...">
             <a href="#">Gampaha</a>
             <a href="#">Minuwangoda</a>
             <a href="#">Negombo</a>
@@ -104,6 +104,30 @@
     </div>
       
 </div>
+
+
+<script>
+    function showsort() {
+      document.getElementById("sortdrop").classList.toggle("show");
+    }
+
+    function filterFunction() {
+      var input, filter, ul, li, a, i;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      div = document.getElementById("sortdrop");
+      a = div.getElementsByTagName("a");
+      for (i = 0; i < a.length; i++) {
+            txtValue = a[i].textContent || a[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                 a[i].style.display = "";
+            } else {
+                 a[i].style.display = "none";
+        }
+      }
+    }
+
+</script>
     
 </body>
 </html>
