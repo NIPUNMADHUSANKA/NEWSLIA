@@ -107,6 +107,25 @@
 </div>
 
 
+<div class="body_important_view">
+    <div class="body_information">
+
+      <div class="post_view_frame">
+        <div class="post_view_img">
+            <img src="../images/IC/Sethma_Hospital.svg" alt="" srcset="">
+        </div>
+        <div class="post_view_info">
+            <h4>Sethma Hospital</h4>
+            <p>011-2285635</p>
+        </div>
+
+
+      </div>
+
+
+    </div>
+</div>
+
 <script>
     function showsort() {
       document.getElementById("sortdrop").classList.toggle("show");
