@@ -91,8 +91,9 @@
 
       <div class="imv_sort">
         <div class="imv_sort_bar">
-          <button onclick="showsort()" class="drop_area_sort">Select Area</button>
+          <button onclick="showsort()" class="drop_area_sort">Select Area<img src="../images/sort.svg" alt="" srcset=""></button>
           <div class="drop_area_sort_cont" id="sortdrop">
+            <img src="../images/search.svg" alt="" srcset="">
             <input type="text" id="myInput" onkeyup="filterFunction()" placeholder="Search...">
             <a href="#">Gampaha</a>
             <a href="#">Minuwangoda</a>
