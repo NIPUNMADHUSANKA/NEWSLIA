@@ -108,22 +108,41 @@
 
 
 <div class="body_important_view">
+
     <div class="body_information">
+         
+          <div class="box-container">
+              <div class="box_head">
+                <img src="../images/sethma.jpeg" alt="">
+              </div>
+              <div class="box_body">
+                <h3>Sethma Hospital</h3>
+                <p>0335 626 626</p>
+              </div>
+          </div>
 
-      <div class="post_view_frame">
-        <div class="post_view_img">
-            <img src="../images/IC/Sethma_Hospital.svg" alt="" srcset="">
-        </div>
-        <div class="post_view_info">
-            <h4>Sethma Hospital</h4>
-            <p>011-2285635</p>
-        </div>
+          <div class="box-container">
+              <div class="box_head">
+                <img src="../images/sethma.jpeg" alt="">
+              </div>
+              <div class="box_body">
+                <h3>Sethma Hospital</h3>
+                <p>0335 626 626</p>
+              </div>
+          </div>
 
-
-      </div>
-
-
+          <div class="box-container">
+              <div class="box_head">
+                <img src="../images/sethma.jpeg" alt="">
+              </div>
+              <div class="box_body">
+                <h3>Sethma Hospital</h3>
+                <p>0335 626 626</p>
+              </div>
+          </div>
     </div>
+
+    
 </div>
 
 <script>
