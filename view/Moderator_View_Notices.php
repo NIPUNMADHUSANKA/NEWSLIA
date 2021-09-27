@@ -13,6 +13,21 @@
   body {
   overflow: hidden; /* Hide scrollbars */
   }
+
+  .post_sort{
+      padding-left:80px;
+  }
+  .box-container{
+    height: 240px;
+  }
+
+  .posts_content_view_head{
+    font-size:xx-large;
+
+  }
+
+
+
 </style>
 
 <body>
@@ -82,10 +97,10 @@
       </li>
   </ul>
 
-<!-- Moderator Important Number View -->
+<!-- Moderator Notices View -->
 <div class="content_posts_view">
     <div class="posts_content_view_head">
-        Important Contact Number
+        Notice
       </div>
 
       <div class="post_sort">
@@ -112,10 +127,28 @@
           <div class="box-container">
               <div class="box_head">
                 <img src="../images/sethma.jpeg" alt="">
+              
+                <div class="middle">
+                     <div class="view_btn">John Doe</div>
+                </div>
+
+                
               </div>
               <div class="box_body">
-                <h3>Sethma Hospital</h3>
-                <p>0335 626 626</p>
+                <h3>Notice</h3>
+                <p>Publish Date</p>
+                <p>Create By</p>
+              </div>
+          </div>
+
+          <div class="box-container">
+              <div class="box_head">
+                <img src="../images/sethma.jpeg" alt="">
+              </div>
+                <div class="box_body">
+                <h3>Notice</h3>
+                <p>Publish Date</p>
+                <p>Create By</p>
               </div>
           </div>
 
@@ -124,18 +157,9 @@
                 <img src="../images/sethma.jpeg" alt="">
               </div>
               <div class="box_body">
-                <h3>Sethma Hospital</h3>
-                <p>0335 626 626</p>
-              </div>
-          </div>
-
-          <div class="box-container">
-              <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
-              </div>
-              <div class="box_body">
-                <h3>Sethma Hospital</h3>
-                <p>0335 626 626</p>
+                <h3>Notice</h3>
+                <p>Publish Date</p>
+                <p>Create By</p>
               </div>
           </div>
     </div>
