@@ -112,6 +112,7 @@
    .body_information{
        display: flex;
        justify-content: space-around;
+       flex-wrap: wrap;
    }
 
    .box-container{
