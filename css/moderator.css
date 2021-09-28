@@ -208,8 +208,8 @@
   position: absolute;
   min-width: 100px;
   text-align: left;
+  margin: -1.5rem 10px;
   display: none;
-
 }
 
 .more_post a{
@@ -218,13 +218,14 @@
   color: #444;
   font-size: small;
   letter-spacing: 1.2px;
-  padding: 0.25rem;
+  padding: 0.5rem;
 }
 
 .more_post a:hover{
   background-color: #eee;
 }
 
-.more:hover, .more_post{
-  display: inline-block;
+.more:hover .more_post{
+ display: block;
 }
+

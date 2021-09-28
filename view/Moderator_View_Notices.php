@@ -148,6 +148,13 @@
 
               <div class="more">
                 <img src="../images/More.svg" alt="" srcset="">
+                <ul class ="more_post">
+                  
+                      <li><a href="#">Save</a></li>
+                      <li><a href="#">Hidden</a></li>
+                      <li><a href="#">Reminder</a></li>
+          
+              </ul>
               </div>
           </div>
 
@@ -168,6 +175,13 @@
 
               <div class="more">
                 <img src="../images/More.svg" alt="" srcset="">
+                <ul class ="more_post">
+                  
+                      <li><a href="#">Save</a></li>
+                      <li><a href="#">Hidden</a></li>
+                      <li><a href="#">Reminder</a></li>
+          
+              </ul>
               </div>
           </div>
 
