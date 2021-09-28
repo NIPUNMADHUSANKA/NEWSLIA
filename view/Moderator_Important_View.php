@@ -11,7 +11,7 @@
 
 <style>
   body {
-  overflow: hidden; /* Hide scrollbars */
+    overflow-x: hidden; /* Hide scrollbars */
   }
   .box_head:hover img{
     opacity: 1;

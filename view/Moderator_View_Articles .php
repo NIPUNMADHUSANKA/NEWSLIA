@@ -14,19 +14,31 @@
   body {
     overflow-x: hidden; /* Hide scrollbars */
   }
-  
   .post_sort{
       padding-left:80px;
   }
   .box-container{
     height: 240px;
   }
+  .popular_famous_container{
+    height: 300px;
+  }
 
   .posts_content_view_head{
     font-size:xx-large;
 
   }
+  
+  .drop_area_sort{
+    margin-left: -2vw;
+  }
 
+  .popular_famous_middel {
+    margin-top: -120px;
+    margin-left: 165px;
+  
+}
+  
 
 
 </style>
@@ -101,8 +113,79 @@
 <!-- Moderator Notices View -->
 <div class="content_posts_view">
     <div class="posts_content_view_head">
-        Notice
+        Article
     </div>
+</div>
+
+
+<div class="posts_content_view_body popular_famous">
+
+    <div class="popular_famous_info">
+         
+         
+          <div class="box-container popular_famous_container">
+              <div class="box_head">
+                <img src="../images/sethma.jpeg" alt="">
+              
+                <div class="middle popular_famous_middel">
+                     <div class="view_btn">View</div>
+                </div>
+
+              </div>
+              <div class="box_body">
+                <h3>Article</h3>
+                <p>Publish Date</p>
+                <p>Create By</p>
+              </div>
+
+              <div class="more">
+                <img src="../images/More.svg" alt="" srcset="">
+                <ul class ="more_post">
+                  
+                      <li><a href="#">Save</a></li>
+                      <li><a href="#">Hidden</a></li>
+          
+              </ul>
+              </div>
+          </div>
+
+
+          <div class="box-container popular_famous_container">
+              <div class="box_head">
+                <img src="../images/sethma.jpeg" alt="">
+              
+                <div class="middle popular_famous_middel">
+                     <div class="view_btn">View</div>
+                </div>
+
+              </div>
+              <div class="box_body">
+                <h3>Article</h3>
+                <p>Publish Date</p>
+                <p>Create By</p>
+              </div>
+
+              <div class="more">
+                <img src="../images/More.svg" alt="" srcset="">
+                <ul class ="more_post">
+                  
+                      <li><a href="#">Save</a></li>
+                      <li><a href="#">Hidden</a></li>
+                
+              </ul>
+              </div>
+
+              
+
+          </div>
+
+    </div>
+
+    
+</div>
+
+<hr>
+<div class="content_posts_view">
 
       <div class="post_sort">
         <div class="post_sort_bar">
@@ -127,6 +210,8 @@
     
 </div>
 
+
+
 <div class="posts_content_view_body">
 
     <div class="body_information">
@@ -141,7 +226,7 @@
 
               </div>
               <div class="box_body">
-                <h3>Notice</h3>
+                <h3>Article</h3>
                 <p>Publish Date</p>
                 <p>Create By</p>
               </div>
@@ -152,7 +237,6 @@
                   
                       <li><a href="#">Save</a></li>
                       <li><a href="#">Hidden</a></li>
-                      <li><a href="#">Reminder</a></li>
           
               </ul>
               </div>
@@ -168,7 +252,7 @@
 
               </div>
               <div class="box_body">
-                <h3>Notice</h3>
+                <h3>Article</h3>
                 <p>Publish Date</p>
                 <p>Create By</p>
               </div>
@@ -179,7 +263,6 @@
                   
                       <li><a href="#">Save</a></li>
                       <li><a href="#">Hidden</a></li>
-                      <li><a href="#">Reminder</a></li>
           
               </ul>
               </div>
@@ -196,7 +279,7 @@
 
               </div>
               <div class="box_body">
-                <h3>Notice</h3>
+                <h3>Article</h3>
                 <p>Publish Date</p>
                 <p>Create By</p>
               </div>
@@ -207,8 +290,7 @@
                   
                       <li><a href="#">Save</a></li>
                       <li><a href="#">Hidden</a></li>
-                      <li><a href="#">Reminder</a></li>
-          
+                
               </ul>
               </div>
 

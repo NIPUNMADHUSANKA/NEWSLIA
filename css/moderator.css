@@ -230,3 +230,23 @@
  display: block;
 }
 
+hr{
+  border: 1px solid #666;
+  opacity: 0.3;
+}
+
+
+.popular_famous{
+  margin-top: 2.5rem;
+}
+
+.popular_famous_info{
+  display: flex;
+  justify-content:center;
+  flex-wrap: wrap;
+}
+
+.popular_famous_container{
+  width: 420px;
+  
+}
