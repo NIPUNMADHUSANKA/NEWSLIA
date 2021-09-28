@@ -13,6 +13,9 @@
   body {
   overflow: hidden; /* Hide scrollbars */
   }
+  .box_head:hover img{
+    opacity: 1;
+  }
 </style>
 
 <body>
