@@ -7,6 +7,7 @@
     <title>Moderator_Home</title>
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/moderator.css">
+    <link rel="stylesheet" href="../css/search.css">
 </head>
 
 <style>
@@ -101,7 +102,7 @@
 <div class="content_posts_view">
     <div class="posts_content_view_head">
         Notice
-      </div>
+    </div>
 
       <div class="post_sort">
         <div class="post_sort_bar">
@@ -115,9 +116,15 @@
           </div>
         </div>
       </div>
-        
-    </div>
       
+     
+    <form action="" class="search-bar">
+	     <input type="search" name="search" pattern=".*\S.*" required>
+	     <button class="search-btn" type="submit">
+		       <span>Search</span>
+	     </button>
+    </form>
+    
 </div>
 
 <div class="posts_content_view_body">
@@ -129,39 +136,72 @@
                 <img src="../images/sethma.jpeg" alt="">
               
                 <div class="middle">
-                     <div class="view_btn">John Doe</div>
+                     <div class="view_btn">View</div>
                 </div>
 
-                
               </div>
               <div class="box_body">
                 <h3>Notice</h3>
                 <p>Publish Date</p>
                 <p>Create By</p>
               </div>
-          </div>
 
-          <div class="box-container">
-              <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
-              </div>
-                <div class="box_body">
-                <h3>Notice</h3>
-                <p>Publish Date</p>
-                <p>Create By</p>
+              <div class="more">
+                <img src="../images/More.svg" alt="" srcset="">
               </div>
           </div>
 
           <div class="box-container">
               <div class="box_head">
                 <img src="../images/sethma.jpeg" alt="">
+              
+                <div class="middle">
+                     <div class="view_btn">View</div>
+                </div>
+
               </div>
               <div class="box_body">
                 <h3>Notice</h3>
                 <p>Publish Date</p>
                 <p>Create By</p>
               </div>
+
+              <div class="more">
+                <img src="../images/More.svg" alt="" srcset="">
+              </div>
           </div>
+
+
+          <div class="box-container">
+              <div class="box_head">
+                <img src="../images/sethma.jpeg" alt="">
+              
+                <div class="middle">
+                     <div class="view_btn">View</div>
+                </div>
+
+              </div>
+              <div class="box_body">
+                <h3>Notice</h3>
+                <p>Publish Date</p>
+                <p>Create By</p>
+              </div>
+
+              <div class="more">
+                <img src="../images/More.svg" alt="" srcset="">
+                <ul class ="more_post">
+                  
+                      <li><a href="#">Save</a></li>
+                      <li><a href="#">Hidden</a></li>
+                      <li><a href="#">Reminder</a></li>
+          
+              </ul>
+              </div>
+
+              
+
+          </div>
+
     </div>
 
     
