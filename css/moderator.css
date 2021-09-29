@@ -250,3 +250,16 @@ hr{
   width: 420px;
   
 }
+.title{
+  position:relative;
+  margin: -4rem;
+  margin-left: 1rem;
+  color: #666;
+  font-size: 22px;
+}
+.right_side,.left_side{
+ object-fit: contain;
+ width: 20px;
+}
+
+

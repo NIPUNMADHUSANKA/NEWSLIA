@@ -26,7 +26,6 @@
 
   .posts_content_view_head{
     font-size:xx-large;
-
   }
   
   .drop_area_sort{
@@ -34,13 +33,28 @@
   }
 
   .popular_famous_middel {
-    margin-top: -120px;
-    margin-left: 165px;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    margin-top: -7.5rem;
+    margin-left: 0.5rem;
+  }
+
+  .left_side{
+    padding-left:9rem;
+  }
+  .right_side{
+    padding-right:9rem;
+  }
   
+.drop_area_sort_cont{
+  margin-left:-2rem;
+}
+
+.pop_more{
+  margin-top: 1rem;
 }
   
-
-
 </style>
 
 <body>
@@ -121,14 +135,19 @@
 <div class="posts_content_view_body popular_famous">
 
     <div class="popular_famous_info">
+    
+    <div class="title">Most Recent</div>
          
-         
+    
           <div class="box-container popular_famous_container">
               <div class="box_head">
                 <img src="../images/sethma.jpeg" alt="">
               
                 <div class="middle popular_famous_middel">
+                     <div class="right_side"><img src="../images/Right.svg" alt="" srcset=""></div>
                      <div class="view_btn">View</div>
+                     <div class="left_side"><img src="../images/Left.svg" alt="" srcset=""></div>
+                    
                 </div>
 
               </div>
@@ -139,7 +158,7 @@
               </div>
 
               <div class="more">
-                <img src="../images/More.svg" alt="" srcset="">
+                <img src="../images/More.svg" alt="" srcset="" class="pop_more">
                 <ul class ="more_post">
                   
                       <li><a href="#">Save</a></li>
@@ -149,13 +168,16 @@
               </div>
           </div>
 
-
+          <div class="title">Most Popular</div>
           <div class="box-container popular_famous_container">
               <div class="box_head">
                 <img src="../images/sethma.jpeg" alt="">
               
                 <div class="middle popular_famous_middel">
+                     <div class="right_side"><img src="../images/Right.svg" alt="" srcset=""></div>
                      <div class="view_btn">View</div>
+                     <div class="left_side"><img src="../images/Left.svg" alt="" srcset=""></div>
+                    
                 </div>
 
               </div>
@@ -166,7 +188,7 @@
               </div>
 
               <div class="more">
-                <img src="../images/More.svg" alt="" srcset="">
+                <img src="../images/More.svg" alt="" srcset="" class="pop_more">
                 <ul class ="more_post">
                   
                       <li><a href="#">Save</a></li>
