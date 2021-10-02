@@ -64,10 +64,10 @@
         <a href="javascript:void(0)" class="dropbtn">View</a>
         <div class="view-content dropdown-content">
             <a href="#">News</a>
-            <a href="#">Article</a>
-            <a href="#">Notice</a>
-            <a href="#">job vacancy</a>
-            <a href="#">Commercial Ad</a>
+            <a href="#">Articles</a>
+            <a href="#">Notices</a>
+            <a href="#">job vacancies</a>
+            <a href="#">Commercial Ads</a>
         </div>
       </li>
 
@@ -80,10 +80,10 @@
       </li>
 
       <li class="imporatnt dropdown">
-        <a href="javascript:void(0)" class="dropbtn">Important Contact</a>
+        <a href="javascript:void(0)" class="dropbtn">Important Contacts</a>
         <div class="important-content dropdown-content">
-            <a href="#">View Contact Number</a>
-            <a href="#">Edit Contact Number</a>
+            <a href="#">View Contact Numbers</a>
+            <a href="#">Edit Contact Numbers</a>
         </div>
       </li>
 
