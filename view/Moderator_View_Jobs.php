@@ -50,6 +50,10 @@
 .pop_more{
   margin-top: 1rem;
 }
+
+.posts_content_view_head{
+    font-size: x-large;
+}
   
 </style>
 
@@ -123,7 +127,7 @@
 <!-- Moderator Notices View -->
 <div class="content_posts_view">
     <div class="posts_content_view_head">
-    Commercial Advertisements
+        job vacancies
     </div>
 </div>
 
@@ -148,8 +152,8 @@
 
               </div>
               <div class="box_body">
-                <h3>Commercial Ad</h3>
-                <p>Publish Date</p>
+                <h3>Job Vacancies</h3>
+                <p>Closing Date</p>
                 <p>Create By</p>
               </div>
 
@@ -159,6 +163,7 @@
                   
                       <li><a href="#">Save</a></li>
                       <li><a href="#">Hidden</a></li>
+                      <li><a href="#">Reminder</a></li>
           
               </ul>
               </div>
@@ -178,8 +183,8 @@
 
               </div>
               <div class="box_body">
-                <h3>Commercial Ad</h3>
-                <p>Publish Date</p>
+                <h3>Job Vacancies</h3>
+                <p>Closing Date</p>
                 <p>Create By</p>
               </div>
 
@@ -189,6 +194,7 @@
                   
                       <li><a href="#">Save</a></li>
                       <li><a href="#">Hidden</a></li>
+                      <li><a href="#">Reminder</a></li>
                 
               </ul>
               </div>
@@ -202,6 +208,7 @@
     
 </div>
 
+<br>
 <hr>
 <div class="content_posts_view">
 
@@ -214,6 +221,19 @@
             <a href="#">Gampaha</a>
             <a href="#">Minuwangoda</a>
             <a href="#">Negombo</a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="post_sort">
+        <div class="post_sort_bar">
+          <button onclick="showsort_Type()" class="drop_area_sort">Select Job Type<img src="../images/sort.svg" alt="" srcset=""></button>
+          <div class="drop_area_sort_cont" id="sortdrop_job_type">
+            <img src="../images/search.svg" alt="" srcset="">
+            <input type="text" id="myInput" onkeyup="filterFunction()" placeholder="Search...">
+            <a href="#">Graphic Designer</a>
+            <a href="#">Web Designer</a>
           </div>
         </div>
       </div>
@@ -244,8 +264,8 @@
 
               </div>
               <div class="box_body">
-                <h3>Commercial Ad</h3>
-                <p>Publish Date</p>
+                <h3>Job Vacancies</h3>
+                <p>Closing Date</p>
                 <p>Create By</p>
               </div>
 
@@ -255,6 +275,7 @@
                   
                       <li><a href="#">Save</a></li>
                       <li><a href="#">Hidden</a></li>
+                      <li><a href="#">Reminder</a></li>
           
               </ul>
               </div>
@@ -270,8 +291,8 @@
 
               </div>
               <div class="box_body">
-                <h3>Commercial Ad</h3>
-                <p>Publish Date</p>
+                <h3>Job Vacancies</h3>
+                <p>Closing Date</p>
                 <p>Create By</p>
               </div>
 
@@ -281,6 +302,7 @@
                   
                       <li><a href="#">Save</a></li>
                       <li><a href="#">Hidden</a></li>
+                      <li><a href="#">Reminder</a></li>
           
               </ul>
               </div>
@@ -297,8 +319,8 @@
 
               </div>
               <div class="box_body">
-                <h3>Commercial Ad</h3>
-                <p>Publish Date</p>
+                <h3>Job Vacancies</h3>
+                <p>Closing Date</p>
                 <p>Create By</p>
               </div>
 
@@ -308,6 +330,7 @@
                   
                       <li><a href="#">Save</a></li>
                       <li><a href="#">Hidden</a></li>
+                      <li><a href="#">Reminder</a></li>
                 
               </ul>
               </div>
@@ -327,6 +350,10 @@
 <script>
     function showsort() {
       document.getElementById("sortdrop").classList.toggle("show");
+    }
+
+    function showsort_Type() {
+      document.getElementById("sortdrop_job_type").classList.toggle("show");
     }
 
     function filterFunction() {

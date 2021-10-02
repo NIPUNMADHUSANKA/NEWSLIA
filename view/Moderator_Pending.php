@@ -14,43 +14,26 @@
   body {
     overflow-x: hidden; /* Hide scrollbars */
   }
+  
   .post_sort{
       padding-left:80px;
   }
   .box-container{
     height: 240px;
   }
-  .popular_famous_container{
-    height: 300px;
+
+  .more{
+    margin-top: -15%;
   }
 
-  .drop_area_sort{
-    margin-left: -2vw;
+  .box_head:hover img{
+    opacity: 1;
   }
 
-  .popular_famous_middel {
-    display: flex;
-    flex-direction: row;
-    justify-content: right;
-    margin-top: -7.5rem;
-    margin-left: 0.5rem;
-  }
+ 
 
-  .left_side{
-    padding-left:9rem;
-  }
-  .right_side{
-    padding-right:9rem;
-  }
-  
-.drop_area_sort_cont{
-  margin-left:-2rem;
-}
 
-.pop_more{
-  margin-top: 1rem;
-}
-  
+
 </style>
 
 <body>
@@ -123,97 +106,20 @@
 <!-- Moderator Notices View -->
 <div class="content_posts_view">
     <div class="posts_content_view_head">
-    Commercial Advertisements
+        Pending Posts
     </div>
-</div>
-
-
-<div class="posts_content_view_body popular_famous">
-
-    <div class="popular_famous_info">
-    
-    <div class="title">Most Recent</div>
-         
-    
-          <div class="box-container popular_famous_container">
-              <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
-              
-                <div class="middle popular_famous_middel">
-                     <div class="right_side"><img src="../images/Right.svg" alt="" srcset=""></div>
-                     <div class="view_btn">View</div>
-                     <div class="left_side"><img src="../images/Left.svg" alt="" srcset=""></div>
-                    
-                </div>
-
-              </div>
-              <div class="box_body">
-                <h3>Commercial Ad</h3>
-                <p>Publish Date</p>
-                <p>Create By</p>
-              </div>
-
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="" class="pop_more">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
-          
-              </ul>
-              </div>
-          </div>
-
-          <div class="title">Most Popular</div>
-          <div class="box-container popular_famous_container">
-              <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
-              
-                <div class="middle popular_famous_middel">
-                     <div class="right_side"><img src="../images/Right.svg" alt="" srcset=""></div>
-                     <div class="view_btn">View</div>
-                     <div class="left_side"><img src="../images/Left.svg" alt="" srcset=""></div>
-                    
-                </div>
-
-              </div>
-              <div class="box_body">
-                <h3>Commercial Ad</h3>
-                <p>Publish Date</p>
-                <p>Create By</p>
-              </div>
-
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="" class="pop_more">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
-                
-              </ul>
-              </div>
-
-              
-
-          </div>
-
-    </div>
-
-    
-</div>
-
-<hr>
-<div class="content_posts_view">
 
       <div class="post_sort">
         <div class="post_sort_bar">
-          <button onclick="showsort()" class="drop_area_sort">Select Area<img src="../images/sort.svg" alt="" srcset=""></button>
+          <button onclick="showsort()" class="drop_area_sort">Select Post Type<img src="../images/sort.svg" alt="" srcset=""></button>
           <div class="drop_area_sort_cont" id="sortdrop">
             <img src="../images/search.svg" alt="" srcset="">
             <input type="text" id="myInput" onkeyup="filterFunction()" placeholder="Search...">
-            <a href="#">Gampaha</a>
-            <a href="#">Minuwangoda</a>
-            <a href="#">Negombo</a>
+            <a href="#">News</a>
+            <a href="#">Articles</a>
+            <a href="#">Notices</a>
+            <a href="#">Job Vacancies</a>
+            <a href="#">Commercial Ads</a>
           </div>
         </div>
       </div>
@@ -228,88 +134,53 @@
     
 </div>
 
-
-
 <div class="posts_content_view_body">
 
     <div class="body_information">
          
           <div class="box-container">
               <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
-              
-                <div class="middle">
-                     <div class="view_btn">View</div>
-                </div>
+                    <img src="../images/sethma.jpeg" alt="">
+                  </div>
 
-              </div>
-              <div class="box_body">
-                <h3>Commercial Ad</h3>
-                <p>Publish Date</p>
-                <p>Create By</p>
-              </div>
+                  <div class="box_body">
+                    <h3>Power Cut</h3>
+                    <p>Create By</p>
+                  </div>
 
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
-          
-              </ul>
-              </div>
+                  <div class="more">
+                  <div class="view_btn">Check</div>
+                  </div>
           </div>
 
           <div class="box-container">
-              <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
-              
-                <div class="middle">
-                     <div class="view_btn">View</div>
-                </div>
+                      <div class="box_head">
+                      <img src="../images/sethma.jpeg" alt="">
+                    </div>
 
-              </div>
-              <div class="box_body">
-                <h3>Commercial Ad</h3>
-                <p>Publish Date</p>
-                <p>Create By</p>
-              </div>
+                    <div class="box_body">
+                      <h3>Water Cut</h3>
+                      <p>Create By</p>
+                    </div>
 
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
-          
-              </ul>
-              </div>
+                    <div class="more">
+                    <div class="view_btn">Check</div>
+                    </div>
           </div>
 
 
           <div class="box-container">
               <div class="box_head">
                 <img src="../images/sethma.jpeg" alt="">
-              
-                <div class="middle">
-                     <div class="view_btn">View</div>
-                </div>
-
               </div>
+
               <div class="box_body">
-                <h3>Commercial Ad</h3>
-                <p>Publish Date</p>
+                <h3>Curfew</h3>
                 <p>Create By</p>
               </div>
 
               <div class="more">
-                <img src="../images/More.svg" alt="" srcset="">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
-                
-              </ul>
+              <div class="view_btn">Check</div>
               </div>
 
               
