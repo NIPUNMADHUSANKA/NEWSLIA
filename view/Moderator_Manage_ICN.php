@@ -7,6 +7,7 @@
     <title>Moderator_Home</title>
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/moderator.css">
+    <link rel="stylesheet" href="../css/popup.css">
 </head>
 
 <style>
@@ -27,6 +28,32 @@
     cursor: pointer;
   }
 
+  .popup_add_new .content_add_new{
+      height:450px;
+      width: 400px;
+  }
+
+  .popup_add_new_size .content_add_new_size{
+    height:600px;
+  }
+  
+  .form-container input{
+    margin-right:2rem;
+    width:200px;
+    float:right;
+    
+  }
+  
+
+.form-container label{
+  margin-left:1rem;
+  
+}
+
+.update_btn{
+  margin-left:7.2rem;
+}
+ 
 </style>
 
 <body>
@@ -117,9 +144,8 @@
         
     </div>
 
-    <div class="add_number_btn">
-            <button class="view_btn">Add New</button>
-    </div>
+  
+  <div class="add_btn" onclick="togglePop_newadd()">Add New</div>
       
 </div>
 
@@ -136,7 +162,7 @@
                 <p>0335 626 626</p>
               </div>
               <div class="setting_close">
-                  <img src="../images/pen.svg" alt="" srcset="">
+                  <img src="../images/pen.svg" alt="" srcset="" onclick="togglePopup()">
                   <img src="../images/close_large.svg" alt="" srcset="">
               
               </div>
@@ -152,7 +178,7 @@
               </div>
 
               <div class="setting_close">
-                  <img src="../images/pen.svg" alt="" srcset="">
+                  <img src="../images/pen.svg" alt="" srcset="" onclick="togglePopup()">
                   <img src="../images/close_large.svg" alt="" srcset="">
               
               </div>
@@ -168,7 +194,7 @@
               </div>
 
               <div class="setting_close">
-                  <img src="../images/pen.svg" alt="" srcset="">
+                  <img src="../images/pen.svg" alt="" srcset="" onclick="togglePopup()">
                   <img src="../images/close_large.svg" alt="" srcset="">
               
               </div>
@@ -179,12 +205,107 @@
 </div>
 
 
+<div class="popup" id="popup-1">
+
+      <div class="overlay"></div>
+
+      <div class="content">
+          <div class="close-btn" onclick="togglePopup()">&times;</div>
+
+        
+      </div>
+
+</div>
+
+
+<div class="popup popup_add_new" id="popup-2">
+
+      <div class="overlay"></div>
+
+      <div class="content content_add_new" id="popup-2-content">
+          <div class="close-btn" onclick="togglePop_newadd()">&times;</div>
+
+
+          <div class="content_body">
+              <div class="popup_logo">
+                   <img src="../images/Name.svg" alt="" srcset="">
+              </div>
+              <hr>
+
+              <div class="popup_form">
+                  <h3 class="popup_title">Insert New Important Number</h3>
+                  <form action="" method="post">
+                    
+                        <div class="center_img">
+                            <div class="form-input_img">
+                              <label for="file-ip-1">Upload Image</label>
+                              <input type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event);">
+                              <div class="preview_img">
+                              <img id="file-ip-1-preview">
+                            </div>
+                       </div>
+
+              </div>
+                    
+                     <br>
+                     <br>
+
+                     <div class="form-container">
+
+                          <label for="add-name" class="lbl">Name</label>
+                          
+                          <input type="text" name="" id="add-name" class="inp">
+                          <br>
+                          <br>
+
+                          <label for="add-number" class="lbl">Number</label>
+                        
+                          <input type="text" name="" id="add-number" class="inp">
+                          <br>
+                          
+                     </div>
+
+                    
+
+                     <div class="update_btn">Insert</div>
+              
+                   </form>
+               </div>
+
+          </div>
+      </div>
+      
+</div>
+
+
 
 
 <script>
     function showsort() {
       document.getElementById("sortdrop").classList.toggle("show");
     }
+
+    function togglePopup(){
+      document.getElementById("popup-1").classList.toggle("active");
+    }
+
+    function togglePop_newadd(){
+      document.getElementById("popup-2").classList.toggle("active");
+    }
+
+
+    function showPreview(event){
+         if(event.target.files.length > 0){
+             var src = URL.createObjectURL(event.target.files[0]);
+             var preview = document.getElementById("file-ip-1-preview");
+             preview.src = src;
+             preview.style.display = "block";
+             document.getElementById("popup-2").classList.toggle("popup_add_new_size");
+             document.getElementById("popup-2-content").classList.toggle("content_add_new_size");
+             
+         }
+    }
+
 
     function filterFunction() {
       var input, filter, ul, li, a, i;

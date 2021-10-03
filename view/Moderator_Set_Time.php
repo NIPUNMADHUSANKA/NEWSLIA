@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
+    <link rel="stylesheet" href="../css/popup.css">
 </head>
 
 <style>
@@ -171,7 +172,7 @@
               </div>
 
               <div class="setting_close">
-                  <img src="../images/Setting.svg" alt="" srcset="">
+              <img src="../images/Setting.svg" alt="" srcset="" onclick="togglePopup()">
                   <img src="../images/Close.svg" alt="" srcset="">
               
               </div>
@@ -198,7 +199,7 @@
               </div>
 
               <div class="setting_close">
-                  <img src="../images/Setting.svg" alt="" srcset="">
+              <img src="../images/Setting.svg" alt="" srcset="" onclick="togglePopup()">
                   <img src="../images/Close.svg" alt="" srcset="">
               
               </div>
@@ -226,7 +227,7 @@
               </div>
 
               <div class="setting_close">
-                  <img src="../images/Setting.svg" alt="" srcset="">
+                  <img src="../images/Setting.svg" alt="" srcset="" onclick="togglePopup()">
                   <img src="../images/Close.svg" alt="" srcset="">
               
               </div>
@@ -243,19 +244,43 @@
 <!--create popup window-->
 
 
-<div class="popup_update_publish" id="popup-1">
+<div class="popup" id="popup-1">
 
-  <div class="overlay"></div>
+      <div class="overlay"></div>
 
-  <div class="update_publish_content">
-        <div class="close-btn" onclick="togglePopup()">&times;
-        </div>
-
-        
+      <div class="content">
+          <div class="close-btn" onclick="togglePopup()">&times;</div>
 
 
-  </div>
+          <div class="content_body">
+              <div class="popup_logo">
+                   <img src="../images/Name.svg" alt="" srcset="">
+              </div>
+              <hr>
 
+              <div class="popup_form">
+                  <h3 class="popup_title">Update Publish Date & Time</h3>
+                  <form action="" method="post">
+
+                     <label for="update-date" class="lbl">Date</label>
+                  
+                     <input type="date" name="" id="update-date" class="inp">
+                     <br>
+                     <br>
+
+                     <label for="update-time" class="lbl">Time</label>
+                     
+                     <input type="time" name="" id="update-time" class="inp">
+                     <br>
+
+                     <div class="update_btn">Update</div>
+              
+                   </form>
+               </div>
+
+          </div>
+      </div>
+      
 </div>
 
 
@@ -268,6 +293,11 @@
     function showsort() {
       document.getElementById("sortdrop").classList.toggle("show");
     }
+
+    function togglePopup(){
+      document.getElementById("popup-1").classList.toggle("active");
+    }
+
 
     function filterFunction() {
       var input, filter, ul, li, a, i;
