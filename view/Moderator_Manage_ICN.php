@@ -205,18 +205,6 @@
 </div>
 
 
-<div class="popup" id="popup-1">
-
-      <div class="overlay"></div>
-
-      <div class="content">
-          <div class="close-btn" onclick="togglePopup()">&times;</div>
-
-        
-      </div>
-
-</div>
-
 
 <div class="popup popup_add_new" id="popup-2">
 
@@ -277,6 +265,64 @@
       
 </div>
 
+<div class="popup popup_add_new" id="popup-1">
+
+      <div class="overlay"></div>
+
+      <div class="content content_add_new" id="popup-1-content">
+          <div class="close-btn" onclick="togglePopup()">&times;</div>
+
+
+          <div class="content_body">
+              <div class="popup_logo">
+                   <img src="../images/Name.svg" alt="" srcset="">
+              </div>
+              <hr>
+
+              <div class="popup_form">
+                  <h3 class="popup_title">Update New Important Number</h3>
+                  <form action="" method="post">
+                    
+                        <div class="center_img">
+                            <div class="form-input_img">
+                              <label for="file-ip-2">Upload Image</label>
+                              <input type="file" id="file-ip-2" accept="image/*" onchange="showPreview_2(event);">
+                              <div class="preview_img">
+                              <img id="file-ip-2-preview">
+                            </div>
+                       </div>
+
+              </div>
+                    
+                     <br>
+                     <br>
+
+                     <div class="form-container">
+
+                          <label for="add-name" class="lbl">Name</label>
+                          
+                          <input type="text" name="" id="add-name" class="inp" placeholder=" Sethma Hospital">
+                          <br>
+                          <br>
+
+                          <label for="add-number" class="lbl">Number</label>
+                        
+                          <input type="text" name="" id="add-number" class="inp" placeholder=" 0335 626 626">
+                          <br>
+                          
+                     </div>
+
+                    
+
+                     <div class="update_btn">Update</div>
+              
+                   </form>
+               </div>
+
+          </div>
+      </div>
+      
+</div>
 
 
 
@@ -300,9 +346,23 @@
              var preview = document.getElementById("file-ip-1-preview");
              preview.src = src;
              preview.style.display = "block";
-             document.getElementById("popup-2").classList.toggle("popup_add_new_size");
-             document.getElementById("popup-2-content").classList.toggle("content_add_new_size");
+             document.getElementById("popup-2").classList.add("popup_add_new_size");
+             document.getElementById("popup-2-content").classList.add("content_add_new_size");
              
+         }
+    }
+
+
+
+    function showPreview_2(event){
+         if(event.target.files.length > 0){
+             var src = URL.createObjectURL(event.target.files[0]);
+             var preview = document.getElementById("file-ip-2-preview");
+             preview.src = src;
+             preview.style.display = "block";
+             document.getElementById("popup-1").classList.add("popup_add_new_size");
+             document.getElementById("popup-1-content").classList.add("content_add_new_size");
+      
          }
     }
 
