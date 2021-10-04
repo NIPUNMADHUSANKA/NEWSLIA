@@ -100,7 +100,7 @@
   .view_btn{
     width:100px;
     margin-top:20%;
-    margin-left:40rem;
+    margin-left:35rem;
     box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.4);
   }
 
@@ -134,6 +134,16 @@
 
   .update_btn{
     text-align:center;
+  }
+
+  .img_set{
+      margin-top:15.5rem;
+      transform: scale(1.4);
+      padding-left:2rem;   
+  }
+
+  .img_set img{
+    cursor: pointer;
   }
 
 
@@ -223,7 +233,6 @@
               </div>
               <div class="box_body">
                 <h3>Sethma Hospital</h3>
-                <p>Publish Date</p>
                 <p>Create By</p>
               </div>
           </div>
@@ -244,8 +253,10 @@
     </div>
 
     <div class="button-set">
-        <div class="view_btn update_btn" onclick="togglePopup()">Update</div>
-        <div class="view_btn remove_btn">Remove</div>
+        <div class="view_btn update_btn">Accept</div>
+        <div class="view_btn remove_btn">Reject</div>
+        <div class="time_btn img_set"><img src="../images/time.svg" alt="" srcset=""></div>
+        <div class="date_btn img_set"><img src="../images/calendar.svg" alt="" srcset=""></div>
     </div>
 </div>
 
