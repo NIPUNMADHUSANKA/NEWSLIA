@@ -196,14 +196,14 @@
       </li>
 
       <li><a href="#">Insights</a></li>
-      <li class="more dropdown">
+      <li class="more_menu dropdown">
         <a href="javascript:void(0)" class="dropbtn">More</a>
-        <div class="more-content dropdown-content">
+        <div class="more_menu-content dropdown-content">
             <a href="#">Save</a>
             <a href="#">Hidden</a>
             <a href="#">Reminder</a>
         </div>
-      </li>
+      </li>  
   </ul>
 
 <!-- Moderator Notices View -->
