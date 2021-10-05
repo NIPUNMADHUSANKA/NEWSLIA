@@ -131,7 +131,22 @@
     <div class="bottom_side">
 
           <div class="left_box">
-            <h2>SELECT READ AREA</h2>
+            <h3>Insights</h3>
+
+            <h4>Approve <p>40</p> </h4>
+                <ul>
+                    <li>News <p>10</p> </li>
+                    <li>Articles <p>10</p> </li>
+                    <li>Advertisements <p>10</p> </li>
+                    <li>Important Numbers <p>10</p> </li>
+                </ul>
+
+                <h4>Complaints <p>40</p> </h4>
+                <ul>
+                    <li>News <p>10</p> </li>
+                </ul>
+
+                <h4>Precentage of news' Complaints <p>12.5%</p> </h4>
              
           </div>
 

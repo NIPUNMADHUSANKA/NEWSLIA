@@ -4,5 +4,74 @@
     background-color: #F1ECEC;
 }
 
+.icon_left_side{
+    list-style: none;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.icon_left_side img{
+    width: 40px;
+}
+
+.icon_left_side li{
+    padding-left: 3rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    cursor: pointer;
+}
+
+.icon_left_side a{
+    text-decoration: none;
+}
+
+.icon_left_side p{
+    margin-top: -1.5rem;
+    margin-left: 4rem;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: #333;
+}
+
+.icon_left_side li:hover{
+    background-color: #ddd;
+}
+
+.top_side{
+    position: absolute;
+    margin-top: -46rem;
+    width: 80%;
+    height: 25%;
+    margin-left: 19rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.top_side img{
+    transform: scale(2);
+}
+
+.top_side p{
+    margin-top: 1.5rem;
+    font-weight: bold;
+    font-size: large;
+    text-transform: uppercase;
+}
 
 
+.bottom_side{
+    position: absolute;
+    margin-top: -34.5rem;
+    border-top: 1px solid #333;
+    width: 80%;
+    height: 53%;
+    margin-left: 19rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
