@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
-    <link rel="stylesheet" href="../css/profile.css">-->
+    <link rel="stylesheet" href="../css/profile.css">
 </head>
 
 <style>
