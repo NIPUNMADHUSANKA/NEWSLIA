@@ -142,7 +142,7 @@
     display: block;
 }
 
-.more:hover .more-content {
+.more_menu:hover .more_menu-content {
     display: block;
 }
 

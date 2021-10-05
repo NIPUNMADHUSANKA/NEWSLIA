@@ -7,12 +7,29 @@
     <title>Moderator_Home</title>
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/moderator.css">
+    <link rel="stylesheet" href="../css/search.css">
+    <link rel="stylesheet" href="../css/profile.css">-->
 </head>
 
 <style>
   body {
-  overflow: hidden; /* Hide scrollbars */
+    overflow: hidden; /* Hide scrollbars */
   }
+  
+  .post_sort{
+      padding-left:80px;
+  }
+  .box-container{
+    height: 240px;
+  }
+
+  .posts_content_view_head{
+    font-size:xx-large;
+
+  }
+
+
+
 </style>
 
 <body>
@@ -82,53 +99,24 @@
       </li>  
   </ul>
 
-<!-- Moderator Page Content -->
-<div class="content">
-
-        <div class="content_left">
-          <h1>Welcome to the NEWSLIA's <br> Moderator Interface</h1>
-              
-              <div class="content_left_info">
+<!-- Moderator Notices View -->
 
 
-                  <div class="content_left_info_moderate row">
-                    <div class="content_left_info_moderate_key key">
-                        Moderating Area
-                    </div>
-                    <div class="content_left_info_moderate_input input">
-                      
-                    </div>
-                  </div>
+<div class="left_side">
 
 
-                  <div class="content_left_info_reading row">
-                    <div class="content_left_info_reading_key key">
-                        Reading Area
-                    </div>
-                    <div class="content_left_info_reading_input input">
-                      
-                    </div>
-                  </div>
+</div>
 
+<div class="right_side">
 
-                  <div class="content_left_info_type row">
-                    <div class="content_left_info_type_key key">
-                        View Posts Type
-                    </div>
-                    <div class="content_left_info_type_input input">
-                      
-                    </div>
-                  </div>
+    <div class="top_side">
 
-              </div>
+    </div>
+    <div class="bottom_side">
 
-        </div>
+    </div>
 
-        <div class="content_right">
-            <img src="../images/background.svg" alt="" srcset="">
-        </div>
-
-  </div>
+</div>
     
 </body>
 </html>
