@@ -105,7 +105,6 @@
   }
 
   .update_btn{
-    background-color: #ADD8E6;
     color:#222;
   }
 
@@ -118,7 +117,7 @@
 
   .close_btn{
     position: flex;
-    margin-left:88%;
+    margin-left:95%;
     margin-top:1%;
   }
 
@@ -126,6 +125,7 @@
 
   .popup .content{
     width:330px;
+    height: 270px;
   }
 
   .inp1{
@@ -275,11 +275,6 @@
                   <h3 class="popup_title">Update Smart Calendar</h3>
                   <form action="" method="post">
 
-                     <label for="update-date" class="lbl">Old Date</label>
-                  
-                     <input type="date" name="" id="update-date" class="inp">
-                     <br>
-                     <br>
 
                      <label for="new-date" class="lbl">New Date</label>
                   

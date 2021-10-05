@@ -105,7 +105,6 @@
   }
 
   .update_btn{
-    background-color: #ADD8E6;
     color:#222;
   }
 
@@ -118,14 +117,14 @@
 
   .close_btn{
     position: flex;
-    margin-left:88%;
+    margin-left:95%;
     margin-top:1%;
+    cursor: pointer;
   }
 
-
-
-  .popup .content{
-    width:330px;
+  .popup_smart .popup_smart_content{
+    width:290px;
+    height: 260px;
   }
 
   .inp1{
@@ -255,8 +254,8 @@
     <div class="button-set">
         <div class="view_btn update_btn">Accept</div>
         <div class="view_btn remove_btn">Reject</div>
-        <div class="time_btn img_set"><img src="../images/time.svg" alt="" srcset=""></div>
-        <div class="date_btn img_set"><img src="../images/calendar.svg" alt="" srcset=""></div>
+        <div class="time_btn img_set"><img src="../images/time.svg" alt="" srcset="" onclick="togglePopup_set_time()"></div>
+        <div class="date_btn img_set"><img src="../images/calendar.svg" alt="" srcset="" onclick="togglePopup()"></div>
     </div>
 </div>
 
@@ -268,36 +267,68 @@
 <!--create popup window-->
 
 
-<div class="popup" id="popup-3">
+<div class="popup popup_smart" id="popup-4">
 
       <div class="overlay"></div>
 
-      <div class="content">
+      <div class="content popup_smart_content">
           <div class="close-btn" onclick="togglePopup()">&times;</div>
 
 
-          <div class="content_body">
+          <div class="content_body popup_smart_body">
               <div class="popup_logo">
                    <img src="../images/Name.svg" alt="" srcset="">
               </div>
               <hr>
 
               <div class="popup_form">
-                  <h3 class="popup_title">Update Smart Calendar</h3>
+                  <h3 class="popup_title">Add Smart Calendar</h3>
                   <form action="" method="post">
 
-                     <label for="update-date" class="lbl">Old Date</label>
-                  
-                     <input type="date" name="" id="update-date" class="inp">
-                     <br>
-                     <br>
-
-                     <label for="new-date" class="lbl">New Date</label>
+                     <label for="new-date" class="lbl"> Date</label>
                   
                      <input type="date" name="" id="new-date" class="inp inp1">
                      <br>
 
-                     <div class="update_btn">Update</div>
+                     <div class="update_btn">Add</div>
+              
+                   </form>
+               </div>
+
+          </div>
+      </div>
+      
+</div>
+
+<div class="popup popup_set_time" id="popup-5">
+
+      <div class="overlay"></div>
+
+      <div class="content popup_set_time">
+          <div class="close-btn" onclick="togglePopup_set_time()">&times;</div>
+
+
+          <div class="content_body popup_set_time_body">
+              <div class="popup_logo">
+                   <img src="../images/Name.svg" alt="" srcset="">
+              </div>
+              <hr>
+
+              <div class="popup_form">
+                  <h3 class="popup_title">Set Time to Publish</h3>
+                  <form action="" method="post">
+
+                  
+                    <label for="new-date" class="lbl"> Date</label>
+                    <input type="date" name="" id="new-date" class="inp inp1">
+                      <br>
+                      <br>
+
+                    <label for="new-time" class="lbl"> Time</label>
+                  
+                    <input type="Time" name="" id="new-time" class="inp inp1">
+                    <br>
+                    <div class="update_btn">Add</div>
               
                    </form>
                </div>
@@ -317,9 +348,13 @@
 
 
     function togglePopup(){
-      document.getElementById("popup-3").classList.toggle("active");
+      document.getElementById("popup-4").classList.toggle("active");
     }
 
+
+    function togglePopup_set_time(){
+      document.getElementById("popup-5").classList.toggle("active");
+    }
 
    
 
