@@ -9,11 +9,12 @@
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
     <link rel="stylesheet" href="../css/profile.css">
+    
 </head>
 
 <style>
   body {
-    overflow-x: hidden; /* Hide scrollbars */
+    overflow-x: hidden;
   }
   
   .post_sort{
@@ -27,6 +28,25 @@
     font-size:xx-large;
 
   }
+  .right_side{
+    margin-top: 0%;
+  }
+
+  .bottom_side{
+    margin-left: 20%;
+}
+
+.left_box h4{
+    margin-top:1rem;
+}
+
+.close_btn{
+    position: flex;
+    margin-left:95%;
+    margin-top:1%;
+    cursor: pointer;
+  }
+
 
 
 
@@ -101,24 +121,10 @@
 
 <!-- Moderator Notices View -->
 
-
-<div class="left_side">
-
-  <div class="icon_left_side">
-
-  <li><a href="#"> <img src="../images/other/profile.png" alt="" srcset=""><p>My Profile</p></a></li>
-  <li><a href="#"><img src="../images/other/location.png" alt="" srcset=""><p>Select Area</p></a></li>
-  <li><a href="#"><img src="../images/other/type.png" alt="" srcset=""><p>Select Type</p></a></li>
-  <li><a href="#"><img src="../images/other/insights.png" alt="" srcset=""><p>Insights</p></a></li>
-  <li><a href="#"><img src="../images/other/deactivate.png" alt="" srcset=""><p>Deactivate</p></a></li>
-  <li><a href="#"><img src="../images/other/logout.png" alt="" srcset=""><p>Log Out</p></a></li>
-
-
-
-  </div>
-
-
+<div class="close_btn">
+    <img src="../images/close_btn.svg" alt="" srcset="">
 </div>
+
 
 <div class="right_side">
 
@@ -135,19 +141,19 @@
 
             <h4>Approve <span>40</span> </h4>
                 <ul>
-                    <li>News <span>10 </span> </li>
-                    <li>Articles <span>10 </span> </li>
-                    <li>Advertisements <span>10 </span> </li>
-                    <li>Important Numbers <span>10 </span> </li>
+                    <li>News <span>20 </span> </li>
+                    <li>Advertisements <span>20 </span> </li>
                 </ul>
 
-                <h4>Complaints <span>40</span> </h4>
+                <h4>Complaints <span>05</span> </h4>
                 <ul>
-                    <li>News <span>10</span> </li>
+                    <li>News <span>05</span> </li>
                 </ul>
 
                 <h4>Precentage of news' Complaints <span>12.5%</span> </h4>
-             
+                
+                <h4>Black Stars <span><img src="../images/black_star.svg" alt="" srcset=""></span> </h4>
+
           </div>
 
     </div>

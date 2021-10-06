@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
-    <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="../css/insight.css">
 </head>
 
 <style>
@@ -24,7 +24,7 @@
   }
 
   .posts_content_view_head{
-    font-size:xx-large;
+    font-size:x-large;
 
   }
 
@@ -99,60 +99,74 @@
       </li>  
   </ul>
 
+
 <!-- Moderator Notices View -->
-
-
-<div class="left_side">
-
-  <div class="icon_left_side">
-
-  <li><a href="#"> <img src="../images/other/profile.png" alt="" srcset=""><p>My Profile</p></a></li>
-  <li><a href="#"><img src="../images/other/location.png" alt="" srcset=""><p>Select Area</p></a></li>
-  <li><a href="#"><img src="../images/other/type.png" alt="" srcset=""><p>Select Type</p></a></li>
-  <li><a href="#"><img src="../images/other/insights.png" alt="" srcset=""><p>Insights</p></a></li>
-  <li><a href="#"><img src="../images/other/deactivate.png" alt="" srcset=""><p>Deactivate</p></a></li>
-  <li><a href="#"><img src="../images/other/logout.png" alt="" srcset=""><p>Log Out</p></a></li>
-
-
-
-  </div>
-
-
-</div>
-
-<div class="right_side">
-
-    <div class="top_side">
-
-          <img src="../images/Profile.svg" alt="" srcset="">
-          <p>A.A.N.Madhusanka</p>
-
+<div class="content_posts_view">
+    <div class="posts_content_view_head">
+        Reporters' Insights
     </div>
-    <div class="bottom_side">
 
-          <div class="left_box">
-            <h2>Insights</h2>
-
-            <h4>Approve <span>40</span> </h4>
-                <ul>
-                    <li>News <span>10 </span> </li>
-                    <li>Articles <span>10 </span> </li>
-                    <li>Advertisements <span>10 </span> </li>
-                    <li>Important Numbers <span>10 </span> </li>
-                </ul>
-
-                <h4>Complaints <span>40</span> </h4>
-                <ul>
-                    <li>News <span>10</span> </li>
-                </ul>
-
-                <h4>Precentage of news' Complaints <span>12.5%</span> </h4>
-             
+      <div class="post_sort">
+        <div class="post_sort_bar">
+          <button onclick="showsort()" class="drop_area_sort">Select Area<img src="../images/sort.svg" alt="" srcset=""></button>
+          <div class="drop_area_sort_cont" id="sortdrop">
+            <img src="../images/search.svg" alt="" srcset="">
+            <input type="text" id="myInput" onkeyup="filterFunction()" placeholder="Search...">
+            <a href="#">Gampaha</a>
+            <a href="#">Minuwangoda</a>
+            <a href="#">Negombo</a>
           </div>
+        </div>
+      </div>
+      
+     
+    <form action="" class="search-bar">
+	     <input type="search" name="search" pattern=".*\S.*" required>
+	     <button class="search-btn" type="submit">
+		       <span>Search</span>
+	     </button>
+    </form>
+    
+</div>
 
+<div class="reporter_insight">
+
+    <div class="reporter_details">
+        <img src="../images/Profile.svg" alt="" srcset="">
+        <div class="reporter_details_body">
+            <span>Nipun Madhusanka</span> 
+            <span><img src="../images/black_star.svg" alt="" srcset=""></span>  
+        </div>
     </div>
 
 </div>
+
+
+
+
+
+<script>
+    function showsort() {
+      document.getElementById("sortdrop").classList.toggle("show");
+    }
+
+    function filterFunction() {
+      var input, filter, ul, li, a, i;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      div = document.getElementById("sortdrop");
+      a = div.getElementsByTagName("a");
+      for (i = 0; i < a.length; i++) {
+            txtValue = a[i].textContent || a[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                 a[i].style.display = "";
+            } else {
+                 a[i].style.display = "none";
+        }
+      }
+    }
+
+</script>
     
 </body>
 </html>
