@@ -2,28 +2,32 @@
 
 include "../Model/connect.php";
 
+$NAME = 'NL-M-00001';
 
 
-try {
 
-    $stmt = $conn->prepare("SELECT * FROM login");
-
-    $user = $stmt->fetch();
-
-    echo "<br>work<br>";
-
-    echo $user;
-
-    //while ($row = $stmt->fetch()) {
-      //  echo $row['System_Actor_ID'];
-    //}
-
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
+function min_number(){
+    return 5;
 }
 
 
-?>
+
+function add(){
+    $login_sql = "SELECT * FROM login WHERE System_Actor_ID = '$NAME'";
 
 
+    $login_statement = $conn->query($login_sql);
 
+    $login_result = $login_statement->fetchAll(PDO::FETCH_ASSOC);
+
+    if ($login_result){
+        echo "work";
+    }
+    else{
+        echo "Not work";
+    }
+
+
+}
+
+?> 

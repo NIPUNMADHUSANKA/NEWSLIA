@@ -17,7 +17,8 @@ function Password_Login(password) {
         error_login();
     }
     else{
-        remove_error_login()
+        remove_error_login();
+        alert(min_number());
         alert("Correct");
     }
     

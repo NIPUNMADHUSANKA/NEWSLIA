@@ -160,11 +160,6 @@
 </div>
 
 
-
-
-
-
-
 <script>
     function togglePopup_login(){
       document.getElementById("popup-7").classList.toggle("active");
