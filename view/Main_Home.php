@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/moderator.css">-->
     <link rel="stylesheet" href="../css/popup.css">
     <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/error.css">
 </head>
 
 <style>
@@ -95,7 +96,7 @@
 
               <div class="button_set">
                   <div class="button_login" onclick="togglePopup_login()">Login</div>
-                  <div class="button_login">Sign Up</div>
+                  <div class="button_login" onclick="">Sign Up</div>
               </div>
 
         </div>
@@ -107,6 +108,17 @@
   </div>
 
 
+
+
+
+<div class="errorbox" id="error1">
+  <div class="content_erro">
+       <div class="error_head">NEWSLIA says</div>
+       <div class="error_body">Incorrect email address or password.</div>
+       <div class="error_foot" onclick="remove_error_login()">OK</div>
+
+  </div>
+</div>
 
 <div class="popup popup_login" id="popup-7">
 
@@ -124,17 +136,17 @@
 
         <div class="popup_form">
             <h3 class="popup_title">Login</h3>
-            <form action="" method="post">
+            <form action="" method="post" name="login_form">
 
  
-               <input type="email" name="sysusername" placeholder="Email" id="username" class="inp inp1">
+               <input type="email" name="sysactoremail" placeholder="Email" id="username" class="inp inp1">
                <br>
                <br>
-               <input type="password" name="syspassword" id="password" class="inp inp1" placeholder="Password">
+               <input type="password" name="sysactorpassword" id="password" class="inp inp1" placeholder="Password">
                <br>
                <span id="remember_me" class="txt txt1">Forgot Password?</span>
 
-               <div class="update_btn">Login</div>
+               <div name ="login" class="update_btn" onclick="EmailValidate(document.login_form.sysactoremail,document.login_form.sysactorpassword)">Login</div>
                <br>
                <span id="remember_me" class="txt txt2">New to NEWSLIA?</span>
                <span id="remember_me" class="txt txt3">Create an Account</span>
@@ -154,17 +166,20 @@
 
 
 <script>
-
-
     function togglePopup_login(){
       document.getElementById("popup-7").classList.toggle("active");
     }
 
+    function error_login(){
+      document.getElementById("error1").classList.add("active");
+    }
 
-   
-   
-
+    function remove_error_login(){
+      document.getElementById("error1").classList.remove("active");
+    }
 </script>
+
+<script src="../js/validate.js"></script>
 
 
     
