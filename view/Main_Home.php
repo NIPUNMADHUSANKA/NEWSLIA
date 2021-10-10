@@ -1,3 +1,8 @@
+<?php
+
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +46,17 @@
   }
 
   .update_btn{
+      border: none;
+      width:5rem;
       margin-top:0.5rem;
+      transition: 0.25s ease;
+      box-shadow: none;
+  }
+
+  .update_btn:hover{
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.25);
+    transform:scale(1.08);
+  
   }
 
   .txt2{
@@ -136,17 +151,19 @@
 
         <div class="popup_form">
             <h3 class="popup_title">Login</h3>
-            <form action="" method="post" name="login_form">
+            <form action="./Main_Home.php" method="post" name="login_form">
 
  
-               <input type="email" name="sysactoremail" placeholder="Email" id="username" class="inp inp1">
+               <input type="text" name="sysactoremail" placeholder="Email" id="username" class="inp inp1">
                <br>
                <br>
                <input type="password" name="sysactorpassword" id="password" class="inp inp1" placeholder="Password">
                <br>
                <span id="remember_me" class="txt txt1">Forgot Password?</span>
 
-               <div name ="login" class="update_btn" onclick="EmailValidate(document.login_form.sysactoremail,document.login_form.sysactorpassword)">Login</div>
+               <button type="submit" name ="login" class="update_btn" value="LOGIN">Login</button>
+
+               <br>
                <br>
                <span id="remember_me" class="txt txt2">New to NEWSLIA?</span>
                <span id="remember_me" class="txt txt3">Create an Account</span>
@@ -172,10 +189,34 @@
     function remove_error_login(){
       document.getElementById("error1").classList.remove("active");
     }
+
+    
+    
 </script>
 
-<script src="../js/validate.js"></script>
+<?php
+  if(isset($_POST['login'])){
+    $email = $_POST['sysactoremail'];
+    $pwd = $_POST['sysactorpassword'];
 
+    if(filter_var($email,FILTER_VALIDATE_EMAIL) and (strlen($pwd)<=15 and strlen($pwd)>=8)){
+        echo '<script type="text/javascript">remove_error_login();</script>';
+        include '../Control/login_Control.php';
+        $connect =  login($email,$pwd);
+        if($connect == 'false'){
+          echo '<script type="text/javascript">error_login();</script>';
+        }
+        elseif($connect == 'M'){
+          echo '<script type="text/javascript">window.open("./Moderator_Home.php", "_self");</script>';
+        }
+        
+    }
+    else{
+        echo '<script type="text/javascript">error_login();</script>';
+    }
+
+  }
+?>
 
     
 </body>

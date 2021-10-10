@@ -7,11 +7,15 @@
     <title>Moderator_Home</title>
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/moderator.css">
+    <link rel="stylesheet" href="../css/error.css">
 </head>
 
 <style>
   body {
   overflow: hidden; /* Hide scrollbars */
+  }
+  .error_body{
+    color:#333;
   }
 </style>
 
@@ -129,6 +133,26 @@
         </div>
 
   </div>
+
+
+
+
+
+  <div class="errorbox active" id="error2">
+  <div class="content_erro">
+       <div class="error_head">NEWSLIA says</div>
+       <div class="error_body">Welcome to the Moderator HomePage.</div>
+       <div class="error_foot" onclick="moderator_login()">OK</div>
+
+  </div>
+</div>
+
+
+<script>
+    function moderator_login(){
+      document.getElementById("error2").classList.remove("active");
+    } 
+</script>
     
 </body>
 </html>

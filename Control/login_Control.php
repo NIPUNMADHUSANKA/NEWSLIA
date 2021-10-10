@@ -1,30 +1,57 @@
 <?php
 
-include "../Model/connect.php";
+function login($email,$pwd){
 
-$NAME = 'NL-M-00001';
+    include '../Model/connect.php';
+    
 
-
-
-function min_number(){
-    return 5;
-}
+    $login_sql = "SELECT * FROM login WHERE (Email = '$email' AND Password = '$pwd' AND Staff_State = 1 AND Blacklist = 0) ";
 
 
+    $login_statement = $conn -> query($login_sql);
 
-function add(){
-    $login_sql = "SELECT * FROM login WHERE System_Actor_ID = '$NAME'";
+    $login_results = $login_statement->fetchAll(PDO::FETCH_ASSOC);
 
+    if ($login_results){
+        foreach($login_results as $login_result){
+            $_SESSION['System_Actor_ID'] = $login_result['System_Actor_ID'];
 
-    $login_statement = $conn->query($login_sql);
+            if($login_result['Deactivate'] == 1){
 
-    $login_result = $login_statement->fetchAll(PDO::FETCH_ASSOC);
+                $systemuser =[
+                    'id' => $_SESSION['System_Actor_ID'],
+                    'active' => 1
+                ];
 
-    if ($login_result){
-        echo "work";
+                $sql = 'UPDATE login
+                        SET Deactivate = :active
+                        WHERE System_Actor_ID = :id';
+                
+                $statement = $conn->prepare($sql);
+                $statement->bindParam(':id', $systemuser['id']);
+                $statement->bindParam(':active', $publisher['active']);
+
+                if ($statement->execute()) {
+                    echo 'The deactivation has been updated successfully!';
+                }
+
+            }   
+
+            $USERID = $_SESSION['System_Actor_ID'];
+
+            $login_correct = "SELECT * FROM system_actor WHERE System_Actor_ID ='$USERID'";
+            $login_correct_statement = $conn -> query($login_correct);
+            $login_correct_results = $login_correct_statement->fetchAll(PDO::FETCH_ASSOC);
+            if($login_correct_results){
+                foreach($login_correct_results as $login_correct_result){
+                    return $login_correct_result['Position'];
+                }
+            }
+
+        }
     }
     else{
-        echo "Not work";
+        return 'false';
     }
 
 
