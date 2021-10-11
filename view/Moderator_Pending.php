@@ -30,6 +30,19 @@
     opacity: 1;
   }
 
+  .setting_close{
+    transform:scale(1.2);
+    margin-left:87%;
+    margin-top :-7%;
+  }
+  .setting_close img{
+    transition: 0.25s ease;
+    cursor: pointer;
+  }
+  .setting_close img:hover{
+    transform:scale(1.2);
+  }
+
  
 
 
@@ -150,7 +163,11 @@
                   </div>
 
                   <div class="more">
-                  <div class="view_btn" onclick="window.open('Moderator_Check_Post.php','_self')">Check</div>
+                    <p>2022:01:17</p>
+                  </div>
+
+                  <div class="setting_close">
+                     <img src="../images/Check.svg" alt="" srcset="" onclick="window.open('Moderator_Check_News.php','_self')">
                   </div>
           </div>
 
@@ -160,12 +177,12 @@
                     </div>
 
                     <div class="box_body">
-                      <h3>Water Cut</h3>
+                      <h3>Kandy Perahera</h3>
                       <p>Create By</p>
                     </div>
 
-                    <div class="more">
-                    <div class="view_btn" onclick="window.open('Moderator_Check_Post.php','_self')">Check</div>
+                    <div class="setting_close">
+                       <img src="../images/Check.svg" alt="" srcset="" onclick="window.open('Moderator_Check_Articles.php','_self')">
                     </div>
           </div>
 
@@ -176,12 +193,17 @@
               </div>
 
               <div class="box_body">
-                <h3>Curfew</h3>
+                <h3>Candy Toffee</h3>
                 <p>Create By</p>
               </div>
 
               <div class="more">
-              <div class="view_btn" onclick="window.open('Moderator_Check_Post.php','_self')">Check</div>
+                  <p>2022:01:17</p>
+                  <p>00:00</p>
+              </div>
+
+              <div class="setting_close">
+                 <img src="../images/Check.svg" alt="" srcset="" onclick="window.open('Moderator_Check_Ads.php','_self')">
               </div>
 
               

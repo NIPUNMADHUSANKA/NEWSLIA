@@ -13,7 +13,7 @@
 
 <style>
   body {
-    overflow-x: hidden; /* Hide scrollbars */
+    overflow: hidden; /* Hide scrollbars */
   }
   .box_head:hover img{
     opacity: 1;
@@ -28,7 +28,7 @@
   .more{
       font-size:14px;
       text-align:right;
-      margin-top:-14%;
+      margin-top:-12%;
       display:flex;
       flex-direction:row;
       
@@ -36,6 +36,7 @@
   .more p{
     margin-left:5%;
   }
+
 
   .setting_close{
     transform:scale(1.5);
@@ -91,8 +92,8 @@
   }
 
   .button-set{
-    margin-top:-12rem;
-    margin-left:3rem;
+    margin-top:-13rem;
+    margin-left:5rem;
     display:flex;
     flex-direction:row;
   }
@@ -118,8 +119,11 @@
   .close_btn{
     position: flex;
     margin-left:95%;
-    margin-top:1%;
+    margin-top:1%; 
     cursor: pointer;
+  }
+  .close_btn img{
+    width:30px;
   }
 
   .popup_smart .popup_smart_content{
@@ -145,6 +149,26 @@
     cursor: pointer;
   }
 
+  .btn_set_option{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .select_option{
+      background:#ACE0B8;
+      margin-bottom:0.5rem;
+      padding: 1rem;
+      width:12.5rem;
+      color:#444;
+      font-weight:10px;
+      letter-spacing:1px;
+      transition: 0.5s ease;
+      cursor: pointer;
+  }
+
+  .select_option:hover{
+    transform:scale(1.1);
+  }
 
 </style>
 
@@ -218,7 +242,7 @@
 <!-- Moderator Notices View -->
 
 <div class="close_btn">
-    <img src="../images/close_btn.svg" alt="" srcset="" onclick="window.open('Moderator_Pending.php','_self')">
+    <img src="../images/Close_window.png" alt="" srcset="" onclick="window.open('Moderator_Pending.php','_self')">
 </div>
 
 
@@ -227,13 +251,21 @@
     <div class="body_information">
          
           <div class="box-container">
+
               <div class="box_head">
                 <img src="../images/sethma.jpeg" alt="">
               </div>
+
               <div class="box_body">
                 <h3>Sethma Hospital</h3>
                 <p>Create By</p>
               </div>
+
+              <div class="more">
+                    <p>2022:01:17</p>
+                    <p>00:00</p>
+              </div>
+
           </div>
 
 
@@ -252,10 +284,8 @@
     </div>
 
     <div class="button-set">
-        <div class="view_btn update_btn">Accept</div>
+        <div class="view_btn update_btn" onclick="togglePopup_select_option()">Accept</div>
         <div class="view_btn remove_btn">Reject</div>
-        <div class="time_btn img_set"><img src="../images/time.svg" alt="" srcset="" onclick="togglePopup_set_time()"></div>
-        <div class="date_btn img_set"><img src="../images/calendar.svg" alt="" srcset="" onclick="togglePopup()"></div>
     </div>
 </div>
 
@@ -264,35 +294,30 @@
 
 
 
-<!--create popup window-->
 
 
-<div class="popup popup_smart" id="popup-4">
+<div class="popup popup_set_time" id="popup-6">
 
       <div class="overlay"></div>
 
-      <div class="content popup_smart_content">
-          <div class="close-btn" onclick="togglePopup()">&times;</div>
+      <div class="content popup_set_time">
+          <div class="close-btn" onclick="togglePopup_select_option()">&times;</div>
 
 
-          <div class="content_body popup_smart_body">
+          <div class="content_body popup_set_time_body">
               <div class="popup_logo">
                    <img src="../images/Name.svg" alt="" srcset="">
               </div>
               <hr>
 
               <div class="popup_form">
-                  <h3 class="popup_title">Add Smart Calendar</h3>
-                  <form action="" method="post">
-
-                     <label for="new-date" class="lbl"> Date</label>
+                  <h3 class="popup_title">Select Option to Publish</h3>
+                  <div class="btn_set_option">
+                          <div class="select_option" onclick="set_time_to_publish_Popup()">Set Time</div>
+                          <div class="select_option"  onclick="window.open('Moderator_Pending.php','_self')">Publish Now</div>
+                  </div>
                   
-                     <input type="date" name="" id="new-date" class="inp inp1">
-                     <br>
 
-                     <div class="update_btn">Add</div>
-              
-                   </form>
                </div>
 
           </div>
@@ -300,12 +325,14 @@
       
 </div>
 
-<div class="popup popup_set_time" id="popup-5">
+
+
+<div class="popup popup_set_time" id="popup-8">
 
       <div class="overlay"></div>
 
       <div class="content popup_set_time">
-          <div class="close-btn" onclick="togglePopup_set_time()">&times;</div>
+          <div class="close-btn" onclick="set_time_to_publish_Popup()">&times;</div>
 
 
           <div class="content_body popup_set_time_body">
@@ -320,15 +347,15 @@
 
                   
                     <label for="new-date" class="lbl"> Date</label>
-                    <input type="date" name="" id="new-date" class="inp inp1">
+                    <input type="date" name="" id="new-date" class="inp inp1" value="2022-01-17">
                       <br>
                       <br>
 
                     <label for="new-time" class="lbl"> Time</label>
                   
-                    <input type="time" name="" id="new-time" class="inp inp1">
+                    <input type="time" name="" id="new-time" class="inp inp1" value="00:00">
                     <br>
-                    <div class="update_btn">Add</div>
+                    <div class="update_btn" onclick="window.open('Moderator_Pending.php','_self')">Set</div>
               
                    </form>
                </div>
@@ -343,22 +370,19 @@
 
 
 
-
 <script>
 
 
-    function togglePopup(){
-      document.getElementById("popup-4").classList.toggle("active");
-    }
-
-
-    function togglePopup_set_time(){
-      document.getElementById("popup-5").classList.toggle("active");
-    }
-
-   
+    function togglePopup_select_option(){
+      document.getElementById("popup-6").classList.toggle("active");
+    } 
+    function set_time_to_publish_Popup(){
+      document.getElementById("popup-6").classList.toggle("active");
+      document.getElementById("popup-8").classList.toggle("active");
+    }   
 
 </script>
     
+
 </body>
 </html>

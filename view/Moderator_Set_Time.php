@@ -45,6 +45,20 @@
     cursor: pointer;
   }
 
+  .update_btn{
+      border: none;
+      width:5rem;
+      margin-top:0.5rem;
+      transition: 0.25s ease;
+      box-shadow: none;
+  }
+
+  .update_btn:hover{
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.25);
+    transform:scale(1.07);
+  
+  }
+
 
 
 
@@ -131,8 +145,6 @@
           <div class="drop_area_sort_cont" id="sortdrop">
             <img src="../images/search.svg" alt="" srcset="">
             <input type="text" id="myInput" onkeyup="filterFunction()" placeholder="Search...">
-            <a href="#">News</a>
-            <a href="#">Articles</a>
             <a href="#">Notices</a>
             <a href="#">Job Vacancies</a>
             <a href="#">Commercial Ads</a>
@@ -266,16 +278,17 @@
 
                      <label for="update-date" class="lbl">Date</label>
                   
-                     <input type="date" name="" id="update-date" class="inp">
+                     <input type="date" name="" id="update-date" class="inp" required>
                      <br>
                      <br>
 
                      <label for="update-time" class="lbl">Time</label>
                      
-                     <input type="time" name="" id="update-time" class="inp">
+                     <input type="time" name="" id="update-time" class="inp" required>
+                     <br>
                      <br>
 
-                     <div class="update_btn">Update</div>
+                     <button type="submit" name ="login" class="update_btn" value="LOGIN">Login</button>
               
                    </form>
                </div>
