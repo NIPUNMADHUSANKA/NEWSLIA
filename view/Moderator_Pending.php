@@ -23,7 +23,15 @@
   }
 
   .more{
-    margin-top: -15%;
+      font-size:14px;
+      text-align:right;
+      margin-top:-14%;
+      display:flex;
+      flex-direction:row;
+      
+  }
+  .more p{
+    margin-left:5%;
   }
 
   .box_head:hover img{
