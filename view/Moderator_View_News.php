@@ -121,8 +121,8 @@
     <li class="view dropdown">
       <a href="javascript:void(0)" class="dropbtn">View</a>
       <div class="view-content dropdown-content">
-          <a href="#">News</a>
-          <a href="Moderator_View_Articles .php">Articles</a>
+          <a href="Moderator_View_News.php">News</a>
+          <a href="Moderator_View_Articles.php">Articles</a>
           <a href="Moderator_View_Notices.php">Notices</a>
           <a href="Moderator_View_Jobs.php">job vacancies</a>
           <a href="Moderator_View_Ads.php">Commercial Ads</a>
@@ -273,10 +273,9 @@
                  <option value=11>Dec</option>
              </select>
              <select id="year" onchange="jump()"></select>       
-       
-            
+          </div>
         </div>
-         </div>
+        
         <table class="table-calendar" id="calendar" data-lang="en">
             <thead id="thead-month"></thead>
             <tbody id="calendar-body"></tbody>

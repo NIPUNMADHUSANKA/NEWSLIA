@@ -72,6 +72,28 @@ session_start();
     cursor: pointer;
   }
 
+  .inpu2{
+    width:6.8rem;
+    margin-left:1.2rem;
+  }
+
+  .otp_btn{
+    width:4rem;
+    height:2rem;
+    padding:0.1rem;
+    font-size:13px;
+    margin-left:1rem;
+  }
+
+  .otp_btn2{
+    width:6rem;
+    height:2rem;
+    padding:0.1rem;
+    font-size:13px;
+    margin-left:4.5rem;
+    margin-top:1rem;
+  }
+
 </style>
 
 <body>
@@ -124,7 +146,7 @@ session_start();
 
 
 
-
+<!--Popup windows -->
 
 <div class="errorbox" id="error1">
   <div class="content_erro">
@@ -159,7 +181,7 @@ session_start();
                <br>
                <input type="password" name="sysactorpassword" id="password" class="inp inp1" placeholder="Password">
                <br>
-               <span id="remember_me" class="txt txt1">Forgot Password?</span>
+               <span id="remember_me" class="txt txt1" onclick="togglePopup_forget()">Forgot Password?</span>
 
                <button type="submit" name ="login" class="update_btn" value="LOGIN">Login</button>
 
@@ -177,11 +199,122 @@ session_start();
 </div>
 
 
+
+<div class="popup popup_forget" id="popup-8">
+
+<div class="overlay"></div>
+
+<div class="content popup_forget_content">
+    <div class="close-btn" onclick="togglePopup_forget()">&times;</div>
+
+
+    <div class="content_body popup_forget_body">
+        <div class="popup_logo">
+             <img src="../images/Name.svg" alt="" srcset="">
+        </div>
+        <hr>
+
+        <div class="popup_form">
+            <h3 class="popup_title">Forgot Password</h3>
+            <div>
+
+ 
+               <input type="text" name="sysactorusername" placeholder="Username" id="username" class="inp inp1">
+               <br>
+              
+               <input type="text" name="sysactorotp" id="otp" class="inp inp1 inpu2" placeholder="OTP Code">
+               <button class="update_btn otp_btn" onclick="togglePopup_forget_email()">Send</button>
+               
+               <button type="" name ="" class="update_btn otp_btn2" value="" onclick="togglePopup_reset_password()">Verify</button>
+
+               <br>
+               <br>
+</div>
+         </div>
+
+    </div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+<div class="popup popup_forget" id="popup-9">
+
+<div class="overlay"></div>
+
+<div class="content popup_forget_content">
+    <div class="close-btn" onclick="togglePopup_reset_save()">&times;</div>
+
+
+    <div class="content_body popup_forget_body">
+        <div class="popup_logo">
+             <img src="../images/Name.svg" alt="" srcset="">
+        </div>
+        <hr>
+
+        <div class="popup_form">
+            <h3 class="popup_title">Forgot Password</h3>
+            <div name="login_form">
+
+ 
+               <input type="password" name="sysactor_new_psd_confirm" id="otp" class="inp inp1" placeholder="New Password">
+               <br>
+               <br>
+               <input type="password" name="sysactor_new_psd_confirm" id="otp" class="inp inp1" placeholder="Retype New Password">
+               <br>
+              
+              <button class="update_btn otp_btn2" onclick="togglePopup_reset_save()">Save</button>
+
+               <br>
+               <br> 
+        </div>
+         </div>
+
+    </div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
     function togglePopup_login(){
       document.getElementById("popup-7").classList.toggle("active");
     }
 
+    function togglePopup_forget(){
+      document.getElementById("popup-7").classList.toggle("active");
+      document.getElementById("popup-8").classList.toggle("active");
+    }
+    function togglePopup_forget_email(){
+      document.getElementById("popup-8").classList.add("active");
+    }
+   
+    function togglePopup_reset_password(){
+      document.getElementById("popup-8").classList.toggle("active");
+      document.getElementById("popup-9").classList.toggle("active");
+    }
+
+    function togglePopup_reset_save(){
+      document.getElementById("popup-9").classList.toggle("active");
+      document.getElementById("popup-7").classList.toggle("active");
+    }
+  
     function error_login(){
       document.getElementById("error1").classList.add("active");
     }
@@ -217,6 +350,7 @@ session_start();
 
   }
 ?>
+
 
     
 </body>
