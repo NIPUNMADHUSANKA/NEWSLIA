@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +15,7 @@
 
 <style>
   body {
-  overflow: hidden; /* Hide scrollbars */
+  /*overflow: hidden; /* Hide scrollbars */
   }
   .error_body{
     color:#333;
@@ -33,7 +36,7 @@
 
         <div class="right">
             <img src="../images/Profile.svg" alt="" srcset="">
-            <p>A.A.N.Madhusanka <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
+            <p><?php   echo $_SESSION['FName']." ".$_SESSION['LName']; ?> <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
             <ul class="profile_menu">
                 <li><a href="#"> <img src="../images/other/profile.png" alt="" srcset=""> My Profile</a></li>
                 <li><a href="#"><img src="../images/other/location.png" alt="" srcset="">Select Area</a></li>
@@ -133,8 +136,6 @@
         </div>
 
   </div>
-
-
 
 
 

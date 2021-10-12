@@ -44,6 +44,8 @@ function login($email,$pwd){
             $login_correct_results = $login_correct_statement->fetchAll(PDO::FETCH_ASSOC);
             if($login_correct_results){
                 foreach($login_correct_results as $login_correct_result){
+                    $_SESSION['FName'] = $login_correct_result['FirstName'];
+                    $_SESSION['LName'] = $login_correct_result['LastName'];
                     return $login_correct_result['Position'];
                 }
             }

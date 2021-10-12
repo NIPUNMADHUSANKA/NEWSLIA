@@ -219,7 +219,7 @@ session_start();
             <div>
 
  
-               <input type="text" name="sysactorusername" placeholder="Username" id="username" class="inp inp1">
+               <input type="text" name="sysactorusername" placeholder="NIC No" id="username" class="inp inp1">
                <br>
               
                <input type="text" name="sysactorotp" id="otp" class="inp inp1 inpu2" placeholder="OTP Code">
@@ -236,7 +236,6 @@ session_start();
 </div>
 
 </div>
-
 
 
 
@@ -279,12 +278,6 @@ session_start();
 </div>
 
 </div>
-
-
-
-
-
-
 
 
 
