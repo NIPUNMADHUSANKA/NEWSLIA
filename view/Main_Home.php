@@ -33,6 +33,11 @@ session_start();
     width:300px;
   }
 
+  .popup_signup .popup_signup_content{
+    width:350px;
+    height:390px;
+  }
+
   .txt{
     font-size:x-small;
       letter-spacing:1px;
@@ -94,6 +99,51 @@ session_start();
     margin-top:1rem;
   }
 
+  .caption{
+    text-align:center;
+    font-size: 10.5px;
+    margin-top:-0.5rem;
+    color:#333; 
+  }
+
+  .finp{
+    width:6.5rem;
+  }
+
+  .linp{
+    width:7rem;
+  }
+
+  .einp{
+    margin-top:0.6rem;
+    width:15.5rem;
+  }
+
+  .next{
+    float:right;
+    margin-right:1.5rem;
+  }
+
+  .prev{
+      float: left;
+      
+  }
+
+  .select_your_job{
+    width: 16rem;
+    padding: 0.4rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.ent{
+  padding:2rem;
+}
+
+.pass{
+  margin-top:0.8rem;
+}
+
 </style>
 
 <body>
@@ -133,7 +183,7 @@ session_start();
 
               <div class="button_set">
                   <div class="button_login" onclick="togglePopup_login()">Login</div>
-                  <div class="button_login" onclick="">Sign Up</div>
+                  <div class="button_login" onclick="togglePopup_sign_up()">Sign Up</div>
               </div>
 
         </div>
@@ -188,7 +238,7 @@ session_start();
                <br>
                <br>
                <span id="remember_me" class="txt txt2">New to NEWSLIA?</span>
-               <span id="remember_me" class="txt txt3">Create an Account</span>
+               <span id="remember_me" class="txt txt3" onclick="togglePopup_sign_up()">Create an Account</span>
         
              </form>
          </div>
@@ -282,6 +332,108 @@ session_start();
 
 
 
+<div class="popup popup_signup" id="popup-10">
+
+<div class="overlay"></div>
+
+<div class="content popup_signup_content">
+    <div class="close-btn" onclick="togglePopup_sign_up()">&times;</div>
+
+
+    <div class="content_body popup_signup_body">
+        <div class="popup_logo">
+             <img src="../images/Name.svg" alt="" srcset="">
+        </div>
+        <hr>
+
+        <div class="popup_form">
+            <h3 class="popup_title">Sign Up</h3>
+            <p class="caption">Create your account.It's free and only takes a minute</p>
+            <div name="login_form">
+
+ 
+               <input type="text" name="sysactor_first_name" id="fname" class="inp inp1 finp" placeholder="First Name" required>
+               
+               <input type="text" name="sysactor_last_name" id="lname" class="inp inp1 linp" placeholder="Second Name" required>
+                
+                
+               <input type="email" name="sysactor_email" id="lname" class="inp inp1 einp" placeholder="Email Address" required>
+
+               <input type="text" name="sysactor_mobile" id="lname" class="inp inp1 einp" placeholder="Mobile Number" required>
+
+               <input type="text" name="sysactor_nic" id="lname" class="inp inp1 einp" placeholder="NIC Number" required>
+               
+               <button class="update_btn next" onclick="togglePopup_sign_up_2()">Next</button>
+
+               <br>
+               <br> 
+        </div>
+         </div>
+
+    </div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+<div class="popup popup_signup active" id="popup-11">
+
+<div class="overlay"></div>
+
+<div class="content popup_signup_content">
+    <div class="close-btn" onclick="togglePopup_sign_up_2()">&times;</div>
+
+
+    <div class="content_body popup_signup_body">
+        <div class="popup_logo">
+             <img src="../images/Name.svg" alt="" srcset="">
+        </div>
+        <hr>
+
+        <div class="popup_form">
+            <h3 class="popup_title">Sign Up</h3>
+            
+            <div name="login_form">
+
+ 
+              <select name="" id="" class="select_your_job inp1">
+                <option value="0" disabled selected hidden class="ent">Select Your Job</option>
+                <option value="normal_user" class="ent">Normal User</option>
+                <option value="reporter" class="ent">Reporter</option>
+                <option value="moderator" class="ent">Moderator</option>
+                <option value="admin" class="ent">Administrator</option>
+              </select>
+                
+                
+               <input type="email" name="sysactor_email" id="lname" class="inp inp1 einp" placeholder="Divisional Secretariats Area" required>
+
+               <input type="text" name="sysactor_mobile" id="lname" class="inp inp1 einp" placeholder="Username" required>
+
+               <br>
+               <input type="text" name="sysactor_nic" id="lname" class="inp inp1 finp pass" placeholder="Password" required>
+               <input type="text" name="sysactor_nic" id="lname" class="inp inp1 linp pass" placeholder="Retype Password" required>
+              
+               
+               <button class="update_btn prev" onclick="">Prev</button> 
+               <button class="update_btn next" onclick="">Next</button>
+
+               <br>
+               <br> 
+        </div>
+         </div>
+
+    </div>
+</div>
+
+</div>
+
+
+
 
 
 
@@ -308,6 +460,17 @@ session_start();
       document.getElementById("popup-7").classList.toggle("active");
     }
   
+  
+    function togglePopup_sign_up(){
+      document.getElementById("popup-7").classList.remove("active");
+      document.getElementById("popup-10").classList.toggle("active");
+    }
+
+    function togglePopup_sign_up_2(){
+      document.getElementById("popup-10").classList.remove("active");
+      document.getElementById("popup-11").classList.toggle("active");
+    }
+
     function error_login(){
       document.getElementById("error1").classList.add("active");
     }
@@ -315,8 +478,6 @@ session_start();
     function remove_error_login(){
       document.getElementById("error1").classList.remove("active");
     }
-
-    
     
 </script>
 
