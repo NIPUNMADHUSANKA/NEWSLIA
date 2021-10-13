@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/error.css">
+    <link rel="stylesheet" href="../css/main_home.css">
 </head>
 
 <style>
@@ -95,39 +96,28 @@
         <div class="content_left">
           <h1>Welcome to the NEWSLIA's <br> Moderator Interface</h1>
               
-              <div class="content_left_info">
+          <div class="moderate_info">
+              <table class="moderator_details">
 
+                  <tr class="moderate_area">
+                    <td class="moderate_area_title">Moderating Area</td>
+                    <td><button>Minuwangoda</button> <button>Minuwangoda</button> <button>Minuwangoda</button> <button>Minuwangoda</button> <button>Minuwangoda</button> <button>Minuwangoda</button> <button>Minuwangoda</button> <button>Minuwangoda</button></td>
+                  </tr>
 
-                  <div class="content_left_info_moderate row">
-                    <div class="content_left_info_moderate_key key">
-                        Moderating Area
-                    </div>
-                    <div class="content_left_info_moderate_input input">
-                      
-                    </div>
-                  </div>
+                  <tr class="reading_area">
+                    <td class="reading_area_title">Reading Area</td>
+                    <td></td>
+                  </tr>
 
+                  <tr class="reading_type">
+                    <td class="reading_post_type">View Posts Type</td>
+                    <td></td>
+                  </tr>
 
-                  <div class="content_left_info_reading row">
-                    <div class="content_left_info_reading_key key">
-                        Reading Area
-                    </div>
-                    <div class="content_left_info_reading_input input">
-                      
-                    </div>
-                  </div>
-
-
-                  <div class="content_left_info_type row">
-                    <div class="content_left_info_type_key key">
-                        View Posts Type
-                    </div>
-                    <div class="content_left_info_type_input input">
-                      
-                    </div>
-                  </div>
-
-              </div>
+              </table>
+          </div>
+         
+              
 
         </div>
 
@@ -138,8 +128,8 @@
   </div>
 
 
-
-  <div class="errorbox active" id="error2">
+  
+  <div class="errorbox" id="error2">
   <div class="content_erro">
        <div class="error_head">NEWSLIA says</div>
        <div class="error_body">Welcome to the Moderator HomePage.</div>
