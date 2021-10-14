@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/popup.css">
+    <link rel="stylesheet" href="../css/addinput.css">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
 <style>
@@ -34,7 +37,7 @@
   }
 
   .popup_add_new_size .content_add_new_size{
-    height:600px;
+    height:640px;
   }
   
   .form-container input{
@@ -52,6 +55,25 @@
 
 .update_btn{
   margin-left:7.2rem;
+}
+.insert_btn{
+  margin-top:-1rem;
+  border:none;
+  transition: 0.25s ease;
+  box-shadow: none;
+}
+
+.update_btn:hover{
+   box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.25);
+   transform:scale(1.08);
+ }
+
+.popup_add_num .content_add_num{
+  height:480px;
+}
+
+input{
+  padding-left:5px;
 }
  
 </style>
@@ -208,7 +230,7 @@
 
 
 
-<div class="popup popup_add_new" id="popup-2">
+<div class="popup popup_add_new active" id="popup-2">
 
       <div class="overlay"></div>
 
@@ -224,12 +246,12 @@
 
               <div class="popup_form">
                   <h3 class="popup_title">Insert New Important Number</h3>
-                  <form action="" method="post">
+                  <form action="../Control/login_Control.php" method="post" enctype="multipart/form-data">
                     
                         <div class="center_img">
                             <div class="form-input_img">
                               <label for="file-ip-1">Upload Image</label>
-                              <input type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event);">
+                              <input type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event);" required>
                               <div class="preview_img">
                               <img id="file-ip-1-preview">
                             </div>
@@ -244,20 +266,30 @@
 
                           <label for="add-name" class="lbl">Name</label>
                           
-                          <input type="text" name="" id="add-name" class="inp">
+                          <input type="text" name="" id="add-name" class="inp" required>
                           <br>
                           <br>
 
                           <label for="add-number" class="lbl">Number</label>
+
+                          <div id="survey_options" class="number">
+                          <input type="text" name="" id="add-number" class="inp" required>
+                          </div>
+                          
+                          
+                          <div class="controls">
+                                 <a href="#" id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
+                                 <a href="#" id="remove_fields"><i class="fa fa-minus"></i>Remove Field</a>
+                          </div>
                         
-                          <input type="text" name="" id="add-number" class="inp">
+                          
                           <br>
                           
                      </div>
 
                     
 
-                     <div class="update_btn">Insert</div>
+                     <button class="update_btn insert_btn" name="insert_i_c_n">Insert</button>
               
                    </form>
                </div>
@@ -266,6 +298,10 @@
       </div>
       
 </div>
+
+
+
+
 
 <div class="popup popup_add_new" id="popup-1">
 
@@ -301,15 +337,15 @@
 
                      <div class="form-container">
 
-                          <label for="add-name" class="lbl">Name</label>
+                          <label for="update-name" class="lbl">Name</label>
                           
-                          <input type="text" name="" id="add-name" class="inp" placeholder=" Sethma Hospital">
+                          <input type="text" name="" id="update-name" class="inp" placeholder=" Sethma Hospital">
                           <br>
                           <br>
 
-                          <label for="add-number" class="lbl">Number</label>
+                          <label for="update-number" class="lbl">Number</label>
                         
-                          <input type="text" name="" id="add-number" class="inp" placeholder=" 0335 626 626">
+                          <input type="text" name="" id="update-number" class="inp" placeholder=" 0335 626 626">
                           <br>
                           
                      </div>
@@ -384,6 +420,33 @@
         }
       }
     }
+
+
+    var survey_options = document.getElementById('survey_options');
+    var add_more_fields = document.getElementById('add_more_fields');
+    var remove_fields = document.getElementById('remove_fields');
+
+    add_more_fields.onclick = function(){
+      var input_tags = survey_options.getElementsByTagName('input');
+      if(input_tags.length < 2){
+        var newField = document.createElement('input');
+	      newField.setAttribute('type','text');
+	      newField.setAttribute('class','inp');
+        newField.setAttribute('id','add-number')
+       
+        survey_options.appendChild(newField);
+      }
+	    
+    }
+
+    remove_fields.onclick = function(){
+	    var input_tags = survey_options.getElementsByTagName('input');
+      if(input_tags.length > 1) {
+		    survey_options.removeChild(input_tags[(input_tags.length) - 1]);
+        
+	    }
+    }
+
 
 </script>
     

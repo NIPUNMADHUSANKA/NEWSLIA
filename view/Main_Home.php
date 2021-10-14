@@ -420,14 +420,14 @@ session_start();
                <input type="text" name="sysactor_mobile" id="lname" class="inp inp1 einp" placeholder="Username" required>
 
                <br>
-               <input type="text" name="sysactor_nic" id="lname" class="inp inp1 finp pass" placeholder="Password" required>
-               <input type="text" name="sysactor_nic" id="lname" class="inp inp1 linp pass" placeholder="Retype Password" required>
+               <input type="password" name="sysactor_nic" id="lname" class="inp inp1 finp pass" placeholder="Password" required>
+               <input type="password" name="sysactor_nic" id="lname" class="inp inp1 linp pass" placeholder="Retype Password" required>
                <br>
               
                <input type="checkbox" id="privacy" name="privacy" value="">
                <label for="privacy"> I accept the Terms of Use & Privacy Policy.</label>
                <br>
-
+              
                <button class="update_btn prev" onclick="">Prev</button> 
                <button class="update_btn submit" onclick="">Submit</button>
 
