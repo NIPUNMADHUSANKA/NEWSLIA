@@ -126,7 +126,12 @@ session_start();
 
   .prev{
       float: left;
-      
+      margin-left:1rem;
+  }
+
+  .submit{
+    float:right;
+    margin-right:1.5rem;
   }
 
   .select_your_job{
@@ -351,7 +356,7 @@ session_start();
             <p class="caption">Create your account.It's free and only takes a minute</p>
             <div name="login_form">
 
- 
+
                <input type="text" name="sysactor_first_name" id="fname" class="inp inp1 finp" placeholder="First Name" required>
                
                <input type="text" name="sysactor_last_name" id="lname" class="inp inp1 linp" placeholder="Second Name" required>
@@ -417,10 +422,14 @@ session_start();
                <br>
                <input type="text" name="sysactor_nic" id="lname" class="inp inp1 finp pass" placeholder="Password" required>
                <input type="text" name="sysactor_nic" id="lname" class="inp inp1 linp pass" placeholder="Retype Password" required>
+               <br>
               
-               
+               <input type="checkbox" id="privacy" name="privacy" value="">
+               <label for="privacy"> I accept the Terms of Use & Privacy Policy.</label>
+               <br>
+
                <button class="update_btn prev" onclick="">Prev</button> 
-               <button class="update_btn next" onclick="">Next</button>
+               <button class="update_btn submit" onclick="">Submit</button>
 
                <br>
                <br> 
