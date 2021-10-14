@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +12,7 @@
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/popup.css">
     <link rel="stylesheet" href="../css/addinput.css">
-    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 
@@ -93,7 +96,7 @@ input{
 
       <div class="right">
           <img src="../images/Profile.svg" alt="" srcset="">
-          <p>A.A.N.Madhusanka <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
+          <p><?php   echo $_SESSION['FName']." ".$_SESSION['LName']; ?> <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
           <ul class="profile_menu">
               <li><a href="#"> <img src="../images/other/profile.png" alt="" srcset=""> My Profile</a></li>
               <li><a href="#"><img src="../images/other/location.png" alt="" srcset="">Select Area</a></li>
@@ -251,7 +254,7 @@ input{
                         <div class="center_img">
                             <div class="form-input_img">
                               <label for="file-ip-1">Upload Image</label>
-                              <input type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event);" required>
+                              <input type="file" name="upload" id="file-ip-1" accept="image/*" onchange="showPreview(event);" required>
                               <div class="preview_img">
                               <img id="file-ip-1-preview">
                             </div>
@@ -266,7 +269,7 @@ input{
 
                           <label for="add-name" class="lbl">Name</label>
                           
-                          <input type="text" name="" id="add-name" class="inp" required>
+                          <input type="text" name="ic_title" id="add-name" class="inp" required>
                           <br>
                           <br>
 
@@ -278,17 +281,15 @@ input{
                           
                           
                           <div class="controls">
-                                 <a href="#" id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
-                                 <a href="#" id="remove_fields"><i class="fa fa-minus"></i>Remove Field</a>
+                                 <a href="#" id="add_more_fields" class="mark"><i class="fa fa-plus"></i>Add More</a>
+                                 <a href="#" id="remove_fields" class="mark"><i class="fa fa-minus"></i>Remove Field</a>
                           </div>
                         
                           
                           <br>
                           
                      </div>
-
-                    
-
+                     
                      <button class="update_btn insert_btn" name="insert_i_c_n">Insert</button>
               
                    </form>

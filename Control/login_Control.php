@@ -62,13 +62,6 @@ function login($email,$pwd){
 
 
 
-if(isset($_POST['insert_i_c_n'])){
-    
-    $stmt = $conn->prepare("INSERT INTO `important_number`(Image) VALUES(?)");
-    $stmt->execute([])
-}
-
-
 
 
 
