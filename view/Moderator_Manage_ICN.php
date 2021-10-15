@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/popup.css">
     <link rel="stylesheet" href="../css/addinput.css">
+    <link rel="stylesheet" href="../css/error.css">
    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
@@ -180,52 +181,65 @@ input{
 
     <div class="body_information">
          
-          <div class="box-container">
-              <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
-              </div>
-              <div class="box_body">
-                <h3>Sethma Hospital</h3>
-                <p>0335 626 626</p>
-              </div>
-              <div class="setting_close">
-                  <img src="../images/pen.svg" alt="" srcset="" onclick="togglePopup()">
-                  <img src="../images/close_large.svg" alt="" srcset="">
-              
-              </div>
-          </div>
+        <?php
 
-          <div class="box-container">
-              <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
-              </div>
-              <div class="box_body">
-                <h3>Sethma Hospital</h3>
-                <p>0335 626 626</p>
-              </div>
+        include '../Model/connect.php';
+        $moderate_area = $_SESSION['moderate_area'];
 
-              <div class="setting_close">
-                  <img src="../images/pen.svg" alt="" srcset="" onclick="togglePopup()">
-                  <img src="../images/close_large.svg" alt="" srcset="">
-              
-              </div>
-          </div>
+        $import_sql = "SELECT * FROM important_number WHERE (Area = '$moderate_area')";
 
-          <div class="box-container">
-              <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
-              </div>
-              <div class="box_body">
-                <h3>Sethma Hospital</h3>
-                <p>0335 626 626</p>
-              </div>
+        $import_state = $conn->query($import_sql);
+        $import_results = $import_state->fetchAll(PDO::FETCH_ASSOC);
 
-              <div class="setting_close">
-                  <img src="../images/pen.svg" alt="" srcset="" onclick="togglePopup()">
-                  <img src="../images/close_large.svg" alt="" srcset="">
-              
-              </div>
-          </div>
+        if($import_results){
+          foreach($import_results as $import_result){
+            $img = $import_result['Image'];
+            $img = base64_encode($img);
+            $ext = pathinfo($import_result['Contact_ID'], PATHINFO_EXTENSION);
+            
+            
+            echo "<div class='box-container'>";
+            echo "<div class='box_head'>";
+            echo "<img src='data:image/".$ext.";base64,".$img."'/>"; 
+            echo "</div>";
+            echo "<div class='box_body'>";
+            echo "<h3>".$import_result['Title']."</h3>"; 
+
+            $CID = $import_result['Contact_ID'];
+            $importnum_sql = "SELECT * FROM important_number_list WHERE (Contact_ID = '$CID')";
+            $importnum_state = $conn->query($importnum_sql);
+            $importnum_results = $importnum_state->fetchAll(PDO::FETCH_ASSOC);
+
+            if($importnum_results){
+                foreach($importnum_results as $importnum_result){
+                  echo "<p>".$importnum_result['Number']."</p>";
+                }}
+
+            echo "</div>";
+            echo "<div class='setting_close'>";
+            echo "<img src='../images/pen.svg' alt='' srcset='' onclick='togglePopup()'>";
+            echo "<img src='../images/close_large.svg' alt='' srcset=''>";
+            
+            echo "</div>";
+            echo "</div>";
+
+          }
+        }
+
+
+       
+       
+
+
+            
+        ?>
+
+
+
+
+
+
+          
     </div>
 
     
@@ -233,7 +247,7 @@ input{
 
 
 
-<div class="popup popup_add_new active" id="popup-2">
+<div class="popup popup_add_new" id="popup-2">
 
       <div class="overlay"></div>
 
@@ -249,7 +263,7 @@ input{
 
               <div class="popup_form">
                   <h3 class="popup_title">Insert New Important Number</h3>
-                  <form action="../Control/important.php" method="post" enctype="multipart/form-data">
+                  <form action="./Moderator_Manage_ICN.php" method="post" enctype="multipart/form-data">
                     
                         <div class="center_img">
                             <div class="form-input_img">
@@ -364,8 +378,23 @@ input{
 </div>
 
 
+<div class="errorbox" id="error2">
+  <div class="content_erro">
+       <div class="error_head">NEWSLIA says</div>
+       <div class="error_body">Incorrect Contact Number Format</div>
+       <div class="error_foot" onclick="error_msg()">OK</div>
+
+  </div>
+
+
 
 <script>
+
+    function error_msg(error2){
+      document.getElementById("error2").classList.toggle("active");
+      document.getElementById("popup-2").classList.remove("active");
+    } 
+
     function showsort() {
       document.getElementById("sortdrop").classList.toggle("show");
     }
@@ -451,6 +480,67 @@ input{
 
 
 </script>
+
+
+<?php
+
+  if(isset($_POST['insert_i_c_n'])){
+
+    include '../Model/connect.php';
+
+    $number = count($_POST["num1"]); 
+    $flag = 0;
+        
+    $regex = '/^(?:0|94|\+94)?(?:(?P<area>11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|912)(?P<land_carrier>0|2|3|4|5|7|9)|7(?P<mobile_carrier>0|1|2|4|5|6|7|8)\d)\d{6}$/';  
+    
+    if($number >0){
+      for($i=0; $i<$number; $i++){
+        if(preg_match_all($regex, $_POST['num1'][$i], $matches, PREG_SET_ORDER, 0)==false){
+          $flag=1;
+
+        }
+    }
+    }
+
+
+
+    if($flag==0){
+      $_moderate_area = $_SESSION['moderate_area'];
+
+        $last_value_sql = "SELECT Contact_ID FROM important_number ORDER BY Contact_ID DESC LIMIT 1";
+        $last_value_statement = $conn -> query($last_value_sql);
+        $last_value_results = $last_value_statement->fetchAll(PDO::FETCH_ASSOC);
+        
+        if($last_value_results){
+            foreach($last_value_results as $last_value_result){
+               $connect = substr($last_value_result['Contact_ID'],7)+1;
+               $ID = "NL-ICN-".$connect;
+               
+            }
+       }    
+    
+        
+       
+        $stmt = $conn->prepare("INSERT INTO `important_number` VALUES(?,?,?,?)");
+        $stmt->execute([$ID,$_POST['ic_title'],$_moderate_area, file_get_contents($_FILES['upload']['tmp_name'])]);
+        
+        if ($number > 0){
+            for($i=0; $i<$number; $i++){
+                $stmt = $conn->prepare("INSERT INTO `important_number_list` VALUES(?,?)");
+                $stmt->execute([$ID,$_POST['num1'][$i]]);
+            }
+        }
+        echo '<script type="text/javascript">window.open("../view/Moderator_Manage_ICN.php", "_self");</script>';
+        
+
+    }
+    
+    else{
+        echo '<script type="text/javascript">error_msg();</script>';        
+    }
+
+  }
+?>
     
 </body>
 </html>
