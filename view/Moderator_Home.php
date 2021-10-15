@@ -152,6 +152,7 @@ table, th, td {
                           if($moderating_area_results){
                             
                             foreach($moderating_area_results as $moderating_area_result){
+                                $_SESSION['moderate_area'] = $moderating_area_result['Area'];
                                 echo "<button class='data'>".$moderating_area_result['Area']."</button>";
                             
                             }

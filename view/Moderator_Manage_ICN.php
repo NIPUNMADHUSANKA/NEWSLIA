@@ -249,7 +249,7 @@ input{
 
               <div class="popup_form">
                   <h3 class="popup_title">Insert New Important Number</h3>
-                  <form action="../Control/login_Control.php" method="post" enctype="multipart/form-data">
+                  <form action="../Control/important.php" method="post" enctype="multipart/form-data">
                     
                         <div class="center_img">
                             <div class="form-input_img">
@@ -276,7 +276,7 @@ input{
                           <label for="add-number" class="lbl">Number</label>
 
                           <div id="survey_options" class="number">
-                          <input type="text" name="" id="add-number" class="inp" required>
+                          <input type="text" name="num1[]" id="add-number" class="inp" required>
                           </div>
                           
                           
@@ -433,6 +433,7 @@ input{
         var newField = document.createElement('input');
 	      newField.setAttribute('type','text');
 	      newField.setAttribute('class','inp');
+        newField.setAttribute('name','num1[]');
         newField.setAttribute('id','add-number')
        
         survey_options.appendChild(newField);
