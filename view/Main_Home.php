@@ -38,6 +38,11 @@ session_start();
     height:390px;
   }
 
+  .popup_signup2 .popup_signup_content2{
+    width:350px;
+    height:440px;
+  }
+
   .txt{
     font-size:x-small;
       letter-spacing:1px;
@@ -60,7 +65,7 @@ session_start();
 
   .update_btn:hover{
     box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.25);
-    transform:scale(1.08);
+    transform:scale(1.12);
   
   }
 
@@ -122,11 +127,17 @@ session_start();
   .next{
     float:right;
     margin-right:1.5rem;
+    width:3rem;
+    font-size:small;
+    padding:0.5rem;
   }
 
   .prev{
       float: left;
       margin-left:1rem;
+      width:3rem;
+      font-size:small;
+      padding:0.5rem;
   }
 
   .submit{
@@ -147,7 +158,36 @@ session_start();
 
 .pass{
   margin-top:0.8rem;
+  margin-bottom:0.4rem;
 }
+
+.send{
+  text-align:center;
+  font-size:small;
+  width:5rem;
+}
+
+#privacy{
+  margin-left:1.3rem;
+  font-size:5px;
+}
+.privacy_info{
+  font-size:11px;
+}
+
+.sel{
+  margin-bottom:10px;
+}
+
+.inp3{
+  width:15.5rem;
+}
+
+.sel2{
+  width:7.3rem;
+}
+
+
 
 </style>
 
@@ -198,6 +238,56 @@ session_start();
         </div>
 
   </div>
+
+
+
+
+<div class="about_us">
+
+    <div class="para-box">
+        <h1 class="head-para">About Us</h1>
+
+        <p class="body-para">There is a great demand for people to know accurate and trustworthy news about their specific areas.The majority of that news is similar to gossip, which has a huge problem with accuracy as well as reliability.
+          <br>
+        Furthermore, there is no efficient way for them to receive information pertaining to their grama niladhari or Divisional Secretariat regions, such as vaccination programs, payments, and so forth.
+        Furthermore, when people do not receive accurate news on time, they suffer a slew of problems.
+        Some of the issues include wasting time and missing chances since they do not receive news/announcements at the appropriate moment.
+        <br>
+
+        Even though individuals are alerted, they might quickly forget about important occasions and activities since they do not receive any reminders.
+        <br>
+
+        So, with our system, users can able to get such information on time, as well as many other features such   as reminding about special events, reading / creating articles, and obtaining vital contact numbers. 
+        </p>
+    </div>
+    
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -336,113 +426,142 @@ session_start();
 
 
 
-
-<div class="popup popup_signup" id="popup-10">
-
-<div class="overlay"></div>
-
-<div class="content popup_signup_content">
-    <div class="close-btn" onclick="togglePopup_sign_up()">&times;</div>
+<form action="" method = "POST">
 
 
-    <div class="content_body popup_signup_body">
-        <div class="popup_logo">
-             <img src="../images/Name.svg" alt="" srcset="">
-        </div>
-        <hr>
+          <div class="popup popup_signup" id="popup-10">
 
-        <div class="popup_form">
-            <h3 class="popup_title">Sign Up</h3>
-            <p class="caption">Create your account.It's free and only takes a minute</p>
-            <div name="login_form">
+          <div class="overlay"></div>
+
+          <div class="content popup_signup_content">
+              <div class="close-btn" onclick="togglePopup_sign_up()">&times;</div>
 
 
-               <input type="text" name="sysactor_first_name" id="fname" class="inp inp1 finp" placeholder="First Name" required>
-               
-               <input type="text" name="sysactor_last_name" id="lname" class="inp inp1 linp" placeholder="Second Name" required>
-                
-                
-               <input type="email" name="sysactor_email" id="lname" class="inp inp1 einp" placeholder="Email Address" required>
+              <div class="content_body popup_signup_body">
+                  <div class="popup_logo">
+                      <img src="../images/Name.svg" alt="" srcset="">
+                  </div>
+                  <hr>
 
-               <input type="text" name="sysactor_mobile" id="lname" class="inp inp1 einp" placeholder="Mobile Number" required>
-
-               <input type="text" name="sysactor_nic" id="lname" class="inp inp1 einp" placeholder="NIC Number" required>
-               
-               <button class="update_btn next" onclick="togglePopup_sign_up_2()">Next</button>
-
-               <br>
-               <br> 
-        </div>
-         </div>
-
-    </div>
-</div>
-
-</div>
+                  <div class="popup_form">
+                      <h3 class="popup_title">Sign Up</h3>
+                      <p class="caption">Create your account.It's free and only takes a minute</p>
+                      <div name="login_form">
 
 
+                        <input type="text" name="sysactor_first_name" id="fname" class="inp inp1 finp" placeholder="First Name" required>
+                        
+                        <input type="text" name="sysactor_last_name" id="lname" class="inp inp1 linp" placeholder="Second Name" required>
+                          
+                          
+                        <input type="email" name="sysactor_email" id="lname" class="inp inp1 einp" placeholder="Email Address" required>
 
+                        <input type="text" name="sysactor_mobile" id="lname" class="inp inp1 einp" placeholder="Mobile Number" required>
 
+                        <input type="text" name="sysactor_nic" id="lname" class="inp inp1 einp" placeholder="NIC Number" required>
+                        
+                        <div class="update_btn next" onclick="togglePopup_sign_up_2()">Next</div>
+
+                        <br>
+                        <br> 
+                  </div>
+                  </div>
+
+              </div>
+          </div>
+
+          </div>
 
 
 
-<div class="popup popup_signup active" id="popup-11">
-
-<div class="overlay"></div>
-
-<div class="content popup_signup_content">
-    <div class="close-btn" onclick="togglePopup_sign_up_2()">&times;</div>
-
-
-    <div class="content_body popup_signup_body">
-        <div class="popup_logo">
-             <img src="../images/Name.svg" alt="" srcset="">
-        </div>
-        <hr>
-
-        <div class="popup_form">
-            <h3 class="popup_title">Sign Up</h3>
-            
-            <div name="login_form">
-
- 
-              <select name="" id="" class="select_your_job inp1">
-                <option value="0" disabled selected hidden class="ent">Select Your Job</option>
-                <option value="normal_user" class="ent">Normal User</option>
-                <option value="reporter" class="ent">Reporter</option>
-                <option value="moderator" class="ent">Moderator</option>
-                <option value="admin" class="ent">Administrator</option>
-              </select>
-                
-                
-               <input type="email" name="sysactor_email" id="lname" class="inp inp1 einp" placeholder="Divisional Secretariats Area" required>
-
-               <input type="text" name="sysactor_mobile" id="lname" class="inp inp1 einp" placeholder="Username" required>
-
-               <br>
-               <input type="password" name="sysactor_nic" id="lname" class="inp inp1 finp pass" placeholder="Password" required>
-               <input type="password" name="sysactor_nic" id="lname" class="inp inp1 linp pass" placeholder="Retype Password" required>
-               <br>
-              
-               <input type="checkbox" id="privacy" name="privacy" value="">
-               <label for="privacy"> I accept the Terms of Use & Privacy Policy.</label>
-               <br>
-              
-               <button class="update_btn prev" onclick="">Prev</button> 
-               <button class="update_btn submit" onclick="">Submit</button>
-
-               <br>
-               <br> 
-        </div>
-         </div>
-
-    </div>
-</div>
-
-</div>
 
 
 
+
+          <div class="popup popup_signup2" id="popup-11">
+
+          <div class="overlay"></div>
+
+          <div class="content popup_signup_content2">
+              <div class="close-btn" onclick="togglePopup_sign_up_2()">&times;</div>
+
+
+              <div class="content_body popup_signup_body">
+                  <div class="popup_logo">
+                      <img src="../images/Name.svg" alt="" srcset="">
+                  </div>
+                  <hr>
+
+                  <div class="popup_form">
+                      <h3 class="popup_title">Sign Up</h3>
+                      
+                      <div name="login_form">
+
+          
+                        <select name="" id="" class="select_your_job inp1 sel">
+                          <option value="0" disabled selected hidden class="ent">Your Job</option>
+                          <option value="normal_user" class="ent">Normal User</option>
+                          <option value="reporter" class="ent">Reporter</option>
+                          <option value="moderator" class="ent">Moderator</option>
+                          <option value="admin" class="ent">Administrator</option>
+                        </select>
+
+                        
+                        <br>
+                        <select name="" id="" class="select_your_job inp1 sel sel2">
+                          <option value="0" disabled selected hidden class="ent">Province</option>
+                          <option value="normal_user" class="ent">Normal User</option>
+                          <option value="reporter" class="ent">Reporter</option>
+                          <option value="moderator" class="ent">Moderator</option>
+                          <option value="admin" class="ent">Administrator</option>
+                        </select>
+
+                        <select name="" id="" class="select_your_job inp1 sel sel2">
+                          <option value="0" disabled selected hidden class="ent">District</option>
+                          <option value="normal_user" class="ent">Normal User</option>
+                          <option value="reporter" class="ent">Reporter</option>
+                          <option value="moderator" class="ent">Moderator</option>
+                          <option value="admin" class="ent">Administrator</option>
+                        </select>
+                        
+                        
+                        <br>
+
+                        <select name="" id="" class="select_your_job inp1 sel">
+                          <option value="0" disabled selected hidden class="ent">Divisional Secretariat Area </option>
+                          <option value="normal_user" class="ent">Normal User</option>
+                          <option value="reporter" class="ent">Reporter</option>
+                          <option value="moderator" class="ent">Moderator</option>
+                          <option value="admin" class="ent">Administrator</option>
+                        </select>  
+
+
+                        <input type="text" name="sysactor_username" id="lname" class="inp inp1 inp3" placeholder="Username" required>
+
+                        <br>
+                        <input type="password" name="sysactor_pwd" id="lname" class="inp inp1 finp pass" placeholder="Password" required>
+                        <input type="password" name="sysactor_rpwd" id="lname" class="inp inp1 linp pass" placeholder="Retype Password" required>
+                        <br>
+                        
+                        <input type="checkbox" id="privacy" name="privacy" value="">
+                        <label for="privacy" class="privacy_info"> I accept the Terms of Use & Privacy Policy.</label>
+                        <br>
+                        
+                        <div class="update_btn prev" onclick="togglePopup_sign_up_3()">Prev</div> 
+                        <button class="update_btn submit send" onclick="">Submit</button>
+
+                        <br>
+                        <br> 
+                  </div>
+                  </div>
+
+              </div>
+          </div>
+
+          </div>
+
+
+</form>
 
 
 
@@ -478,6 +597,11 @@ session_start();
     function togglePopup_sign_up_2(){
       document.getElementById("popup-10").classList.remove("active");
       document.getElementById("popup-11").classList.toggle("active");
+    }
+
+    function togglePopup_sign_up_3(){
+      document.getElementById("popup-11").classList.remove("active");
+      document.getElementById("popup-10").classList.toggle("active");
     }
 
     function error_login(){
