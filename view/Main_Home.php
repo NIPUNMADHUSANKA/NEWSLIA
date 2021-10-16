@@ -193,6 +193,8 @@ session_start();
 
 <body>
 
+  <a name="start"></a>
+
   <div class="heder">
       
         <div class="left">
@@ -204,9 +206,9 @@ session_start();
         <div class="right">
 
                 <ul>
-                    <li> <a href="#">Home</a> </li>
-                    <li> <a href="#">About Us</a></li>
-                    <li><a href="#">Contact Us</a></li>
+                    <li> <a href="#start">Home</a> </li>
+                    <li> <a href="#aboutus">About Us</a></li>
+                    <li><a href="#contactus">Contact Us</a></li>
                 </ul>
             
         </div>
@@ -242,23 +244,34 @@ session_start();
 
 
 
+
+
+
+
+
 <div class="about_us">
-
+<a name="aboutus"></a>
     <div class="para-box">
-        <h1 class="head-para">About Us</h1>
+        <div class="head-para-type">
+           <h1>About Us ...</h1>
+        </div>
+        
 
-        <p class="body-para">There is a great demand for people to know accurate and trustworthy news about their specific areas.The majority of that news is similar to gossip, which has a huge problem with accuracy as well as reliability.
-          <br>
-        Furthermore, there is no efficient way for them to receive information pertaining to their grama niladhari or Divisional Secretariat regions, such as vaccination programs, payments, and so forth.
-        Furthermore, when people do not receive accurate news on time, they suffer a slew of problems.
-        Some of the issues include wasting time and missing chances since they do not receive news/announcements at the appropriate moment.
-        <br>
+        <div>
+            <p class="body-para">There is a great demand for people to know accurate and trustworthy news about their specific areas.The majority of that news is similar to gossip, which has a huge problem with accuracy as well as reliability.
+              <br>
+            Furthermore, there is no efficient way for them to receive information pertaining to their grama niladhari or Divisional Secretariat regions, such as vaccination programs, payments, and so forth.
+            Furthermore, when people do not receive accurate news on time, they suffer a slew of problems.
+            Some of the issues include wasting time and missing chances since they do not receive news/announcements at the appropriate moment.
+            <br>
 
-        Even though individuals are alerted, they might quickly forget about important occasions and activities since they do not receive any reminders.
-        <br>
+            Even though individuals are alerted, they might quickly forget about important occasions and activities since they do not receive any reminders.
+            <br>
 
-        So, with our system, users can able to get such information on time, as well as many other features such   as reminding about special events, reading / creating articles, and obtaining vital contact numbers. 
-        </p>
+            So, with our system, users can able to get such information on time, as well as many other features such   as reminding about special events, reading / creating articles, and obtaining vital contact numbers. 
+            </p>
+        </div>
+       
     </div>
     
 
@@ -270,6 +283,23 @@ session_start();
 
 
 
+<div class="about_us">
+<a name="contactus"></a>
+    <div class="para-box">
+        <div class="head-para-type">
+           <h1>Contact Us ...</h1>
+        </div>
+        
+
+        <div>
+           
+      
+      </div>
+       
+    </div>
+    
+
+</div>
 
 
 

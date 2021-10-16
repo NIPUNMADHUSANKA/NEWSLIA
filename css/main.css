@@ -1,9 +1,12 @@
+html{
+    scroll-behavior: smooth;
+}
+
 body{
     font-family: sora;
     padding: 0;
     margin: 0;
 }
-
 
 .heder{
     display: flex;
@@ -122,22 +125,30 @@ a:hover{
     position: relative;
     top: -16rem;
     background-image: url("../images/aboutus.jpg");
-    height:100vh;
+    height:78vh;
     background-repeat: no-repeat;
     background-size: cover;
     border: 2px solid #eee;
+    padding: 5rem;
+    margin-top: 5rem;
+    
 }
 .para-box{
-  margin: 30px;
+  padding: 3rem;
   position: relative;
-  top:14%;
-  background-color: #ffffff;
+  background-color: #eee;
   border-radius: 10px;
   opacity: 0.8;
-  height: 28rem;
-  padding: 2rem;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #000; 
+  height: 30rem; 
+  /*min-height: 100vh;*/
 }
+
+
 .para-box p{
     margin-left: 2rem;
     margin-right: 2rem;
@@ -145,10 +156,42 @@ a:hover{
     color: #000000;
     line-height: 30px;
     word-spacing: 10px;
+    opacity: 1;
   }
 
-  .head-para{
-      font-size: 2.5rem;
+
+  .head-para-type{
+    position: relative;
+    
+  }
+  
+
+  .head-para-type::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: #000;
+    animation: blinkCursor 0.8s steps(3) infinite;
+  }
+  
+  @keyframes blinkCursor {
+      0%,75%{
+        opacity: 1;
+      }
+      76%,100%{
+        opacity: 0;
+      }
   }
 
- 
+  .head-para-type h1{
+    position: relative;
+    font-size: 3rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #000000; 
+   }
+  
+
