@@ -42,12 +42,20 @@
   }
 
   .left_side{
-    margin-left:7.5rem;
+    margin-left:8rem; 
   }
   .right_side{
     margin-right:7rem;
   }
+
+ .arrow:hover{
+  cursor: pointer;
+ }
   
+ .vie{
+    margin-left:1rem;
+ }
+
 .drop_area_sort_cont{
   margin-left:-2rem;
 }
@@ -84,6 +92,10 @@
  }
 .popular_title{
     margin-left:-4rem;
+}
+
+.news_type{
+  margin-left:3rem;
 }
 
 </style>
@@ -178,7 +190,7 @@
               
                 <div class="middle popular_famous_middel">
                      <div class="right_side arrow"><img src="../images/Right.svg" alt="" srcset=""></div>
-                     <div class="view_btn">View</div>
+                     <div class="view_btn vie">View</div>
                      <div class="left_side arrow"><img src="../images/Left.svg" alt="" srcset=""></div>
                     
                 </div>
@@ -209,7 +221,7 @@
               
                 <div class="middle popular_famous_middel">
                      <div class="right_side arrow"><img src="../images/Right.svg" alt="" srcset=""></div>
-                     <div class="view_btn">View</div>
+                     <div class="view_btn vie">View</div>
                      <div class="left_side arrow"><img src="../images/Left.svg" alt="" srcset=""></div>
                     
                 </div>
@@ -249,43 +261,7 @@
 
 
 
-    <div class="wrapper">
-
-    <div class="container-calendar">
-        <h3 id="monthAndYear"></h3>
-        
-        <div class="button-container-calendar">
-         <div class="footer-container-calendar">
-          
-             <label for="month">Jump To: </label>
-             <select id="month" onchange="jump()">
-                 <option value=0>Jan</option>
-                 <option value=1>Feb</option>
-                 <option value=2>Mar</option>
-                 <option value=3>Apr</option>
-                 <option value=4>May</option>
-                 <option value=5>Jun</option>
-                 <option value=6>Jul</option>
-                 <option value=7>Aug</option>
-                 <option value=8>Sep</option>
-                 <option value=9>Oct</option>
-                 <option value=10>Nov</option>
-                 <option value=11>Dec</option>
-             </select>
-             <select id="year" onchange="jump()"></select>       
-          </div>
-        </div>
-        
-        <table class="table-calendar" id="calendar" data-lang="en">
-            <thead id="thead-month"></thead>
-            <tbody id="calendar-body"></tbody>
-        </table>
-        
-       
-
-    </div>
     
-</div>
 
 
 
@@ -301,7 +277,7 @@
 
 <br>
 <hr>
-<div class="content_posts_view">
+<div class="content_posts_view"> 
 
       <div class="post_sort">
         <div class="post_sort_bar">
@@ -315,6 +291,26 @@
           </div>
         </div>
       </div>
+
+
+      <div class="post_sort news_type">
+        <div class="post_sort_bar">
+          <button onclick="show_news_sort()" class="drop_area_sort">Select News Type<img src="../images/sort.svg" alt="" srcset=""></button>
+          <div class="drop_area_sort_cont" id="sort_news_drop">
+            <img src="../images/search.svg" alt="" srcset="">
+            <input type="text" id="myInput" onkeyup="filterFunction()" placeholder="Search...">
+            <a href="#">Political</a>
+            <a href="#">Crime</a>
+            <a href="#">Investigative</a>
+            <a href="#">Arts</a>
+            <a href="#">Entertainment</a>
+            <a href="#">Education</a>
+            <a href="#">Sports</a>
+            <a href="#">Environment</a>
+          </div>
+        </div>
+      </div>
+
       
      
     <form action="" class="search-bar">
@@ -430,6 +426,11 @@
     function showsort() {
       document.getElementById("sortdrop").classList.toggle("show");
     }
+
+    function show_news_sort() {
+      document.getElementById("sort_news_drop").classList.toggle("show");
+    }
+    
 
     function filterFunction() {
       var input, filter, ul, li, a, i;
