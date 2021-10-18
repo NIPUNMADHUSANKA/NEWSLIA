@@ -15,11 +15,12 @@ session_start();
     <link rel="stylesheet" href="../css/popup.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/error.css">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <style>
   body {
-   overflow-x:hidden;/* Hide scrollbars */
+  overflow-x:hidden;/* Hide scrollbars */
   }
 
   .inp1{
@@ -286,15 +287,91 @@ session_start();
 <div class="about_us">
 <a name="contactus"></a>
     <div class="para-box">
-        <div class="head-para-type">
+        <div class="head-para-type2">
            <h1>Contact Us ...</h1>
         </div>
         
 
-        <div>
+
+        <div class="contact">
+            
+          <label for="btn" class="button_db">Drop down
+              <span class="fa fa-caret-down"></span>
+          </label>
+          <input type="checkbox" id="btn" name="" value="" class="btn1">
+          
+          <ul class="menu">
+              
+              <?php
+                include '../Model/connect.php';
+                $dsa_sql = "SELECT * FROM dsa GROUP BY Province";
+                $dsa_statement = $conn->query($dsa_sql);
+                $dsa_results = $dsa_statement->fetchAll(PDO::FETCH_ASSOC);
+
+                if($dsa_results){
+                  $i = 2;
+                  foreach($dsa_results as $dsa_result){
+                    echo "<li>";
+                    
+                    echo "<label for='btn-".$i."' class='first'>".$dsa_result['Province']."<span class='fa fa-caret-down'></span></label>
+                          <input type='radio' id='btn-".$i."' name='Province' value='' class='btn1'>";
+                    echo "<ul>";
+                    echo "<li>";
+
+                    $province = $dsa_result['Province'];
+                    
+                    $dsa_d_sql = "SELECT * FROM dsa WHERE Province = '$province' GROUP BY District";
+                    $dsa_d_statement = $conn->query($dsa_d_sql);
+                    $dsa_d_results = $dsa_d_statement->fetchAll(PDO::FETCH_ASSOC);
+                    
+                    if($dsa_d_results){
+                      $j = 15;
+                      foreach($dsa_d_results as $dsa_d_result){
+                        echo "<label for='btn-".$j."' class='first'>".$dsa_d_result['District']."<span class='fa fa-caret-down second_arrow'></span></label>
+                        <input type='checkbox' id='btn-".$j."' name='' value='' class='btn1'>";
+                        
+
+
+
+                        $j = $j + 1;
+                      }
+                    }
+                    echo "</li>";
+                    echo "</ul>";
+                    echo "</li>";
+                    $i = $i +1;
+                  }
+                }
+
+
+              ?>
+
+
+              <li>
+                <label for="btn-2" class="first">Features<span class="fa fa-caret-down"></span></label>
+                <input type="checkbox" id="btn-2" name="" value="" class="btn1">
+                <ul>
+                  <li>
+                    <label for="btn-3" class="first">Features<span class="fa fa-caret-down second_arrow"></span></label>
+                      <input type="checkbox" id="btn-3" name="" value="" class="btn1">
+                      <ul>
+                        <li><a href="">Name</a></li>
+                        <li><a href="">Age</a></li>
+                        <li><a href="">Villege</a></li>
+                      </ul>
+                  </li>
+                </ul>
+              </li>
+
+
+
+
+
+          </ul>
+
            
       
-      </div>
+        </div>
        
     </div>
     
