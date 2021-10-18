@@ -207,121 +207,41 @@ a:hover{
     
   }
 
-   
-.contact{
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  background: #000;
-  width: 400px;
-  line-height: 35px;
-  padding: 8px 25px;
-  border-radius: 5px;
+.contact_info{
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
 }
 
-.contact label{
-  color: white;
-  font-size: 22px;
-  display: block;
-  cursor: pointer;
-  font-weight: 500;
+.repoter, .moderator, .admin{
+  width: 23rem;
+ /* border: 1px solid #333;
+  background-color: #4ef75c;*/
+  
 }
 
-.button_db span{
+.repoter h3, .moderator h3, .admin h3{
+  text-align: center;
+}
+
+.repoter p, .moderator p, .admin p{
+  color: #111;
+  font-weight: normal;
+  float: left;
+}
+
+.tele_contact{
+  font-size:small;
   float: right;
-  line-height: 25px;
+  margin-right: 1rem;
+  margin-top: 1.5rem;
 }
 
-.contact ul{
-  position: absolute;
-  background: #1b1b1b;
-  list-style: none;
-  top: 70px;
-  left: 0;
-  width: 90%;
-  display: none;
+.email_contact{
+  float: left;
+  font-size:small;
+  font-style:normal;
+  font-weight:normal;
+  margin-top: -1rem;
+  margin-left: 2rem;
 }
-
-[id^=btn]:checked+ul{
-    display: block;
-}
-  
-
-.contact ul li{
-  line-height: 30px;
-  padding: 8px 20px;
-  cursor: pointer;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.contact ul li label{
-    font-size: 18px;
-  }
-
-.contact ul li a{
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    display: block;     
-  }
-
-.contact ul li a:hover,
-.contact ul li label:hover{
-    color: cyan;
-  }
-
-.contact .menu::before{
-    position: absolute;
-    content: '';
-    height: 20px;
-    width: 20px;
-    right: 20px;
-    top: -10px;
-    transform: rotate(45deg);
-    z-index: -1;
-    background: #1b1b1b;
-  }
-
-.contact ul ul{
-    position: static;
-  }
-  
-.contact ul ul ul{
-    position: static;
- }
-
-.contact ul ul li{
-    line-height: 25px;
-    padding-left: 30px;
-    border-bottom: none;
-  }
-.contact ul ul ul li{
-    line-height: 25px;
-    padding-left: 30px;
-    border-bottom: none;
-  }
-.contact ul li a{
-    color: #e6e6e6;
-    font-size: 17px;
-  }
-
-.contact ul li span{
-    font-size: 20px;
-    /*float: right;*/
-    margin-top: 2px;
-    padding: 0 5px;
-  }
-
-.second_arrow{
-    font-size: 20px;
-    margin-top: 2px;
-    padding: 0 5px;
-  }
-
-.btn1{
-    display: none;
-}
-  
-
-

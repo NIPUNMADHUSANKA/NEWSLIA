@@ -16,6 +16,7 @@ session_start();
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/error.css">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <style>
@@ -295,83 +296,81 @@ session_start();
 
         <div class="contact">
             
-          <label for="btn" class="button_db">Drop down
-              <span class="fa fa-caret-down"></span>
-          </label>
-          <input type="checkbox" id="btn" name="" value="" class="btn1">
           
-          <ul class="menu">
               
               <?php
                 include '../Model/connect.php';
-                $dsa_sql = "SELECT * FROM dsa GROUP BY Province";
-                $dsa_statement = $conn->query($dsa_sql);
-                $dsa_results = $dsa_statement->fetchAll(PDO::FETCH_ASSOC);
-
-                if($dsa_results){
-                  $i = 2;
-                  foreach($dsa_results as $dsa_result){
-                    echo "<li>";
-                    
-                    echo "<label for='btn-".$i."' class='first'>".$dsa_result['Province']."<span class='fa fa-caret-down'></span></label>
-                          <input type='radio' id='btn-".$i."' name='Province' value='' class='btn1'>";
-                    echo "<ul>";
-                    echo "<li>";
-
-                    $province = $dsa_result['Province'];
-                    
-                    $dsa_d_sql = "SELECT * FROM dsa WHERE Province = '$province' GROUP BY District";
-                    $dsa_d_statement = $conn->query($dsa_d_sql);
-                    $dsa_d_results = $dsa_d_statement->fetchAll(PDO::FETCH_ASSOC);
-                    
-                    if($dsa_d_results){
-                      $j = 15;
-                      foreach($dsa_d_results as $dsa_d_result){
-                        echo "<label for='btn-".$j."' class='first'>".$dsa_d_result['District']."<span class='fa fa-caret-down second_arrow'></span></label>
-                        <input type='checkbox' id='btn-".$j."' name='' value='' class='btn1'>";
-                        
-
-
-
-                        $j = $j + 1;
-                      }
-                    }
-                    echo "</li>";
-                    echo "</ul>";
-                    echo "</li>";
-                    $i = $i +1;
-                  }
-                }
-
-
               ?>
 
+              <select name="" id="Province" class="select_your_job inp1 sel sel2">
+              <option value="" class="ent" disabled selected hidden>Province</option>
 
-              <li>
-                <label for="btn-2" class="first">Features<span class="fa fa-caret-down"></span></label>
-                <input type="checkbox" id="btn-2" name="" value="" class="btn1">
-                <ul>
-                  <li>
-                    <label for="btn-3" class="first">Features<span class="fa fa-caret-down second_arrow"></span></label>
-                      <input type="checkbox" id="btn-3" name="" value="" class="btn1">
-                      <ul>
-                        <li><a href="">Name</a></li>
-                        <li><a href="">Age</a></li>
-                        <li><a href="">Villege</a></li>
-                      </ul>
-                  </li>
-                </ul>
-              </li>
+              <?php
+                $query = "SELECT * FROM dsa GROUP BY Province";
+                $query_statement = $conn->query($query);
+                $query_results = $query_statement->fetchAll(PDO::FETCH_ASSOC);
+                               
+                if($query_results){
+                    foreach($query_results as $query_result){
+                        echo "<option value=".$query_result['Province'].">".$query_result['Province']."</option>";
+                      }
+                }
+                else{
+                    echo '<option value="">Provinces not available</option>';
+                 }
+              ?>
+                          
+              </select>
 
-
-
-
-
+              <select name="" id="District" class="select_your_job inp1 sel sel2">
+                  <option value="" class="ent">District</option>
+              </select>
+                        
+              <select name="" id="DSA" class="select_your_job inp1 sel">
+                  <option value="" class="ent">Divisional Secretariat Area </option>
+              </select>  
+              
           </ul>
+
+
 
            
       
         </div>
+
+        
+        <div class="contact_info">
+          <div class="repoter">
+              <h3>Repoter</h3>
+              <p>Kasun Chamara </p> <span class="tele_contact">0711737382</span>
+              <span class="email_contact">kasunchamara120@gmail.com</span>
+
+              <p>Nipun Chamira </p> <span class="tele_contact">0771747382</span>
+              <span class="email_contact">nipunsanjula125@gmail.com</span>
+
+          </div>
+          <div class="moderator">
+              <h3>Moderator</h3>
+              <p>Nipun Madhusanka </p> <span class="tele_contact">0784383142</span>
+              <span class="email_contact">nipunmadhusanka1250@gmail.com</span>
+
+              <p>Hansika Madhuwanthi </p> <span class="tele_contact">0781532145</span>
+              <span class="email_contact">hansikamadhuwanthi5854@gmail.com</span>
+
+
+          </div>
+          <div class="admin">
+             <h3>Administrator</h3>
+             <p>Kumudu Madhuranga </p> <span class="tele_contact">0759045358</span>
+             <span class="email_contact">kumudu14@gmail.com</span>
+
+             <p>Susara Madhusanka </p> <span class="tele_contact">0708045745</span>
+             <span class="email_contact">susaramadhusanka@gmail.com</span>
+            
+          </div>
+        </div>
+
+
        
     </div>
     
@@ -561,7 +560,7 @@ session_start();
                         <input type="text" name="sysactor_last_name" id="lname" class="inp inp1 linp" placeholder="Second Name" required>
                           
                           
-                        <input type="email" name="sysactor_email" id="lname" class="inp inp1 einp" placeholder="Email Address" required>
+                        <input type="email" name="sysactor_email" id="email" class="inp inp1 einp" placeholder="Email Address" required>
 
                         <input type="text" name="sysactor_mobile" id="lname" class="inp inp1 einp" placeholder="Mobile Number" required>
 
@@ -615,31 +614,35 @@ session_start();
 
                         
                         <br>
-                        <select name="" id="" class="select_your_job inp1 sel sel2">
-                          <option value="0" disabled selected hidden class="ent">Province</option>
-                          <option value="normal_user" class="ent">Normal User</option>
-                          <option value="reporter" class="ent">Reporter</option>
-                          <option value="moderator" class="ent">Moderator</option>
-                          <option value="admin" class="ent">Administrator</option>
+                        <select name="" id="Province" class="select_your_job inp1 sel sel2">
+                          <option value="" class="ent" disabled selected hidden>Province</option>
+
+                          <?php
+                               $query = "SELECT * FROM dsa GROUP BY Province";
+                               $query_statement = $conn->query($query);
+                               $query_results = $query_statement->fetchAll(PDO::FETCH_ASSOC);
+                               
+                               if($query_results){
+                                 foreach($query_results as $query_result){
+                                  echo "<option value=".$query_result['Province'].">".$query_result['Province']."</option>";
+                                 }
+                               }
+                               else{
+                                echo '<option value="">Provinces not available</option>';
+                               }
+                          ?>
+                          
                         </select>
 
-                        <select name="" id="" class="select_your_job inp1 sel sel2">
-                          <option value="0" disabled selected hidden class="ent">District</option>
-                          <option value="normal_user" class="ent">Normal User</option>
-                          <option value="reporter" class="ent">Reporter</option>
-                          <option value="moderator" class="ent">Moderator</option>
-                          <option value="admin" class="ent">Administrator</option>
+                        <select name="" id="District" class="select_your_job inp1 sel sel2">
+                          <option value="" class="ent">District</option>
                         </select>
                         
                         
                         <br>
 
-                        <select name="" id="" class="select_your_job inp1 sel">
-                          <option value="0" disabled selected hidden class="ent">Divisional Secretariat Area </option>
-                          <option value="normal_user" class="ent">Normal User</option>
-                          <option value="reporter" class="ent">Reporter</option>
-                          <option value="moderator" class="ent">Moderator</option>
-                          <option value="admin" class="ent">Administrator</option>
+                        <select name="" id="DSA" class="select_your_job inp1 sel">
+                          <option value="" class="ent">Divisional Secretariat Area </option>
                         </select>  
 
 
@@ -669,6 +672,41 @@ session_start();
 
 
 </form>
+
+
+<script type="text/javascript">
+
+      $(document).ready(function(){
+        $("#Province").on("change",function(){
+          var Province = $(this).val();
+          $.ajax({
+            url :"../Control/action.php",
+            type:"POST",
+            cache:false,
+            data:{Province:Province},
+            success:function(data){
+            $("#District").html(data);
+            $('#DSA').html('<option value="">Divisional Secretariat Area</option>');
+          }
+          });
+        });
+
+
+      $("#District").on("change",function(){
+        var District = $(this).val();
+        $.ajax({
+            url :"../Control/action.php",
+            type:"POST",
+            cache:false,
+            data:{District:District},
+            success:function(data){
+            $("#DSA").html(data);
+          }
+        });
+      }); 
+    });
+
+</script>
 
 
 
