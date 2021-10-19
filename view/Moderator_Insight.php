@@ -123,14 +123,10 @@
 
 </div>
 
+
 <div class="right_side">
 
-    <div class="top_side">
-
-          <img src="../images/Profile.svg" alt="" srcset="">
-          <p>A.A.N.Madhusanka</p>
-
-    </div>
+    
     <div class="bottom_side">
 
           <div class="approvement">
@@ -178,7 +174,7 @@
           <div class="trust">
                   <div class="card card3">
                           <div class="content">
-                            <h2><span class="precentage">95%</span><br/> <span class="precentage">Trust for Approvement</span></h2>
+                            <h2><span class="precentage" style="color:#000;font-size:1.5rem"><b>95%</b></span><br/> <span class="precentage">Trust for Approvement</span></h2>
                             <br>
                             
                           </div>
@@ -190,6 +186,15 @@
     </div>
 
 </div>
+
+
+<div class="top_side">
+
+          <img src="../images/Profile.svg" alt="" srcset="">
+          <p>A.A.N.Madhusanka</p>
+
+</div>
+
 
 <script>
     const card = document.querySelector(".card");

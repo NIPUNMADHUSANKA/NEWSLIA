@@ -45,22 +45,24 @@
     flex-direction: column;
     position: absolute;
     margin-left: 19rem;
-    margin-top: -50%;
+    margin-top: -33%;
     width: 81%;
+    border-top: 1px solid #333;
+   
 }
 
 .top_side{
-    border-bottom: 1px solid #555;
+    
     height: 30%;
     text-align: center;
     padding-top: 5rem;
     padding-left: -5rem;
-
+    margin-top: -48rem;
+    z-index: -1;
 }
 
 .top_side img{
     transform: scale(2);
-    margin-left: -18rem;
 }
 
 .top_side p{
@@ -70,7 +72,7 @@
     text-transform: uppercase;
     font-weight: bold;
     font-size: large;
-    margin-left: -18rem;
+   
 }
 
 
@@ -81,7 +83,7 @@
     color: #444;
     display: flex;
     flex-direction: row;
-    padding-top: 8rem;
+   
 }
 
 .complaints{

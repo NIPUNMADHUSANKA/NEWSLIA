@@ -9,12 +9,13 @@
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
     <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     
 </head>
 
 <style>
   body {
-    overflow-x: hidden;
+   overflow-x: hidden; /* Hide scrollbars */
   }
   
   .post_sort{
@@ -28,33 +29,48 @@
     font-size:xx-large;
 
   }
+
   .right_side{
-    margin-top: 0%;
+    margin-left:3rem;
+    border-top:1px solid #333;
+    width:95%;
+    margin-top:12%;
   }
 
-  .bottom_side{
-    margin-left: 20%;
+  .top_side{
+    margin-top:-3%;
+  }
+  .card.active {
+	height: 260px;
 }
 
-.left_box h4{
-    margin-top:1rem;
+.card2{
+    margin-left: -4rem;
+}
+
+.card3{
+  margin-left: 4rem;
+}
+
+.card4{
+  margin-left:4rem;
 }
 
 .close_btn{
     position: flex;
     margin-left:95%;
-    margin-top:1%;
+    margin-top:1%; 
     cursor: pointer;
   }
-
-
-
+  .close_btn img{
+    width:30px;
+  }
 
 </style>
 
 <body>
 
-  
+ 
 <div class="heder">
       
       <div class="left">
@@ -122,44 +138,128 @@
 
 <!-- Moderator Notices View -->
 
-<div class="close_btn">
-    <img src="../images/close_btn.svg" alt="" srcset="">
+<!--
+
+<div class="left_side">
+
+  <div class="icon_left_side">
+
+  <li><a href="#"> <img src="../images/other/profile.png" alt="" srcset=""><p>My Profile</p></a></li>
+  <li><a href="#"><img src="../images/other/location.png" alt="" srcset=""><p>Select Area</p></a></li>
+  <li><a href="#"><img src="../images/other/type.png" alt="" srcset=""><p>Select Type</p></a></li>
+  <li><a href="#"><img src="../images/other/insights.png" alt="" srcset=""><p>Insights</p></a></li>
+  <li><a href="#"><img src="../images/other/deactivate.png" alt="" srcset=""><p>Deactivate</p></a></li>
+  <li><a href="#"><img src="../images/other/logout.png" alt="" srcset=""><p>Log Out</p></a></li>
+
+
+
+  </div>
+
 </div>
+-->
+
+<div class="close_btn">
+    <img src="../images/Close_window.png" alt="" srcset="" onclick="window.open('Moderator_Reporter.php','_self')">
+</div>
+
 
 
 <div class="right_side">
 
-    <div class="top_side">
-
-          <img src="../images/Profile.svg" alt="" srcset="">
-          <p>A.A.N.Madhusanka</p>
-
-    </div>
+    
     <div class="bottom_side">
 
-          <div class="left_box">
-            <h2>Insights</h2>
+          <div class="approvement">
 
-            <h4>Approve <span>40</span> </h4>
-                <ul>
-                    <li>News <span>20 </span> </li>
-                    <li>Advertisements <span>20 </span> </li>
-                </ul>
+            <div class="card">
+                    <div class="content">
+                      <h2>20<br/><span>Accept</span></h2>
+                    </div>
+                    <ul class="navigation">
+                      <li>
+                        <p>News <span>10</span> </p>
+                      </li>
+                    
+                      <li>
+                        <p>Notices <span>5</span></p>
+                      </li>
+                      <li>
+                        <p>Job Vacancies <span>2</span></p>
+                      </li>
+                      <li>
+                        <p>Commercial Ads <span>3</span></p>
+                      </li>
+                    </ul>
+                    <div class="toggle">
+                      <i class="fa fa-chevron-down"></i>
+                    </div>
+            </div>
 
-                <h4>Complaints <span>05</span> </h4>
-                <ul>
-                    <li>News <span>05</span> </li>
-                </ul>
 
-                <h4>Precentage of news' Complaints <span>12.5%</span> </h4>
-                
-                <h4>Black Stars <span><img src="../images/black_star.svg" alt="" srcset=""></span> </h4>
+          </div>
+
+          <div class="complaints">
+
+                <div class="card card2">
+                          <div class="content">
+                            <h2>02<br/><span>Complaints</span></h2>
+                          </div>
+                        
+                  </div>
+
+          </div>
+
+          <div class="trust">
+                  <div class="card card3">
+                          <div class="content">
+                            <h2><span class="precentage" style="color:#000;font-size:1.5rem;margin-left:-0.5rem;"><b>95%</b></span><br/> <span class="precentage" style="padding-left:1.5rem;">Trust for Publish</span></h2>
+                            <br>
+                            
+                          </div>
+                        
+                  </div>
+
+          </div>
+
+
+
+          <div class="star">
+                  <div class="card card4">
+                          <div class="content">
+
+                            <h2><span class="precentage" style="color:#000;font-size:1.5rem;margin-left:0.5rem;">
+                            <b><img src="../images/black_star.svg" alt="" srcset=""></b></span><br/> <span class="precentage" style="margin-left:0.5rem;">
+                            Black Stars</span></h2>
+
+                            <br>
+                            
+                          </div>
+                        
+                  </div>
 
           </div>
 
     </div>
 
 </div>
+
+
+<div class="top_side">
+
+          <img src="../images/Profile.svg" alt="" srcset="">
+          <p>Nimal Kumara</p>
+
+</div>
+
+
+<script>
+    const card = document.querySelector(".card");
+    const cardToggle = document.querySelector(".toggle");
+
+    cardToggle.onclick = () => {
+	      card.classList.toggle("active");
+    };
+</script>
     
 </body>
 </html>

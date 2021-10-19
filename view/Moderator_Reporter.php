@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
     <link rel="stylesheet" href="../css/insight.css">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
 </head>
 
 <style>
@@ -26,6 +28,11 @@
   .posts_content_view_head{
     font-size:x-large;
 
+  }
+
+  .imgBx img{
+   
+    /**/
   }
 
 
@@ -106,18 +113,6 @@
         Reporters' Insights
     </div>
 
-      <div class="post_sort">
-        <div class="post_sort_bar">
-          <button onclick="showsort()" class="drop_area_sort">Select Area<img src="../images/sort.svg" alt="" srcset=""></button>
-          <div class="drop_area_sort_cont" id="sortdrop">
-            <img src="../images/search.svg" alt="" srcset="">
-            <input type="text" id="myInput" onkeyup="filterFunction()" placeholder="Search...">
-            <a href="#">Gampaha</a>
-            <a href="#">Minuwangoda</a>
-            <a href="#">Negombo</a>
-          </div>
-        </div>
-      </div>
       
      
     <form action="" class="search-bar">
@@ -131,14 +126,43 @@
 
 <div class="reporter_insight">
 
-    <div class="reporter_details">
-        <img src="../images/Profile.svg" alt="" srcset="">
-        <div class="reporter_details_body">
-            <span>Nipun Madhusanka</span> 
-            <span><img src="../images/black_star.svg" alt="" srcset=""></span>  
-        </div>
-    </div>
 
+      
+
+           <div class="card" onclick="window.open('Moderator_Reporter_insights.php','_self')">
+                <div class="content">
+                  <div class="imgBx">
+                       <img src="../images/Profile.svg" alt="" srcset="" style="transform:scale(1);">
+                  </div>
+                  <h2>Nimal Kumara</h2>
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="content">
+                  <div class="imgBx">
+                       <img src="../images/Profile.svg" alt="" srcset="" style="transform:scale(1);">
+                  </div>
+                  <h2>Kalana Pathum</h2>
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="content">
+                  <div class="imgBx">
+                       <img src="../images/Profile.svg" alt="" srcset="" style="transform:scale(1);">
+                  </div>
+                  <h2>Tashmila Kumara</h2>
+                </div>
+            </div>
+
+          
+    
+      
+
+            
 </div>
 
 
