@@ -1,3 +1,7 @@
+<?php
+  session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +13,14 @@
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
     <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="../css/select_area.css">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
 </head>
 
 <style>
   body {
-    overflow-x: hidden; /* Hide scrollbars */
+    overflow: hidden; /* Hide scrollbars */
   }
   
   .post_sort{
@@ -25,16 +32,13 @@
 
   .posts_content_view_head{
     font-size:xx-large;
-
   }
-
-
 
 </style>
 
 <body>
 
-  
+ 
 <div class="heder">
       
       <div class="left">
@@ -100,7 +104,6 @@
     </li>  
 </ul>
 
-
 <!-- Moderator Notices View -->
 
 
@@ -122,24 +125,82 @@
 
 </div>
 
+
 <div class="right_side">
 
-    <div class="top_side">
-
-          <img src="../images/Profile.svg" alt="" srcset="">
-          <p>A.A.N.Madhusanka</p>
-
-    </div>
+    
     <div class="bottom_side">
+        
+        <div class="first_box">
+            <h2>Read Area</h2>
 
-          <div class="left_box">
-            <h2>SELECT READ AREA</h2>
-             
-          </div>
+            <div class="first_box_area">
+
+            </div>
+
+        </div>
+
+        <div class="second_box">
+            <h2>Moderate Area</h2>
+
+            <div class="second_box_area">
+                <?php
+                    include '../Model/connect.php';
+                    $moderate_area_sql = "SELECT * FROM dsa ORDER BY DSA ASC";
+                   
+                    $moderate_area_statement = $conn -> query($moderate_area_sql);
+                    $moderate_area_results = $moderate_area_statement->fetchAll(PDO::FETCH_ASSOC);
+
+                    if($moderate_area_results){
+                            
+                      $i = 1;
+                      foreach($moderate_area_results as $moderate_area_result){
+                        
+                        echo " <input type='radio' id='".$i."' value='' name='dsa' disabled class='moderator_radio'> 
+                        <label for='".$i."'>".$moderate_area_result['DSA']."</label>
+                        <br>";
+                        $i = $i +1;
+                            
+                      }
+                }
+                ?>
+
+            </div>  
+
+            <div class="btn_set">
+                <button class="edit_btn_set" onclick="remove_disable()">Edit</button>
+                <br>
+                <button class="save_btn_set">Save</button>
+            </div>
+
+
+        </div>  
 
     </div>
 
 </div>
+
+
+<div class="top_side">
+
+          <img src="../images/Profile.svg" alt="" srcset="">
+          <p>A.A.N.Madhusanka</p>
+
+</div>
+
+
+<script>
+    function remove_disable(){
+      var input = document.getElementsByClassName('moderator_radio');
+      for (var i = 0; i < input.length; i++) {
+                input[i].disabled = false;
+            }
+
+      console.log("work");
+    }
+
+
+</script>
     
 </body>
 </html>
