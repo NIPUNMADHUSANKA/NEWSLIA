@@ -6,7 +6,7 @@
 	box-shadow: 1px 10px 10px rgba(0, 0, 0, 0.2);
 	padding: 20px;
 	overflow: hidden;
-    
+    margin-right: 6rem;
     margin-top: 2rem;
 }
 
@@ -51,7 +51,7 @@
 
 .reporter_insight{
     display: flex;
-    justify-content: space-between;
+    
     padding-left: 8rem;
     padding-right: 8rem;
 }
