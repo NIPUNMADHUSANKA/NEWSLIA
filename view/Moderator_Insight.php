@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
     <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
 </head>
 
 <style>
@@ -131,29 +133,72 @@
     </div>
     <div class="bottom_side">
 
-          <div class="left_box">
-            <h2>Insights</h2>
+          <div class="approvement">
 
-            <h4>Approve <span>40</span> </h4>
-                <ul>
-                    <li>News <span>10 </span> </li>
-                    <li>Articles <span>10 </span> </li>
-                    <li>Advertisements <span>10 </span> </li>
-                    <li>Important Numbers <span>10 </span> </li>
-                </ul>
+            <div class="card">
+                    <div class="content">
+                      <h2>40<br/><span>Approves</span></h2>
+                    </div>
+                    <ul class="navigation">
+                      <li>
+                        <p>News <span>10</span> </p>
+                      </li>
+                      <li>
+                        <p>Articles <span>10</span> </p>
+                      </li>
+                      <li>
+                        <p>Notices <span>5</span></p>
+                      </li>
+                      <li>
+                        <p>Job Vacancies <span>5</span></p>
+                      </li>
+                      <li>
+                        <p>Commercial Ads <span>10</span></p>
+                      </li>
+                    </ul>
+                    <div class="toggle">
+                      <i class="fa fa-chevron-down"></i>
+                    </div>
+            </div>
 
-                <h4>Complaints <span>40</span> </h4>
-                <ul>
-                    <li>News <span>10</span> </li>
-                </ul>
 
-                <h4>Precentage of news' Complaints <span>12.5%</span> </h4>
-             
+          </div>
+
+          <div class="complaints">
+
+                <div class="card card2">
+                          <div class="content">
+                            <h2>02<br/><span>Complaints</span></h2>
+                          </div>
+                        
+                  </div>
+
+          </div>
+
+          <div class="trust">
+                  <div class="card card3">
+                          <div class="content">
+                            <h2><span class="precentage">95%</span><br/> <span class="precentage">Trust for Approvement</span></h2>
+                            <br>
+                            
+                          </div>
+                        
+                  </div>
+
           </div>
 
     </div>
 
 </div>
+
+<script>
+    const card = document.querySelector(".card");
+    const cardToggle = document.querySelector(".toggle");
+
+    cardToggle.onclick = () => {
+	      card.classList.toggle("active");
+    };
+</script>
     
 </body>
 </html>
