@@ -132,6 +132,7 @@ session_start();
     width:3rem;
     font-size:small;
     padding:0.5rem;
+    font-weight:normal;
   }
 
   .prev{
@@ -139,6 +140,7 @@ session_start();
       margin-left:1rem;
       width:3rem;
       font-size:small;
+      font-weight:normal;
       padding:0.5rem;
   }
 
@@ -321,7 +323,8 @@ session_start();
               ?>
                           
               </select>
-
+              
+              
               <select name="" id="District" class="select_your_job inp1 sel sel2">
                   <option value="" class="ent">District</option>
               </select>
@@ -329,7 +332,7 @@ session_start();
               <select name="" id="DSA" class="select_your_job inp1 sel">
                   <option value="" class="ent">Divisional Secretariat Area </option>
               </select>  
-              
+                
           </ul>
 
 
@@ -470,7 +473,7 @@ session_start();
             <div>
 
  
-               <input type="text" name="sysactorusername" placeholder="NIC No" id="username" class="inp inp1">
+               <input type="text" name="sysactorusername" placeholder="NIC No" id="forget_NIC" class="inp inp1">
                <br>
               
                <input type="text" name="sysactorotp" id="otp" class="inp inp1 inpu2" placeholder="OTP Code">
@@ -512,10 +515,10 @@ session_start();
             <div name="login_form">
 
  
-               <input type="password" name="sysactor_new_psd_confirm" id="otp" class="inp inp1" placeholder="New Password">
+               <input type="password" name="sysactor_new_psd_confirm" id="New-Forget-Password" class="inp inp1" placeholder="New Password">
                <br>
                <br>
-               <input type="password" name="sysactor_new_psd_confirm" id="otp" class="inp inp1" placeholder="Retype New Password">
+               <input type="password" name="sysactor_new_psd_confirm" id="Re-New-Forget-Password" class="inp inp1" placeholder="Retype New Password">
                <br>
               
               <button class="update_btn otp_btn2" onclick="togglePopup_reset_save()">Save</button>
@@ -533,7 +536,6 @@ session_start();
 
 
 <form action="" method = "POST">
-
 
           <div class="popup popup_signup" id="popup-10">
 
@@ -554,17 +556,15 @@ session_start();
                       <p class="caption">Create your account.It's free and only takes a minute</p>
                       <div name="login_form">
 
-
-                        <input type="text" name="sysactor_first_name" id="fname" class="inp inp1 finp" placeholder="First Name" required>
+                        <input type="text" name="sysactor_first_name" id="new_fname" class="inp inp1 finp" placeholder="First Name" required>
                         
-                        <input type="text" name="sysactor_last_name" id="lname" class="inp inp1 linp" placeholder="Second Name" required>
+                        <input type="text" name="sysactor_last_name" id="new_lname" class="inp inp1 linp" placeholder="Second Name" required>
                           
-                          
-                        <input type="email" name="sysactor_email" id="email" class="inp inp1 einp" placeholder="Email Address" required>
+                        <input type="email" name="sysactor_email" id="new_email" class="inp inp1 einp" placeholder="Email Address" required>
 
-                        <input type="text" name="sysactor_mobile" id="lname" class="inp inp1 einp" placeholder="Mobile Number" required>
+                        <input type="text" name="sysactor_mobile" id="new_mobile" class="inp inp1 einp" placeholder="Mobile Number" required>
 
-                        <input type="text" name="sysactor_nic" id="lname" class="inp inp1 einp" placeholder="NIC Number" required>
+                        <input type="text" name="sysactor_nic" id="new_nic" class="inp inp1 einp" placeholder="NIC Number" required>
                         
                         <div class="update_btn next" onclick="togglePopup_sign_up_2()">Next</div>
 
@@ -604,7 +604,7 @@ session_start();
                       <div name="login_form">
 
           
-                        <select name="" id="" class="select_your_job inp1 sel">
+                        <select name="" id="" class="select_your_job inp1 sel" required>
                           <option value="0" disabled selected hidden class="ent">Your Job</option>
                           <option value="normal_user" class="ent">Normal User</option>
                           <option value="reporter" class="ent">Reporter</option>
@@ -614,7 +614,7 @@ session_start();
 
                         
                         <br>
-                        <select name="" id="Province" class="select_your_job inp1 sel sel2">
+                        <select name="" id="new_Province" class="select_your_job inp1 sel sel2" required>
                           <option value="" class="ent" disabled selected hidden>Province</option>
 
                           <?php
@@ -634,14 +634,14 @@ session_start();
                           
                         </select>
 
-                        <select name="" id="District" class="select_your_job inp1 sel sel2">
+                        <select name="" id="new_District" class="select_your_job inp1 sel sel2" required>
                           <option value="" class="ent">District</option>
                         </select>
                         
                         
                         <br>
 
-                        <select name="" id="DSA" class="select_your_job inp1 sel">
+                        <select name="" id="new_DSA" class="select_your_job inp1 sel" required>
                           <option value="" class="ent">Divisional Secretariat Area </option>
                         </select>  
 
@@ -649,8 +649,8 @@ session_start();
                         <input type="text" name="sysactor_username" id="lname" class="inp inp1 inp3" placeholder="Username" required>
 
                         <br>
-                        <input type="password" name="sysactor_pwd" id="lname" class="inp inp1 finp pass" placeholder="Password" required>
-                        <input type="password" name="sysactor_rpwd" id="lname" class="inp inp1 linp pass" placeholder="Retype Password" required>
+                        <input type="password" name="sysactor_pwd" id="new_pwd" class="inp inp1 finp pass" placeholder="Password" required>
+                        <input type="password" name="sysactor_rpwd" id="re_new_pwd" class="inp inp1 linp pass" placeholder="Retype Password" required>
                         <br>
                         
                         <input type="checkbox" id="privacy" name="privacy" value="">
@@ -705,6 +705,42 @@ session_start();
         });
       }); 
     });
+
+
+
+
+    $(document).ready(function(){
+        $("#new_Province").on("change",function(){
+          var Province = $(this).val();
+          $.ajax({
+            url :"../Control/action.php",
+            type:"POST",
+            cache:false,
+            data:{Province:Province},
+            success:function(data){
+            $("#new_District").html(data);
+            $('#new_DSA').html('<option value="">Divisional Secretariat Area</option>');
+          }
+          });
+        });
+
+
+      $("#new_District").on("change",function(){
+        var District = $(this).val();
+        $.ajax({
+            url :"../Control/action.php",
+            type:"POST",
+            cache:false,
+            data:{District:District},
+            success:function(data){
+            $("#new_DSA").html(data);
+          }
+        });
+      }); 
+    });
+
+
+    
 
 </script>
 
