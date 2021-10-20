@@ -15,6 +15,8 @@ session_start();
     <link rel="stylesheet" href="../css/popup.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/error.css">
+    <link rel="stylesheet" href="../css/password.css">
+    
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -430,6 +432,23 @@ session_start();
 </div>
 
 
+<div class="errorbox" id="error4">
+  <div class="content_erro">
+       <div class="error_head">NEWSLIA says</div>
+       <div class="error_body">Password must be at least 8 characters</div>
+       <div class="error_foot" onclick="error_signup_3()">OK</div>
+
+  </div>
+</div>
+
+<div class="errorbox" id="error5">
+  <div class="content_erro">
+       <div class="error_head">NEWSLIA says</div>
+       <div class="error_body">Confirm Password confirmation does not match.</div>
+       <div class="error_foot" onclick="error_signup_4()">OK</div>
+
+  </div>
+</div>
 
 
 <div class="popup popup_login" id="popup-7">
@@ -670,8 +689,11 @@ session_start();
                         <input type="text" name="sysactor_new_username" id="lname" class="inp inp1 inp3" placeholder="Username">
 
                         <br>
-                        <input type="password" name="sysactor_pwd" id="new_pwd" class="inp inp1 finp pass" placeholder="Password">
-                        <input type="password" name="sysactor_rpwd" id="re_new_pwd" class="inp inp1 linp pass" placeholder="Retype Password">
+                        <input type="password" name="sysactor_pwd" id="new_pwd" class="inp inp1 finp pass" placeholder="Password" maxlength="15">
+                        
+
+                        
+                        <input type="password" name="sysactor_rpwd" id="re_new_pwd" class="inp inp1 linp pass" placeholder="Retype Password" maxlength="15">
                         <br>
                         
                         <input type="checkbox" id="privacy" name="privacy" value="1">
@@ -830,6 +852,14 @@ session_start();
     function remove_error_signup_2(){
       document.getElementById("error3").classList.remove("active");
     }
+
+    function error_signup_3(){
+      document.getElementById("error4").classList.toggle("active");
+    }
+
+    function error_signup_4(){
+      document.getElementById("error5").classList.toggle("active");
+    }
 </script>
 
 <?php
@@ -887,7 +917,23 @@ session_start();
           echo '<script type="text/javascript">error_signup_1();</script>';
         }
         elseif(filter_var($email,FILTER_VALIDATE_EMAIL) && preg_match_all($regex, $mobile, $matches, PREG_SET_ORDER, 0) && preg_match('/^([0-9]{9}[x|X|v|V]|[0-9]{12})$/', $nic) ){
-          
+          if(strlen($pwd)<8){
+              echo '<script type="text/javascript">error_signup_3();</script>';
+          }
+          elseif($pwd != $repwd){
+            echo '<script type="text/javascript">error_signup_4();</script>';
+          }
+          else{
+            include '../Model/connect.php';
+            
+            $email_check_sql = "SELECT * FROM login WHERE Email = '$email'";
+            $email_check_statement = $conn -> query($email_check_sql);
+            $email_check_results = $email_check_statement->fetchAll(PDO::FETCH_ASSOC);
+            if($email_check_results){
+              echo '<script type="text/javascript">error_signup_5();</script>';  ///Start form this place email validation
+            }
+          }
+
         }
         else{
           echo '<script type="text/javascript">error_signup_2();</script>';
@@ -900,6 +946,7 @@ session_start();
   
 ?>
 
+<script src="../js/validate.js"></script>
 
     
 </body>
