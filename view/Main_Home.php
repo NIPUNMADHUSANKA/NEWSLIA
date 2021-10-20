@@ -411,6 +411,27 @@ session_start();
   </div>
 </div>
 
+<div class="errorbox" id="error2">
+  <div class="content_erro">
+       <div class="error_head">NEWSLIA says</div>
+       <div class="error_body">Please complete all required fields.</div>
+       <div class="error_foot" onclick="remove_error_signup_1()">OK</div>
+
+  </div>
+</div>
+
+<div class="errorbox" id="error3">
+  <div class="content_erro">
+       <div class="error_head">NEWSLIA says</div>
+       <div class="error_body">Invalid data insert</div>
+       <div class="error_foot" onclick="remove_error_signup_2()">OK</div>
+
+  </div>
+</div>
+
+
+
+
 <div class="popup popup_login" id="popup-7">
 
 <div class="overlay"></div>
@@ -535,7 +556,7 @@ session_start();
 
 
 
-<form action="" method = "POST">
+<form action="./Main_Home.php" method = "POST">
 
           <div class="popup popup_signup" id="popup-10">
 
@@ -556,15 +577,15 @@ session_start();
                       <p class="caption">Create your account.It's free and only takes a minute</p>
                       <div name="login_form">
 
-                        <input type="text" name="sysactor_first_name" id="new_fname" class="inp inp1 finp" placeholder="First Name" required>
+                        <input type="text" name="sysactor_first_name" id="new_fname" class="inp inp1 finp" placeholder="First Name">
                         
-                        <input type="text" name="sysactor_last_name" id="new_lname" class="inp inp1 linp" placeholder="Second Name" required>
+                        <input type="text" name="sysactor_last_name" id="new_lname" class="inp inp1 linp" placeholder="Second Name">
                           
-                        <input type="email" name="sysactor_email" id="new_email" class="inp inp1 einp" placeholder="Email Address" required>
+                        <input type="email" name="sysactor_email" id="new_email" class="inp inp1 einp" placeholder="Email Address">
 
-                        <input type="text" name="sysactor_mobile" id="new_mobile" class="inp inp1 einp" placeholder="Mobile Number" required>
+                        <input type="text" name="sysactor_mobile" id="new_mobile" class="inp inp1 einp" placeholder="Mobile Number">
 
-                        <input type="text" name="sysactor_nic" id="new_nic" class="inp inp1 einp" placeholder="NIC Number" required>
+                        <input type="text" name="sysactor_nic" id="new_nic" class="inp inp1 einp" placeholder="NIC Number">
                         
                         <div class="update_btn next" onclick="togglePopup_sign_up_2()">Next</div>
 
@@ -604,7 +625,7 @@ session_start();
                       <div name="login_form">
 
           
-                        <select name="" id="" class="select_your_job inp1 sel" required>
+                        <select name="job" id="" class="select_your_job inp1 sel">
                           <option value="0" disabled selected hidden class="ent">Your Job</option>
                           <option value="normal_user" class="ent">Normal User</option>
                           <option value="reporter" class="ent">Reporter</option>
@@ -614,7 +635,7 @@ session_start();
 
                         
                         <br>
-                        <select name="" id="new_Province" class="select_your_job inp1 sel sel2" required>
+                        <select name="province" id="new_Province" class="select_your_job inp1 sel sel2">
                           <option value="" class="ent" disabled selected hidden>Province</option>
 
                           <?php
@@ -634,31 +655,31 @@ session_start();
                           
                         </select>
 
-                        <select name="" id="new_District" class="select_your_job inp1 sel sel2" required>
+                        <select name="district" id="new_District" class="select_your_job inp1 sel sel2">
                           <option value="" class="ent">District</option>
                         </select>
                         
                         
                         <br>
 
-                        <select name="" id="new_DSA" class="select_your_job inp1 sel" required>
+                        <select name="dsa" id="new_DSA" class="select_your_job inp1 sel">
                           <option value="" class="ent">Divisional Secretariat Area </option>
                         </select>  
 
 
-                        <input type="text" name="sysactor_username" id="lname" class="inp inp1 inp3" placeholder="Username" required>
+                        <input type="text" name="sysactor_new_username" id="lname" class="inp inp1 inp3" placeholder="Username">
 
                         <br>
-                        <input type="password" name="sysactor_pwd" id="new_pwd" class="inp inp1 finp pass" placeholder="Password" required>
-                        <input type="password" name="sysactor_rpwd" id="re_new_pwd" class="inp inp1 linp pass" placeholder="Retype Password" required>
+                        <input type="password" name="sysactor_pwd" id="new_pwd" class="inp inp1 finp pass" placeholder="Password">
+                        <input type="password" name="sysactor_rpwd" id="re_new_pwd" class="inp inp1 linp pass" placeholder="Retype Password">
                         <br>
                         
-                        <input type="checkbox" id="privacy" name="privacy" value="">
+                        <input type="checkbox" id="privacy" name="privacy" value="1">
                         <label for="privacy" class="privacy_info"> I accept the Terms of Use & Privacy Policy.</label>
                         <br>
                         
                         <div class="update_btn prev" onclick="togglePopup_sign_up_3()">Prev</div> 
-                        <button class="update_btn submit send" onclick="">Submit</button>
+                        <button class="update_btn submit send" name="signup">Submit</button>
 
                         <br>
                         <br> 
@@ -793,6 +814,22 @@ session_start();
       document.getElementById("error1").classList.remove("active");
     }
     
+
+    function error_signup_1(){
+      document.getElementById("error2").classList.add("active");
+    }
+
+    function remove_error_signup_1(){
+      document.getElementById("error2").classList.remove("active");
+    }
+
+    function error_signup_2(){
+      document.getElementById("error3").classList.add("active");
+    }
+
+    function remove_error_signup_2(){
+      document.getElementById("error3").classList.remove("active");
+    }
 </script>
 
 <?php
@@ -817,6 +854,50 @@ session_start();
     }
 
   }
+
+
+  if(isset($_POST['signup'])){
+
+        $first = $_POST['sysactor_first_name'];
+        $last = $_POST['sysactor_last_name'];
+        
+        $email = $_POST['sysactor_email'];
+        $mobile = $_POST['sysactor_mobile'];
+        $nic = $_POST['sysactor_nic'];
+        
+        $job = $_POST['job'];
+        $province = $_POST['province'];
+        $district = $_POST['district'];
+        $dsa = $_POST['dsa'];
+
+        $username = $_POST['sysactor_new_username'];
+
+        $pwd = $_POST['sysactor_pwd'];
+        $repwd = $_POST['sysactor_rpwd'];
+
+        $privacy = $_POST['privacy'];
+
+
+        $regex = '/^(?:0|94|\+94)?(?:(?P<area>11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|912)(?P<land_carrier>0|2|3|4|5|7|9)|7(?P<mobile_carrier>0|1|2|4|5|6|7|8)\d)\d{6}$/';  
+   
+
+        if (empty($first) || empty($last) || empty($email) || empty($mobile) || empty($nic) || empty($job) || empty($province) 
+        || empty($district) || empty($dsa) || empty($username) || empty($pwd) || empty($repwd) || empty($privacy))
+        {
+          echo '<script type="text/javascript">error_signup_1();</script>';
+        }
+        elseif(filter_var($email,FILTER_VALIDATE_EMAIL) && preg_match_all($regex, $mobile, $matches, PREG_SET_ORDER, 0) && preg_match('/^([0-9]{9}[x|X|v|V]|[0-9]{12})$/', $nic) ){
+          
+        }
+        else{
+          echo '<script type="text/javascript">error_signup_2();</script>';
+        }
+
+
+        
+
+  }
+  
 ?>
 
 
