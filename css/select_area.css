@@ -8,7 +8,20 @@
 }
 
 .second_box{
-    margin-left: 28rem;
+    margin-left: 5rem;
+}
+
+.first_box{
+    margin-left: 1rem;
+}
+
+.first_box_area{
+    width:320px;
+    height:300px;
+    margin-top:1rem;
+    overflow: hidden;
+    overflow-y:scroll;
+    margin-left: 1rem;
 }
 
 .second_box_area{

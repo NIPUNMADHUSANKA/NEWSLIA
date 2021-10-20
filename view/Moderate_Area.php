@@ -14,8 +14,7 @@
     <link rel="stylesheet" href="../css/search.css">
     <link rel="stylesheet" href="../css/profile.css">
     <link rel="stylesheet" href="../css/select_area.css">
-    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+   
 </head>
 
 <style>
@@ -136,7 +135,34 @@
 
             <div class="first_box_area">
 
+                    <?php
+                        include '../Model/connect.php';
+                        $read_province_area_sql = "SELECT * FROM dsa ORDER BY DSA ASC";
+                      
+                        $read_province_area_statement = $conn -> query($read_province_area_sql);
+                        $read_province_area_results = $read_province_area_statement->fetchAll(PDO::FETCH_ASSOC);
+
+                        if($read_province_area_results){
+                                
+                          $i = 350;
+                          foreach($read_province_area_results as $read_province_area_result){
+                            
+                            echo " <input type='checkbox' id='".$i."' value='' name='dsa' disabled class='moderator_read_radio'> 
+                            <label for='".$i."'>".$read_province_area_result['DSA']."</label>
+                            <br>";
+                            
+                            $i = $i +1;  
+                          }
+                    }
+                    ?>
+
             </div>
+
+                <div class="btn_set">
+                    <button class="edit_btn_set" onclick="remove_read_disable()">Edit</button>
+                    <br>
+                    <button class="save_btn_set">Save</button>
+               </div>
 
         </div>
 
@@ -155,12 +181,30 @@
                             
                       $i = 1;
                       foreach($moderate_area_results as $moderate_area_result){
+
+
+                        $system_actor_id = $_SESSION['System_Actor_ID'];
                         
-                        echo " <input type='radio' id='".$i."' value='' name='dsa' disabled class='moderator_radio'> 
-                        <label for='".$i."'>".$moderate_area_result['DSA']."</label>
-                        <br>";
-                        $i = $i +1;
-                            
+                        $moderate_area_check_sql = "SELECT * FROM moderate_area WHERE (System_Actor_Id = '$system_actor_id') ";
+                        $moderate_area_check_statement = $conn -> query($moderate_area_check_sql);
+                        $moderate_area_check_results = $moderate_area_check_statement->fetchAll(PDO::FETCH_ASSOC);
+
+                        if($moderate_area_check_results){
+                          foreach($moderate_area_check_results as $moderate_area_check_result){
+                            if($moderate_area_check_result['Area'] == $moderate_area_result['DSA']){
+                              echo " <input type='radio' id='".$i."' value='' name='dsa' disabled class='moderator_radio' checked> 
+                              <label for='".$i."'>".$moderate_area_result['DSA']."</label>
+                              <br>";
+                            }
+                            else{
+                              echo " <input type='radio' id='".$i."' value='' name='dsa' disabled class='moderator_radio'> 
+                              <label for='".$i."'>".$moderate_area_result['DSA']."</label>
+                              <br>";
+                            }
+
+                          }
+                        }
+                        $i = $i +1;   
                       }
                 }
                 ?>
@@ -195,8 +239,14 @@
       for (var i = 0; i < input.length; i++) {
                 input[i].disabled = false;
             }
+    }
 
-      console.log("work");
+    function remove_read_disable(){
+      var input = document.getElementsByClassName('moderator_read_radio');
+      for (var i = 0; i < input.length; i++) {
+                input[i].disabled = false;
+                
+            }
     }
 
 
