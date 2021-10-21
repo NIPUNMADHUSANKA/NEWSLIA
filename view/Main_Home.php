@@ -501,8 +501,8 @@ session_start();
 <div class="errorbox" id="error11">
   <div class="content_erro">
        <div class="error_head">NEWSLIA says</div>
-       <div class="error_body" style="color:#555;">Congratulations,</div>
-       <div class="error_foot" onclick="signup_msg2()" style="margin-top:-0.15rem;">OK</div>
+       <div class="error_body" style="color:#555;">Congratulations, Already have recorded your data,we will evaluate them and inform you later. </div>
+       <div class="error_foot" onclick="signup_msg2()" style="margin-top:0.1rem;margin-right:1rem;">OK</div>
 
   </div>
 </div>

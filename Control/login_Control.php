@@ -78,7 +78,7 @@ function signup($first,$last,$email,$mobile,$nic,$job,$dsa,$username_new,$pwd){
         }
     }
 
-    $TYPE = strtoupper(substr($job,0));
+    $TYPE = strtoupper($job);
     $stmt = $conn->prepare("INSERT INTO `system_actor` VALUES(?,?,?,?,?,?,?,?)");
     $stmt->execute([$ID,$first,$last,$username_new,$nic,$mobile,$dsa,$TYPE]);
 
@@ -96,11 +96,11 @@ function signup($first,$last,$email,$mobile,$nic,$job,$dsa,$username_new,$pwd){
     echo '<script>alert("'.$TYPE.'")</script>';
 
 
-    if($TYPE == 'M'){
+    if($TYPE == 'MODERATOR'){
         $moderate_stmt = $conn->prepare("INSERT INTO `moderate_area` VALUES(?,?)");
         $moderate_stmt->execute([$ID,$dsa]);
     }
-    elseif($TYPE == 'R'){
+    elseif($TYPE == 'REPORTER'){
         $report_stmt = $conn->prepare("INSERT INTO `report_area` VALUES(?,?)");
         $report_stmt->execute([$ID,$dsa]);
     }
@@ -108,7 +108,7 @@ function signup($first,$last,$email,$mobile,$nic,$job,$dsa,$username_new,$pwd){
 
     $login_stmt = $conn->prepare("INSERT INTO `login` VALUES(?,?,?,?,?,?)");
 
-    if( $TYPE == 'M' || $TYPE == 'A'){
+    if( $TYPE == "MODERATOR" || $TYPE == "ADMIN"){
         $login_stmt->execute([$email,$ID,$pwd,0,0,0]); // system staff
         return "Staff";
     }
