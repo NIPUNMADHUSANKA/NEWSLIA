@@ -62,6 +62,68 @@ function login($email,$pwd){
 
 
 
+function signup($first,$last,$email,$mobile,$nic,$job,$dsa,$username_new,$pwd){
+
+    include '../Model/connect.php';
+    
+    $last_value_sql = "SELECT System_Actor_Id FROM system_actor ORDER BY System_Actor_Id DESC LIMIT 1";
+    $last_value_statement = $conn -> query($last_value_sql);
+    $last_value_results = $last_value_statement->fetchAll(PDO::FETCH_ASSOC);
+        
+    if($last_value_results){
+        foreach($last_value_results as $last_value_result){
+            $connect = substr($last_value_result['System_Actor_Id'],5)+1;
+            $ID = "NL-M-".$connect;
+            //echo '<script>alert("'.$ID.'")</script>'; 
+        }
+    }
+
+    $TYPE = strtoupper(substr($job,0));
+    $stmt = $conn->prepare("INSERT INTO `system_actor` VALUES(?,?,?,?,?,?,?,?)");
+    $stmt->execute([$ID,$first,$last,$username_new,$nic,$mobile,$dsa,$TYPE]);
+
+    
+    $read_stmt = $conn->prepare("INSERT INTO `read_area` VALUES(?,?)");
+    $read_stmt->execute([$ID,$dsa]);
+
+    $post_stmt = $conn->prepare("INSERT INTO `post_type` VALUES(?,?,?,?,?,?)");
+    $post_stmt->execute([$ID,1,1,1,1,1]);
+
+    $new_type_stmt = $conn->prepare("INSERT INTO `news_type` VALUES(?,?,?,?,?,?,?,?,?)");
+    $new_type_stmt->execute([$ID,1,1,1,1,1,1,1,1]);
+
+
+    echo '<script>alert("'.$TYPE.'")</script>';
+
+
+    if($TYPE == 'M'){
+        $moderate_stmt = $conn->prepare("INSERT INTO `moderate_area` VALUES(?,?)");
+        $moderate_stmt->execute([$ID,$dsa]);
+    }
+    elseif($TYPE == 'R'){
+        $report_stmt = $conn->prepare("INSERT INTO `report_area` VALUES(?,?)");
+        $report_stmt->execute([$ID,$dsa]);
+    }
+
+
+    $login_stmt = $conn->prepare("INSERT INTO `login` VALUES(?,?,?,?,?,?)");
+
+    if( $TYPE == 'M' || $TYPE == 'A'){
+        $login_stmt->execute([$email,$ID,$pwd,0,0,0]); // system staff
+        return "Staff";
+    }
+    else{
+        $login_stmt->execute([$email,$ID,$pwd,0,0,1]); // system user
+        return "User";
+    }
+
+    
+
+
+
+}
+
+
 
 
 

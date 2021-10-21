@@ -451,6 +451,64 @@ session_start();
 </div>
 
 
+<div class="errorbox" id="error6">
+  <div class="content_erro">
+       <div class="error_head">NEWSLIA says</div>
+       <div class="error_body">Sorry... Your email has already been taken.</div>
+       <div class="error_foot" onclick="error_signup_5()">OK</div>
+
+  </div>
+</div>
+
+<div class="errorbox" id="error7">
+  <div class="content_erro">
+       <div class="error_head">NEWSLIA says</div>
+       <div class="error_body">Your mobile number has already been taken.</div>
+       <div class="error_foot" onclick="error_signup_6()">OK</div>
+
+  </div>
+</div>
+
+<div class="errorbox" id="error8">
+  <div class="content_erro">
+       <div class="error_head">NEWSLIA says</div>
+       <div class="error_body">Your NIC number has already been taken.</div>
+       <div class="error_foot" onclick="error_signup_7()">OK</div>
+
+  </div>
+</div>
+
+
+<div class="errorbox" id="error9">
+  <div class="content_erro">
+       <div class="error_head">NEWSLIA says</div>
+       <div class="error_body">Your Username has already been taken.</div>
+       <div class="error_foot" onclick="error_signup_8()">OK</div>
+
+  </div>
+</div>
+
+<div class="errorbox" id="error10">
+  <div class="content_erro">
+       <div class="error_head">NEWSLIA says</div>
+       <div class="error_body" style="color:#555;">Congratulations, your account has been successfully created.</div>
+       <div class="error_foot" onclick="signup_msg1()" style="margin-top:-0.15rem;">OK</div>
+
+  </div>
+</div>
+
+
+<div class="errorbox" id="error11">
+  <div class="content_erro">
+       <div class="error_head">NEWSLIA says</div>
+       <div class="error_body" style="color:#555;">Congratulations,</div>
+       <div class="error_foot" onclick="signup_msg2()" style="margin-top:-0.15rem;">OK</div>
+
+  </div>
+</div>
+
+
+
 <div class="popup popup_login" id="popup-7">
 
 <div class="overlay"></div>
@@ -686,7 +744,7 @@ session_start();
                         </select>  
 
 
-                        <input type="text" name="sysactor_new_username" id="lname" class="inp inp1 inp3" placeholder="Username">
+                        <input type="text" name="sysactor_new_username" id="new_uname" class="inp inp1 inp3" placeholder="Username">
 
                         <br>
                         <input type="password" name="sysactor_pwd" id="new_pwd" class="inp inp1 finp pass" placeholder="Password" maxlength="15">
@@ -860,6 +918,33 @@ session_start();
     function error_signup_4(){
       document.getElementById("error5").classList.toggle("active");
     }
+
+    function error_signup_5(){
+      document.getElementById("error6").classList.toggle("active");
+    }
+
+    function error_signup_6(){
+      document.getElementById("error7").classList.toggle("active");
+    }
+
+    function error_signup_7(){
+      document.getElementById("error8").classList.toggle("active");
+    }
+
+    function error_signup_8(){
+      document.getElementById("error9").classList.toggle("active");
+    }
+
+    function signup_msg1(){
+      document.getElementById("error10").classList.toggle("active");
+    }
+
+    function signup_msg2(){
+      document.getElementById("error11").classList.toggle("active");
+    }
+
+    
+
 </script>
 
 <?php
@@ -900,19 +985,21 @@ session_start();
         $district = $_POST['district'];
         $dsa = $_POST['dsa'];
 
-        $username = $_POST['sysactor_new_username'];
+        $username_new = $_POST['sysactor_new_username'];
 
         $pwd = $_POST['sysactor_pwd'];
         $repwd = $_POST['sysactor_rpwd'];
 
         $privacy = $_POST['privacy'];
 
+        //echo '<script>alert("'.$username_new.'")</script>'; 
+
 
         $regex = '/^(?:0|94|\+94)?(?:(?P<area>11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|912)(?P<land_carrier>0|2|3|4|5|7|9)|7(?P<mobile_carrier>0|1|2|4|5|6|7|8)\d)\d{6}$/';  
    
 
         if (empty($first) || empty($last) || empty($email) || empty($mobile) || empty($nic) || empty($job) || empty($province) 
-        || empty($district) || empty($dsa) || empty($username) || empty($pwd) || empty($repwd) || empty($privacy))
+        || empty($district) || empty($dsa) || empty($username_new) || empty($pwd) || empty($repwd) || empty($privacy))
         {
           echo '<script type="text/javascript">error_signup_1();</script>';
         }
@@ -926,12 +1013,57 @@ session_start();
           else{
             include '../Model/connect.php';
             
+            //Email
             $email_check_sql = "SELECT * FROM login WHERE Email = '$email'";
             $email_check_statement = $conn -> query($email_check_sql);
             $email_check_results = $email_check_statement->fetchAll(PDO::FETCH_ASSOC);
+
+            //Mobile
+            $mobile_check_sql = "SELECT * FROM system_actor WHERE Mobile = '$mobile'";
+            $mobile_check_statement = $conn -> query($mobile_check_sql);
+            $mobile_check_results = $mobile_check_statement->fetchAll(PDO::FETCH_ASSOC);
+
+
+            //NIC
+            $nic_check_sql = "SELECT * FROM system_actor WHERE NIC = '$nic'";
+            $nic_check_statement = $conn -> query($nic_check_sql);
+            $nic_check_results = $nic_check_statement->fetchAll(PDO::FETCH_ASSOC);
+
+
+            //Username
+            $username_check_sql = "SELECT * FROM system_actor WHERE UserName = '$username_new'";
+            $username_check_statement = $conn -> query($username_check_sql);
+            $username_check_results = $username_check_statement->fetchAll(PDO::FETCH_ASSOC);
+
+
             if($email_check_results){
-              echo '<script type="text/javascript">error_signup_5();</script>';  ///Start form this place email validation
+              echo '<script type="text/javascript">error_signup_5();</script>';  
             }
+            elseif($mobile_check_results){
+              echo '<script type="text/javascript">error_signup_6();</script>';  
+            }
+            elseif($nic_check_results){
+              echo '<script type="text/javascript">error_signup_7();</script>';  
+            }
+
+            elseif($username_check_results){
+              echo '<script type="text/javascript">error_signup_8();</script>';  
+            }
+
+            else{
+              include '../Control/login_Control.php';
+              $signup_connection =  signup($first,$last,$email,$mobile,$nic,$job,$dsa,$username_new,$pwd);
+              echo '<script>alert("'.$signup_connection.'")</script>';
+              if ($signup_connection == "User"){
+                echo '<script type="text/javascript">signup_msg1();</script>'; 
+              }
+              elseif ($signup_connection == "Staff"){
+                echo '<script type="text/javascript">signup_msg2();</script>'; 
+              }
+
+            }
+
+
           }
 
         }
