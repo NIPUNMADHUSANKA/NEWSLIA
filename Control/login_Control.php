@@ -29,7 +29,7 @@ function login($email,$pwd){
                 
                 $statement = $conn->prepare($sql);
                 $statement->bindParam(':id', $systemuser['id']);
-                $statement->bindParam(':active', $publisher['active']);
+                $statement->bindParam(':active', $systemuser['active']);
 
                 if ($statement->execute()) {
                     echo 'The deactivation has been updated successfully!';
