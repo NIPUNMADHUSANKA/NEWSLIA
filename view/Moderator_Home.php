@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/error.css">
     <link rel="stylesheet" href="../css/main_home.css">
+    <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
 </head>
 
 <style>

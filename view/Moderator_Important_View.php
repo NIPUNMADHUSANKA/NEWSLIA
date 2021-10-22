@@ -7,6 +7,7 @@
     <title>Moderator_Home</title>
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/moderator.css">
+    <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
 </head>
 
 <style>

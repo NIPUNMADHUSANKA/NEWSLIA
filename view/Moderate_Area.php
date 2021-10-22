@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../css/search.css">
     <link rel="stylesheet" href="../css/profile.css">
     <link rel="stylesheet" href="../css/select_area.css">
+    <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
    
 </head>
 
