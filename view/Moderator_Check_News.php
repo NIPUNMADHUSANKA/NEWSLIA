@@ -23,7 +23,7 @@
       padding-left:80px;
   }
   .box-container{
-    height: 240px;
+    height: 230px;
   }
 
   .more{
@@ -55,7 +55,7 @@
 
   .box-container{
     transform: scale(1.6);
-    margin-top: 3rem;
+    margin-top: 5rem;
     margin-left: 1.8rem;
   }
 
@@ -70,11 +70,12 @@
   .box-read{
     width:800px;
     height:400px;
-    margin-top:-3rem;
-    padding:1rem;
+    margin-top:-1rem;
     overflow: hidden;
     overflow-y:scroll;
+    margin-left:30rem;
   }
+
 
   .box-read h2{
     font-size:1.8rem;
@@ -94,20 +95,42 @@
 
   .button-set{
     margin-top:-13rem;
-    margin-left:5rem;
+    margin-left:3rem;
     display:flex;
     flex-direction:row;
   }
 
   .view_btn{
     width:100px;
+    height:30px;
     margin-top:20%;
-    margin-left:35rem;
+    margin-left:15rem;
     box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.4);
+    transition: 0.5s ease;
+  }
+
+  .view_btn:hover{
+    transform:scale(1.2);
   }
 
   .update_btn{
     color:#222;
+    margin-top:15rem;
+  }
+
+  .publish_btn{
+    background-color: #ACE0B8;;
+    color: #444;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    width: 50px;
+    margin-top: 20px;
+    margin-left: 5rem;
   }
 
   .remove_btn{
@@ -287,6 +310,7 @@
         <div class="view_btn update_btn" onclick="togglePopup_select_option()">Accept</div>
         <div class="view_btn remove_btn">Reject</div>
     </div>
+    
 </div>
 
 
@@ -351,7 +375,7 @@
                      <input type="date" name="" id="new-date" class="inp inp1" value="2022-01-17">
                      <br>
 
-                     <div class="update_btn" onclick="window.open('Moderator_Pending.php','_self')">Publish</div>
+                     <div class="publish_btn" onclick="window.open('Moderator_Pending.php','_self')">Publish</div>
               
                    </form>
                </div>

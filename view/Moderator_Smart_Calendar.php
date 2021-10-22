@@ -14,7 +14,7 @@
 
 <style>
   body {
-    overflow-x: hidden; /* Hide scrollbars */
+    overflow: hidden; /* Hide scrollbars */
   }
   .box_head:hover img{
     opacity: 1;
@@ -22,8 +22,19 @@
   .post_sort{
       padding-left:80px;
   }
+  
   .box-container{
     height: 240px;
+  }
+
+  .box-container:hover{
+    transform: scale(1.6);
+  }
+
+  .box-container{
+    transform: scale(1.6);
+    margin-top: 3rem;
+    margin-left: 1.8rem;
   }
 
   .more{
@@ -48,16 +59,6 @@
     cursor: pointer;
   }
 
-  .box-container:hover{
-    transform: scale(1.6);
-  }
-
-  .box-container{
-    transform: scale(1.6);
-    margin-top: 3rem;
-    margin-left: 1.8rem;
-  }
-
   .box_body h3{
       font-size:0.9rem;
   }
@@ -68,11 +69,12 @@
 
   .box-read{
     width:800px;
-    height:400px;
-    margin-top:-3rem;
-    padding:1rem;
+    height:360px;
+    margin-top:-23rem;
+   
     overflow: hidden;
     overflow-y:scroll;
+    margin-left:30rem;
   }
 
   .box-read h2{
@@ -92,7 +94,7 @@
   }
 
   .button-set{
-    margin-top:-12rem;
+    margin-top:-13rem;
     margin-left:3rem;
     display:flex;
     flex-direction:row;
@@ -103,6 +105,11 @@
     margin-top:20%;
     margin-left:40rem;
     box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.4);
+    transition: 0.5s ease;
+  }
+
+  .view_btn:hover{
+    transform:scale(1.2);
   }
 
   .update_btn{
@@ -119,23 +126,30 @@
   .close_btn{
     position: flex;
     margin-left:95%;
-    margin-top:1%;
+    margin-top:1%; 
+    cursor: pointer;
   }
-
-
-
+  .close_btn img{
+    width:30px;
+  }
   .popup .content{
     width:330px;
     height: 270px;
   }
-
   .inp1{
     margin-left:-0.5rem;
   }
-
   .update_btn{
     text-align:center;
   }
+  .body_information{
+    display:flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    margin-top:1rem;
+  }
+
+ 
 
 
 </style>
@@ -211,7 +225,7 @@
 <!-- Moderator Notices View -->
 
 <div class="close_btn">
-    <img src="../images/close_btn.svg" alt="" srcset="">
+    <img src="../images/Close_window.png" alt="" srcset="" onclick="window.open('Moderator_View_News.php','_self')">
 </div>
 
 

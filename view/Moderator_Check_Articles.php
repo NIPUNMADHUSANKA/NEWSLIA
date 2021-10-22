@@ -54,7 +54,7 @@
 
   .box-container{
     transform: scale(1.6);
-    margin-top: 3rem;
+    margin-top: 5rem;
     margin-left: 1.8rem;
   }
 
@@ -69,10 +69,10 @@
   .box-read{
     width:800px;
     height:400px;
-    margin-top:-3rem;
-    padding:1rem;
+    margin-top:-1rem;
     overflow: hidden;
     overflow-y:scroll;
+    margin-left:30rem;
   }
 
   .box-read h2{
@@ -100,13 +100,20 @@
 
   .view_btn{
     width:100px;
+    height:30px;
     margin-top:20%;
-    margin-left:35rem;
+    margin-left:15rem;
     box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.4);
+    transition: 0.5s ease;
+  }
+
+  .view_btn:hover{
+    transform:scale(1.2);
   }
 
   .update_btn{
     color:#222;
+    margin-top:15rem;
   }
 
   .remove_btn{

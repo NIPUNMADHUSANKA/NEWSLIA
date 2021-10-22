@@ -80,7 +80,16 @@
 input{
   padding-left:5px;
 }
- 
+
+
+.box-container{
+    height: 270px;
+  }
+
+  .box_head img{
+    height:50%;
+  }
+
 </style>
 
 <body>
