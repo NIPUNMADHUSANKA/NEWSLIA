@@ -1,3 +1,7 @@
+<?php
+  session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +20,7 @@
 
 <style>
   body {
-   overflow-x: hidden; /* Hide scrollbars */
+   overflow: hidden; /* Hide scrollbars */
   }
   
   .post_sort{
@@ -35,12 +39,22 @@
     margin-left:3rem;
     border-top:1px solid #333;
     width:95%;
-    margin-top:12%;
+    margin-top:15%;
   }
 
   .top_side{
-    margin-top:-3%;
+    margin-top:-0%;
   }
+
+  .card{
+    transition:0.5s ease;
+    cursor: pointer;
+  }
+
+  .card:hover{
+    transform:scale(1.2);
+  }
+
   .card.active {
 	height: 260px;
 }
@@ -67,6 +81,36 @@
     width:30px;
   }
 
+  .button-set{
+    margin-top:1rem;
+    margin-left:74rem;
+    position:fixed;
+  }
+
+  .view_btn{
+    width:100px;
+    height:20px;
+    margin-top:20%;
+    margin-left:15rem;
+    margin-right:5rem;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.4);
+    transition: 0.5s ease;
+    float:right;
+    
+  }
+
+  .view_btn:hover{
+    transform:scale(1.2);
+  }
+
+  .back_btn{
+    margin-top:15.2rem;
+    background-color:#ADD8E6;
+    margin-left:3rem;
+    color:#222;
+   
+  }
+
 </style>
 
 <body>
@@ -83,16 +127,16 @@
       </div>
 
       <div class="right">
-          <img src="../images/Profile.svg" alt="" srcset="">
-          <p>A.A.N.Madhusanka <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
-          <ul class="profile_menu">
-              <li><a href="#"> <img src="../images/other/profile.png" alt="" srcset=""> My Profile</a></li>
-              <li><a href="#"><img src="../images/other/location.png" alt="" srcset="">Select Area</a></li>
-              <li><a href="#"><img src="../images/other/type.png" alt="" srcset="">Select Type</a></li>
-              <li><a href="Moderator_Insight.php"><img src="../images/other/insights.png" alt="" srcset="">Insights</a></li>
-              <li><a href="#"><img src="../images/other/deactivate.png" alt="" srcset="">Deactivate</a></li>
-              <li><a href="#"><img src="../images/other/logout.png" alt="" srcset="">Log Out</a></li>
-          </ul>
+            <img src="../images/Profile.svg" alt="" srcset="">
+            <p><?php   echo $_SESSION['FName']." ".$_SESSION['LName']; ?> <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
+            <ul class="profile_menu">
+                <li><a href="#"> <img src="../images/other/profile.png" alt="" srcset=""> My Profile</a></li>
+                <li><a href="Moderate_Area.php"><img src="../images/other/location.png" alt="" srcset="">Select Area</a></li>
+                <li><a href="Moderate_Post_Type.php"><img src="../images/other/type.png" alt="" srcset="">Select Type</a></li>
+                <li><a href="Moderator_Insight.php"><img src="../images/other/insights.png" alt="" srcset="">Insights</a></li>
+                <li><a href="#"><img src="../images/other/deactivate.png" alt="" srcset="">Deactivate</a></li>
+                <li><a href="logout.php"><img src="../images/other/logout.png" alt="" srcset="">Log Out</a></li>
+            </ul>
       </div>
 
 </div>
@@ -159,12 +203,6 @@
 </div>
 -->
 
-<div class="close_btn">
-    <img src="../images/Close_window.png" alt="" srcset="" onclick="window.open('Moderator_Reporter.php','_self')">
-</div>
-
-
-
 <div class="right_side">
 
     
@@ -174,7 +212,7 @@
 
             <div class="card">
                     <div class="content">
-                      <h2>20<br/><span>Accept</span></h2>
+                      <h2>20<br/><span>Published</span></h2>
                     </div>
                     <ul class="navigation">
                       <li>
@@ -240,7 +278,13 @@
 
           </div>
 
+          
+
     </div>
+
+                <div class="button-set">
+                    <div class="view_btn back_btn" onclick="window.open('Moderator_Reporter.php','_self')">Back</div>
+                </div>
 
 </div>
 

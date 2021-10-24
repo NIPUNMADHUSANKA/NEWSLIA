@@ -1,0 +1,90 @@
+<div class="topic">
+                <h3>Select View Area</h3>
+            </div>
+
+
+            <div class="arealist">
+                <input type="checkbox"><label>
+                    <h4>Western Province</h4>
+                </label><br>
+                <input type="checkbox"><label>
+                    <h5>Gampaha District</h5>
+                </label>
+
+                <ol>
+                    <li><input type="checkbox"><label>Attanagalle</label></li>
+                    <li><input type="checkbox"><label>Biyagama</label></li>
+                    <li><input type="checkbox"><label>Divulapitiya</label></li>
+                    <li><input type="checkbox"><label>Dompe</label></li>
+                    <li><input type="checkbox"><label>Gampaha</label></li>
+                    <li><input type="checkbox"><label>Ja-Ela</label></li>
+                    <li><input type="checkbox"><label>Katana</label></li>
+                    <li><input type="checkbox"><label>Kelaniya</label></li>
+                    <li><input type="checkbox"><label>Mahara</label></li>
+                    <li><input type="checkbox"><label>Minuwangoda</label></li>
+                    <li><input type="checkbox"><label>Mirigma</label></li>
+                    <li><input type="checkbox"><label>Negombo</label></li>
+                    <li><input type="checkbox"><label>Wattala</label></li>
+                </ol>
+
+            </div>
+
+            <div class="btns">
+                <button type="button" class="editbtn">Edit</button>
+                <button type="button" class="savebtn">Save</button>
+            </div>
+
+
+
+    .topic {
+        position: relative;
+        width: 300px;
+        height: 23px;
+        left: 86px;
+        margin-top: 30px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 23px;
+    }
+
+
+    .arealist {
+        position: relative;
+        width: 30%;
+        padding: 20px;
+        margin: auto;
+        height: 350px;
+        overflow-y: scroll;
+    }
+
+    .arealist input {
+        float: right;
+    }
+
+
+    .arealist h4 {
+        font-size: 15px;
+        position: relative;
+        left: -20px;
+    }
+
+    .arealist h5 {
+        font-size: 13px;
+        color: #433D3D;
+        position: relative;
+        left: -7px;
+
+    }
+
+    .arealist li {
+        display: list-item;
+        list-style: inside;
+        list-style-type: decimal;
+        margin-top: 10px;
+        font-size: 13px;
+    }
+
+
+

@@ -54,22 +54,158 @@
     line-height: 21px;
   }
 
-  .posts_content_view_head{
-    font-size:xx-large;
+  .prof_img input {
+    background-color: #E3E3E3;
+    position: relative;
+    width: 32px;
+    height: 32px;
+    left: 552px;
+    top: 24px;
   }
-  .right_side{
-      margin-top:0rem;
-      margin-left:1.7rem;
+
+  .columns_below2 {
+    position: relative;
+    width: 50%;
+    float: right;
+    margin-top: 0%;
+    top: -349px;
   }
 
-  .first_box_area{
-    height:250px;
-   }
+  .columns_below1 {
+    position: relative;
+    width: 50%;
+    float: left;
+    padding: 30px 40px;
+  }
 
-.second_box_area{
-    height:250px;
-}
+  .columns_below1 h3 {
+    position: relative;
+    width: 59px;
+    height: 23px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 23px;
 
+  }
+
+  /* .label{
+    position: relative;
+    width: 74px;
+    height: 18px;
+/* left: 296px;*/
+  /* top: 17px; 
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+
+
+    color: #565555;
+} */
+  */
+  /* .ans{
+    position: relative;
+width: 36px;
+height: 16px;
+/* left: 316px;
+top: 463px; */
+
+  /* font-family: Roboto;
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 16px;
+
+color: #463F3F; */
+  /* }  */
+
+
+
+  .formp1 {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 40px;
+  }
+
+  .part {
+    margin: 20px 0px;
+  }
+
+  .label {
+    margin-bottom: 10px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+
+
+    color: #565555;
+  }
+
+  .ans {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    padding-left: 22px;
+  }
+
+  .part hr {
+    margin-left: 4px;
+    width: 90%;
+  }
+
+  .part img {
+    position: relative;
+    height: 25px;
+    width: 15px;
+    float: right;
+    right: 50px;
+    /* right: 44.1%; */
+    /* top: 66.14%;
+bottom: 31.43%; */
+  }
+
+  .camera {
+    background-color: #E3E3E3;
+    position: relative;
+    width: 32px;
+    height: 32px;
+    left: 552px;
+    top: 24px;
+  }
+
+  .fa-camera:before {
+    content: "\f030";
+    color: black;
+  }
+
+  .column1 tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  .profile-pen {
+
+    position: relative;
+    height: 25px;
+    width: 15px;
+    float: right;
+    right: 50px;
+    /* right: 44.1%; */
+
+  }
+
+  .fa-pen:before {
+    content: "\f304";
+    color: black;
+  }
 </style>
 
 
@@ -148,8 +284,8 @@
 
   <div class="icon_left_side">
 
-  <li><a href="Moderator_Profile.php"><img src="../images/other/profile.png" alt="" srcset=""><p>My Profile</p></a></li>
-  <li><a href="Moderate_Area.php"><img src="../images/other/location.png" alt="" srcset=""><p style="color: #45ADA8EB;">Select Area</p></a></li>
+  <li><a href="Moderator_Profile.php"><img src="../images/other/profile.png" alt="" srcset=""><p style="color: #45ADA8EB;">My Profile</p></a></li>
+  <li><a href="Moderate_Area.php"><img src="../images/other/location.png" alt="" srcset=""><p>Select Area</p></a></li>
   <li><a href="Moderate_Post_Type.php"><img src="../images/other/type.png" alt="" srcset=""><p>Select Type</p></a></li>
   <li><a href="Moderator_Insight.php"><img src="../images/other/insights.png" alt="" srcset=""><p>Insights</p></a></li>
   <li><a href="#"><img src="../images/other/deactivate.png" alt="" srcset=""><p>Deactivate</p></a></li>
@@ -167,111 +303,70 @@
 
 <div class="prof_img">
   <img src="../images/Profile.svg" style="margin-top:-2rem;">
+  <a href="#" class="camera"><i class="fas fa-camera fa-2x"></i></a>
   <br>
   <h3>Nipun Madhusanka</h3>
 
   <hr style="margin-top: 50px;margin-left:2rem;">
 </div>
 
-<div class="right_side">
+<div class="columns_below1">
+  <h3>Profile</h3>
 
-    
-    <div class="bottom_side">
-        
-        <div class="first_box">
-            <h2>Read Area</h2>
-
-            <div class="first_box_area">
-
-                    <?php
-                        include '../Model/connect.php';
-                        $read_province_area_sql = "SELECT * FROM dsa ORDER BY DSA ASC";
-                      
-                        $read_province_area_statement = $conn -> query($read_province_area_sql);
-                        $read_province_area_results = $read_province_area_statement->fetchAll(PDO::FETCH_ASSOC);
-
-                        if($read_province_area_results){
-                                
-                          $i = 350;
-                          foreach($read_province_area_results as $read_province_area_result){
-                            
-                            echo " <input type='checkbox' id='".$i."' value='' name='dsa' disabled class='moderator_read_radio'> 
-                            <label for='".$i."'>".$read_province_area_result['DSA']."</label>
-                            <br>";
-                            
-                            $i = $i +1;  
-                          }
-                    }
-                    ?>
-
-            </div>
-
-                <div class="btn_set">
-                    <button class="edit_btn_set" onclick="remove_read_disable()">Edit</button>
-                    <br>
-                    <button class="save_btn_set">Save</button>
-               </div>
-
-        </div>
-
-        <div class="second_box">
-            <h2>Moderate Area</h2>
-
-            <div class="second_box_area">
-                <?php
-                    include '../Model/connect.php';
-                    $moderate_area_sql = "SELECT * FROM dsa ORDER BY DSA ASC";
-                   
-                    $moderate_area_statement = $conn -> query($moderate_area_sql);
-                    $moderate_area_results = $moderate_area_statement->fetchAll(PDO::FETCH_ASSOC);
-
-                    if($moderate_area_results){
-                            
-                      $i = 1;
-                      foreach($moderate_area_results as $moderate_area_result){
-
-
-                        $system_actor_id = $_SESSION['System_Actor_ID'];
-                        
-                        $moderate_area_check_sql = "SELECT * FROM moderate_area WHERE (System_Actor_Id = '$system_actor_id') ";
-                        $moderate_area_check_statement = $conn -> query($moderate_area_check_sql);
-                        $moderate_area_check_results = $moderate_area_check_statement->fetchAll(PDO::FETCH_ASSOC);
-
-                        if($moderate_area_check_results){
-                          foreach($moderate_area_check_results as $moderate_area_check_result){
-                            if($moderate_area_check_result['Area'] == $moderate_area_result['DSA']){
-                              echo " <input type='radio' id='".$i."' value='' name='dsa' disabled class='moderator_radio' checked> 
-                              <label for='".$i."'>".$moderate_area_result['DSA']."</label>
-                              <br>";
-                            }
-                            else{
-                              echo " <input type='radio' id='".$i."' value='' name='dsa' disabled class='moderator_radio'> 
-                              <label for='".$i."'>".$moderate_area_result['DSA']."</label>
-                              <br>";
-                            }
-
-                          }
-                        }
-                        $i = $i +1;   
-                      }
-                }
-                ?>
-
-            </div>  
-
-            <div class="btn_set">
-                <button class="edit_btn_set" onclick="remove_disable()">Edit</button>
-                <br>
-                <button class="save_btn_set">Save</button>
-            </div>
-
-
-        </div>  
-
+  <div class="formp1" style="padding: 0px 45px;">
+    <div class="part">
+      <p class="label">First Name</p>
+      <p class="ans"> Nipun <a href="#" class="profile-pen"> <i class="fas fa-pen"></i> </a></p>
+      <hr>
     </div>
-
+    <div class="part">
+      <p class="label">Last Name</p>
+      <p class="ans">Madhusanka <a href="#" class="profile-pen"> <i class="fas fa-pen"></i> </a> </p>
+      <!-- <img src="images/pen.svg"> -->
+      <hr>
+    </div>
+    <div class="part">
+      <p class="label">Divisional Secretariat Area</p>
+      <p class="ans">Minuwangoda <a href="#" class="profile-pen"> <i class="fas fa-pen"></i> </a> </p>
+      <!-- <img src="images/pen.svg"> -->
+      <hr>
+    </div>
+    <div class="part">
+      <p class="label">Mobile No.</p>
+      <p class="ans">0711737382 <a href="#" class="profile-pen"> <i class="fas fa-pen"></i> </a> </p>
+      <!-- <img src="images/pen.svg"> -->
+      <hr>
+    </div>
+  </div>
 </div>
 
+<div class="columns_below2">
+  <div class="formp1" style="padding: 35px 45px;">
+    <div class="part">
+      <p class="label">NIC No.</p>
+      <p class="ans"> 199934310393 <a href="#" class="profile-pen"> <i class="fas fa-pen"></i> </a> </p>
+      <hr>
+    </div>
+    <div class="part">
+      <p class="label">Email</p>
+      <p class="ans">nipunmadhusanka201085@gmail.com <a href="#" class="profile-pen"> <i class="fas fa-pen"></i> </a> </p>
+      <!-- <img src="images/pen.svg"> -->
+      <hr>
+    </div>
+    <div class="part">
+      <p class="label">User Name</p>
+      <p class="ans">NIPUNM <a href="#" class="profile-pen"> <i class="fas fa-pen"></i> </a> </p>
+      <!-- <img src="images/pen.svg"> -->
+      <hr>
+    </div>
+    <div class="part">
+      <p class="label">Password</p>
+      <p class="ans">******** <a href="#" class="profile-pen"> <i class="fas fa-pen"></i> </a> </p>
+      <!-- <img src="images/pen.svg"> -->
+      <hr>
+    </div>
+  </div>
+</div>
 
 </div>
 
@@ -296,6 +391,6 @@
 
 
 </script>
-   
+    
 </body>
 </html>
