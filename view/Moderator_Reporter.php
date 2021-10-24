@@ -1,3 +1,7 @@
+<?php
+  session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,11 +35,20 @@
 
   }
 
-  .imgBx img{
-   
-    /**/
+  .card{
+    transition:0.5s ease;
+  }
+  .card:hover{
+    transform:scale(1.2);
   }
 
+  .imgBx{
+    border:1px solid #333;
+  }
+
+  .imgBx img{
+    
+  }
 
 
 </style>
@@ -54,16 +67,16 @@
       </div>
 
       <div class="right">
-          <img src="../images/Profile.svg" alt="" srcset="">
-          <p>A.A.N.Madhusanka <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
-          <ul class="profile_menu">
-              <li><a href="#"> <img src="../images/other/profile.png" alt="" srcset=""> My Profile</a></li>
-              <li><a href="#"><img src="../images/other/location.png" alt="" srcset="">Select Area</a></li>
-              <li><a href="#"><img src="../images/other/type.png" alt="" srcset="">Select Type</a></li>
-              <li><a href="Moderator_Insight.php"><img src="../images/other/insights.png" alt="" srcset="">Insights</a></li>
-              <li><a href="#"><img src="../images/other/deactivate.png" alt="" srcset="">Deactivate</a></li>
-              <li><a href="#"><img src="../images/other/logout.png" alt="" srcset="">Log Out</a></li>
-          </ul>
+            <img src="../images/Profile.svg" alt="" srcset="">
+            <p><?php   echo $_SESSION['FName']." ".$_SESSION['LName']; ?> <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
+            <ul class="profile_menu">
+                <li><a href="#"> <img src="../images/other/profile.png" alt="" srcset=""> My Profile</a></li>
+                <li><a href="Moderate_Area.php"><img src="../images/other/location.png" alt="" srcset="">Select Area</a></li>
+                <li><a href="Moderate_Post_Type.php"><img src="../images/other/type.png" alt="" srcset="">Select Type</a></li>
+                <li><a href="Moderator_Insight.php"><img src="../images/other/insights.png" alt="" srcset="">Insights</a></li>
+                <li><a href="#"><img src="../images/other/deactivate.png" alt="" srcset="">Deactivate</a></li>
+                <li><a href="logout.php"><img src="../images/other/logout.png" alt="" srcset="">Log Out</a></li>
+            </ul>
       </div>
 
 </div>
@@ -133,7 +146,7 @@
            <div class="card" onclick="window.open('Moderator_Reporter_insights.php','_self')">
                 <div class="content">
                   <div class="imgBx">
-                       <img src="../images/Profile.svg" alt="" srcset="" style="transform:scale(1);">
+                    <img src="../images/Profile.svg" alt="" srcset="" style="transform:scale(0.93); width:50px; margin-left:15px;">
                   </div>
                   <h2>Nimal Kumara</h2>
                 </div>
@@ -143,7 +156,7 @@
             <div class="card">
                 <div class="content">
                   <div class="imgBx">
-                       <img src="../images/Profile.svg" alt="" srcset="" style="transform:scale(1);">
+                      <img src="../images/Profile.svg" alt="" srcset="" style="transform:scale(0.93); width:50px; margin-left:15px;">
                   </div>
                   <h2>Kalana Pathum</h2>
                 </div>
@@ -153,7 +166,7 @@
             <div class="card">
                 <div class="content">
                   <div class="imgBx">
-                       <img src="../images/Profile.svg" alt="" srcset="" style="transform:scale(1);">
+                       <img src="../images/Profile.svg" alt="" srcset="" style="transform:scale(0.93); width:50px; margin-left:15px;">
                   </div>
                   <h2>Tashmila Kumara</h2>
                 </div>

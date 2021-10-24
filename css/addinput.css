@@ -3,21 +3,23 @@
     margin: 15px auto;
   }
   
-  #remove_fields {
+  .remove_num{
     float: right;
     margin-right: 0.5rem;
     margin-top: 0.20rem;
   }
+
   .controls a i.fa-minus {
     margin-right: 5px;
   }
+  
   .mark {
     color: black;
     text-decoration: none;
     font-size: small;
   }
   
-  #add_more_fields{
+  .add_num{
       margin-left: 5.5rem;
       margin-top: -0.5rem;
   }

@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,7 +103,7 @@
 
   .view_btn{
     width:100px;
-    height:30px;
+    height:20px;
     margin-top:20%;
     margin-left:15rem;
     box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.4);
@@ -114,6 +117,13 @@
   .update_btn{
     color:#222;
     margin-top:15rem;
+  }
+
+  .back_btn{
+    margin-top:15.2rem;
+    background-color:#ADD8E6;
+    margin-left:3rem;
+    color:#222;
   }
 
   .remove_btn{
@@ -156,6 +166,9 @@
     cursor: pointer;
   }
 
+  .posts_content_view_body{
+  margin-top:3rem;
+}
 
 </style>
 
@@ -173,15 +186,15 @@
 
       <div class="right">
           <img src="../images/Profile.svg" alt="" srcset="">
-          <p>A.A.N.Madhusanka <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
-          <ul class="profile_menu">
-              <li><a href="#"> <img src="../images/other/profile.png" alt="" srcset=""> My Profile</a></li>
-              <li><a href="#"><img src="../images/other/location.png" alt="" srcset="">Select Area</a></li>
-              <li><a href="#"><img src="../images/other/type.png" alt="" srcset="">Select Type</a></li>
-              <li><a href="Moderator_Insight.php"><img src="../images/other/insights.png" alt="" srcset="">Insights</a></li>
-              <li><a href="#"><img src="../images/other/deactivate.png" alt="" srcset="">Deactivate</a></li>
-              <li><a href="#"><img src="../images/other/logout.png" alt="" srcset="">Log Out</a></li>
-          </ul>
+          <p><?php   echo $_SESSION['FName']." ".$_SESSION['LName']; ?> <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
+            <ul class="profile_menu">
+                <li><a href="#"> <img src="../images/other/profile.png" alt="" srcset=""> My Profile</a></li>
+                <li><a href="Moderate_Area.php"><img src="../images/other/location.png" alt="" srcset="">Select Area</a></li>
+                <li><a href="Moderate_Post_Type.php"><img src="../images/other/type.png" alt="" srcset="">Select Type</a></li>
+                <li><a href="Moderator_Insight.php"><img src="../images/other/insights.png" alt="" srcset="">Insights</a></li>
+                <li><a href="#"><img src="../images/other/deactivate.png" alt="" srcset="">Deactivate</a></li>
+                <li><a href="logout.php"><img src="../images/other/logout.png" alt="" srcset="">Log Out</a></li>
+             </ul>
       </div>
 
 </div>
@@ -228,29 +241,24 @@
 
 <!-- Moderator Notices View -->
 
-<div class="close_btn">
-    <img src="../images/Close_window.png" alt="" srcset="" onclick="window.open('Moderator_Pending.php','_self')">
-</div>
-
-
 <div class="posts_content_view_body">
 
     <div class="body_information">
          
           <div class="box-container">
               <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
+                <img src="../images/pending/kandy_perehera.jpg" alt="">
               </div>
               <div class="box_body">
-                <h3>Sethma Hospital</h3>
-                <p>Create By</p>
+                <h3>Kandy Perahera</h3>
+                <p>Amith Malsanka</p>
               </div>
           </div>
 
 
 
           <div class="box-read">
-             <h2>Lorem Ipsum</h2>
+             <h2>Kandy Perahera</h2>
              <p>
              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 
@@ -263,8 +271,9 @@
     </div>
 
     <div class="button-set">
-        <div class="view_btn update_btn">Accept</div>
-        <div class="view_btn remove_btn">Reject</div>
+        <div class="view_btn update_btn" onclick="window.open('./Moderator_Pending.php', '_self')">Accept</div>
+        <div class="view_btn remove_btn" onclick="window.open('./Moderator_Pending.php', '_self')">Reject</div>
+        <div class="view_btn back_btn" onclick="window.open('./Moderator_Pending.php', '_self')">Back</div>
     </div>
 </div>
 

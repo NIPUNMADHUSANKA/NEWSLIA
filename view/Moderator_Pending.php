@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,15 +76,15 @@
 
       <div class="right">
           <img src="../images/Profile.svg" alt="" srcset="">
-          <p>A.A.N.Madhusanka <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
-          <ul class="profile_menu">
-              <li><a href="#"> <img src="../images/other/profile.png" alt="" srcset=""> My Profile</a></li>
-              <li><a href="#"><img src="../images/other/location.png" alt="" srcset="">Select Area</a></li>
-              <li><a href="#"><img src="../images/other/type.png" alt="" srcset="">Select Type</a></li>
-              <li><a href="Moderator_Insight.php"><img src="../images/other/insights.png" alt="" srcset="">Insights</a></li>
-              <li><a href="#"><img src="../images/other/deactivate.png" alt="" srcset="">Deactivate</a></li>
-              <li><a href="#"><img src="../images/other/logout.png" alt="" srcset="">Log Out</a></li>
-          </ul>
+          <p><?php   echo $_SESSION['FName']." ".$_SESSION['LName']; ?> <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
+            <ul class="profile_menu">
+                <li><a href="#"> <img src="../images/other/profile.png" alt="" srcset=""> My Profile</a></li>
+                <li><a href="Moderate_Area.php"><img src="../images/other/location.png" alt="" srcset="">Select Area</a></li>
+                <li><a href="Moderate_Post_Type.php"><img src="../images/other/type.png" alt="" srcset="">Select Type</a></li>
+                <li><a href="Moderator_Insight.php"><img src="../images/other/insights.png" alt="" srcset="">Insights</a></li>
+                <li><a href="#"><img src="../images/other/deactivate.png" alt="" srcset="">Deactivate</a></li>
+                <li><a href="logout.php"><img src="../images/other/logout.png" alt="" srcset="">Log Out</a></li>
+             </ul>
       </div>
 
 </div>
@@ -163,12 +166,12 @@
          
           <div class="box-container">
               <div class="box_head">
-                    <img src="../images/sethma.jpeg" alt="">
+                    <img src="../images/pending/powercut.jpg" alt="">
                   </div>
 
                   <div class="box_body">
                     <h3>Power Cut</h3>
-                    <p>Create By</p>
+                    <p>Electricity Board - Negombo</p>
                   </div>
 
                   <div class="more">
@@ -182,12 +185,12 @@
 
           <div class="box-container">
                       <div class="box_head">
-                      <img src="../images/sethma.jpeg" alt="">
+                      <img src="../images/pending/kandy_perehera.jpg" alt="">
                     </div>
 
                     <div class="box_body">
                       <h3>Kandy Perahera</h3>
-                      <p>Create By</p>
+                      <p>Amith Malsanka</p>
                     </div>
 
                     <div class="setting_close">
@@ -198,12 +201,12 @@
 
           <div class="box-container">
               <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
+                <img src="../images/pending/cafe_shop.jpg" alt="">
               </div>
 
               <div class="box_body">
-                <h3>Candy Toffee</h3>
-                <p>Create By</p>
+                <h3>Candy Cafe</h3>
+                <p>Candy Cafe Team</p>
               </div>
 
               <div class="more">

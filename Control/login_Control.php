@@ -4,8 +4,9 @@ function login($email,$pwd){
 
     include '../Model/connect.php';
     
+    $password = md5($pwd);
 
-    $login_sql = "SELECT * FROM login WHERE (Email = '$email' AND Password = '$pwd' AND Staff_State = 1 AND Blacklist = 0) ";
+    $login_sql = "SELECT * FROM login WHERE (Email = '$email' AND Password = '$password' AND Staff_State = 1 AND Blacklist = 0) ";
 
 
     $login_statement = $conn -> query($login_sql);
@@ -66,6 +67,8 @@ function signup($first,$last,$email,$mobile,$nic,$job,$dsa,$username_new,$pwd){
 
     include '../Model/connect.php';
     
+    $password = md5($pwd);
+
     $last_value_sql = "SELECT System_Actor_Id FROM system_actor ORDER BY System_Actor_Id DESC LIMIT 1";
     $last_value_statement = $conn -> query($last_value_sql);
     $last_value_results = $last_value_statement->fetchAll(PDO::FETCH_ASSOC);
@@ -93,7 +96,7 @@ function signup($first,$last,$email,$mobile,$nic,$job,$dsa,$username_new,$pwd){
     $new_type_stmt->execute([$ID,1,1,1,1,1,1,1,1]);
 
 
-    echo '<script>alert("'.$TYPE.'")</script>';
+
 
 
     if($TYPE == 'MODERATOR'){
@@ -109,11 +112,11 @@ function signup($first,$last,$email,$mobile,$nic,$job,$dsa,$username_new,$pwd){
     $login_stmt = $conn->prepare("INSERT INTO `login` VALUES(?,?,?,?,?,?)");
 
     if( $TYPE == "MODERATOR" || $TYPE == "ADMIN"){
-        $login_stmt->execute([$email,$ID,$pwd,0,0,0]); // system staff
+        $login_stmt->execute([$email,$ID,$password,0,0,0]); // system staff
         return "Staff";
     }
     else{
-        $login_stmt->execute([$email,$ID,$pwd,0,0,1]); // system user
+        $login_stmt->execute([$email,$ID,$password,0,0,1]); // system user
         return "User";
     }
 

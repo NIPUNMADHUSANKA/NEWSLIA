@@ -1,6 +1,7 @@
 <?php
   session_start();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +43,7 @@
   }
 
   .popup_add_new_size .content_add_new_size{
-    height:640px;
+    height:580px;
   }
   
   .form-container input{
@@ -52,7 +53,6 @@
     
   }
   
-
 .form-container label{
   margin-left:1rem;
   
@@ -83,11 +83,19 @@ input{
 
 
 .box-container{
-    height: 270px;
+    height: 250px;
   }
 
   .box_head img{
     height:50%;
+  }
+
+  .add_btn{
+    transition:0.5s ease;
+  }
+  
+  .add_btn:hover{
+    transform:scale(1.2);
   }
 
 </style>
@@ -106,17 +114,17 @@ input{
       </div>
 
       <div class="right">
-          <img src="../images/Profile.svg" alt="" srcset="">
-          <p><?php   echo $_SESSION['FName']." ".$_SESSION['LName']; ?> <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
-          <ul class="profile_menu">
-              <li><a href="#"> <img src="../images/other/profile.png" alt="" srcset=""> My Profile</a></li>
-              <li><a href="#"><img src="../images/other/location.png" alt="" srcset="">Select Area</a></li>
-              <li><a href="#"><img src="../images/other/type.png" alt="" srcset="">Select Type</a></li>
-              <li><a href="Moderator_Insight.php"><img src="../images/other/insights.png" alt="" srcset="">Insights</a></li>
-              <li><a href="#"><img src="../images/other/deactivate.png" alt="" srcset="">Deactivate</a></li>
-              <li><a href="#"><img src="../images/other/logout.png" alt="" srcset="">Log Out</a></li>
-          </ul>
-      </div>
+            <img src="../images/Profile.svg" alt="" srcset="">
+            <p><?php   echo $_SESSION['FName']." ".$_SESSION['LName']; ?> <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
+            <ul class="profile_menu">
+                <li><a href="#"> <img src="../images/other/profile.png" alt="" srcset=""> My Profile</a></li>
+                <li><a href="Moderate_Area.php"><img src="../images/other/location.png" alt="" srcset="">Select Area</a></li>
+                <li><a href="Moderate_Post_Type.php"><img src="../images/other/type.png" alt="" srcset="">Select Type</a></li>
+                <li><a href="Moderator_Insight.php"><img src="../images/other/insights.png" alt="" srcset="">Insights</a></li>
+                <li><a href="#"><img src="../images/other/deactivate.png" alt="" srcset="">Deactivate</a></li>
+                <li><a href="logout.php"><img src="../images/other/logout.png" alt="" srcset="">Log Out</a></li>
+            </ul>
+        </div>
 
 </div>
 
@@ -167,7 +175,7 @@ input{
         Edit Important Contact Numbers
     </div>
 
-    <div class="post_sort">
+    <div class="post_sort" style="display:none;">
         <div class="post_sort_bar">
           <button onclick="showsort()" class="drop_area_sort">Select Area<img src="../images/sort.svg" alt="" srcset=""></button>
           <div class="drop_area_sort_cont" id="sortdrop">
@@ -305,8 +313,8 @@ input{
                           
                           
                           <div class="controls">
-                                 <a href="#" id="add_more_fields" class="mark"><i class="fa fa-plus"></i>Add More</a>
-                                 <a href="#" id="remove_fields" class="mark"><i class="fa fa-minus"></i>Remove Field</a>
+                                 <a href="#" id="add_more_fields" class="mark add_num"><i class="fa fa-plus"></i>Add More</a>
+                                 <a href="#" id="remove_fields" class="mark remove_num"><i class="fa fa-minus"></i>Remove Field</a>
                           </div>
                         
                           
@@ -357,27 +365,35 @@ input{
 
               </div>
                     
-                     <br>
+              <br>
                      <br>
 
                      <div class="form-container">
 
-                          <label for="update-name" class="lbl">Name</label>
+                          <label for="add-name" class="lbl">Name</label>
                           
-                          <input type="text" name="" id="update-name" class="inp" placeholder=" Sethma Hospital">
+                          <input type="text" name="ic_title" id="add-name" class="inp" required value="Keells Minuwangoda">
                           <br>
                           <br>
 
-                          <label for="update-number" class="lbl">Number</label>
+                          <label for="add-number" class="lbl">Number</label>
+
+                          <div id="survey_options" class="number">
+                          <input type="text" name="num1[]" id="add-number" class="inp" required value="0112303500">
+                          </div>
+                          
+                          
+                          <div class="controls">
+                                 <a href="#" class="mark add_num"><i class="fa fa-plus"></i>Add More</a>
+                                 <a href="#" class="mark remove_num"><i class="fa fa-minus"></i>Remove Field</a>
+                          </div>
                         
-                          <input type="text" name="" id="update-number" class="inp" placeholder=" 0335 626 626">
+                          
                           <br>
                           
                      </div>
-
-                    
-
-                     <div class="update_btn">Update</div>
+                     
+                     <button class="update_btn insert_btn" name="insert_i_c_n">Update</button>
               
                    </form>
                </div>

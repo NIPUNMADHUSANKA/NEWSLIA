@@ -194,6 +194,29 @@ session_start();
   width:7.3rem;
 }
 
+.top_icon{
+  float:right;
+  margin-top:1.5rem;
+  transform:scale(3);
+  cursor: pointer;
+  color:#eee;
+  width:1rem;
+  height:1rem;
+  background: #5CD85A;
+  padding:0.1rem;
+  padding-bottom:0.3rem;
+  transition:0.5s ease;
+  margin-left:5rem;
+  border-radius:5px;
+  text-align:center;
+}
+
+
+
+.top_icon:hover{
+  transform:scale(3.5); 
+}
+
 
 
 </style>
@@ -251,11 +274,6 @@ session_start();
 
 
 
-
-
-
-
-
 <div class="about_us">
 <a name="aboutus"></a>
     <div class="para-box">
@@ -278,11 +296,31 @@ session_start();
             So, with our system, users can able to get such information on time, as well as many other features such   as reminding about special events, reading / creating articles, and obtaining vital contact numbers. 
             </p>
         </div>
+
+       
+
        
     </div>
+
+    <div class="top_icon" id="btnscrollToTop">
+         <i class="fa fa-arrow-up"></i>
+    </div>
+
     
 
 </div>
+
+
+<script>
+ const btnscrollToTop = document.querySelector("#btnscrollToTop");
+ btnscrollToTop.addEventListener("click",function(){
+   window.scrollTo({
+     top:0,
+     left:0,
+     behavior:"smooth"
+   });
+ });
+</script>
 
 
 
@@ -379,12 +417,27 @@ session_start();
 
        
     </div>
-    
+    <div class="top_icon" id="btnscrollToTopsecond">
+         <i class="fa fa-arrow-up"></i>
+   </div>
+
+   </div>
+
+   
 
 </div>
 
 
-
+<script>
+ const btnscrollToTop2 = document.querySelector("#btnscrollToTopsecond");
+ btnscrollToTop2.addEventListener("click",function(){
+   window.scrollTo({
+     top:0,
+     left:0,
+     behavior:"smooth"
+   });
+ });
+</script>
 
 
 
@@ -1054,7 +1107,6 @@ session_start();
             else{
               include '../Control/login_Control.php';
               $signup_connection =  signup($first,$last,$email,$mobile,$nic,$job,$dsa,$username_new,$pwd);
-              echo '<script>alert("'.$signup_connection.'")</script>';
               if ($signup_connection == "User"){
                 echo '<script type="text/javascript">signup_msg1();</script>'; 
               }

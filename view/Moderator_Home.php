@@ -80,11 +80,11 @@ table, th, td {
             <p><?php   echo $_SESSION['FName']." ".$_SESSION['LName']; ?> <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
             <ul class="profile_menu">
                 <li><a href="#"> <img src="../images/other/profile.png" alt="" srcset=""> My Profile</a></li>
-                <li><a href="#"><img src="../images/other/location.png" alt="" srcset="">Select Area</a></li>
-                <li><a href="#"><img src="../images/other/type.png" alt="" srcset="">Select Type</a></li>
+                <li><a href="Moderate_Area.php"><img src="../images/other/location.png" alt="" srcset="">Select Area</a></li>
+                <li><a href="Moderate_Post_Type.php"><img src="../images/other/type.png" alt="" srcset="">Select Type</a></li>
                 <li><a href="Moderator_Insight.php"><img src="../images/other/insights.png" alt="" srcset="">Insights</a></li>
                 <li><a href="#"><img src="../images/other/deactivate.png" alt="" srcset="">Deactivate</a></li>
-                <li><a href="#"><img src="../images/other/logout.png" alt="" srcset="">Log Out</a></li>
+                <li><a href="logout.php"><img src="../images/other/logout.png" alt="" srcset="">Log Out</a></li>
             </ul>
         </div>
 
@@ -160,7 +160,7 @@ table, th, td {
                           }
                         ?>
 
-                        <button class="data_edit">Edit</button>
+                        <button class="data_edit" onclick = "window.open('./Moderate_Area.php', '_self')">Edit</button>
 
                     </td>
                   </tr>
@@ -185,7 +185,7 @@ table, th, td {
                           }
                         ?>
 
-                        <button class="data_edit">Edit</button>
+                        <button class="data_edit" onclick = "window.open('./Moderate_Area.php', '_self')">Edit</button>
                     </td>
                   </tr>
 
@@ -222,7 +222,7 @@ table, th, td {
                           }
                         ?>
 
-                        <button class="data_edit">Edit</button>
+                        <button class="data_edit" onclick = "window.open('./Moderate_Post_Type.php', '_self')">Edit</button>  
                      
 
 
