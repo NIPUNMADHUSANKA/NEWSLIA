@@ -1,6 +1,7 @@
 <?php
   session_start();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +14,7 @@
     <link rel="stylesheet" href="../css/search.css">
     <link rel="stylesheet" href="../css/popup.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
+    <script src="https://kit.fontawesome.com/c119b7fc61.js" crossorigin="anonymous"></script>
 </head>
 
 <style>
@@ -26,7 +28,7 @@
       padding-left:80px;
   }
   .box-container{
-    height: 230px;
+    height: 240px;
   }
 
   .more{
@@ -79,7 +81,6 @@
     margin-left:30rem;
   }
 
-
   .box-read h2{
     font-size:1.8rem;
     font-weight:normal;
@@ -98,7 +99,7 @@
 
   .button-set{
     margin-top:-13rem;
-    margin-left:3rem;
+    margin-left:5rem;
     display:flex;
     flex-direction:row;
   }
@@ -121,6 +122,13 @@
     margin-top:15rem;
   }
 
+  .back_btn{
+    margin-top:15.2rem;
+    background-color:#ADD8E6;
+    margin-left:40rem;
+    color:#222;
+  }
+
   .publish_btn{
     background-color: #ACE0B8;;
     color: #444;
@@ -136,18 +144,12 @@
     margin-left: 5rem;
   }
 
+
   .remove_btn{
    margin-top:15.2rem;
    background-color:#FF4444;
    margin-left:3rem;
    color:#222;
-  }
-
-  .back_btn{
-    margin-top:15.2rem;
-    background-color:#ADD8E6;
-    margin-left:3rem;
-    color:#222;
   }
 
   .close_btn{
@@ -204,9 +206,10 @@
     transform:scale(1.1);
   }
 
-.posts_content_view_body{
+  .posts_content_view_body{
   margin-top:3rem;
 }
+
 </style>
 
 <body>
@@ -233,6 +236,7 @@
                 <li><a href="logout.php"><img src="../images/other/logout.png" alt="" srcset="">Log Out</a></li>
              </ul>
       </div>
+
 </div>
 
 <ul class="menu">
@@ -277,29 +281,47 @@
 
 <!-- Moderator Notices View -->
 
+<div class="rate" style="text-align: center; width: 5%; background-color: #ACE0B8;border:1px solid #333;height:24rem;margin-left:2rem;margin-top:5rem;">
+                <div><a href="#" style="color: black;margin-top:5rem;"><i class="fas fa-chevron-up fa-3x"></i></a></div>
+                <h2 style="color: black;margin-top:8rem;">246</h2>
+                <div style="padding-top:8rem;"><a href="#" style="color: black;margin-top:15rem;"><i class="fas fa-chevron-down fa-3x"></i></a></div>
+</div>
+
 <div class="posts_content_view_body">
 
-    <div class="body_information">
+       
+
+    <div class="body_information" style="margin-top:-30rem;margin-left:1rem;">
          
           <div class="box-container">
 
               <div class="box_head">
-                <img src="../images/pending/powercut.jpg" alt="">
+              <img src="../images/save/exam.jpg" alt="">
               </div>
 
               <div class="box_body">
-                <h3>Power Cut</h3>
-                <p>Electricity Board - Negombo</p>
+                <h3>Exam Results</h3>
+                <p>2021-10-25</p>
+                <p>Samith Dilshan</p>
               </div>
 
-              
+            <div class="more" style="width: 14%; margin-bottom: 20px;">
+            <img src="../images/More.svg" alt="" srcset="" style="transform: none;margin-top:0rem;width:7px;margin-left:2rem;">
+            <ul class="more_post" style="margin-top:0rem;margin-left:2.5rem;">
+
+              <li><a href="#">Save</a></li>
+              <li><a href="#">Hide</a></li>
+              <li onclick="set_time_to_publish_Popup()"><a href="#">Reminder</a></li>
+
+            </ul>
+          </div>
 
           </div>
 
 
 
-          <div class="box-read">
-             <h2>Power Cut</h2>
+          <div class="box-read" style="margin-top:-2rem;margin-left:1rem;">
+             <h2>Exam Results</h2>
              <p>
              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 
@@ -312,47 +334,43 @@
     </div>
 
     <div class="button-set">
-        <div class="view_btn update_btn" onclick="togglePopup()">Update</div>
-        <div class="view_btn remove_btn" onclick="window.open('./Moderator_View_News.php', '_self')">Remove</div>
         <div class="view_btn back_btn" onclick="window.open('./Moderator_View_News.php', '_self')">Back</div>
     </div>
-    
 </div>
 
 
 
 
 
-
-
-
-<!--create popup window-->
-
-
-<div class="popup popup_smart" id="popup-3">
+<div class="popup popup_set_time" id="popup-8">
 
       <div class="overlay"></div>
 
-      <div class="content popup_smart_content">
-          <div class="close-btn" onclick="togglePopup()">&times;</div>
+      <div class="content popup_set_time">
+          <div class="close-btn" onclick="set_time_to_publish_Popup()">&times;</div>
 
 
-          <div class="content_body popup_smart_body">
+          <div class="content_body popup_set_time_body">
               <div class="popup_logo">
                    <img src="../images/Name.svg" alt="" srcset="">
               </div>
               <hr>
 
               <div class="popup_form">
-                  <h3 class="popup_title">Update Smart Calendar</h3>
+                  <h3 class="popup_title">Set Time to Reminder</h3>
                   <form action="" method="post">
 
-                     <label for="new-date" class="lbl"> Date</label>
                   
-                     <input type="date" name="" id="new-date" class="inp inp1" value="2022-10-28">
-                     <br>
+                    <label for="new-date" class="lbl"> Date</label>
+                    <input type="date" name="" id="new-date" class="inp inp1">
+                      <br>
+                      <br>
 
-                     <div class="publish_btn" onclick="window.open('Moderator_Smart_Calendar.php','_self')">Publish</div>
+                    <label for="new-time" class="lbl"> Time</label>
+                  
+                    <input type="time" name="" id="new-time" class="inp inp1">
+                    <br>
+                    <div class="publish_btn" onclick="window.open('Moderator_Read_News.php','_self')">Set</div>
               
                    </form>
                </div>
@@ -368,20 +386,25 @@
 
 
 
+
+
 <script>
 
 
-    function togglePopup(){
-      document.getElementById("popup-3").classList.toggle("active");
-    }
+    function togglePopup_select_option(){
+      document.getElementById("popup-6").classList.toggle("active");
+    } 
+    function set_time_to_publish_Popup(){
+      document.getElementById("popup-6").classList.toggle("active");
+      document.getElementById("popup-8").classList.toggle("active");
+    }  
 
-
-   
+    function set_time_to_publish_Popup(){
+      document.getElementById("popup-8").classList.toggle("active");
+    }  
 
 </script>
-
-
-
+    
 
 </body>
 </html>

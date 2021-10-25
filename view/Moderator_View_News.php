@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,12 +12,16 @@
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
     <link rel="stylesheet" href="../css/calendar.css">
+    <link rel="stylesheet" href="../css/popup.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
+    <script src="https://kit.fontawesome.com/c119b7fc61.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js"></script>
 </head>
 
 <style>
   body {
-    overflow-x: hidden; /* Hide scrollbars */
+    /*overflow-x: hidden; /* Hide scrollbars */
   }
   .post_sort{
       padding-left:80px;
@@ -27,7 +34,8 @@
   }
 
   .posts_content_view_head{
-    font-size:xx-large;
+    font-size:x-large;
+    margin-left:-1rem;
   }
   
   .drop_area_sort{
@@ -43,7 +51,7 @@
   }
 
   .left_side{
-    margin-left:8rem; 
+    margin-left:6rem; 
   }
   .right_side{
     margin-right:7rem;
@@ -66,7 +74,7 @@
 }
 
 .popular_famous{
-    margin-left:-15rem;
+    margin-left:-2rem;
 }
 .poupular_famous{
     width:23%;
@@ -99,6 +107,31 @@
   margin-left:3rem;
 }
 
+.body_information{
+    margin-left:-3rem;
+    margin-top:-1rem;
+}
+
+.normal_box{
+  margin-left:3rem;
+  height:260px;
+}
+
+
+.publish_btn{
+    background-color: #ACE0B8;;
+    color: #444;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    width: 50px;
+    margin-top: 20px;
+    margin-left: 5rem;
+  }
 </style>
 
 <body>
@@ -116,7 +149,7 @@
 
       <div class="right">
           <img src="../images/Profile.svg" alt="" srcset="">
-          <p>A.A.N.Madhusanka <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
+          <p><?php   echo $_SESSION['FName']." ".$_SESSION['LName']; ?> <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
           <ul class="profile_menu">
               <li><a href="#"> <img src="../images/other/profile.png" alt="" srcset=""> My Profile</a></li>
               <li><a href="#"><img src="../images/other/location.png" alt="" srcset="">Select Area</a></li>
@@ -182,25 +215,25 @@
 
     <div class="popular_famous_info">
     
-    <div class="title">Most Recent</div>
+        <div class="title">Most Recent</div>
          
     
           <div class="box-container poupular_famous">
               <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="" class="picture">
+                <img src="../images/save/exam.jpg" alt="" class="picture">
               
                 <div class="middle popular_famous_middel">
                      <div class="right_side arrow"><img src="../images/Right.svg" alt="" srcset=""></div>
-                     <div class="view_btn vie">View</div>
+                     <div class="view_btn" onclick="window.open('./Moderator_Read_News.php', '_self')">View</div>
                      <div class="left_side arrow"><img src="../images/Left.svg" alt="" srcset=""></div>
                     
                 </div>
 
               </div>
               <div class="box_body">
-                <h3>News</h3>
-                <p>Publish Date</p>
-                <p>Create By</p>
+                <h3>Exam Results</h3>
+                <p>2021-10-25</p>
+                <p>Samith Dilshan</p>
               </div>
 
               <div class="more">
@@ -209,7 +242,7 @@
                   
                       <li><a href="#">Save</a></li>
                       <li><a href="#">Hidden</a></li>
-                      <li><a href="#">Reminder</a></li>
+                      <li onclick="set_time_to_publish_Popup()"><a href="#">Reminder</a></li>
           
               </ul>
               </div>
@@ -218,20 +251,20 @@
           <div class="title popular_title">Most Popular</div>
           <div class="box-container poupular_famous popular">
               <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="" class="picture">
+                <img src="../images/save/exam.jpg" alt="" class="picture">
               
                 <div class="middle popular_famous_middel">
                      <div class="right_side arrow"><img src="../images/Right.svg" alt="" srcset=""></div>
-                     <div class="view_btn vie">View</div>
+                     <div class="view_btn" onclick="window.open('./Moderator_Read_News.php', '_self')">View</div>
                      <div class="left_side arrow"><img src="../images/Left.svg" alt="" srcset=""></div>
                     
                 </div>
 
               </div>
               <div class="box_body">
-                <h3>News</h3>
-                <p>Publish Date</p>
-                <p>Create By</p>
+                <h3>Exam Results</h3>
+                <p>2021-10-25</p>
+                <p>Samith Dilshan</p>
               </div>
 
               <div class="more">
@@ -240,7 +273,7 @@
                   
                       <li><a href="#">Save</a></li>
                       <li><a href="#">Hidden</a></li>
-                      <li><a href="#">Reminder</a></li>
+                      <li onclick="set_time_to_publish_Popup()"><a href="#">Reminder</a></li>
                 
               </ul>
               </div>
@@ -249,29 +282,105 @@
 
           </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="main" style="margin-left:-2rem;">
+
+<!-- (B) PERIOD SELECTOR -->
+<div id="calPeriod">
+  
+  <?php
+  // (B1) MONTH SELECTOR
+  // NOTE: DEFAULT TO CURRENT SERVER MONTH YEAR
+  $months = [
+    1 => "January", 2 => "Febuary", 3 => "March", 4 => "April",
+    5 => "May", 6 => "June", 7 => "July", 8 => "August",
+    9 => "September", 10 => "October", 11 => "November", 12 => "December"
+  ];
+  $monthNow = date("m");
+  echo "<select id='calmonth'>";
+  foreach ($months as $m=>$mth) {
+    printf("<option value='%s'%s>%s</option>",
+      $m, $m==$monthNow?" selected":"", $mth
+    );
+  }
+  echo "</select>";
+
+  // (B2) YEAR SELECTOR
+  echo "<input type='number' id='calyear' value='".date("Y")."'/>";
+?>
+
+</div>
+
+<!-- (C) CALENDAR WRAPPER -->
+<div id="calwrap">
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-    
 </div>
 
 
@@ -308,6 +417,7 @@
             <a href="#">Education</a>
             <a href="#">Sports</a>
             <a href="#">Environment</a>
+            <a href="#">Other</a>
           </div>
         </div>
       </div>
@@ -329,19 +439,19 @@
 
     <div class="body_information">
          
-          <div class="box-container">
+          <div class="box-container normal_box">
               <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="" class="picture">
+                <img src="../images/save/exam.jpg" alt="" class="picture">
               
                 <div class="middle">
-                     <div class="view_btn">View</div>
+                <div class="view_btn" onclick="window.open('./Moderator_Read_News.php', '_self')">View</div>
                 </div>
 
               </div>
               <div class="box_body">
-                <h3>News</h3>
-                <p>Publish Date</p>
-                <p>Create By</p>
+                <h3>Exam Results</h3>
+                <p>2021-10-25</p>
+                <p>Samith Dilshan</p>
               </div>
 
               <div class="more">
@@ -350,70 +460,16 @@
                   
                       <li><a href="#">Save</a></li>
                       <li><a href="#">Hidden</a></li>
-                      <li><a href="#">Reminder</a></li>
+                      <li onclick="set_time_to_publish_Popup()"><a href="#">Reminder</a></li>
 
           
               </ul>
               </div>
           </div>
 
-          <div class="box-container">
-              <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="" class="picture">
-              
-                <div class="middle">
-                     <div class="view_btn">View</div>
-                </div>
-
-              </div>
-              <div class="box_body">
-                <h3>News</h3>
-                <p>Publish Date</p>
-                <p>Create By</p>
-              </div>
-
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
-                      <li><a href="#">Reminder</a></li>
           
-              </ul>
-              </div>
-          </div>
 
-
-          <div class="box-container">
-              <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="" class="picture">
-              
-                <div class="middle">
-                     <div class="view_btn">View</div>
-                </div>
-
-              </div>
-              <div class="box_body">
-                <h3>News</h3>
-                <p>Publish Date</p>
-                <p>Create By</p>
-              </div>
-
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
-                      <li><a href="#">Reminder</a></li>
-                
-              </ul>
-              </div>
-
-              
-
-          </div>
+         
 
     </div>
 
@@ -422,8 +478,52 @@
 
 
 
+<div class="popup popup_set_time" id="popup-8">
+
+      <div class="overlay"></div>
+
+      <div class="content popup_set_time">
+          <div class="close-btn" onclick="set_time_to_publish_Popup()">&times;</div>
+
+
+          <div class="content_body popup_set_time_body">
+              <div class="popup_logo">
+                   <img src="../images/Name.svg" alt="" srcset="">
+              </div>
+              <hr>
+
+              <div class="popup_form">
+                  <h3 class="popup_title">Set Time to Reminder</h3>
+                  <form action="" method="post">
+
+                  
+                    <label for="new-date" class="lbl"> Date</label>
+                    <input type="date" name="" id="new-date" class="inp inp1">
+                      <br>
+                      <br>
+
+                    <label for="new-time" class="lbl"> Time</label>
+                  
+                    <input type="time" name="" id="new-time" class="inp inp1">
+                    <br>
+                    <div class="publish_btn" onclick="window.open('Moderator_View_News.php','_self')">Set</div>
+              
+                   </form>
+               </div>
+
+          </div>
+      </div>
+      
+</div>
+
+
 
 <script>
+
+    function set_time_to_publish_Popup(){
+      document.getElementById("popup-8").classList.toggle("active");
+    } 
+
     function showsort() {
       document.getElementById("sortdrop").classList.toggle("show");
     }
