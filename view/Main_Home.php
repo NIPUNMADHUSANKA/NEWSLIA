@@ -808,9 +808,8 @@ session_start();
                         <input type="password" name="sysactor_rpwd" id="re_new_pwd" class="inp inp1 linp pass" placeholder="Retype Password" maxlength="15">
                         <br>
                         
-                        <input type="checkbox" id="privacy" name="privacy" value="1">
-                        <label for="privacy" class="privacy_info"> I accept the Terms of Use & Privacy Policy.</label>
-                        <br>
+                        <!--<input type="checkbox" id="privacy" name="privacy" value="1">
+                        <label for="privacy" class="privacy_info"> I accept the Terms of Use & Privacy Policy.</label>-->
                         
                         <div class="update_btn prev" onclick="togglePopup_sign_up_3()">Prev</div> 
                         <button class="update_btn submit send" name="signup">Submit</button>
@@ -1044,7 +1043,7 @@ session_start();
         $pwd = $_POST['sysactor_pwd'];
         $repwd = $_POST['sysactor_rpwd'];
 
-        $privacy = $_POST['privacy'];
+        //$privacy = $_POST['privacy'];
 
         //echo '<script>alert("'.$username_new.'")</script>'; 
 
@@ -1053,7 +1052,7 @@ session_start();
    
 
         if (empty($first) || empty($last) || empty($email) || empty($mobile) || empty($nic) || empty($job) || empty($province) 
-        || empty($district) || empty($dsa) || empty($username_new) || empty($pwd) || empty($repwd) || empty($privacy))
+        || empty($district) || empty($dsa) || empty($username_new) || empty($pwd) || empty($repwd))
         {
           echo '<script type="text/javascript">error_signup_1();</script>';
         }

@@ -181,7 +181,7 @@
               </div>
               <div class="box_body">
                 <h3>New Year</h3>
-                <p>Created By</p>
+                <p>ABC Company</p>
               </div>
 
               <div class="more">
@@ -208,7 +208,7 @@
               </div>
               <div class="box_body">
                 <h3>Children's Day</h3>
-                <p>Created By</p>
+                <p>Nimoya Company</p>
               </div>
 
               <div class="more">
@@ -225,33 +225,7 @@
           </div>
 
 
-          <div class="box-container">
-              <div class="box_head">
-                <img src="../images/settime/motherday.jpg" alt="">
-              
-                <div class="middle">
-                     <div class="view_btn">View</div>
-                </div>
-
-              </div>
-              <div class="box_body">
-                <h3>Mothers' Day</h3>
-                <p>Created By</p>
-              </div>  
-
-              <div class="more">
-                  <p>2022:01:17</p>
-                  <p>14:24</p>
-              </div>
-
-              <div class="setting_close">
-                  <img src="../images/Setting.svg" alt="" srcset="" onclick="togglePopup()">
-                  <img src="../images/Close.svg" alt="" srcset="">
-              
-              </div>
-
-          </div>
-
+          
     </div>
 
     

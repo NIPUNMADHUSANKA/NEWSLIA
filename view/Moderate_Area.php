@@ -179,7 +179,7 @@
     <div class="bottom_side">
         
         <div class="first_box">
-            <h2>Read Area</h2>
+            <h2>Reading Area</h2>
 
             <div class="first_box_area">
 
@@ -215,7 +215,7 @@
         </div>
 
         <div class="second_box">
-            <h2>Moderate Area</h2>
+            <h2>Moderating Area</h2>
 
             <div class="second_box_area">
                 <?php
