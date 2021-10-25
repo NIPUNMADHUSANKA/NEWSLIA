@@ -175,7 +175,7 @@
                 <img src="../images/settime/newyear.jpg" alt="">
               
                 <div class="middle">
-                     <div class="view_btn">View</div>
+                     <div class="view_btn" onclick="window.open('./Moderator_set_read.php', '_self')">View</div>
                 </div>
 
               </div>
@@ -190,7 +190,7 @@
               </div>
 
               <div class="setting_close">
-              <img src="../images/Setting.svg" alt="" srcset="" onclick="togglePopup()">
+                  <img src="../images/Setting.svg" alt="" srcset="" onclick="togglePopup()">
                   <img src="../images/Close.svg" alt="" srcset="">
               
               </div>
@@ -292,7 +292,7 @@
                      <br>
                      <br>
 
-                     <button type="submit" name ="login" class="update_btn" value="LOGIN">Login</button>
+                     <button type="submit" name ="login" class="update_btn" value="LOGIN">Update</button>
               
                    </form>
                </div>

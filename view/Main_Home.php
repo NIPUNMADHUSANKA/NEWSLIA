@@ -712,7 +712,7 @@ session_start();
                         
                         <input type="text" name="sysactor_last_name" id="new_lname" class="inp inp1 linp" placeholder="Second Name">
                           
-                        <input type="email" name="sysactor_email" id="new_email" class="inp inp1 einp" placeholder="Email Address">
+                        <input type="text" name="sysactor_email" id="new_email" class="inp inp1 einp" placeholder="Email Address">
 
                         <input type="text" name="sysactor_mobile" id="new_mobile" class="inp inp1 einp" placeholder="Mobile Number">
 

@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +11,7 @@
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
+    <link rel="stylesheet" href="../css/popup.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
 </head>
 
@@ -22,7 +26,7 @@
     height: 240px;
   }
   .popular_famous_container{
-    height: 300px;
+    height: 320px;
   }
 
   .drop_area_sort{
@@ -55,6 +59,32 @@
 .posts_content_view_head{
     font-size: x-large;
 }
+
+.body_information{
+      margin-left:-3rem;
+       margin-top:-1rem;
+}
+
+.normal_box{
+  margin-left:4rem;
+  height:260px;
+}
+
+.publish_btn{
+    background-color: #ACE0B8;;
+    color: #444;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    width: 50px;
+    margin-top: 20px;
+    margin-left: 5rem;
+  }
+
   
 </style>
 
@@ -73,7 +103,7 @@
 
       <div class="right">
           <img src="../images/Profile.svg" alt="" srcset="">
-          <p>A.A.N.Madhusanka <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
+          <p><?php   echo $_SESSION['FName']." ".$_SESSION['LName']; ?> <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
           <ul class="profile_menu">
               <li><a href="#"> <img src="../images/other/profile.png" alt="" srcset=""> My Profile</a></li>
               <li><a href="#"><img src="../images/other/location.png" alt="" srcset="">Select Area</a></li>
@@ -144,20 +174,20 @@
     
           <div class="box-container popular_famous_container">
               <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
+              <img src="../images/save/baker.jpg" alt="">
               
                 <div class="middle popular_famous_middel">
                      <div class="right_side"><img src="../images/Right.svg" alt="" srcset=""></div>
-                     <div class="view_btn">View</div>
+                     <div class="view_btn" onclick="window.open('./Moderator_Read_Job.php', '_self')" >View</div>
                      <div class="left_side"><img src="../images/Left.svg" alt="" srcset=""></div>
                     
                 </div>
 
               </div>
               <div class="box_body">
-                <h3>Job Vacancies</h3>
-                <p>Closing Date</p>
-                <p>Create By</p>
+              <h3>Pastry Shop Cashier</h3>
+                <p>closed by 2020/12/05</p>
+                <p>Kamal Kumara</p>
               </div>
 
               <div class="more">
@@ -166,7 +196,7 @@
                   
                       <li><a href="#">Save</a></li>
                       <li><a href="#">Hidden</a></li>
-                      <li><a href="#">Reminder</a></li>
+                      <li onclick="set_time_to_publish_Popup()"><a href="#">Reminder</a></li>
           
               </ul>
               </div>
@@ -175,20 +205,20 @@
           <div class="title">Most Popular</div>
           <div class="box-container popular_famous_container">
               <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
-              
+              <img src="../images/save/baker.jpg" alt="">
+
                 <div class="middle popular_famous_middel">
                      <div class="right_side"><img src="../images/Right.svg" alt="" srcset=""></div>
-                     <div class="view_btn">View</div>
+                     <div class="view_btn" onclick="window.open('./Moderator_Read_Job.php', '_self')">View</div>
                      <div class="left_side"><img src="../images/Left.svg" alt="" srcset=""></div>
                     
                 </div>
 
               </div>
               <div class="box_body">
-                <h3>Job Vacancies</h3>
-                <p>Closing Date</p>
-                <p>Create By</p>
+              <h3>Pastry Shop Cashier</h3>
+                <p>closed by 2020/12/05</p>
+                <p>Kamal Kumara</p>
               </div>
 
               <div class="more">
@@ -197,7 +227,7 @@
                   
                       <li><a href="#">Save</a></li>
                       <li><a href="#">Hidden</a></li>
-                      <li><a href="#">Reminder</a></li>
+                      <li onclick="set_time_to_publish_Popup()"><a href="#">Reminder</a></li>
                 
               </ul>
               </div>
@@ -257,96 +287,80 @@
 
     <div class="body_information">
          
-          <div class="box-container">
+          <div class="box-container normal_box">
               <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
+                <img src="../images/save/baker.jpg" alt="">
               
                 <div class="middle">
-                     <div class="view_btn">View</div>
+                     <div class="view_btn" onclick="window.open('./Moderator_Read_Job.php', '_self')">View</div>
                 </div>
-
-              </div>
-              <div class="box_body">
-                <h3>Job Vacancies</h3>
-                <p>Closing Date</p>
-                <p>Create By</p>
-              </div>
-
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
-                      <li><a href="#">Reminder</a></li>
-          
-              </ul>
-              </div>
-          </div>
-
-          <div class="box-container">
-              <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
-              
-                <div class="middle">
-                     <div class="view_btn">View</div>
-                </div>
-
-              </div>
-              <div class="box_body">
-                <h3>Job Vacancies</h3>
-                <p>Closing Date</p>
-                <p>Create By</p>
-              </div>
-
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
-                      <li><a href="#">Reminder</a></li>
-          
-              </ul>
-              </div>
-          </div>
-
-
-          <div class="box-container">
-              <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
-              
-                <div class="middle">
-                     <div class="view_btn">View</div>
-                </div>
-
-              </div>
-              <div class="box_body">
-                <h3>Job Vacancies</h3>
-                <p>Closing Date</p>
-                <p>Create By</p>
-              </div>
-
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
-                      <li><a href="#">Reminder</a></li>
                 
-              </ul>
+                
+              </div>
+              <div class="box_body">
+                <h3>Pastry Shop Cashier</h3>
+                <p>closed by 2020/12/05</p>
+                <p>Kamal Kumara</p>
+              
               </div>
 
-              
-
+              <div class="more">
+                <img src="../images/More.svg" alt="" srcset="">
+                <ul class ="more_post">
+                  
+                      <li><a href="#">Save</a></li>
+                      <li><a href="#">Hidden</a></li>
+                      <li onclick="set_time_to_publish_Popup()"><a href="#">Reminder</a></li>
+          
+              </ul>
+              </div>
           </div>
 
+          
+          
     </div>
 
     
 </div>
 
+
+<div class="popup popup_set_time" id="popup-8">
+
+      <div class="overlay"></div>
+
+      <div class="content popup_set_time">
+          <div class="close-btn" onclick="set_time_to_publish_Popup()">&times;</div>
+
+
+          <div class="content_body popup_set_time_body">
+              <div class="popup_logo">
+                   <img src="../images/Name.svg" alt="" srcset="">
+              </div>
+              <hr>
+
+              <div class="popup_form">
+                  <h3 class="popup_title">Set Time to Reminder</h3>
+                  <form action="" method="post">
+
+                  
+                    <label for="new-date" class="lbl"> Date</label>
+                    <input type="date" name="" id="new-date" class="inp inp1">
+                      <br>
+                      <br>
+
+                    <label for="new-time" class="lbl"> Time</label>
+                  
+                    <input type="time" name="" id="new-time" class="inp inp1">
+                    <br>
+                    <div class="publish_btn" onclick="window.open('Moderator_View_Jobs.php','_self')">Set</div>
+              
+                   </form>
+               </div>
+
+          </div>
+      </div>
+      
+</div>
 
 
 
@@ -374,6 +388,10 @@
         }
       }
     }
+
+    function set_time_to_publish_Popup(){
+      document.getElementById("popup-8").classList.toggle("active");
+    } 
 
 </script>
     

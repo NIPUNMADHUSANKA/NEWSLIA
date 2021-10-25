@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +25,7 @@
     height: 240px;
   }
   .popular_famous_container{
-    height: 300px;
+    height: 330px;
   }
 
   .drop_area_sort{
@@ -39,9 +42,18 @@
 
   .left_side{
     padding-left:9rem;
+    cursor: pointer;
   }
   .right_side{
     padding-right:9rem;
+    cursor: pointer;
+  }
+  .right_side:hover{
+    opacity: 1;
+
+  }
+  .left_side:hover{
+    opacity: 1;
   }
   
 .drop_area_sort_cont{
@@ -51,6 +63,18 @@
 .pop_more{
   margin-top: 1rem;
 }
+
+.body_information{
+      margin-left:-3rem;
+       margin-top:-1rem;
+       /*padding: 1.2vw; */     
+}
+
+.normal_box{
+  margin-left:3rem;
+  height:260px;
+}
+
   
 </style>
 
@@ -69,8 +93,8 @@
 
       <div class="right">
           <img src="../images/Profile.svg" alt="" srcset="">
-          <p>A.A.N.Madhusanka <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
-          <ul class="profile_menu">
+          <p><?php   echo $_SESSION['FName']." ".$_SESSION['LName']; ?> <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
+           <ul class="profile_menu">
               <li><a href="#"> <img src="../images/other/profile.png" alt="" srcset=""> My Profile</a></li>
               <li><a href="#"><img src="../images/other/location.png" alt="" srcset="">Select Area</a></li>
               <li><a href="#"><img src="../images/other/type.png" alt="" srcset="">Select Type</a></li>
@@ -140,7 +164,7 @@
     
           <div class="box-container popular_famous_container">
               <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
+                <img src="../images/save/cake.jpg" alt="">
               
                 <div class="middle popular_famous_middel">
                      <div class="right_side"><img src="../images/Right.svg" alt="" srcset=""></div>
@@ -151,9 +175,10 @@
 
               </div>
               <div class="box_body">
-                <h3>Commercial Ad</h3>
-                <p>Publish Date</p>
-                <p>Create By</p>
+                <h3>Cake Shop</h3>
+                <p>2021-02-20</p>
+                <p>Nishal Kumara</p>
+                
               </div>
 
               <div class="more">
@@ -170,7 +195,7 @@
           <div class="title">Most Popular</div>
           <div class="box-container popular_famous_container">
               <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
+                <img src="../images/save/cake.jpg" alt="">
               
                 <div class="middle popular_famous_middel">
                      <div class="right_side"><img src="../images/Right.svg" alt="" srcset=""></div>
@@ -181,9 +206,9 @@
 
               </div>
               <div class="box_body">
-                <h3>Commercial Ad</h3>
-                <p>Publish Date</p>
-                <p>Create By</p>
+                <h3>Cake Shop</h3>
+                <p>2021-02-20</p>
+                <p>Nishal Kumara</p>
               </div>
 
               <div class="more">
@@ -237,19 +262,19 @@
 
     <div class="body_information">
          
-          <div class="box-container">
+          <div class="box-container normal_box">
               <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
+                <img src="../images/pending/cafe_shop.jpg" alt="">
               
                 <div class="middle">
-                     <div class="view_btn">View</div>
+                     <div class="view_btn" onclick="window.open('./Moderator_Read_ads.php', '_self')">View</div>
                 </div>
 
               </div>
               <div class="box_body">
-                <h3>Commercial Ad</h3>
-                <p>Publish Date</p>
-                <p>Create By</p>
+                <h3>Candy Cafe</h3>
+                <p>2021-10-24</p>
+                <p>Candy Cafe Team</p>
               </div>
 
               <div class="more">
@@ -263,61 +288,7 @@
               </div>
           </div>
 
-          <div class="box-container">
-              <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
-              
-                <div class="middle">
-                     <div class="view_btn">View</div>
-                </div>
-
-              </div>
-              <div class="box_body">
-                <h3>Commercial Ad</h3>
-                <p>Publish Date</p>
-                <p>Create By</p>
-              </div>
-
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
           
-              </ul>
-              </div>
-          </div>
-
-
-          <div class="box-container">
-              <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
-              
-                <div class="middle">
-                     <div class="view_btn">View</div>
-                </div>
-
-              </div>
-              <div class="box_body">
-                <h3>Commercial Ad</h3>
-                <p>Publish Date</p>
-                <p>Create By</p>
-              </div>
-
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
-                
-              </ul>
-              </div>
-
-              
-
-          </div>
 
     </div>
 

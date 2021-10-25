@@ -39,7 +39,7 @@
   }
 
   .posts_content_view_head{
-    font-size:2rem;
+    font-size:x-large;
 
     }
 
@@ -152,7 +152,7 @@
                 <img src="../images/save/water.jpg" alt="">
               
                 <div class="middle">
-                     <div class="view_btn">View</div>
+                     <div class="view_btn" onclick="window.open('./Moderator_Read_Save.php', '_self')">View</div>
                 </div>
 
               </div>
@@ -166,8 +166,8 @@
                 <img src="../images/More.svg" alt="" srcset="">
                 <ul class ="more_post">
                   
-                      <li><a href="#">Unsave</a></li>
-                      <li><a href="#">Hidden</a></li>
+                <li><a href="#">Unsave</a></li>
+              <li><a href="#">Hide</a></li>
                     
               </ul>
               </div>
@@ -192,8 +192,8 @@
                 <img src="../images/More.svg" alt="" srcset="">
                 <ul class ="more_post">
                   
-                      <li><a href="#">Unsave</a></li>
-                      <li><a href="#">Hidden</a></li>
+                <li><a href="#">Unsave</a></li>
+              <li><a href="#">Hide</a></li>
           
               </ul>
               </div>

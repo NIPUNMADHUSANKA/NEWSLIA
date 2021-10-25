@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,11 +25,11 @@
     height: 240px;
   }
   .popular_famous_container{
-    height: 300px;
+    height: 320px;
   }
 
   .posts_content_view_head{
-    font-size:xx-large;
+    font-size:x-large;
   }
   
   .drop_area_sort{
@@ -55,6 +58,17 @@
 .pop_more{
   margin-top: 1rem;
 }
+
+.body_information{
+      margin-left:-3rem;
+       margin-top:-1rem;
+       /*padding: 1.2vw; */     
+}
+
+.normal_box{
+  margin-left:3rem;
+  height:260px;
+}
   
 </style>
 
@@ -73,7 +87,7 @@
 
       <div class="right">
           <img src="../images/Profile.svg" alt="" srcset="">
-          <p>A.A.N.Madhusanka <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
+          <p><?php   echo $_SESSION['FName']." ".$_SESSION['LName']; ?> <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
           <ul class="profile_menu">
               <li><a href="#"> <img src="../images/other/profile.png" alt="" srcset=""> My Profile</a></li>
               <li><a href="#"><img src="../images/other/location.png" alt="" srcset="">Select Area</a></li>
@@ -144,7 +158,7 @@
     
           <div class="box-container popular_famous_container">
               <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
+              <img src="../images/save/forest.jpg" alt="">
               
                 <div class="middle popular_famous_middel">
                      <div class="right_side"><img src="../images/Right.svg" alt="" srcset=""></div>
@@ -155,9 +169,9 @@
 
               </div>
               <div class="box_body">
-                <h3>Article</h3>
-                <p>Publish Date</p>
-                <p>Create By</p>
+                <h3>Sinharaja Forest</h3>
+                <p>2021-05-12</p>
+                <p>Anura Malith</p>
               </div>
 
               <div class="more">
@@ -174,7 +188,7 @@
           <div class="title">Most Popular</div>
           <div class="box-container popular_famous_container">
               <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
+              <img src="../images/save/forest.jpg" alt="">
               
                 <div class="middle popular_famous_middel">
                      <div class="right_side"><img src="../images/Right.svg" alt="" srcset=""></div>
@@ -185,10 +199,12 @@
 
               </div>
               <div class="box_body">
-                <h3>Article</h3>
-                <p>Publish Date</p>
-                <p>Create By</p>
+              <h3>Sinharaja Forest</h3>
+                <p>2021-05-12</p>
+                <p>Anura Malith</p>
               </div>
+
+              
 
               <div class="more">
                 <img src="../images/More.svg" alt="" srcset="" class="pop_more">
@@ -241,19 +257,19 @@
 
     <div class="body_information">
          
-          <div class="box-container">
+          <div class="box-container normal_box">
               <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
+                <img src="../images/save/forest.jpg" alt="">
               
                 <div class="middle">
-                     <div class="view_btn">View</div>
+                     <div class="view_btn" onclick="window.open('./Moderator_Read_Articles.php', '_self')">View</div>
                 </div>
 
               </div>
               <div class="box_body">
-                <h3>Article</h3>
-                <p>Publish Date</p>
-                <p>Create By</p>
+                <h3>Sinharaja Forest</h3>
+                <p>2021-05-12</p>
+                <p>Anura Malith</p>
               </div>
 
               <div class="more">
@@ -267,62 +283,8 @@
               </div>
           </div>
 
-          <div class="box-container">
-              <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
-              
-                <div class="middle">
-                     <div class="view_btn">View</div>
-                </div>
-
-              </div>
-              <div class="box_body">
-                <h3>Article</h3>
-                <p>Publish Date</p>
-                <p>Create By</p>
-              </div>
-
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
+         
           
-              </ul>
-              </div>
-          </div>
-
-
-          <div class="box-container">
-              <div class="box_head">
-                <img src="../images/sethma.jpeg" alt="">
-              
-                <div class="middle">
-                     <div class="view_btn">View</div>
-                </div>
-
-              </div>
-              <div class="box_body">
-                <h3>Article</h3>
-                <p>Publish Date</p>
-                <p>Create By</p>
-              </div>
-
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
-                
-              </ul>
-              </div>
-
-              
-
-          </div>
-
     </div>
 
     
