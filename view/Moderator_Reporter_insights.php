@@ -186,7 +186,7 @@
 
                 <div class="card card2">
                           <div class="content">
-                            <h2>02<br/><span>Complaints</span></h2>
+                            <h2>05<br/><span>Complaints</span></h2>
                           </div>
                         
                   </div>
@@ -196,7 +196,7 @@
           <div class="trust">
                   <div class="card card3">
                           <div class="content">
-                            <h2><span class="precentage" style="color:#000;font-size:1.5rem;margin-left:-0.5rem;"><b>95%</b></span><br/> <span class="precentage" style="padding-left:1.5rem;">Trust for Publish</span></h2>
+                            <h2><span class="precentage" style="color:#000;font-size:1.5rem;margin-left:-0.5rem;"><b>75%</b></span><br/> <span class="precentage" style="padding-left:1.5rem;">Trust for Publish</span></h2>
                             <br>
                             
                           </div>
