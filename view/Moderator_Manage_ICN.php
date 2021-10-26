@@ -247,13 +247,13 @@ input{
 
                      <div class="form-container">
 
-                          <label for="add-name" class="lbl">Name</label>
+                          <label for="add-name" class="lbl">Name<span style="color:red;font-size:13px;margin-left:">*</span></label>
                           
                           <input type="text" name="ic_title" id="add-name" class="inp" required>
                           <br>
                           <br>
 
-                          <label for="add-number" class="lbl">Number</label>
+                          <label for="add-number" class="lbl">Number<span style="color:red;font-size:13px;">*</span></label>
 
                           <div id="survey_options" class="number">
                           <input type="text" name="num1[]" id="add-number" class="inp" required>

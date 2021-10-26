@@ -86,7 +86,7 @@
 <!-- Moderator Notices View -->
 <div class="content_posts_view">
     <div class="posts_content_view_head">
-        Article
+        Articles
     </div>
 </div>
 

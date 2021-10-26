@@ -708,9 +708,11 @@ session_start();
 
 
 
-<form action="./Main_Home.php" method = "POST">
 
-          <div class="popup popup_signup" id="popup-10">
+
+<form action="<?php echo $_SERVER["PHP_SELF"];?>" method = "POST">
+
+          <div class="popup popup_signup active" id="popup-10">
 
           <div class="overlay"></div>
 
@@ -729,15 +731,15 @@ session_start();
                       <p class="caption">Create your account.It's free and only takes a minute</p>
                       <div name="login_form">
 
-                        <input type="text" name="sysactor_first_name" id="new_fname" class="inp inp1 finp" placeholder="First Name" required> <span style="color:red;font-size:13px;">*</span>
-                        
-                        <input type="text" name="sysactor_last_name" id="new_lname" class="inp inp1 linp" placeholder="Second Name" required style="margin-left:0.5rem;"> <span style="color:red;font-size:13px;">*</span>
+                        <input type="text" name="sysactor_first_name" id="new_fname" class="inp inp1 finp" placeholder="First Name" required value="<?php if(isset($_POST['signup'])) echo $_SESSION['first']; ?>"> <span style="color:red;font-size:13px;">*</span>
+                                                                                                                                                            
+                        <input type="text" name="sysactor_last_name" id="new_lname" class="inp inp1 linp" placeholder="Second Name" required style="margin-left:0.5rem;" value="<?php if(isset($_POST['signup'])) echo $_SESSION['last']; ?>"> <span style="color:red;font-size:13px;">*</span>
                           
-                        <input type="text" name="sysactor_email" id="new_email" class="inp inp1 einp" placeholder="Email Address" required> <span style="color:red;font-size:13px;">*</span>
+                        <input type="text" name="sysactor_email" id="new_email" class="inp inp1 einp" placeholder="Email Address" required value="<?php if(isset($_POST['signup'])) echo $_SESSION['email']; ?>"> <span style="color:red;font-size:13px;">*</span>
 
-                        <input type="text" name="sysactor_mobile" id="new_mobile" class="inp inp1 einp" placeholder="Mobile Number" required> <span style="color:red;font-size:13px;">*</span>
+                        <input type="text" name="sysactor_mobile" id="new_mobile" class="inp inp1 einp" placeholder="Mobile Number" required value="<?php if(isset($_POST['signup'])) echo $_SESSION['mobile']; ?>"> <span style="color:red;font-size:13px;">*</span>
 
-                        <input type="text" name="sysactor_nic" id="new_nic" class="inp inp1 einp" placeholder="NIC Number" required> <span style="color:red;font-size:13px;">*</span>
+                        <input type="text" name="sysactor_nic" id="new_nic" class="inp inp1 einp" placeholder="NIC Number" required value="<?php if(isset($_POST['signup'])) echo $_SESSION['nic']; ?>"> <span style="color:red;font-size:13px;">*</span>
                         
                         <div class="update_btn next" onclick="togglePopup_sign_up_2()">Next</div>
 
@@ -819,7 +821,7 @@ session_start();
                         </select>  <span style="color:red;font-size:13px;">*</span>
 
 
-                        <input type="text" name="sysactor_new_username" id="new_uname" class="inp inp1 inp3" placeholder="Username" required> <span style="color:red; font-size:13px;">*</span>
+                        <input type="text" name="sysactor_new_username" id="new_uname" class="inp inp1 inp3" placeholder="Username" required value="<?php if(isset($_POST['signup'])) echo $_SESSION['user_new']; ?>"> <span style="color:red; font-size:13px;">*</span>
 
                         <br>
                         <input type="password" name="sysactor_pwd" id="new_pwd" class="inp inp1 finp pass" placeholder="Password" maxlength="15" required> <span style="color:red;font-size:13px;">*</span>
@@ -1066,18 +1068,30 @@ session_start();
 
   if(isset($_POST['signup'])){
 
+
+        $_SESSION['first'] = $_POST['sysactor_first_name'];
         $first = $_POST['sysactor_first_name'];
+
+        $_SESSION['last'] = $_POST['sysactor_last_name'];
         $last = $_POST['sysactor_last_name'];
         
+        $_SESSION['email'] = $_POST['sysactor_email'];
         $email = $_POST['sysactor_email'];
+
+        $_SESSION['mobile'] = $_POST['sysactor_mobile'];
         $mobile = $_POST['sysactor_mobile'];
+
+        $_SESSION['nic'] = $_POST['sysactor_nic'];
         $nic = $_POST['sysactor_nic'];
         
+
+      
         $job = $_POST['job'];
         $province = $_POST['province'];
         $district = $_POST['district'];
         $dsa = $_POST['dsa'];
 
+        $_SESSION['user_new'] = $_POST['sysactor_new_username'];
         $username_new = $_POST['sysactor_new_username'];
 
         $pwd = $_POST['sysactor_pwd'];
@@ -1161,6 +1175,17 @@ session_start();
               elseif ($signup_connection == "Staff"){
                 echo '<script type="text/javascript">signup_msg2();</script>'; 
               }
+
+
+              unset($_SESSION['first']);
+              unset($_SESSION['last']);
+              unset($_SESSION['email']);
+              unset($_SESSION['mobile']);
+              unset($_SESSION['nic']);
+              unset($_SESSION['user_new']);
+              session_destroy();
+              window.open("./Form.php", "_self");
+
 
             }
 

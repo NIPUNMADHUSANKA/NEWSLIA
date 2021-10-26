@@ -81,7 +81,7 @@ table, th, td {
   <div class="content">
 
         <div class="content_left">
-          <h1>Welcome to the NEWSLIA's <br> Moderator Interface</h1>
+          <h1>Welcome to the NEWSLIA</h1>
               
           <div class="moderate_info">
               <table class="moderator_details">
