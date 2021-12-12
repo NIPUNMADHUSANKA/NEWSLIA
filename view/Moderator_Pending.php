@@ -53,7 +53,36 @@
   }
   .setting_close img:hover{
     transform:scale(1.2);
-  }
+  }  
+
+
+  .tag {
+  position: absolute;
+  top: 1.7%;
+  bottom: 0;
+  left: 20;
+  right: 1%;
+  height: 15%;
+  width: 30%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: #ACE0B8;
+  cursor: pointer;
+  border-radius:0px 0px 0px 20px;
+}
+  .box-container:hover .tag{
+  opacity: 1;
+} 
+
+.tag_text{
+  color: #555;
+  font-weight:bold;
+  font-size: 17px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
  
 
@@ -107,63 +136,9 @@
 
     <div class="body_information">
          
-          <div class="box-container">
-              <div class="box_head">
-                    <img src="../images/pending/powercut.jpg" alt="">
-                  </div>
+      <?php include 'Moderator_Peding_Content.php'; ?>
 
-                  <div class="box_body">
-                    <h3>Power Cut</h3>
-                    <p>Electricity Board - Negombo</p>
-                  </div>
-
-                  <div class="more">
-                    <p>2022:01:17</p>
-                  </div>
-
-                  <div class="setting_close">
-                     <img src="../images/Check.svg" alt="" srcset="" onclick="window.open('Moderator_Check_News.php','_self')">
-                  </div>
-          </div>
-
-          <div class="box-container">
-                      <div class="box_head">
-                      <img src="../images/pending/kandy_perehera.jpg" alt="">
-                    </div>
-
-                    <div class="box_body">
-                      <h3>Kandy Perahera</h3>
-                      <p>Amith Malsanka</p>
-                    </div>
-
-                    <div class="setting_close">
-                       <img src="../images/Check.svg" alt="" srcset="" onclick="window.open('Moderator_Check_Articles.php','_self')">
-                    </div>
-          </div>
-
-
-          <div class="box-container">
-              <div class="box_head">
-                <img src="../images/pending/cafe_shop.jpg" alt="">
-              </div>
-
-              <div class="box_body">
-                <h3>Candy Cafe</h3>
-                <p>Candy Cafe Team</p>
-              </div>
-
-              <div class="more">
-                  <p>2022:01:17</p>
-                  <p>00:00</p>
-              </div>
-
-              <div class="setting_close">
-                 <img src="../images/Check.svg" alt="" srcset="" onclick="window.open('Moderator_Check_Ads.php','_self')">
-              </div>
-
-              
-
-          </div>
+         
 
     </div>
 
