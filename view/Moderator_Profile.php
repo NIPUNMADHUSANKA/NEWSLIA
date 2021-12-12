@@ -21,7 +21,7 @@
 
 <style>
   body {
-    overflow: hidden; /* Hide scrollbars */
+   /* overflow: hidden; /* Hide scrollbars */
   }
 
   
@@ -106,7 +106,7 @@
 
     color: #565555;
 } */
-  */
+  
   /* .ans{
     position: relative;
 width: 36px;

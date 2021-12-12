@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 25, 2021 at 12:10 PM
+-- Generation Time: Dec 12, 2021 at 09:20 AM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.3.6
 
@@ -21,6 +21,109 @@ SET time_zone = "+00:00";
 --
 -- Database: `newslia`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `accept_complaint`
+--
+
+CREATE TABLE `accept_complaint` (
+  `Complaint_ID` char(10) NOT NULL,
+  `System_Admin_ID` char(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `articles`
+--
+
+CREATE TABLE `articles` (
+  `Post_ID` char(10) NOT NULL,
+  `Title` varchar(30) NOT NULL,
+  `Publish_Date` date NOT NULL,
+  `Image` longblob NOT NULL,
+  `Details` varchar(255) NOT NULL,
+  `Creator_ID` char(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `articles_pending`
+--
+
+CREATE TABLE `articles_pending` (
+  `Post_ID` char(10) NOT NULL,
+  `Title` varchar(30) NOT NULL,
+  `Create Date` date NOT NULL,
+  `Image` longblob NOT NULL,
+  `Details` varchar(255) NOT NULL,
+  `Creator_ID` char(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `complaint`
+--
+
+CREATE TABLE `complaint` (
+  `Complaint_ID` char(10) NOT NULL,
+  `Complainer_ID` char(10) NOT NULL,
+  `News_ID` char(10) NOT NULL,
+  `Date` date NOT NULL,
+  `Category` varchar(50) NOT NULL,
+  `Details` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `com_ads`
+--
+
+CREATE TABLE `com_ads` (
+  `Post_ID` char(10) NOT NULL,
+  `Title` varchar(50) NOT NULL,
+  `publish_Date` date NOT NULL,
+  `Image` longblob NOT NULL,
+  `Details` varchar(255) NOT NULL,
+  `Creator_ID` char(10) NOT NULL,
+  `Set_Date` date NOT NULL,
+  `Set_Time` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `com_ads_pending`
+--
+
+CREATE TABLE `com_ads_pending` (
+  `Post_ID` char(10) NOT NULL,
+  `Title` varchar(50) NOT NULL,
+  `Create_Date` date NOT NULL,
+  `Image` longblob NOT NULL,
+  `Details` varchar(255) NOT NULL,
+  `Creator_ID` char(10) NOT NULL,
+  `Set_Date` date NOT NULL,
+  `Set_Time` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `deactivate`
+--
+
+CREATE TABLE `deactivate` (
+  `Deactivation ID` char(10) NOT NULL,
+  `System_Actor_ID` char(10) NOT NULL,
+  `Date` date NOT NULL,
+  `Time` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -394,6 +497,18 @@ INSERT INTO `events` (`evt_id`, `evt_start`, `evt_end`, `evt_text`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `hidden`
+--
+
+CREATE TABLE `hidden` (
+  `Post_ID` char(10) NOT NULL,
+  `System_Actor_ID` char(10) NOT NULL,
+  `Post Type` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `important_number`
 --
 
@@ -436,6 +551,44 @@ INSERT INTO `important_number_list` (`Contact_ID`, `Number`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `job_vacancies`
+--
+
+CREATE TABLE `job_vacancies` (
+  `Post_ID` char(10) NOT NULL,
+  `Company` varchar(50) NOT NULL,
+  `Position` varchar(20) NOT NULL,
+  `Publish_Date` date NOT NULL,
+  `Deadline_Date` date NOT NULL,
+  `Image` longblob NOT NULL,
+  `Details` varchar(255) NOT NULL,
+  `Creator_ID` char(10) NOT NULL,
+  `Set_Date` date NOT NULL,
+  `Set_Time` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_vacancies_pending`
+--
+
+CREATE TABLE `job_vacancies_pending` (
+  `Post_ID` char(10) NOT NULL,
+  `Company` varchar(50) NOT NULL,
+  `Position` varchar(20) NOT NULL,
+  `Create_Date` date NOT NULL,
+  `Deadline_Date` date NOT NULL,
+  `Image` longblob NOT NULL,
+  `Details` varchar(255) NOT NULL,
+  `Creator_ID` char(10) NOT NULL,
+  `Set_Date` date NOT NULL,
+  `Set_Time` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `login`
 --
 
@@ -453,8 +606,7 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`Email`, `System_Actor_ID`, `Password`, `Deactivate`, `Blacklist`, `Staff_State`) VALUES
-('kasunchamara8078@gmail.com', 'NL-M-2', 'b4fb2c4394180dce019b6135822ed506', 0, 0, 1),
-('nipunmadhusanka201085@gmail.com', 'NL-M-00001', '6056a2b2dd8257ed79e50a62a3938472', 1, 0, 1);
+('nipunmadhusanka201085@gmail.com', 'NL-M-1', '6056a2b2dd8257ed79e50a62a3938472', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -472,8 +624,59 @@ CREATE TABLE `moderate_area` (
 --
 
 INSERT INTO `moderate_area` (`System_Actor_Id`, `Area`) VALUES
-('NL-M-00001', 'Minuwangoda'),
-('NL-M-2', 'Gampaha');
+('NL-M-1', 'Minuwangoda');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `moderate_insights`
+--
+
+CREATE TABLE `moderate_insights` (
+  `System_Actor_Id` char(10) NOT NULL,
+  `News` int(11) NOT NULL,
+  `Articles` int(11) NOT NULL,
+  `Notices` int(11) NOT NULL,
+  `Job Vacancies` int(11) NOT NULL,
+  `Commercial Ads` int(11) NOT NULL,
+  `Complaints` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `news`
+--
+
+CREATE TABLE `news` (
+  `Post_ID` char(10) NOT NULL,
+  `Title` varchar(30) NOT NULL,
+  `Publish_Date` date NOT NULL,
+  `Image` longblob NOT NULL,
+  `Details` varchar(255) NOT NULL,
+  `News_Category` varchar(20) NOT NULL,
+  `Creator_ID` char(10) NOT NULL,
+  `Calendar_Date` date NOT NULL,
+  `up_count` int(11) NOT NULL,
+  `down_count` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `news_pending`
+--
+
+CREATE TABLE `news_pending` (
+  `Post_ID` char(10) NOT NULL,
+  `Title` varchar(30) NOT NULL,
+  `Create_Date` date NOT NULL,
+  `Image` longblob NOT NULL,
+  `Details` varchar(255) NOT NULL,
+  `News_Category` varchar(20) NOT NULL,
+  `Creator_ID` int(11) NOT NULL,
+  `Calendar_Date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -498,8 +701,41 @@ CREATE TABLE `news_type` (
 --
 
 INSERT INTO `news_type` (`System_Actor_Id`, `Political`, `Crime`, `Inves`, `Art`, `Eduation`, `Sport`, `Entertainment`, `Environment`) VALUES
-('NL-M-00001', 0, 0, 0, 1, 1, 1, 1, 1),
-('NL-M-2', 1, 1, 1, 1, 1, 1, 1, 1);
+('NL-M-1', 0, 0, 0, 1, 1, 1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notices`
+--
+
+CREATE TABLE `notices` (
+  `Post_ID` char(10) NOT NULL,
+  `Title` varchar(30) NOT NULL,
+  `Publish Date` date NOT NULL,
+  `Image` longblob NOT NULL,
+  `Details` varchar(255) NOT NULL,
+  `Creator_ID` char(10) NOT NULL,
+  `Set_Date` date NOT NULL,
+  `Set_Time` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notices_pending`
+--
+
+CREATE TABLE `notices_pending` (
+  `Post_ID` char(10) NOT NULL,
+  `Title` varchar(30) NOT NULL,
+  `Create Date` date NOT NULL,
+  `Image` longblob NOT NULL,
+  `Details` varchar(255) NOT NULL,
+  `Creator_ID` char(10) NOT NULL,
+  `Publish Date` date NOT NULL,
+  `Publish Time` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -521,8 +757,7 @@ CREATE TABLE `post_type` (
 --
 
 INSERT INTO `post_type` (`System_Actor_Id`, `News`, `Article`, `Notice`, `Job_Vacancies`, `Com_Ads`) VALUES
-('NL-M-00001', 1, 1, 1, 1, 1),
-('NL-M-2', 1, 1, 1, 1, 1);
+('NL-M-1', 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -540,10 +775,63 @@ CREATE TABLE `read_area` (
 --
 
 INSERT INTO `read_area` (`System_Actor_Id`, `Area`) VALUES
-('NL-M-00001', 'Ja-Ela'),
-('NL-M-00001', 'Minuwangoda'),
-('NL-M-00001', 'Negombo'),
-('NL-M-2', 'Gampaha');
+('NL-M-1', 'Ja-Ela'),
+('NL-M-1', 'Minuwangoda'),
+('NL-M-1', 'Negombo');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reject_complaint`
+--
+
+CREATE TABLE `reject_complaint` (
+  `Complaint_ID` char(10) NOT NULL,
+  `System_Admin_ID` char(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reminder`
+--
+
+CREATE TABLE `reminder` (
+  `Post_ID` char(10) NOT NULL,
+  `System_Actor_ID` char(10) NOT NULL,
+  `Reminder_Date` date NOT NULL,
+  `Reminder_Time` time NOT NULL,
+  `Account_Balance` double NOT NULL,
+  `Post_Type` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reporter_complaints`
+--
+
+CREATE TABLE `reporter_complaints` (
+  `Complaint_ID` char(10) NOT NULL,
+  `System_Reporter_ID` char(10) NOT NULL,
+  `News_ID` char(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reporter_insights`
+--
+
+CREATE TABLE `reporter_insights` (
+  `System_Actor_Id` char(10) NOT NULL,
+  `News` int(11) NOT NULL,
+  `Notices` int(11) NOT NULL,
+  `Job Vacancies` int(11) NOT NULL,
+  `Commercial Ads` int(11) NOT NULL,
+  `Complaints` int(11) NOT NULL,
+  `Stars` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -554,6 +842,40 @@ INSERT INTO `read_area` (`System_Actor_Id`, `Area`) VALUES
 CREATE TABLE `report_area` (
   `System_Actor_Id` char(10) NOT NULL,
   `Area` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `report_area`
+--
+
+INSERT INTO `report_area` (`System_Actor_Id`, `Area`) VALUES
+('NL-M-2', 'Ambalantota'),
+('NL-M-4', 'Bibile');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `save`
+--
+
+CREATE TABLE `save` (
+  `Post_ID` char(10) NOT NULL,
+  `System_Actor_ID` char(10) NOT NULL,
+  `Post Type` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `smart_calendar`
+--
+
+CREATE TABLE `smart_calendar` (
+  `evt_id` char(10) NOT NULL,
+  `evt_start` date NOT NULL,
+  `evt_end` date NOT NULL,
+  `Post_Id` char(10) NOT NULL,
+  `Area` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -578,12 +900,68 @@ CREATE TABLE `system_actor` (
 --
 
 INSERT INTO `system_actor` (`System_Actor_Id`, `FirstName`, `LastName`, `UserName`, `NIC`, `Mobile`, `DSA`, `Position`) VALUES
-('NL-M-00001', 'Nipun', 'Madhusanka', 'NIPUNM', '199934310393', '0784383142', 'Minuwangoda', 'M'),
-('NL-M-2', 'Kasun', 'Chamara', 'KASUNCHAMARA', '199935120857', '0718029685', 'Gampaha', 'M');
+('NL-M-1', 'Nipun', 'Madhusanka', 'NIPUNM', '199934310393', '0784383142', 'Minuwangoda', 'M');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vote`
+--
+
+CREATE TABLE `vote` (
+  `Post_ID` char(10) NOT NULL,
+  `System_Actor_ID` char(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `accept_complaint`
+--
+ALTER TABLE `accept_complaint`
+  ADD PRIMARY KEY (`Complaint_ID`),
+  ADD KEY `System_Actor_ID` (`System_Admin_ID`);
+
+--
+-- Indexes for table `articles`
+--
+ALTER TABLE `articles`
+  ADD PRIMARY KEY (`Post_ID`);
+
+--
+-- Indexes for table `articles_pending`
+--
+ALTER TABLE `articles_pending`
+  ADD PRIMARY KEY (`Post_ID`);
+
+--
+-- Indexes for table `complaint`
+--
+ALTER TABLE `complaint`
+  ADD PRIMARY KEY (`Complaint_ID`),
+  ADD KEY `Complainer_ID` (`Complainer_ID`),
+  ADD KEY `News_ID` (`News_ID`);
+
+--
+-- Indexes for table `com_ads`
+--
+ALTER TABLE `com_ads`
+  ADD PRIMARY KEY (`Post_ID`);
+
+--
+-- Indexes for table `com_ads_pending`
+--
+ALTER TABLE `com_ads_pending`
+  ADD PRIMARY KEY (`Post_ID`);
+
+--
+-- Indexes for table `deactivate`
+--
+ALTER TABLE `deactivate`
+  ADD PRIMARY KEY (`Deactivation ID`),
+  ADD KEY `System_Actor_ID` (`System_Actor_ID`);
 
 --
 -- Indexes for table `dsa`
@@ -598,6 +976,13 @@ ALTER TABLE `events`
   ADD PRIMARY KEY (`evt_id`);
 
 --
+-- Indexes for table `hidden`
+--
+ALTER TABLE `hidden`
+  ADD PRIMARY KEY (`Post_ID`,`System_Actor_ID`),
+  ADD KEY `System_Actor_ID` (`System_Actor_ID`);
+
+--
 -- Indexes for table `important_number`
 --
 ALTER TABLE `important_number`
@@ -608,6 +993,18 @@ ALTER TABLE `important_number`
 --
 ALTER TABLE `important_number_list`
   ADD PRIMARY KEY (`Contact_ID`,`Number`);
+
+--
+-- Indexes for table `job_vacancies`
+--
+ALTER TABLE `job_vacancies`
+  ADD PRIMARY KEY (`Post_ID`);
+
+--
+-- Indexes for table `job_vacancies_pending`
+--
+ALTER TABLE `job_vacancies_pending`
+  ADD PRIMARY KEY (`Post_ID`);
 
 --
 -- Indexes for table `login`
@@ -623,10 +1020,40 @@ ALTER TABLE `moderate_area`
   ADD PRIMARY KEY (`System_Actor_Id`,`Area`);
 
 --
+-- Indexes for table `moderate_insights`
+--
+ALTER TABLE `moderate_insights`
+  ADD PRIMARY KEY (`System_Actor_Id`);
+
+--
+-- Indexes for table `news`
+--
+ALTER TABLE `news`
+  ADD PRIMARY KEY (`Post_ID`);
+
+--
+-- Indexes for table `news_pending`
+--
+ALTER TABLE `news_pending`
+  ADD PRIMARY KEY (`Post_ID`);
+
+--
 -- Indexes for table `news_type`
 --
 ALTER TABLE `news_type`
   ADD PRIMARY KEY (`System_Actor_Id`);
+
+--
+-- Indexes for table `notices`
+--
+ALTER TABLE `notices`
+  ADD PRIMARY KEY (`Post_ID`);
+
+--
+-- Indexes for table `notices_pending`
+--
+ALTER TABLE `notices_pending`
+  ADD PRIMARY KEY (`Post_ID`);
 
 --
 -- Indexes for table `post_type`
@@ -641,10 +1068,52 @@ ALTER TABLE `read_area`
   ADD PRIMARY KEY (`System_Actor_Id`,`Area`);
 
 --
+-- Indexes for table `reject_complaint`
+--
+ALTER TABLE `reject_complaint`
+  ADD PRIMARY KEY (`Complaint_ID`),
+  ADD KEY `System_Actor_ID` (`System_Admin_ID`);
+
+--
+-- Indexes for table `reminder`
+--
+ALTER TABLE `reminder`
+  ADD PRIMARY KEY (`Post_ID`,`System_Actor_ID`),
+  ADD KEY `System_Actor_ID` (`System_Actor_ID`);
+
+--
+-- Indexes for table `reporter_complaints`
+--
+ALTER TABLE `reporter_complaints`
+  ADD PRIMARY KEY (`Complaint_ID`),
+  ADD KEY `System_Reporter_ID` (`System_Reporter_ID`),
+  ADD KEY `News_ID` (`News_ID`);
+
+--
+-- Indexes for table `reporter_insights`
+--
+ALTER TABLE `reporter_insights`
+  ADD PRIMARY KEY (`System_Actor_Id`);
+
+--
 -- Indexes for table `report_area`
 --
 ALTER TABLE `report_area`
   ADD PRIMARY KEY (`System_Actor_Id`);
+
+--
+-- Indexes for table `save`
+--
+ALTER TABLE `save`
+  ADD PRIMARY KEY (`Post_ID`,`System_Actor_ID`),
+  ADD KEY `System_Actor_ID` (`System_Actor_ID`);
+
+--
+-- Indexes for table `smart_calendar`
+--
+ALTER TABLE `smart_calendar`
+  ADD PRIMARY KEY (`evt_id`),
+  ADD KEY `Post_Id` (`Post_Id`);
 
 --
 -- Indexes for table `system_actor`
@@ -653,8 +1122,41 @@ ALTER TABLE `system_actor`
   ADD PRIMARY KEY (`System_Actor_Id`);
 
 --
+-- Indexes for table `vote`
+--
+ALTER TABLE `vote`
+  ADD PRIMARY KEY (`Post_ID`,`System_Actor_ID`),
+  ADD KEY `System_Actor_ID` (`System_Actor_ID`);
+
+--
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `accept_complaint`
+--
+ALTER TABLE `accept_complaint`
+  ADD CONSTRAINT `accept_complaint_ibfk_1` FOREIGN KEY (`Complaint_ID`) REFERENCES `complaint` (`Complaint_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `accept_complaint_ibfk_2` FOREIGN KEY (`System_Admin_ID`) REFERENCES `system_actor` (`System_Actor_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `complaint`
+--
+ALTER TABLE `complaint`
+  ADD CONSTRAINT `complaint_ibfk_1` FOREIGN KEY (`Complainer_ID`) REFERENCES `system_actor` (`System_Actor_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `complaint_ibfk_2` FOREIGN KEY (`News_ID`) REFERENCES `news` (`Post_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `deactivate`
+--
+ALTER TABLE `deactivate`
+  ADD CONSTRAINT `deactivate_ibfk_1` FOREIGN KEY (`System_Actor_ID`) REFERENCES `system_actor` (`System_Actor_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `hidden`
+--
+ALTER TABLE `hidden`
+  ADD CONSTRAINT `hidden_ibfk_1` FOREIGN KEY (`System_Actor_ID`) REFERENCES `system_actor` (`System_Actor_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `important_number_list`
@@ -675,6 +1177,12 @@ ALTER TABLE `moderate_area`
   ADD CONSTRAINT `moderate_area_ibfk_1` FOREIGN KEY (`System_Actor_Id`) REFERENCES `system_actor` (`System_Actor_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `moderate_insights`
+--
+ALTER TABLE `moderate_insights`
+  ADD CONSTRAINT `moderate_insights_ibfk_1` FOREIGN KEY (`System_Actor_Id`) REFERENCES `system_actor` (`System_Actor_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `news_type`
 --
 ALTER TABLE `news_type`
@@ -691,6 +1199,52 @@ ALTER TABLE `post_type`
 --
 ALTER TABLE `read_area`
   ADD CONSTRAINT `read_area_ibfk_1` FOREIGN KEY (`System_Actor_Id`) REFERENCES `system_actor` (`System_Actor_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `reject_complaint`
+--
+ALTER TABLE `reject_complaint`
+  ADD CONSTRAINT `reject_complaint_ibfk_1` FOREIGN KEY (`Complaint_ID`) REFERENCES `complaint` (`Complaint_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reject_complaint_ibfk_2` FOREIGN KEY (`System_Admin_ID`) REFERENCES `system_actor` (`System_Actor_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `reminder`
+--
+ALTER TABLE `reminder`
+  ADD CONSTRAINT `reminder_ibfk_1` FOREIGN KEY (`System_Actor_ID`) REFERENCES `system_actor` (`System_Actor_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `reporter_complaints`
+--
+ALTER TABLE `reporter_complaints`
+  ADD CONSTRAINT `reporter_complaints_ibfk_1` FOREIGN KEY (`Complaint_ID`) REFERENCES `complaint` (`Complaint_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reporter_complaints_ibfk_2` FOREIGN KEY (`System_Reporter_ID`) REFERENCES `system_actor` (`System_Actor_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reporter_complaints_ibfk_3` FOREIGN KEY (`News_ID`) REFERENCES `news` (`Post_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `reporter_insights`
+--
+ALTER TABLE `reporter_insights`
+  ADD CONSTRAINT `reporter_insights_ibfk_1` FOREIGN KEY (`System_Actor_Id`) REFERENCES `system_actor` (`System_Actor_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `save`
+--
+ALTER TABLE `save`
+  ADD CONSTRAINT `save_ibfk_1` FOREIGN KEY (`System_Actor_ID`) REFERENCES `system_actor` (`System_Actor_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `smart_calendar`
+--
+ALTER TABLE `smart_calendar`
+  ADD CONSTRAINT `smart_calendar_ibfk_1` FOREIGN KEY (`Post_Id`) REFERENCES `news` (`Post_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `vote`
+--
+ALTER TABLE `vote`
+  ADD CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`System_Actor_ID`) REFERENCES `system_actor` (`System_Actor_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `vote_ibfk_2` FOREIGN KEY (`Post_ID`) REFERENCES `news` (`Post_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

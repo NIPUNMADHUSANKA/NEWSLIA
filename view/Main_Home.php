@@ -15,7 +15,6 @@ session_start();
     <link rel="stylesheet" href="../css/popup.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/error.css">
-    <link rel="stylesheet" href="../css/password.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
     
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -1154,6 +1153,9 @@ session_start();
 
             else{
               include '../Control/login_Control.php';
+
+              echo '<script>alert("Work")</script>'; 
+
               $signup_connection =  signup($first,$last,$email,$mobile,$nic,$job,$dsa,$username_new,$pwd);
               if ($signup_connection == "User"){
                 echo '<script type="text/javascript">signup_msg1();</script>'; 
@@ -1161,6 +1163,7 @@ session_start();
               elseif ($signup_connection == "Staff"){
                 echo '<script type="text/javascript">signup_msg2();</script>'; 
               }
+              
 
             }
 
@@ -1176,8 +1179,6 @@ session_start();
   }
   
 ?>
-
-<script src="../js/validate.js"></script>
 
     
 </body>
