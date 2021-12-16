@@ -1,5 +1,6 @@
 <?php
   session_start();
+  //$_SESSION['Contact-ID'] = "None";
 ?>
 
 <!DOCTYPE html>
@@ -15,6 +16,7 @@
     <link rel="stylesheet" href="../css/addinput.css">
     <link rel="stylesheet" href="../css/error.css">
    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
 
 </head>
@@ -45,6 +47,17 @@
   .popup_add_new_size .content_add_new_size{
     height:580px;
   }
+
+  .popup_remove_new .content_remove_new{
+      height:300px;
+      width: 400px;
+  }
+
+  .yes_no_btn{
+    display:flex;
+    flex-direction:row;
+    margin-top:2rem;
+  }
   
   .form-container input{
     margin-right:2rem;
@@ -58,7 +71,7 @@
   
 }
 
-.update_btn{
+.update_btn,.delete_btn{
   margin-left:7.2rem;
 }
 .insert_btn{
@@ -68,9 +81,13 @@
   box-shadow: none;
 }
 
-.update_btn:hover{
+.update_btn:hover,.delete_btn:hover{
    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.25);
    transform:scale(1.08);
+ }
+
+ .delete_btn{
+   margin-left:3rem;
  }
 
 .popup_add_num .content_add_num{
@@ -83,7 +100,7 @@ input{
 
 
 .box-container{
-    height: 250px;
+    height: 260px;
   }
 
   .box_head img{
@@ -143,6 +160,85 @@ input{
       
 </div>
 
+
+
+<script>
+   
+
+
+   ///////////Remove //////////
+    function togglePopupremove(){
+      document.getElementById("popup-3").classList.remove("active");
+    }
+
+    function togglePopupremove_add(tm){
+
+      const xhttp = new XMLHttpRequest(); 
+      xhttp.onload = function() {
+          document.getElementById("current_contact_number").value = tm;
+      }
+      xhttp.open("GET", tm);
+      xhttp.send(); 
+
+      $.ajax({
+        url :"../Control/important_num.php",
+        type:"POST",
+        cache:false,
+        data:{tm:tm},
+        success:function(data){
+          var result = $.parseJSON(data);
+          $("#current_contact_name").text(result[0]);
+        }
+      });
+      
+      document.getElementById("popup-3").classList.add("active");
+    }
+
+
+    ///////////Update //////////
+    function togglePopupupdate_remove(){
+      document.getElementById("popup-1").classList.remove("active");
+    }
+
+    function togglePopupupdate_add(tm){
+
+      const xhttp = new XMLHttpRequest(); 
+      xhttp.onload = function() {
+          document.getElementById("update-important-num").value = tm;
+      }
+      xhttp.open("GET", tm);
+      xhttp.send(); 
+
+      $.ajax({
+        url :"../Control/important_num.php",
+        type:"POST",
+        cache:false,
+        data:{tm:tm},
+        success:function(data){
+          var result = $.parseJSON(data);
+          document.getElementById("update-important-name").value = result[0];
+          document.getElementById("update-number1").value = result[1];
+
+          if(result[2]!=1){
+
+            document.getElementById("update-number2").value = result[2];
+
+          }
+          else{
+            document.getElementById("update-number2").value = "";
+          }
+
+        }
+
+      });
+
+      document.getElementById("popup-1").classList.add("active");
+    }
+
+
+</script>
+
+
 <div class="posts_content_view_body">
 
     <div class="body_information">
@@ -152,7 +248,7 @@ input{
         include '../Model/connect.php';
         $moderate_area = $_SESSION['moderate_area'];
 
-        $import_sql = "SELECT * FROM important_number WHERE (Area = '$moderate_area')";
+        $import_sql = "SELECT * FROM important_number WHERE (Area = '$moderate_area') ORDER BY Contact_ID DESC";
 
         $import_state = $conn->query($import_sql);
         $import_results = $import_state->fetchAll(PDO::FETCH_ASSOC);
@@ -169,7 +265,9 @@ input{
             echo "<img src='data:image/".$ext.";base64,".$img."'/>"; 
             echo "</div>";
             echo "<div class='box_body'>";
-            echo "<h3>".$import_result['Title']."</h3>"; 
+            echo "<h4>".$import_result['Title']."</h4>";
+            $Id =  $import_result['Contact_ID'];
+            echo "<p style='margin-bottom:5px;'><b>-".$import_result['Area']."-</b></p>";
 
             $CID = $import_result['Contact_ID'];
             $importnum_sql = "SELECT * FROM important_number_list WHERE (Contact_ID = '$CID')";
@@ -179,32 +277,21 @@ input{
             if($importnum_results){
                 foreach($importnum_results as $importnum_result){
                   echo "<p>".$importnum_result['Number']."</p>";
-                }}
+                }
+            }
 
             echo "</div>";
             echo "<div class='setting_close'>";
-            echo "<img src='../images/pen.svg' alt='' srcset='' onclick='togglePopup()'>";
-            echo "<img src='../images/close_large.svg' alt='' srcset=''>";
+            echo "<img src='../images/pen.svg' onclick=togglePopupupdate_add('$Id');>";
+            echo "<img src='../images/close_large.svg' onclick = togglePopupremove_add('$Id');>";
             
             echo "</div>";
             echo "</div>";
 
           }
         }
-
-
-       
-       
-
-
-            
+  
         ?>
-
-
-
-
-
-
           
     </div>
 
@@ -212,6 +299,7 @@ input{
 </div>
 
 
+  
 
 <div class="popup popup_add_new" id="popup-2">
 
@@ -289,7 +377,7 @@ input{
       <div class="overlay"></div>
 
       <div class="content content_add_new" id="popup-1-content">
-          <div class="close-btn" onclick="togglePopup()">&times;</div>
+          <div class="close-btn" onclick="togglePopupupdate_remove()">&times;</div>
 
 
           <div class="content_body">
@@ -300,12 +388,12 @@ input{
 
               <div class="popup_form">
                   <h3 class="popup_title">Update New Important Number</h3>
-                  <form action="" method="post">
+                  <form action="Moderator_Manage_ICN.php" method="post" enctype="multipart/form-data">
                     
                         <div class="center_img">
                             <div class="form-input_img">
                               <label for="file-ip-2">Upload Image</label>
-                              <input type="file" id="file-ip-2" accept="image/*" onchange="showPreview_2(event);">
+                              <input type="file" id="file-ip-2" name="update_upload" accept="image/*" onchange="showPreview_2(event);" required>
                               <div class="preview_img">
                               <img id="file-ip-2-preview">
                             </div>
@@ -318,30 +406,30 @@ input{
 
                      <div class="form-container">
 
+                          <input type="text" name="ic_title" id="update-important-num" class="inp" required style="display:none;">
+
                           <label for="add-name" class="lbl">Name</label>
                           
-                          <input type="text" name="ic_title" id="add-name" class="inp" required value="Keells Minuwangoda">
+                          <input type="text" name="ic_update_title" id="update-important-name" class="inp" required>
                           <br>
                           <br>
 
                           <label for="add-number" class="lbl">Number</label>
 
-                          <div id="survey_options" class="number">
-                          <input type="text" name="num1[]" id="add-number" class="inp" required value="0112303500">
-                          </div>
+                          <div id="survey_update_options" class="number">
+                          
+                          <input type="text" name="num1" id="update-number1" class="inp" required>
+                          <input type="text" name="num2" id="update-number2" class="inp">
+                          
+                        </div>
                           
                           
-                          <div class="controls">
-                                 <a href="#" class="mark add_num"><i class="fa fa-plus"></i>Add More</a>
-                                 <a href="#" class="mark remove_num"><i class="fa fa-minus"></i>Remove Field</a>
-                          </div>
-                        
                           
-                          <br>
+                          
                           
                      </div>
                      
-                     <button class="update_btn insert_btn" name="insert_i_c_n">Update</button>
+                     <button class="update_btn insert_btn" name="update_i_c_n" style="margin-top:2px;">Update</button>
               
                    </form>
                </div>
@@ -350,6 +438,52 @@ input{
       </div>
       
 </div>
+
+
+<div class="popup popup_remove_new" id="popup-3">
+
+      <div class="overlay"></div>
+
+      <div class="content content_remove_new" id="popup-1-content">
+          <div class="close-btn" onclick="togglePopupremove()">&times;</div>
+
+
+          <div class="content_body">
+              <div class="popup_logo">
+                   <img src="../images/Name.svg" alt="" srcset="">
+              </div>
+              <hr>
+
+              <div class="popup_form">
+                  <h3 class="popup_title">Delete Important Number</h3>
+                  <form action="../Control/important_num.php" method="post">
+                    
+                     <p style="font-size:15px;color:#FF5544;">Do you need to remove 
+
+                              
+                              <input type="text" name="ID" id="current_contact_number" style="display:none;">
+                              <i><span id="current_contact_name"></span></i>
+
+                     contact number permanently?</p>
+                         
+                     <div class="yes_no_btn">
+                          <button class="update_btn delete_btn insert_btn" name="delete_i_c_n">Yes</button>
+                          <div class="update_btn delete_btn insert_btn" onclick="togglePopupremove()">No</div>
+                     </div>
+                     
+
+
+                  </form>
+               </div>
+
+          </div>
+      </div>
+      
+</div>
+
+
+
+
 
 
 <div class="errorbox" id="error2">
@@ -373,10 +507,7 @@ input{
       document.getElementById("sortdrop").classList.toggle("show");
     }
 
-    function togglePopup(){
-      document.getElementById("popup-1").classList.toggle("active");
-    }
-
+    
     function togglePop_newadd(){
       document.getElementById("popup-2").classList.toggle("active");
     }
@@ -425,7 +556,7 @@ input{
       }
     }
 
-
+///////////////////////////////////////Add////////////////////
     var survey_options = document.getElementById('survey_options');
     var add_more_fields = document.getElementById('add_more_fields');
     var remove_fields = document.getElementById('remove_fields');
@@ -451,7 +582,6 @@ input{
         
 	    }
     }
-
 
 </script>
 
@@ -514,6 +644,56 @@ input{
     }
 
   }
+
+
+  if(isset($_POST['update_i_c_n'])){
+
+    include '../Model/connect.php';
+
+    $ID = $_SESSION['ICN-ID'];
+    $ic_update_title = $_POST["ic_update_title"]; 
+    $_moderate_area = $_SESSION['moderate_area'];
+    $num1 = $_POST["num1"];  
+    $num2 = $_POST["num2"]; 
+    
+    $flag = 0;
+        
+    $regex = '/^(?:0|94|\+94)?(?:(?P<area>11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|912)(?P<land_carrier>0|2|3|4|5|7|9)|7(?P<mobile_carrier>0|1|2|4|5|6|7|8)\d)\d{6}$/';  
+    
+    
+    if(preg_match_all($regex,$num1, $matches, PREG_SET_ORDER, 0)==true){
+
+        $query = "DELETE FROM important_number WHERE Contact_ID = :ID";
+        $query_statement = $conn->prepare($query);
+        $query_statement->bindParam(':ID',$ID,PDO::PARAM_STR);
+        $query_statement->execute();
+        
+
+        $stmt = $conn->prepare("INSERT INTO `important_number` VALUES(?,?,?,?)");
+        $stmt->execute([$ID,$ic_update_title,$_moderate_area, file_get_contents($_FILES['update_upload']['tmp_name'])]);
+        
+        
+        $stmt_num = $conn->prepare("INSERT INTO `important_number_list` VALUES(?,?)");
+        $stmt_num->execute([$ID,$num1]);
+        
+    }
+    else{
+      echo '<script type="text/javascript">error_msg();</script>'; 
+    }
+
+    if(preg_match_all($regex,$num2, $matches, PREG_SET_ORDER, 0)==true){
+
+        $stmt_num = $conn->prepare("INSERT INTO `important_number_list` VALUES(?,?)");
+        $stmt_num->execute([$ID,$num2]);
+    
+    }             
+    else if($num2 != ""){
+      echo '<script type="text/javascript">error_msg();</script>'; 
+    }
+  
+    echo '<script type="text/javascript">window.open("../view/Moderator_Manage_ICN.php", "_self");</script>';
+    
+}
 ?>
     
 </body>

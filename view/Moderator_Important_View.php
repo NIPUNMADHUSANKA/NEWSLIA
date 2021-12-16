@@ -24,7 +24,7 @@
 
   
 .box-container{
-    height: 250px;
+    height: 260px;
   }
 
   .box_head img{
@@ -68,9 +68,21 @@
           <div class="drop_area_sort_cont" id="sortdrop">
             <img src="../images/search.svg" alt="" srcset="">
             <input type="text" id="myInput" onkeyup="filterFunction()" placeholder="Search...">
-            <a href="#">Gampaha</a>
-            <a href="#">Minuwangoda</a>
-            <a href="#">Negombo</a>
+            
+            <?php
+              include '../Model/connect.php';
+              $USERID = $_SESSION['System_Actor_ID'];
+              $read_area_sql = "SELECT * FROM read_area WHERE (System_Actor_Id = '$USERID') ORDER BY Area";
+              $read_area_state = $conn->query($read_area_sql);
+              $read_area_results = $read_area_state->fetchAll(PDO::FETCH_ASSOC);
+
+              if($read_area_results){
+                  foreach($read_area_results as $read_area_result){
+                      echo "<a href='#'>".$read_area_result['Area']."</a>"; 
+                  }
+                }
+            ?>
+
           </div>
         </div>
       </div>
@@ -99,7 +111,7 @@
                       
                       $R_Area = $read_area_result['Area']; 
 
-                      $import_sql = "SELECT * FROM important_number WHERE (Area = '$R_Area')";
+                      $import_sql = "SELECT * FROM important_number WHERE (Area = '$R_Area') ORDER BY Contact_ID DESC";
 
                       $import_state = $conn->query($import_sql);
                       $import_results = $import_state->fetchAll(PDO::FETCH_ASSOC);
@@ -116,7 +128,8 @@
                           echo "<img src='data:image/".$ext.";base64,".$img."'/>"; 
                           echo "</div>";
                           echo "<div class='box_body'>";
-                          echo "<h3>".$import_result['Title']."</h3>"; 
+                          echo "<h4>".$import_result['Title']."</h4>"; 
+                          echo "<p style='margin-bottom:5px;'><b>-".$import_result['Area']."-</b></p>";
               
                           $CID = $import_result['Contact_ID'];
                           $importnum_sql = "SELECT * FROM important_number_list WHERE (Contact_ID = '$CID')";
