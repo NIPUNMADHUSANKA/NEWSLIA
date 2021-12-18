@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 18, 2021 at 03:10 PM
+-- Generation Time: Dec 18, 2021 at 04:28 PM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.3.6
 
@@ -792,6 +792,19 @@ INSERT INTO `post_area` (`Post_ID`, `Area`, `Post Type`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `post_auto_delete`
+--
+
+CREATE TABLE `post_auto_delete` (
+  `Post_ID` char(10) NOT NULL,
+  `Date` date NOT NULL,
+  `Time` time NOT NULL,
+  `Type` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `post_type`
 --
 
@@ -1122,6 +1135,12 @@ ALTER TABLE `notices_pending`
 --
 ALTER TABLE `post_area`
   ADD PRIMARY KEY (`Post_ID`,`Area`);
+
+--
+-- Indexes for table `post_auto_delete`
+--
+ALTER TABLE `post_auto_delete`
+  ADD PRIMARY KEY (`Post_ID`);
 
 --
 -- Indexes for table `post_type`
