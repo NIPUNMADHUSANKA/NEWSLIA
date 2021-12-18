@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <style>
@@ -21,7 +22,7 @@
   }
   
 .box-container{
-    height: 250px;
+    height: 290px;
     margin-left:1rem;
   }
 
@@ -48,6 +49,45 @@
        margin-top:2rem;
        padding: 1.2vw;       
    }
+
+
+   .tag {
+      position: absolute;
+      top: 1.3%;
+      bottom: 0;
+      left: 20;
+      right: 1%;
+      height: 15%;
+      width: 30%;
+      opacity: 1;
+      transition: .5s ease;
+      background-color: #ACE0B8;
+      cursor: pointer;
+      border-radius:0px 0px 0px 20px;
+  }
+  .box_head:hover .tag{
+      opacity: 1;
+  } 
+
+  .tag_text{
+      color: #555;
+      font-weight:bold;
+      font-size: 15px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+  }
+
+  .view_btn ul{
+    list-style-type: none;
+  }
+
+  .view_btn ul a{
+    text-decoration:none;
+    color:#333;
+  }
+
 
 </style>
 
@@ -91,70 +131,186 @@
 
     <div class="body_information">
          
-          <div class="box-container">
-              <div class="box_head">
-                <img src="../images/save/water.jpg" alt="">
-              
-                <div class="middle">
-                     <div class="view_btn" onclick="window.open('./Moderator_Read_Save.php', '_self')">View</div>
-                </div>
+        <?php
+        
+            include '../Model/connect.php';
+            $System_Actor_ID = $_SESSION['System_Actor_ID'];
 
-              </div>
-              <div class="box_body">
-                <h3>Water Cut</h3>
-                <p>2021-10-30</p>
-                <p>Minuwangoda Water Board</p>
-              </div>
+            $save_sql = "SELECT * FROM save WHERE System_Actor_ID='$System_Actor_ID' ORDER BY Post_ID DESC";
 
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="">
-                <ul class ="more_post">
+            $save_state = $conn->query($save_sql);
+            $save_results = $save_state->fetchAll(PDO::FETCH_ASSOC);
+
+            if($save_results){
+              foreach($save_results as $save_result){
+
+                $Post_ID = $save_result['Post_ID'];
+                $Post_Type = $save_result['Post Type'];
+                $table = "";
+
+                if($Post_Type == "NEWS"){
+                  $table = 'NEWS';
+                  $save_info_sql = "SELECT * FROM news WHERE Post_ID='$Post_ID'";
+                }
+                else if($Post_Type == "ARTICLES"){
+                  $table = 'ARTICLES';
+                  $save_info_sql = "SELECT * FROM articles WHERE Post_ID='$Post_ID'";
+                }
+                else if($Post_Type == "NOTICES"){
+                  $table = 'NOTICES';
+                  $save_info_sql = "SELECT * FROM notices WHERE Post_ID='$Post_ID'";
+                }
+                else if($Post_Type == "VACANCIES"){
+                  $table = 'VACANCIES';
+                  $save_info_sql = "SELECT * FROM job_vacancies WHERE Post_ID='$Post_ID'";
+                }
+                else if($Post_Type == "C.ADS"){
+                  $table = 'C.ADS';
+                  $save_info_sql = "SELECT * FROM com_ads WHERE Post_ID='$Post_ID'";
+                }
+
+                $save_info_state = $conn->query($save_info_sql);
+                $save_info_results = $save_info_state->fetchAll(PDO::FETCH_ASSOC);
+                
+                if($save_info_results){
+                    foreach($save_info_results as $save_info_result){
+
+                      $Post_ID = $save_info_result['Post_ID'];
+                      $Type = $table;
                   
-                <li><a href="#">Unsave</a></li>
-              <li><a href="#">Hide</a></li>
-                    
-              </ul>
-              </div>
-          </div>
+                      $img = $save_info_result['Image'];
+                      $img = base64_encode($img);
+                      $text = pathinfo($save_info_result['Post_ID'], PATHINFO_EXTENSION);
 
-          <div class="box-container">
-              <div class="box_head">
-                <img src="../images/save/curfew.jpg" alt="">
-              
-                <div class="middle">
-                     <div class="view_btn">View</div>
-                </div>
+                      $TITLE = $save_info_result['Title'];
+                      $P_DATE = $save_info_result['Publish_Date'];
+                      $TITLE = $save_info_result['Title'];
+                      $Creator_ID = $save_info_result['Creator_ID'];
+                        
 
-              </div>
-              <div class="box_body">
-                <h3>Curfew</h3>
-                <p>2021-10-29</p>
-                <p>Minuwangoda Police</p>
-              </div>
+                        echo "<div class='box-container'>
+                        <div class='box_head'>
+                          <img src='data:image/".$text.";base64,".$img."'/>
+                          
+                          <div class='tag'>
+                            <div class='tag_text'>".$table."</div>
+                          </div>
+                          
+                          <div class='middle'>
+                               <div class='view_btn'>
+                                   <ul>
+                                      <li onclick=toggle_view('$Post_ID','$Type');><a href='#'>View</a></li>
+                                   </ul>
+                                          
+                               </div>
+                               
+                          </div>
+                        </div>
+                        
+                        <div class='box_body'>
+                          <h3>".$TITLE."</h3>";
+                          
+                          if ($Type=="VACANCIES"){
+                            echo "<p>".$save_info_result['Deadline_Date']."</p>";
+                          }
+                          else{
+                            echo "<p>".$P_DATE."</p>";
+                          }
 
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="">
-                <ul class ="more_post">
-                  
-                <li><a href="#">Unsave</a></li>
-              <li><a href="#">Hide</a></li>
+                          
+
+                          
+
+
+                          $save_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+                          $save_from_state = $conn->query($save_from_sql);
+                          $save_from_results = $save_from_state->fetchAll(PDO::FETCH_ASSOC);
+
+                          if($save_from_results){
+                              echo "<b><i>-</b></i>";
+                            foreach($save_from_results as $save_from_result){
+                              echo "<i>".$save_from_result['Area']." - ";
+                              echo "</i>";
+                            }
+                          }
+
+                          echo "<br>";
+                        
+                          $save_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
+                          $save_who_state = $conn->query($save_who_sql);
+                          $save_who_results = $save_who_state->fetchAll(PDO::FETCH_ASSOC);
+
+                          if($save_who_results){
+                            foreach($save_who_results as $save_who_result){
+                              echo "<p>".$save_who_result['FirstName']." ".$save_who_result['LastName']."</p>";    
+                            }
+                          }
+                
+                         echo "
+                        </div>
+                        <div class='more'>
+                          <img src='../images/More.svg'>
+                          <ul class ='more_post'>
+                            <li onclick=toggle_unsave('$Post_ID');><a href='#' >Unsave</a></li>
+                            <li onclick=toggle_hidden('$Post_ID','$Type');><a href='#'>Hide</a></li>
+                          </ul>
+                        </div>
+                      </div>";
+
+                    }
+                }
+              }
+            }
+        
+        ?>
           
-              </ul>
-              </div>
-          </div>
-
-
-         
-
     </div>
-
-    
 </div>
 
-
-
-
 <script>
+
+    function toggle_unsave(SAVE_ID){
+      $.ajax({
+        url :"../Control/save_hidden.php",
+        type:"POST",
+        cache:false,
+        data:{SAVE_ID:SAVE_ID},
+        success:function(data){
+          window.open('./Moderator_save.php','_self');
+        }
+
+      });
+    }
+
+    function toggle_hidden(HIDDEN_ID,TYPE){
+      $.ajax({
+        url :"../Control/save_hidden.php",
+        type:"POST",
+        data:{
+          HIDDEN_ID: HIDDEN_ID,
+          TYPE: TYPE
+        },
+        success:function(data){
+          window.open('./Moderator_save.php','_self');
+        }
+      });
+    }
+
+
+    function toggle_view(VIEW_ID,TYPE){
+      $.ajax({
+        url :"../Control/save_hidden.php",
+        type:"POST",
+        data:{
+          VIEW_ID: VIEW_ID,
+          TYPE: TYPE
+        },
+        success:function(data){
+          window.open('./Moderator_Read_save.php','_self');
+        }
+      });
+    }
+            
     function showsort() {
       document.getElementById("sortdrop").classList.toggle("show");
     }

@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../css/search.css">
     <link rel="stylesheet" href="../css/popup.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <style>
@@ -27,7 +28,7 @@
       padding-left:80px;
   }
   .box-container{
-    height: 240px;
+    height: 270px;
   }
 
   .more{
@@ -224,47 +225,153 @@
 
 <!-- Moderator Notices View -->
 
+<?php
+    include '../Model/connect.php';
+
+    $Post_ID = $_SESSION['SAVE_READ_Post_ID'];
+    $Post_Type = $_SESSION['SAVE_READ_TYPE'];
+
+    if($Post_Type == "NEWS"){
+      $save_read_sql = "SELECT * FROM news WHERE Post_ID='$Post_ID'";
+    }
+    else if($Post_Type == "ARTICLES"){
+      $save_read_sql = "SELECT * FROM articles WHERE Post_ID='$Post_ID'";
+    }
+    else if($Post_Type == "NOTICES"){
+      $save_read_sql = "SELECT * FROM notices WHERE Post_ID='$Post_ID'";
+    }
+    else if($Post_Type == "VACANCIES"){
+       $save_read_sql = "SELECT * FROM job_vacancies WHERE Post_ID='$Post_ID'";
+    }
+    else if($Post_Type == "C.ADS"){
+       $save_read_sql = "SELECT * FROM com_ads WHERE Post_ID='$Post_ID'";
+    }
+
+
+    $save_read_state = $conn->query($save_read_sql);
+    $save_read_results = $save_read_state->fetchAll(PDO::FETCH_ASSOC);
+
+    if($save_read_results){
+        foreach($save_read_results as $save_read_result){
+            $_SESSION['Title'] = $save_read_result['Title'];
+            
+            if($Post_Type == "VACANCIES"){
+              $_SESSION['PD_Date'] = $save_read_result['Deadline_Date'];
+            }
+            else{
+              $_SESSION['PD_Date'] = $save_read_result['Publish_Date'];
+            }
+
+            $_SESSION['Img'] = $save_read_result['Image'];
+            $_SESSION['Details'] = $save_read_result['Details'];
+            $_SESSION['Creator_Id'] = $save_read_result['Creator_ID'];
+        }
+    }
+
+    $Creator_ID = $_SESSION['Creator_Id'];
+    $save_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
+    $save_who_state = $conn->query($save_who_sql);
+    $save_who_results = $save_who_state->fetchAll(PDO::FETCH_ASSOC);
+
+    if($save_who_results){
+        foreach($save_who_results as $save_who_result){
+            $_SESSION['FirstName'] = $save_who_result['FirstName'];
+            $_SESSION['LastName'] = $save_who_result['LastName'];    
+        }
+    }
+
+    $img = $_SESSION['Img'];
+    $img = base64_encode($img);
+    $text = pathinfo($Post_ID, PATHINFO_EXTENSION);
+
+
+
+?>
+
+
+
+<?php
+
+$Post_Type = $_SESSION['SAVE_READ_TYPE'];
+
+    if($Post_Type == "NEWS"){
+        echo "<div class='rate' style='text-align: center; width: 5%; background-color: #ACE0B8;border:1px solid #333;height:27rem;margin-left:2rem;margin-top:5rem;'>
+        
+        <div><a href='#' style='color: black;margin-top:5rem;'>
+              <i class='fas fa-chevron-up fa-3x'></i></a>
+        </div>
+              
+              <h2 style='color: black;margin-top:8rem;'>246</h2>
+        
+        <div style='padding-top:8rem;'><a href='#' style='color: black;margin-top:15rem;'>
+              <i class='fas fa-chevron-down fa-3x'></i></a>
+        </div>
+    </div>";
+    }
+
+?>
+
 <div class="posts_content_view_body">
 
-    <div class="body_information">
-         
+    <?php
+
+      $Post_Type = $_SESSION['SAVE_READ_TYPE'];
+
+      if($Post_Type == "NEWS"){
+            echo "<div class='body_information' style='margin-top:-32.5rem;margin-left:1rem;'>";
+      }
+      else{
+            echo "<div class='body_information' style='margin-top:1rem;margin-left:1rem;'>";
+      }
+  ?>
           <div class="box-container">
 
               <div class="box_head">
-              <img src="../images/save/water.jpg" alt="">
+                  <?php echo "<img src='data:image/".$text.";base64,".$img."'/>";?>
               </div>
 
               <div class="box_body">
-                <h3>Water Cut</h3>
-                <p>2021-10-30</p>
-                <p>Minuwangoda Water Board</p>
+                <h3><?php echo $_SESSION['Title']; ?></h3>
+                <p><?php echo $_SESSION['PD_Date']; ?></p>
+
+                <?php
+                    $Post_ID = $_SESSION['SAVE_READ_Post_ID'];
+                    $save_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+                    $save_from_state = $conn->query($save_from_sql);
+                    $save_from_results = $save_from_state->fetchAll(PDO::FETCH_ASSOC);
+
+                    if($save_from_results){
+                        echo "<h6><b><i>-</b></i>";
+                        foreach($save_from_results as $save_from_result){
+                           echo "<i>".$save_from_result['Area']." - ";
+                           echo "</i>";
+                         }
+                         echo "</h6>";
+                     }
+                ?>
+
+                <p><?php echo $_SESSION['FirstName']; echo " "; echo $_SESSION['LastName']; ?></p>
               </div>
 
             <div class="more" style="width: 14%; margin-bottom: 20px;">
             <img src="../images/More.svg" alt="" srcset="" style="transform: none;margin-top:0rem;width:7px;margin-left:2rem;">
             <ul class="more_post" style="margin-top:0rem;margin-left:2.5rem;">
 
-              <li><a href="#">Unsave</a></li>
-              <li><a href="#">Hide</a></li>
+            <?php
+               $Post_ID = $_SESSION['SAVE_READ_Post_ID'];
+               $Post_Type = $_SESSION['SAVE_READ_TYPE'];
+              echo "<li onclick=toggle_unsave('$Post_ID');><a href='#'>Unsave</a></li>
+                    <li onclick=toggle_hidden('$Post_ID','$Post_Type');><a href='#'>Hide</a></li>";
+            ?>
               
-
             </ul>
           </div>
 
           </div>
 
-
-
-          <div class="box-read">
-             <h2>Water Cut</h2>
-             <p>
-             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-
-             Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-
-            
-             </p>
+          <div class="box-read" style="margin-top:-2rem;margin-left:1rem;">
+             <h2><?php echo $_SESSION['Title']; ?></h2>
+             <p><?php echo $_SESSION['Details']; ?></p>
           </div>
     </div>
 
@@ -272,6 +379,36 @@
         <div class="view_btn back_btn" onclick="window.open('./Moderator_Save.php', '_self')">Back</div>
     </div>
 </div>
+
+
+<script>
+    function toggle_unsave(SAVE_ID){
+      $.ajax({
+        url :"../Control/save_hidden.php",
+        type:"POST",
+        cache:false,
+        data:{SAVE_ID:SAVE_ID},
+        success:function(data){
+          window.open('./Moderator_Read_save.php','_self');
+        }
+
+      });
+    }
+
+    function toggle_hidden(HIDDEN_ID,TYPE){
+      $.ajax({
+        url :"../Control/save_hidden.php",
+        type:"POST",
+        data:{
+          HIDDEN_ID: HIDDEN_ID,
+          TYPE: TYPE
+        },
+        success:function(data){
+          window.open('./Moderator_Read_save.php','_self');
+        }
+      });
+    }
+</script>
 
 
 
