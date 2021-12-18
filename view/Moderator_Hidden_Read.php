@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../css/popup.css">
     <script src="https://kit.fontawesome.com/c119b7fc61.js" crossorigin="anonymous"></script>
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <style>
@@ -28,7 +29,7 @@
       padding-left:80px;
   }
   .box-container{
-    height: 240px;
+    height: 270px;
   }
 
   .more{
@@ -227,40 +228,157 @@
 
 <!-- Moderator Notices View -->
 
+
+<?php
+    include '../Model/connect.php';
+
+    $Post_ID = $_SESSION['SAVE_READ_Post_ID'];
+    $Post_Type = $_SESSION['SAVE_READ_TYPE'];
+
+    if($Post_Type == "NEWS"){
+      $hidden_read_sql = "SELECT * FROM news WHERE Post_ID='$Post_ID'";
+    }
+    else if($Post_Type == "ARTICLES"){
+      $hidden_read_sql = "SELECT * FROM articles WHERE Post_ID='$Post_ID'";
+    }
+    else if($Post_Type == "NOTICES"){
+      $hidden_read_sql = "SELECT * FROM notices WHERE Post_ID='$Post_ID'";
+    }
+    else if($Post_Type == "VACANCIES"){
+       $hidden_read_sql = "SELECT * FROM job_vacancies WHERE Post_ID='$Post_ID'";
+    }
+    else if($Post_Type == "C.ADS"){
+       $hidden_read_sql = "SELECT * FROM com_ads WHERE Post_ID='$Post_ID'";
+    }
+
+
+    $hidden_read_state = $conn->query($hidden_read_sql);
+    $hidden_read_results = $hidden_read_state->fetchAll(PDO::FETCH_ASSOC);
+
+    if($hidden_read_results){
+        foreach($hidden_read_results as $hidden_read_result){
+            $_SESSION['Title'] = $hidden_read_result['Title'];
+            
+            if($Post_Type == "VACANCIES"){
+              $_SESSION['PD_Date'] = $hidden_read_result['Deadline_Date'];
+            }
+            else{
+              $_SESSION['PD_Date'] = $hidden_read_result['Publish_Date'];
+            }
+
+            $_SESSION['Img'] = $hidden_read_result['Image'];
+            $_SESSION['Details'] = $hidden_read_result['Details'];
+            $_SESSION['Creator_Id'] = $hidden_read_result['Creator_ID'];
+        }
+    }
+
+    $Creator_ID = $_SESSION['Creator_Id'];
+    $hidden_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
+    $hidden_who_state = $conn->query($hidden_who_sql);
+    $hidden_who_results = $hidden_who_state->fetchAll(PDO::FETCH_ASSOC);
+
+    if($hidden_who_results){
+        foreach($hidden_who_results as $hidden_who_result){
+            $_SESSION['FirstName'] = $hidden_who_result['FirstName'];
+            $_SESSION['LastName'] = $hidden_who_result['LastName'];    
+        }
+    }
+
+    $img = $_SESSION['Img'];
+    $img = base64_encode($img);
+    $text = pathinfo($Post_ID, PATHINFO_EXTENSION);
+
+
+
+?>
+
+
+
+<?php
+
+$Post_Type = $_SESSION['SAVE_READ_TYPE'];
+
+    if($Post_Type == "NEWS"){
+        echo "<div class='rate' style='text-align: center; width: 5%; background-color: #ACE0B8;border:1px solid #333;height:27rem;margin-left:2rem;margin-top:5rem;'>
+        
+        <div><a href='#' style='color: black;margin-top:5rem;'>
+              <i class='fas fa-chevron-up fa-3x'></i></a>
+        </div>
+              
+              <h2 style='color: black;margin-top:8rem;'>246</h2>
+        
+        <div style='padding-top:8rem;'><a href='#' style='color: black;margin-top:15rem;'>
+              <i class='fas fa-chevron-down fa-3x'></i></a>
+        </div>
+    </div>";
+    }
+
+?>
+
+
+
+
 <div class="posts_content_view_body">
 
-    <div class="body_information">
-         
+    <?php
+
+      $Post_Type = $_SESSION['SAVE_READ_TYPE'];
+
+      if($Post_Type == "NEWS"){
+            echo "<div class='body_information' style='margin-top:-32.5rem;margin-left:1rem;'>";
+      }
+      else{
+            echo "<div class='body_information' style='margin-top:1rem;margin-left:1rem;'>";
+      }
+  ?>
           <div class="box-container">
 
               <div class="box_head">
-              <img src="../images/save/cake.jpg" alt="">
+                  <?php echo "<img src='data:image/".$text.";base64,".$img."'/>";?>
               </div>
 
               <div class="box_body">
-                    <h3>Cake Shop</h3>
-                    <p>2021-02-20</p>
-                    <p>Nishal Kumara</p>
+                <h3><?php echo $_SESSION['Title']; ?></h3>
+                <p><?php echo $_SESSION['PD_Date']; ?></p>
+
+                <?php
+                    $Post_ID = $_SESSION['SAVE_READ_Post_ID'];
+                    $save_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+                    $save_from_state = $conn->query($save_from_sql);
+                    $save_from_results = $save_from_state->fetchAll(PDO::FETCH_ASSOC);
+
+                    if($save_from_results){
+                        echo "<h6><b><i>-</b></i>";
+                        foreach($save_from_results as $save_from_result){
+                           echo "<i>".$save_from_result['Area']." - ";
+                           echo "</i>";
+                         }
+                         echo "</h6>";
+                     }
+                ?>
+
+                <p><?php echo $_SESSION['FirstName']; echo " "; echo $_SESSION['LastName']; ?></p>
               </div>
 
-            <div class="more" style="width: 5%; margin-bottom: 10px;transform:scale(3)">
-            <img src="../images/Close.svg" alt="" srcset="">
-          </div>
-
-          </div>
-
-
-
-          <div class="box-read">
-             <h2>Cake Shop</h2>
-             <p>
-             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-
-             Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-
+            <div class="more" style="width: 14%; margin-bottom: 20px;">
             
-             </p>
+            <?php
+               $Post_ID = $_SESSION['SAVE_READ_Post_ID'];
+               
+               echo "<p onclick=toggle_remove_hidden('$Post_ID');>
+                         <img src='../images/Close.svg' style='transform:scale(3);margin-top:-2rem;width:7px;margin-left:2rem;'>
+                     </p>";
+               
+            ?>
+              
+           
+          </div>
+
+          </div>
+
+          <div class="box-read" style="margin-top:-2rem;margin-left:1rem;">
+             <h2><?php echo $_SESSION['Title']; ?></h2>
+             <p><?php echo $_SESSION['Details']; ?></p>
           </div>
     </div>
 
@@ -270,12 +388,24 @@
 </div>
 
 
+<script>
+    
 
+    function toggle_remove_hidden(HIDDEN_ID){
+      $.ajax({
+        url :"../Control/save_hidden.php",
+        type:"POST",
+        data:{
+          REMOVE_HIDDEN_ID: HIDDEN_ID
+        },
+        success:function(data){
+          window.open('./Moderator_Hidden.php','_self');
+        }
+      });
+    }
 
-
-
-
-
+    
+</script>
 
 
 

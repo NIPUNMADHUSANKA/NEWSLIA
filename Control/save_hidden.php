@@ -38,6 +38,17 @@
     }
 
 
-   
+    if(isset($_POST['REMOVE_HIDDEN_ID'])){
 
+        $ID = $_POST['REMOVE_HIDDEN_ID'];
+        $System_Actor_ID = $_SESSION['System_Actor_ID'];
+
+        $query = "DELETE FROM hidden WHERE Post_ID = :ID AND System_Actor_ID = :SA_ID";
+        $query_statement = $conn->prepare($query);
+        $query_statement->bindParam(':ID',$ID,PDO::PARAM_STR);
+        $query_statement->bindParam(':SA_ID',$System_Actor_ID,PDO::PARAM_STR);
+        if ($query_statement->execute()) {
+            echo "<script>window.open('../view/Moderator_Hidden.php','_self');</script>";
+        }                              
+    }
 ?>

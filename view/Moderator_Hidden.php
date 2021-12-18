@@ -14,7 +14,9 @@
     <link rel="stylesheet" href="../css/search.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
     <script src="https://kit.fontawesome.com/c119b7fc61.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
+
 
 <style>
   body {
@@ -22,7 +24,7 @@
   }
   
 .box-container{
-    height: 250px;
+    height: 290px;
     margin-left:1rem;
   }
 
@@ -49,6 +51,45 @@
        margin-top:2rem;
        padding: 1.2vw;       
    }
+
+
+   .tag {
+      position: absolute;
+      top: 1.3%;
+      bottom: 0;
+      left: 20;
+      right: 1%;
+      height: 15%;
+      width: 30%;
+      opacity: 1;
+      transition: .5s ease;
+      background-color: #ACE0B8;
+      cursor: pointer;
+      border-radius:0px 0px 0px 20px;
+  }
+  .box_head:hover .tag{
+      opacity: 1;
+  } 
+
+  .tag_text{
+      color: #555;
+      font-weight:bold;
+      font-size: 15px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+  }
+
+  .view_btn ul{
+    list-style-type: none;
+  }
+
+  .view_btn ul a{
+    text-decoration:none;
+    color:#333;
+  }
+
 
 </style>
 
@@ -95,51 +136,176 @@
 
 
 
-  <div class="posts_content_view_body">
+<div class="posts_content_view_body">
 
     <div class="body_information">
 
-      <div class="box-container" style="    margin-bottom: 50px; margin-right: 50px;">
-        <div class="box_head">
-          <img src="../images/save/cake.jpg" alt="">
 
-          <div class="middle">
-            <div class="view_btn" onclick="window.open('./Moderator_Hidden_Read.php', '_self')">View</div>
-          </div>
+    <?php
+        
+        include '../Model/connect.php';
+        $System_Actor_ID = $_SESSION['System_Actor_ID'];
 
-        </div>
-        <div style="display: flex; justify-content: space-between;">
-          <div class="box_body">
-            <h3>Cake Shop</h3>
-            <p>2021-02-20</p>
-            <p>Nishal Kumara</p>
+        $hidden_sql = "SELECT * FROM hidden WHERE System_Actor_ID='$System_Actor_ID' ORDER BY Post_ID DESC";
 
+        $hidden_state = $conn->query($hidden_sql);
+        $hidden_results = $hidden_state->fetchAll(PDO::FETCH_ASSOC);
 
+        if($hidden_results){
+          foreach($hidden_results as $hidden_result){
 
-          </div>
+            $Post_ID = $hidden_result['Post_ID'];
+            $Post_Type = $hidden_result['Post Type'];
+            $table = "";
 
-          <div style="margin-top: 30px; margin-right: 30px;">
-          <img src="../images/Close.svg" alt="" srcset="" style="transform:scale(2);">
-          </div>
+            if($Post_Type == "NEWS"){
+              $table = 'NEWS';
+              $hidden_info_sql = "SELECT * FROM news WHERE Post_ID='$Post_ID'";
+            }
+            else if($Post_Type == "ARTICLES"){
+              $table = 'ARTICLES';
+              $hidden_info_sql = "SELECT * FROM articles WHERE Post_ID='$Post_ID'";
+            }
+            else if($Post_Type == "NOTICES"){
+              $table = 'NOTICES';
+              $hidden_info_sql = "SELECT * FROM notices WHERE Post_ID='$Post_ID'";
+            }
+            else if($Post_Type == "VACANCIES"){
+              $table = 'VACANCIES';
+              $hidden_info_sql = "SELECT * FROM job_vacancies WHERE Post_ID='$Post_ID'";
+            }
+            else if($Post_Type == "C.ADS"){
+              $table = 'C.ADS';
+              $hidden_info_sql = "SELECT * FROM com_ads WHERE Post_ID='$Post_ID'";
+            }
 
-        </div>
-      </div>
+            $hidden_info_state = $conn->query($hidden_info_sql);
+            $hidden_info_results = $hidden_info_state->fetchAll(PDO::FETCH_ASSOC);
+            
+            if($hidden_info_results){
+                foreach($hidden_info_results as $hidden_info_result){
 
-      
+                  $Post_ID = $hidden_info_result['Post_ID'];
+                  $Type = $table;
+              
+                  $img = $hidden_info_result['Image'];
+                  $img = base64_encode($img);
+                  $text = pathinfo($hidden_info_result['Post_ID'], PATHINFO_EXTENSION);
 
-      
-    </div>
+                  $TITLE = $hidden_info_result['Title'];
+                  $P_DATE = $hidden_info_result['Publish_Date'];
+                  $TITLE = $hidden_info_result['Title'];
+                  $Creator_ID = $hidden_info_result['Creator_ID'];
+                    
 
+                    echo "<div class='box-container'>
+                    <div class='box_head'>
+                      <img src='data:image/".$text.";base64,".$img."'/>
+                      
+                      <div class='tag'>
+                        <div class='tag_text'>".$table."</div>
+                      </div>
+                      
+                      <div class='middle'>
+                           <div class='view_btn'>
+                               <ul>
+                                  <li onclick=toggle_view('$Post_ID','$Type');><a href='#'>View</a></li>
+                               </ul>
+                                      
+                           </div>
+                           
+                      </div>
+                    </div>
+                    
+                    <div class='box_body'>
+                      <h3>".$TITLE."</h3>";
+                      
+                      if ($Type=="VACANCIES"){
+                        echo "<p>".$hidden_info_result['Deadline_Date']."</p>";
+                      }
+                      else{
+                        echo "<p>".$P_DATE."</p>";
+                      }
+
+                  
+                      $hidden_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+                      $hidden_from_state = $conn->query($hidden_from_sql);
+                      $hidden_from_results = $hidden_from_state->fetchAll(PDO::FETCH_ASSOC);
+
+                      if($hidden_from_results){
+                          echo "<b><i>-</b></i>";
+                        foreach($hidden_from_results as $hidden_from_result){
+                          echo "<i>".$hidden_from_result['Area']." - ";
+                          echo "</i>";
+                        }
+                      }
+
+                      echo "<br>";
+                    
+                      $hidden_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
+                      $hidden_who_state = $conn->query($hidden_who_sql);
+                      $hidden_who_results = $hidden_who_state->fetchAll(PDO::FETCH_ASSOC);
+
+                      if($hidden_who_results){
+                        foreach($hidden_who_results as $hidden_who_result){
+                          echo "<p>".$hidden_who_result['FirstName']." ".$hidden_who_result['LastName']."</p>";    
+                        }
+                      }
+            
+                     echo "
+                    </div>
+                    
+                    <div style='margin-top: -75px; margin-left: 260px;cursor:pointer;'>
+                        <p onclick=toggle_remove_hidden('$Post_ID');>
+                          <img src='../images/Close.svg' style='transform:scale(2);'>
+                        </p>
+                    </div>
+                 
+                    </div>";
+
+                }
+            }
+          }
+        }
+    
+    ?>
 
   </div>
 
-
-
-
+</div>
 
 </body>
 
 <script>
+  
+  function toggle_remove_hidden(HIDDEN_ID){
+      $.ajax({
+        url :"../Control/save_hidden.php",
+        type:"POST",
+        data:{
+          REMOVE_HIDDEN_ID: HIDDEN_ID
+        },
+        success:function(data){
+          window.open('./Moderator_Hidden.php','_self');
+        }
+      });
+    }
+
+  function toggle_view(VIEW_ID,TYPE){
+      $.ajax({
+        url :"../Control/save_hidden.php",
+        type:"POST",
+        data:{
+          VIEW_ID: VIEW_ID,
+          TYPE: TYPE
+        },
+        success:function(data){
+          window.open('./Moderator_Hidden_Read.php','_self');
+        }
+      });
+    }
+
+
   function showsort() {
     document.getElementById("sortdrop").classList.toggle("show");
   }
