@@ -225,7 +225,7 @@ echo "<div class='right_side'>
                   <div class='card card3'>
                           <div class='content'>
                             <h2>
-                            <span class='precentage' style='color:#000;font-size:1.5rem;margin-left:-0.5rem;'><b>".$persentage."%</b></span>
+                            <span class='precentage' style='color:#000;font-size:1.5rem;margin-left:-0.5rem;'><b>".round($persentage,2)."%</b></span>
                             <br/> 
                             <span class='precentage' style='padding-left:1.5rem;'>Trust for Publish</span></h2>
                             <br>

@@ -78,58 +78,82 @@ session_start();
 
 </div>
 
+<?php
 
-<div class="right_side">
+        include '../Model/connect.php';
+        $Moderator_ID = $_SESSION['System_Actor_ID'];
 
-    
-    <div class="bottom_side">
+        $moderator_details_sql = "SELECT * FROM moderate_insights WHERE (System_Actor_Id = '$Moderator_ID')";
+        $moderator_details_statement = $conn -> query($moderator_details_sql);
+        $moderator_details_results = $moderator_details_statement->fetchAll(PDO::FETCH_ASSOC);
+        $news = $notice = $articles = $Job_Vacancies = $Commercial_Ads = $Complaints = 0;
 
-          <div class="approvement">
+        if($moderator_details_results){
+          foreach($moderator_details_results as $moderator_details_result){
 
-            <div class="card">
-                    <div class="content">
-                      <h2>40<br/><span>Approves</span></h2>
+            $news = $moderator_details_result['News'];
+            $articles = $moderator_details_result['Articles'];
+            $notice = $moderator_details_result['Notices']; 
+            $Job_Vacancies = $moderator_details_result['Job Vacancies']; 
+            $Commercial_Ads = $moderator_details_result['Commercial Ads'];
+            $Complaints = $moderator_details_result['Complaints'];
+            
+          }
+        }
+        $total = $news + $articles + $notice + $Job_Vacancies + $Commercial_Ads;
+
+        $persentage = (($total - $Complaints)/$total)*100; 
+
+echo "
+    <div class='right_side'>
+      <div class='bottom_side'>
+
+          <div class='approvement'>
+
+            <div class='card'>
+                    <div class='content'>
+                      <h2>".$total."<br/><span>Approves</span></h2>
                     </div>
-                    <ul class="navigation">
+                    <ul class='navigation'>
                       <li>
-                        <p>News <span>10</span> </p>
+                        <p>News <span>".$news."</span> </p>
                       </li>
                       <li>
-                        <p>Articles <span>10</span> </p>
+                        <p>Articles <span>".$articles."</span> </p>
                       </li>
                       <li>
-                        <p>Notices <span>5</span></p>
+                        <p>Notices <span>".$notice."</span></p>
                       </li>
                       <li>
-                        <p>Job Vacancies <span>5</span></p>
+                        <p>Job Vacancies <span>".$Job_Vacancies."</span></p>
                       </li>
                       <li>
-                        <p>Commercial Ads <span>10</span></p>
+                        <p>Commercial Ads <span>".$Commercial_Ads."</span></p>
                       </li>
                     </ul>
-                    <div class="toggle">
-                      <i class="fa fa-chevron-down"></i>
+                    <div class='toggle'>
+                      <i class='fa fa-chevron-down'></i>
                     </div>
             </div>
 
 
           </div>
 
-          <div class="complaints">
+          <div class='complaints'>
 
-                <div class="card card2">
-                          <div class="content">
-                            <h2>02<br/><span>Complaints</span></h2>
+                <div class='card card2'>
+                          <div class='content'>
+                            <h2>".$Complaints."<br/><span>Complaints</span></h2>
                           </div>
                         
                   </div>
 
           </div>
 
-          <div class="trust">
-                  <div class="card card3">
-                          <div class="content">
-                            <h2><span class="precentage" style="color:#000;font-size:1.5rem"><b>95%</b></span><br/> <span class="precentage">Trust for Approvement</span></h2>
+          <div class='trust'>
+                  <div class='card card3'>
+                          <div class='content'>
+                            <h2><span class='precentage' style='color:#000;font-size:1.5rem'><b>".round($persentage,2)."%</b></span><br/> <span class='precentage'>Trust for Approvement</span></h2>
                             <br>
                             
                           </div>
@@ -142,14 +166,34 @@ session_start();
 
 </div>
 
+";
+        
+        $moderator_profile_sql = "SELECT * FROM system_actor WHERE (System_Actor_Id = '$Moderator_ID')";
+        $moderator_profile_statement = $conn -> query($moderator_profile_sql);
+        $moderator_profile_results = $moderator_profile_statement->fetchAll(PDO::FETCH_ASSOC);
+        
 
-<div class="top_side">
+        if($moderator_profile_results){
+          foreach($moderator_profile_results as $moderator_profile_result){
+              $first = $moderator_profile_result['FirstName'];
+              $last = $moderator_profile_result['LastName'];
 
-          <img src="../images/Profile.svg" alt="" srcset="">
-          <p>A.A.N.Madhusanka</p>
+              $img = $moderator_profile_result['Profile_Img'];
+              $img = base64_encode($img);
+              $text = pathinfo($moderator_profile_result['System_Actor_Id'], PATHINFO_EXTENSION);
+          }
+        }
+
+echo "
+<div class='top_side'>
+
+          <img src='data:image/".$text.";base64,".$img."'/ style='transform:scale(0.7);margin-top:-3rem;border-radius:10%;'>
+          <p style='margin-top:-3rem;'>".$first." ".$last."</p>
 
 </div>
+";
 
+?>
 
 <script>
     const card = document.querySelector(".card");
