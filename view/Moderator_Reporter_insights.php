@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="../css/profile.css">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <style>
@@ -148,71 +148,108 @@
 </div>
 -->
 
-<div class="right_side">
+
+
+<?php
+
+    include '../Model/connect.php';
+    $Reporters_In_Area = $_SESSION['INSIGHT_REPORTER_ID'];
+
+    $reporters_details_sql = "SELECT * FROM reporter_insights WHERE (System_Actor_Id = '$Reporters_In_Area')";
+    $reporters_details_statement = $conn -> query($reporters_details_sql);
+    $reporters_details_results = $reporters_details_statement->fetchAll(PDO::FETCH_ASSOC);
+    $news = $notice = $Job_Vacancies = $Commercial_Ads = $Complaints = $Stars = 0;
+
+    if($reporters_details_results){
+      foreach($reporters_details_results as $reporters_details_result){
+
+        $news = $reporters_details_result['News'];
+        $notice = $reporters_details_result['Notices']; 
+        $Job_Vacancies = $reporters_details_result['Job Vacancies']; 
+        $Commercial_Ads = $reporters_details_result['Commercial Ads'];
+
+        $Complaints = $reporters_details_result['Complaints'];
+        $Stars = $reporters_details_result['Stars'];
+      }
+    }
+    $total = $news + $notice + $Job_Vacancies + $Commercial_Ads;
+
+    $persentage = (($news - $Complaints)/$news)*100; 
+
+echo "<div class='right_side'>
 
     
-    <div class="bottom_side">
+    <div class='bottom_side'>
 
-          <div class="approvement">
+          <div class='approvement'>
 
-            <div class="card">
-                    <div class="content">
-                      <h2>20<br/><span>Published</span></h2>
+            <div class='card'>
+                    <div class='content'>
+                      <h2>".$total."<br/><span>Published</span></h2>
                     </div>
-                    <ul class="navigation">
+                    <ul class='navigation'>
                       <li>
-                        <p>News <span>10</span> </p>
+                        <p>News <span>".$news."</span> </p>
                       </li>
                     
                       <li>
-                        <p>Notices <span>5</span></p>
+                        <p>Notices <span>".$notice."</span></p>
                       </li>
                       <li>
-                        <p>Job Vacancies <span>2</span></p>
+                        <p>Job Vacancies <span>".$Job_Vacancies."</span></p>
                       </li>
                       <li>
-                        <p>Commercial Ads <span>3</span></p>
+                        <p>Commercial Ads <span>".$Commercial_Ads."</span></p>
                       </li>
                     </ul>
-                    <div class="toggle">
-                      <i class="fa fa-chevron-down"></i>
+                    <div class='toggle'>
+                      <i class='fa fa-chevron-down'></i>
                     </div>
             </div>
 
 
           </div>
 
-          <div class="complaints">
+          <div class='complaints'>
 
-                <div class="card card2">
-                          <div class="content">
-                            <h2>05<br/><span>Complaints</span></h2>
+                <div class='card card2'>
+                          <div class='content'>
+                            <h2>".$Complaints."<br/><span>Complaints</span></h2>
                           </div>
                         
                   </div>
 
           </div>
 
-          <div class="trust">
-                  <div class="card card3">
-                          <div class="content">
-                            <h2><span class="precentage" style="color:#000;font-size:1.5rem;margin-left:-0.5rem;"><b>75%</b></span><br/> <span class="precentage" style="padding-left:1.5rem;">Trust for Publish</span></h2>
+          <div class='trust'>
+                  <div class='card card3'>
+                          <div class='content'>
+                            <h2>
+                            <span class='precentage' style='color:#000;font-size:1.5rem;margin-left:-0.5rem;'><b>".$persentage."%</b></span>
+                            <br/> 
+                            <span class='precentage' style='padding-left:1.5rem;'>Trust for Publish</span></h2>
                             <br>
-                            
                           </div>
-                        
                   </div>
-
           </div>
 
 
 
-          <div class="star">
-                  <div class="card card4">
-                          <div class="content">
+          <div class='star'>
+                  <div class='card card4'>
+                          <div class='content'>
 
-                            <h2><span class="precentage" style="color:#000;font-size:1.5rem;margin-left:0.5rem;">
-                            <b><img src="../images/black_star.svg" alt="" srcset=""></b></span><br/> <span class="precentage" style="margin-left:0.5rem;">
+                            <h2><span class='precentage' style='color:#000;font-size:1.5rem;margin-left:0.5rem;'>";
+                            $i=0;
+                            while($i<$Stars){
+                              echo "<b><img src='../images/black_star.svg'></b></span>";
+                              $i++;
+                            }
+                            
+
+                            echo"
+                            <br>
+                            <span class='precentage' style='margin-left:0.5rem;'>
                             Black Stars</span></h2>
 
                             <br>
@@ -222,24 +259,40 @@
                   </div>
 
           </div>
-
-          
-
     </div>
+";
 
-                <div class="button-set">
-                    <div class="view_btn back_btn" onclick="window.open('Moderator_Reporter.php','_self')">Back</div>
+
+?>
+                <div class='button-set'>
+                    <div class='view_btn back_btn' onclick="window.open('Moderator_Reporter.php','_self')">Back</div>
                 </div>
 
-</div>
 
+<?php
+    include '../Model/connect.php';
+    $Reporters_In_Area = $_SESSION['INSIGHT_REPORTER_ID'];
 
-<div class="top_side">
+    $reporters_details_sql = "SELECT * FROM system_actor WHERE (System_Actor_Id = '$Reporters_In_Area')";
+    $reporters_details_statement = $conn -> query($reporters_details_sql);
+    $reporters_details_results = $reporters_details_statement->fetchAll(PDO::FETCH_ASSOC);
 
-          <img src="../images/Profile.svg" alt="" srcset="">
-          <p>Nimal Kumara</p>
+    if($reporters_details_results){
+      foreach($reporters_details_results as $reporters_details_result){
 
-</div>
+        $img = $reporters_details_result['Profile_Img'];
+        $img = base64_encode($img);
+        $text = pathinfo($reporters_details_result['System_Actor_Id'], PATHINFO_EXTENSION);
+      }
+    }
+
+echo "</div>
+<div class='top_side'>
+    <img src='data:image/".$text.";base64,".$img."'/ style='transform:scale(0.5);margin-top:-7rem;border-radius:10%;'>
+    <p style='margin-top:-5.5rem;'>".$_SESSION['INSIGHT_REPORTER_FIRST']." ".$_SESSION['INSIGHT_REPORTER_LAST']."</p>
+</div>";
+
+?>
 
 
 <script>

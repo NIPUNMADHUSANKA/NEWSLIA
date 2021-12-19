@@ -51,4 +51,11 @@
             echo "<script>window.open('../view/Moderator_Hidden.php','_self');</script>";
         }                              
     }
+
+
+    if(isset($_POST['REPORTER_Insight_ID'])){
+        $_SESSION['INSIGHT_REPORTER_ID'] = $_POST['REPORTER_Insight_ID'];
+        $_SESSION['INSIGHT_REPORTER_FIRST'] = $_POST['FIRST'];
+        $_SESSION['INSIGHT_REPORTER_LAST'] = $_POST['LAST'];
+    }
 ?>

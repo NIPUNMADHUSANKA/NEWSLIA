@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="../css/insight.css">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <style>
@@ -81,52 +81,77 @@
     
 </div>
 
+
+
 <div class="reporter_insight">
-
-
-      
-
-           <div class="card" onclick="window.open('Moderator_Reporter_insights.php','_self')">
-                <div class="content">
-                  <div class="imgBx">
-                    <img src="../images/Profile.svg" alt="" srcset="" style="transform:scale(0.93); width:50px; margin-left:15px;">
-                  </div>
-                  <h2>Nimal Kumara</h2>
-                </div>
-            </div>
-
-
-            <div class="card">
-                <div class="content">
-                  <div class="imgBx">
-                      <img src="../images/Profile.svg" alt="" srcset="" style="transform:scale(0.93); width:50px; margin-left:15px;">
-                  </div>
-                  <h2>Kalana Pathum</h2>
-                </div>
-            </div>
-
-
-            <div class="card">
-                <div class="content">
-                  <div class="imgBx">
-                       <img src="../images/Profile.svg" alt="" srcset="" style="transform:scale(0.93); width:50px; margin-left:15px;">
-                  </div>
-                  <h2>Tashmila Kumara</h2>
-                </div>
-            </div>
-
-          
     
-      
+    <?php
 
+    include '../Model/connect.php';
+    $Moderator_Area = $_SESSION['moderate_area'];
+    
+    $reporters_in_area_sql = "SELECT * FROM report_area WHERE (Area = '$Moderator_Area')";
+    $reporters_in_area_statement = $conn -> query($reporters_in_area_sql);
+    $reporters_in_area_results = $reporters_in_area_statement->fetchAll(PDO::FETCH_ASSOC);
+
+    if($reporters_in_area_results){
+        foreach($reporters_in_area_results as $reporters_in_area_result){
+
+            $Reporters_In_Area = $reporters_in_area_result['System_Actor_Id'];
+
+            $reporters_details_sql = "SELECT * FROM system_actor WHERE (System_Actor_Id = '$Reporters_In_Area')";
+            $reporters_details_statement = $conn -> query($reporters_details_sql);
+            $reporters_details_results = $reporters_details_statement->fetchAll(PDO::FETCH_ASSOC);
+
+            if($reporters_details_results){
+              foreach($reporters_details_results as $reporters_details_result){
+
+                    $img = $reporters_details_result['Profile_Img'];
+                    $img = base64_encode($img);
+                    $text = pathinfo($reporters_details_result['System_Actor_Id'], PATHINFO_EXTENSION);
+
+                    $first = $reporters_details_result['FirstName'];
+                    $last = $reporters_details_result['LastName'];
+
+                    echo "
+                      <div class='card'>
+
+                            <div class='content'>
+                              <div class='imgBx'>
+                                  <img src='data:image/".$text.";base64,".$img."'/ style='transform:scale(1);'>
+                              </div>
+                              <h2 onclick=toggle_view_insight('$Reporters_In_Area','$first','$last');>".$first." ".$last."</h2>
+                              </div>
+                          </div>
+                        ";
+              }
+            }
+            
+        }
+    }
+?>
             
 </div>
-
-
-
-
-
+<!--
+  
+  -->                  
 <script>
+    
+    function toggle_view_insight(REPORTER_Insight_ID,FIRST,LAST){
+      $.ajax({
+        url :"../Control/save_hidden.php",
+        type:"POST",
+        cache:false,
+        data:{REPORTER_Insight_ID:REPORTER_Insight_ID,
+              FIRST:FIRST,
+              LAST:LAST},
+        success:function(data){
+          window.open('./Moderator_Reporter_Insights.php','_self');
+        }
+
+      });
+    }
+
     function showsort() {
       document.getElementById("sortdrop").classList.toggle("show");
     }
@@ -146,7 +171,6 @@
         }
       }
     }
-
 </script>
     
 </body>
