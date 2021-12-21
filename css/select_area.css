@@ -54,9 +54,29 @@
 
 .edit_btn_set{
     background-color: #5CB6B1;
+    width: 4rem;
+    height: 2rem;
+    padding: 0.2rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: medium;
+    font-weight: bold;
+    transition: 0.3s ease;
 }
 
 .save_btn_set{
+    width: 4rem;
+    height: 2rem;
+    padding: 0.2rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: medium;
+    font-weight: bold;
+    transition: 0.3s ease;
     background-color: #5FEF80;
 }
 
