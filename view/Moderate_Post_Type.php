@@ -34,20 +34,20 @@
 
   .prof_img{
       margin-top:-0.5rem;
+     
   }
 
   .prof_img img {
     position: relative;
-    width: 110px;
-    height: 124px;
-    left: 45%;
-    top: 32px;
+    left: -11%;
+    top: 35px;
   }
 
   .prof_img h3 {
-    text-align: center;
+    position: relative;
+    left: -9%;
     margin-top: 25px;
-    margin-left: -5px;
+    margin-left: -50px;
     font-style: normal;
     font-weight: bold;
     font-size: 17px;
@@ -77,7 +77,7 @@
         width: 300px;
         height: 23px;
         left: 86px;
-        margin-top: 30px;
+        margin-top: 25px;
         font-family: Roboto;
         font-style: normal;
         font-weight: bold;
@@ -166,11 +166,40 @@
 <div class="column2">
 
 <div class="prof_img">
-  <img src="../images/Profile.svg" style="margin-top:-2rem;">
-  <br>
-  <h3>Nipun Madhusanka</h3>
 
-  <hr style="margin-top: 50px;margin-left:2rem;">
+<?php
+
+    include '../Model/connect.php';
+    $Moderator_ID = $_SESSION['System_Actor_ID'];
+    
+    $moderator_profile_sql = "SELECT * FROM system_actor WHERE (System_Actor_Id = '$Moderator_ID')";
+    $moderator_profile_statement = $conn -> query($moderator_profile_sql);
+    $moderator_profile_results = $moderator_profile_statement->fetchAll(PDO::FETCH_ASSOC);
+    
+
+    if($moderator_profile_results){
+      foreach($moderator_profile_results as $moderator_profile_result){
+          $first = $moderator_profile_result['FirstName'];
+          $last = $moderator_profile_result['LastName'];
+
+          $img = $moderator_profile_result['Profile_Img'];
+          $img = base64_encode($img);
+          $text = pathinfo($moderator_profile_result['System_Actor_Id'], PATHINFO_EXTENSION);
+      }
+    }
+
+
+  echo "
+  <div class='top_side'>
+
+          <img src='data:image/".$text.";base64,".$img."'/ style='transform:scale(0.7);margin-top:39rem;border-radius:10%;'>
+          <h3>".$first." ".$last."</h3>
+
+</div>";
+
+?>
+
+  <hr style="margin-top: 45px;margin-left:2rem;">
 </div>
 
 
@@ -192,6 +221,7 @@
                                 <li><input type="checkbox"><label>Education</label></li>
                                 <li><input type="checkbox"><label>Sports</label></li>
                                 <li><input type="checkbox"><label>Environment</label></li>
+                                <li><input type="checkbox"><label>Other</label></li>
                             </ol>
 
                             <br>
