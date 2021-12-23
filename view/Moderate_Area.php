@@ -32,34 +32,13 @@
     margin-top:-44rem;
   }
 
-  .prof_img{
-      margin-top:-0.5rem;
-  }
-
-  .prof_img img {
-    position: relative;
-    width: 110px;
-    height: 124px;
-    left: 45%;
-    top: 32px;
-  }
-
-  .prof_img h3 {
-    text-align: center;
-    margin-top: 25px;
-    margin-left: -5px;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 17px;
-    line-height: 21px;
-  }
-
   .posts_content_view_head{
     font-size:xx-large;
   }
   .right_side{
-      margin-top:0rem;
+      margin-top:1rem;
       margin-left:1.7rem;
+      height:500px;
   }
 
   .first_box_area{
@@ -70,15 +49,44 @@
     height:250px;
 }
 
+.bottom_side{
+  margin-top:0.5rem;
+}
+
+.prof_img{
+      margin-top:-2rem;
+      height:40%;
+     
+  }
+
+  .prof_img img {
+    position: relative;
+    left: 30%;
+    top: -280%;
+  }
+
+  .prof_img h3 {
+    position: relative;
+    left: 38%;
+    margin-top: -50%;
+    margin-left: -50px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 17px;
+    line-height: 21px;
+  }
+
+
 </style>
 
 
 <body>
 
- <!--navigation-->
+<!--navigation-->
 
 <?php $page = 'home';
-  include 'nav.php'; ?>
+  include 'nav.php'; 
+?>
 
 <!--End of Navigation-Bar-->
 
@@ -96,8 +104,6 @@
   <li onclick="togglePopup_select_option('deactivate-1')"><a href="#"><img src="../images/other/deactivate.png" alt="" srcset=""><p>Deactivate</p></a></li>
   <li><a href="logout.php"><img src="../images/other/logout.png" alt="" srcset=""><p>Log Out</p></a></li>
 
-
-
   </div>
 
 
@@ -107,59 +113,109 @@
 <div class="column2">
 
 <div class="prof_img">
-  <img src="../images/Profile.svg" style="margin-top:-2rem;">
-  <br>
-  <h3>Nipun Madhusanka</h3>
 
-  <hr style="margin-top: 50px;margin-left:2rem;">
-</div>
+<?php
 
-<div class="right_side">
-
+    include '../Model/connect.php';
+    $Moderator_ID = $_SESSION['System_Actor_ID'];
     
-    <div class="bottom_side">
-        
-        <div class="first_box">
+    $moderator_profile_sql = "SELECT * FROM system_actor WHERE (System_Actor_Id = '$Moderator_ID')";
+    $moderator_profile_statement = $conn -> query($moderator_profile_sql);
+    $moderator_profile_results = $moderator_profile_statement->fetchAll(PDO::FETCH_ASSOC);
+    
+
+    if($moderator_profile_results){
+      foreach($moderator_profile_results as $moderator_profile_result){
+          $first = $moderator_profile_result['FirstName'];
+          $last = $moderator_profile_result['LastName'];
+
+          $img = $moderator_profile_result['Profile_Img'];
+          $img = base64_encode($img);
+          $text = pathinfo($moderator_profile_result['System_Actor_Id'], PATHINFO_EXTENSION);
+      }
+    }
+
+
+  echo "
+          <img src='data:image/".$text.";base64,".$img."'/ style='transform:scale(0.7);margin-top:39rem;border-radius:10%;'>
+          <h3>".$first." ".$last."</h3>
+          ";
+
+
+echo "<div class='right_side'>
+    <hr>
+    <div class='bottom_side'>
+    
+        <div class='first_box'>
             <h2>Reading Area</h2>
 
-            <div class="first_box_area">
+            <div class='first_box_area'>";
 
-                    <?php
-                        include '../Model/connect.php';
-                        $read_province_area_sql = "SELECT * FROM dsa ORDER BY DSA ASC";
-                      
-                        $read_province_area_statement = $conn -> query($read_province_area_sql);
-                        $read_province_area_results = $read_province_area_statement->fetchAll(PDO::FETCH_ASSOC);
+                          $READ_AREA=array();
+                          $y=0;
+              
+                          $system_actor_id = $_SESSION['System_Actor_ID'];
 
-                        if($read_province_area_results){
-                                
-                          $i = 350;
-                          foreach($read_province_area_results as $read_province_area_result){
-                            
-                            echo " <input type='checkbox' id='".$i."' value='' name='dsa' disabled class='moderator_read_radio'> 
-                            <label for='".$i."'>".$read_province_area_result['DSA']."</label>
-                            <br>";
-                            
-                            $i = $i +1;  
+                          $reading_area_check_sql = "SELECT * FROM read_area WHERE (System_Actor_Id = '$system_actor_id') ";
+                          $reading_area_check_statement = $conn -> query($reading_area_check_sql);
+                          $reading_area_check_results = $reading_area_check_statement->fetchAll(PDO::FETCH_ASSOC);
+
+                          if($reading_area_check_results){
+                            foreach ($reading_area_check_results as $reading_area_check_result){
+                                $READ_AREA[$y] = $reading_area_check_result['Area'];
+                                $y++;
+                            }
                           }
-                    }
-                    ?>
 
-            </div>
+                    
+                          $count = count($READ_AREA);
 
-                <div class="btn_set">
-                    <button class="edit_btn_set" onclick="remove_read_disable()">Edit</button>
-                    <br>
-                    <button class="save_btn_set">Save</button>
+                          $read_province_area_sql = "SELECT * FROM dsa ORDER BY DSA ASC";
+                          $read_province_area_statement = $conn -> query($read_province_area_sql);
+                          $read_province_area_results = $read_province_area_statement->fetchAll(PDO::FETCH_ASSOC);
+                          
+                          echo "<form action='Moderate_Area.php' method='POST'>";
+
+                          if($read_province_area_results){
+                                  
+                            $i = 350;
+                            foreach($read_province_area_results as $read_province_area_result){
+
+                              $flag = 0;
+                              for ($x = 0; $x < $count; $x++) {
+                                if($READ_AREA[$x] == $read_province_area_result['DSA']){
+                                  $flag = 1;
+                                }
+                              } 
+                              
+                              echo " <input type='checkbox' id='".$i."' value='".$read_province_area_result['DSA']."' name='read_area_select[]' disabled class='moderator_read_radio'"; 
+                              if($flag == 1){echo 'checked';} 
+                              echo "> 
+                              <label for='".$i."'>".$read_province_area_result['DSA']."</label>
+                              <br>";
+                              
+                              $i = $i +1;  
+                            }
+                      }
+                    
+
+          echo "</div>
+
+                <div class='btn_set'>
+                    
+                    <input type='button' value='Edit' class='edit_btn_set' onclick='remove_read_disable()'>
+                  <br>
+                    <input type='submit' value='Save' class='save_btn_set' name = 'Save_READ'>
                </div>
-
+               </form>";
+      ?>
         </div>
 
         <div class="second_box">
             <h2>Moderating Area</h2>
 
             <div class="second_box_area">
-                <?php
+              <?php
                     include '../Model/connect.php';
                     $moderate_area_sql = "SELECT * FROM dsa ORDER BY DSA ASC";
                    
@@ -178,33 +234,84 @@
                         $moderate_area_check_statement = $conn -> query($moderate_area_check_sql);
                         $moderate_area_check_results = $moderate_area_check_statement->fetchAll(PDO::FETCH_ASSOC);
 
+                        echo "<form action='Moderate_Area.php' method='POST'>";
+
                         if($moderate_area_check_results){
                           foreach($moderate_area_check_results as $moderate_area_check_result){
-                            if($moderate_area_check_result['Area'] == $moderate_area_result['DSA']){
-                              echo " <input type='radio' id='".$i."' value='' name='dsa' disabled class='moderator_radio' checked> 
-                              <label for='".$i."'>".$moderate_area_result['DSA']."</label>
-                              <br>";
-                            }
-                            else{
-                              echo " <input type='radio' id='".$i."' value='' name='dsa' disabled class='moderator_radio'> 
-                              <label for='".$i."'>".$moderate_area_result['DSA']."</label>
-                              <br>";
-                            }
 
+                              echo " <input type='radio' id='".$i."' value='".$moderate_area_result['DSA']."' name='moderate_area_select' disabled class='moderator_radio'"; 
+                              if($moderate_area_check_result['Area'] == $moderate_area_result['DSA']){echo 'checked';} 
+                              echo "> 
+                              <label for='".$i."'>".$moderate_area_result['DSA']."</label>
+                              <br>";
+
+                            }
                           }
                         }
                         $i = $i +1;   
                       }
+                
+            echo "</div>  
+
+            <div class='btn_set'>
+                <input type='button' value='Edit' class='edit_btn_set' onclick='remove_disable()'>
+                  <br>
+                <input type='submit' value='Save' class='save_btn_set' name = 'Save_MODERATOR'>
+              </form>
+            </div>";
+
+
+              if(isset($_POST['Save_MODERATOR']) and isset($_POST['moderate_area_select']) ){
+
+                  
+                 $Area = $_POST['moderate_area_select'];
+                  
+                  $MAREA = [
+                    'Moderator_ID' => $Moderator_ID,
+                    'Area' => $Area
+                  ];
+                  
+                  $sql_2 = 'UPDATE moderate_area
+                          SET Area = :Area
+                          WHERE System_Actor_Id = :Moderator_ID';
+                  
+                  // prepare statement
+                  $statement_2 = $conn->prepare($sql_2);
+                  
+                  // bind params
+                  $statement_2->bindParam(':Moderator_ID', $MAREA['Moderator_ID']);
+                  $statement_2->bindParam(':Area', $MAREA['Area']);
+                  
+                  // execute the UPDATE statment
+                  if($statement_2->execute()){
+                    echo "<script> window.open('./Moderate_Area.php','_self'); </script>";
                 }
-                ?>
+                  
+              }
 
-            </div>  
 
-            <div class="btn_set">
-                <button class="edit_btn_set" onclick="remove_disable()">Edit</button>
-                <br>
-                <button class="save_btn_set">Save</button>
-            </div>
+              if(isset($_POST['Save_READ']) and isset($_POST['read_area_select']) ){
+                    
+                    // construct the delete statement
+                    $sql = 'DELETE FROM read_area
+                            WHERE System_Actor_Id = :Moderator_ID';
+                    
+                    // prepare the statement for execution
+                    $statement = $conn->prepare($sql);
+                    $statement->bindParam(':Moderator_ID', $Moderator_ID);
+                    
+                    // execute the statement
+                    if ($statement->execute()) {
+                      
+                      foreach($_POST['read_area_select'] as $item) {
+                          $stmt = $conn->prepare("INSERT INTO `read_area` VALUES(?,?)");
+                          $stmt->execute([$Moderator_ID,$item]);
+                          echo "<script> window.open('./Moderate_Area.php','_self'); </script>";
+                      }
+                    }   
+              }
+
+            ?>
 
 
         </div>  

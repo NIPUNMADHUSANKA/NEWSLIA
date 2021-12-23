@@ -21,7 +21,7 @@
 
 <style>
   body {
-    /*overflow: hidden; /* Hide scrollbars */
+    overflow: hidden; /* Hide scrollbars */
   }
 
   
@@ -30,28 +30,6 @@
     width: 82%;
     height: 557px;
     margin-top:-44rem;
-  }
-
-  .prof_img{
-      margin-top:-0.5rem;
-     
-  }
-
-  .prof_img img {
-    position: relative;
-    left: -11%;
-    top: 35px;
-  }
-
-  .prof_img h3 {
-    position: relative;
-    left: -9%;
-    margin-top: 25px;
-    margin-left: -50px;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 17px;
-    line-height: 21px;
   }
 
   .posts_content_view_head{
@@ -128,6 +106,30 @@
     }
 
 
+  .prof_img{
+      margin-top:-2rem;
+      height:40%;
+     
+  }
+
+  .prof_img img {
+    position: relative;
+    left: 30%;
+    top: -280%;
+  }
+
+  .prof_img h3 {
+    position: relative;
+    left: 38%;
+    margin-top: -50%;
+    margin-left: -50px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 17px;
+    line-height: 21px;
+  }
+
+
 
 
 </style>
@@ -191,12 +193,9 @@
 
 
   echo "
-  <div class='top_side'>
-
           <img src='data:image/".$text.";base64,".$img."'/ style='transform:scale(0.7);margin-top:39rem;border-radius:10%;'>
           <h3>".$first." ".$last."</h3>
-
-</div>";
+          ";
 
   $post_type_sql = "SELECT * FROM post_type WHERE System_Actor_Id = '$Moderator_ID'";
   $post_type_statement = $conn->query($post_type_sql);
@@ -206,6 +205,7 @@
     foreach($post_type_results as $post_type_result){
         echo "<hr style='margin-top: 45px;margin-left:2rem;'>
         </div>
+           <br>
             <div class='topic'>
                 <h3>Select Posts Type</h3>
             </div>
