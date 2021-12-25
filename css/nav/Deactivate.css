@@ -1,61 +1,6 @@
-  .deactivate-1-main-container {
-    margin: auto;
-    margin-top: 100px;
-    width: 328px;
-    height: 270px;
-    border: black 1px solid;
-  }
-  
-  .deactivate-1-up {
-    width: 100%;
-    height: 25%;
-    display: flex;
-    border-bottom: 1px solid black;
-  }
-  
-  .deactivate-1-down {
-    width: 100%;
-    height: 75%;
-  }
-  
-  .deactivate-1-up-left {
-    height: 100%;
-    width: 90%;
-    text-align: center;
-  }
-  
-  .deactivate-1-up-left img {
-    margin-top: 5%;
-    width: 90%;
-    height: 73%;
-  }
-  
-  .deactivate-1-up-right {
-    height: 100%;
-    width: 10%;
-  
-    text-align: center;
-  }
-  
-  .deactivate-1-deactivation-form-header {
-    color: #8b7c7c;
-    text-decoration: underline;
-    margin-left: 10px;
-    margin-top: 7px;
-  }
-  
-  .deactivate-1-paragraph {
-    text-align: center;
-    margin: 18px;
-    margin-top: 25px;
-    margin-bottom: 25px;
-  }
-  
-  .deactivate-1-button {
-    margin-top: 20px;
-  }
+/* 
 
-  
+  */
   .deactivate-2-main-container {
     margin: auto;
     margin-top: 100px;

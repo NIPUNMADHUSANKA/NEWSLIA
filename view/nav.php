@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/nav/final-navigation.css">
-  <link rel="stylesheet" href="../css/nav/Deactivate.css">
   <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
 
   <script src="https://kit.fontawesome.com/c119b7fc61.js" crossorigin="anonymous"></script>
@@ -52,6 +51,138 @@
   .navigation-notification:hover{
     transform:scale(1.1);
   }
+
+
+
+  .deactivate-1-main-container {
+    margin: auto;
+    margin-top: 100px;
+    width: 328px;
+    height: 270px;
+    border: black 1px solid;
+  }
+  
+  .deactivate-1-up {
+    width: 100%;
+    height: 25%;
+    display: flex;
+    border-bottom: 1px solid black;
+  }
+  
+  .deactivate-1-down {
+    width: 100%;
+    height: 75%;
+  }
+  
+  .deactivate-1-up-left {
+    height: 100%;
+    width: 90%;
+    text-align: center;
+  }
+  
+  .deactivate-1-up-left img {
+    margin-top: 5%;
+    width: 90%;
+    height: 73%;
+  }
+  
+  .deactivate-1-up-right {
+    height: 100%;
+    width: 10%;
+  
+    text-align: center;
+  }
+  
+  .deactivate-1-deactivation-form-header {
+    color: #8b7c7c;
+    text-decoration: underline;
+    margin-left: 10px;
+    margin-top: 7px;
+  }
+  
+  .deactivate-1-paragraph {
+    text-align: center;
+    margin: 18px;
+    margin-top: 12px;
+    margin-bottom: 25px;
+    font-size:15px;
+  }
+  
+  .deactivate-1-button {
+    margin-top: 20px;
+  }
+
+
+  .deactivate-2-main-container {
+    margin: auto;
+    margin-top: 100px;
+    width: 328px;
+    height: 270px;
+    border: black 1px solid;
+  }
+  
+  .deactivate-2-up {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    border-bottom: 1px solid black;
+  }
+  
+  .deactivate-2-down {
+    width: 100%;
+    height: 70%;
+  }
+  
+  .deactivate-2-up-left {
+    height: 100%;
+    width: 90%;
+    text-align: center;
+  }
+  
+  .deactivate-2-up-left img {
+    margin-top: 5%;
+    width: 90%;
+    height: 73%;
+  }
+  
+  .deactivate-2-up-right {
+    height: 100%;
+    width: 10%;
+    text-align: center;
+  }
+  
+  .deactivate-2-deactivation-form-header {
+    color: #8b7c7c;
+    text-decoration: underline;
+    margin-left: 11px;
+    margin-top: 7px;
+  }
+  
+  .deactivate-2-deactivation-form {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  input:focus::placeholder {
+    color: transparent;
+  }
+  
+  .deactivate-2-input-1 {
+    width: 80%;
+    padding-left: 5px;
+    background: #ebeaea;
+    height: 36px;
+    border: none;
+    margin: 5px;
+    outline: none;
+    margin-top:-3rem;
+
+  }
+  
+  .deactivate-2-button {
+    margin-top: 20px;
+  }
+
 
 </style>
 
@@ -235,15 +366,13 @@
 
 
           <br>
-            <input type="password" class="deactivate-2-input-1" placeholder="Password to Confirm Deactivate">
 
+            <form action="../Control/other.php" method="post">
+                <input type="password" class="deactivate-2-input-1" placeholder="Password to Deactivate" required name='confirm_deactivate'>
 
-          
-            <br>
-            <br>
-            <div class="deactivate-2-button">
-              <a href="#"><img src="../images/16-deactivation/tick.png" alt=""></a>
-            </div>
+                <input type='submit' value='Deactivate' class='update_btn otp_btn2' name = 'deactivate' style="margin-left:-0.5rem;">
+            </form>
+
           </div>
         </div>
 
@@ -251,8 +380,6 @@
     </div>
 
   </div>
-
-
 
 
 

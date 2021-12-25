@@ -21,7 +21,7 @@ function login($email,$pwd){
 
                 $systemuser =[
                     'id' => $_SESSION['System_Actor_ID'],
-                    'active' => 1
+                    'active' => 0
                 ];
 
                 $sql = 'UPDATE login
@@ -34,6 +34,19 @@ function login($email,$pwd){
 
                 if ($statement->execute()) {
                     echo 'The deactivation has been updated successfully!';
+                   
+                    $remove_sql = 'DELETE FROM deactivate
+                            WHERE System_Actor_ID = :System_Actor_ID';
+                    
+                    // prepare the statement for execution
+                    $remove_statement = $conn->prepare($remove_sql);
+                    $remove_statement->bindParam(':System_Actor_ID', $_SESSION['System_Actor_ID']);
+                    
+                    // execute the statement
+                    if ($remove_statement->execute()) {
+                        echo 'The deactivation has been deleted successfully!';
+                    }
+
                 }
 
             }   
