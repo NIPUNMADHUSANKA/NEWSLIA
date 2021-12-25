@@ -367,7 +367,7 @@
 
           <br>
 
-            <form action="../Control/other.php" method="post">
+            <form action="../Control/deactivate.php" method="post">
                 <input type="password" class="deactivate-2-input-1" placeholder="Password to Deactivate" required name='confirm_deactivate'>
 
                 <input type='submit' value='Deactivate' class='update_btn otp_btn2' name = 'deactivate' style="margin-left:-0.5rem;">
