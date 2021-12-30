@@ -1710,7 +1710,6 @@ session_start();
         include '../Control/login_Control.php';
         $connect =  login($email,$pwd);
         if($connect == 'false'){
-          echo '<script type="text/javascript">alert("Nowork");</script>';
           echo '<script type="text/javascript">error_login();</script>';
         }
         elseif($connect == 'M'){
@@ -1719,7 +1718,6 @@ session_start();
         
     }
     else{
-        echo '<script type="text/javascript">alert("work");</script>';
         echo '<script type="text/javascript">error_login();</script>';
     }
 
