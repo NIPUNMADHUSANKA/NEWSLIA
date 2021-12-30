@@ -173,8 +173,13 @@
       }
     }
     $total = $news + $notice + $Job_Vacancies + $Commercial_Ads;
+    
+    $persentage = 0;
 
-    $persentage = (($news - $Complaints)/$news)*100; 
+    if($total != 0){
+      $persentage = (($news - $Complaints)/$news)*100; 
+    }
+    
 
 echo "<div class='right_side'>
 
@@ -225,7 +230,15 @@ echo "<div class='right_side'>
                   <div class='card card3'>
                           <div class='content'>
                             <h2>
-                            <span class='precentage' style='color:#000;font-size:1.5rem;margin-left:-0.5rem;'><b>".round($persentage,2)."%</b></span>
+                            <span class='precentage' style='color:#000;font-size:1.5rem;margin-left:-0.5rem;'><b>";
+                              
+                              if($total == 0){
+                                echo "0";
+                              }else{
+                                echo round($persentage,2);
+                              }
+                            
+                            echo "%</b></span>
                             <br/> 
                             <span class='precentage' style='padding-left:1.5rem;'>Trust for Publish</span></h2>
                             <br>
@@ -287,10 +300,18 @@ echo "<div class='right_side'>
     }
 
 echo "</div>
-<div class='top_side'>
-    <img src='data:image/".$text.";base64,".$img."'/ style='transform:scale(0.5);margin-top:-7rem;border-radius:10%;'>
-    <p style='margin-top:-5.5rem;'>".$_SESSION['INSIGHT_REPORTER_FIRST']." ".$_SESSION['INSIGHT_REPORTER_LAST']."</p>
-</div>";
+<div class='top_side'>";
+
+    if($img != NULL){
+      echo "<img src='data:image/".$text.";base64,".$img."'/ style='transform:scale(0.5);margin-top:-7rem;border-radius:10%;'>";
+    }
+    else{
+      echo "<img src='../images/Profile.svg' style='transform:scale(2);margin-bottom:5rem;'>";
+    }
+    
+    echo "<p style='margin-top:-5.5rem;'>".$_SESSION['INSIGHT_REPORTER_FIRST']." ".$_SESSION['INSIGHT_REPORTER_LAST']."</p>";
+
+echo "</div>";
 
 ?>
 

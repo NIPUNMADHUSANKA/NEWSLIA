@@ -21,7 +21,7 @@
 
 <style>
   body {
-    overflow: hidden; /* Hide scrollbars */
+     overflow: hidden; /* Hide scrollbars */
   }
 
   
@@ -192,10 +192,18 @@
     }
 
 
-  echo "
-          <img src='data:image/".$text.";base64,".$img."'/ style='transform:scale(0.7);margin-top:39rem;border-radius:10%;'>
-          <h3>".$first." ".$last."</h3>
-          ";
+  
+
+
+  if($img != NULL){
+      echo "<img src='data:image/".$text.";base64,".$img."'/ style='transform:scale(0.7);margin-top:39rem;border-radius:10%;'>";
+    }
+  else{
+      echo "<img src='../images/Profile.svg' style='transform:scale(2);margin-top:43rem;margin-left:5rem;margin-bottom:2rem;'>";
+   }
+          
+          
+  echo  "<h3>".$first." ".$last."</h3>";
 
   $post_type_sql = "SELECT * FROM post_type WHERE System_Actor_Id = '$Moderator_ID'";
   $post_type_statement = $conn->query($post_type_sql);

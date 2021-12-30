@@ -102,7 +102,11 @@ session_start();
         }
         $total = $news + $articles + $notice + $Job_Vacancies + $Commercial_Ads;
 
-        $persentage = (($total - $Complaints)/$total)*100; 
+        $persentage = 0;
+
+        if($total != 0){
+          $persentage = (($total - $Complaints)/$total)*100; 
+        }
 
 echo "
     <div class='right_side'>
@@ -153,7 +157,13 @@ echo "
           <div class='trust'>
                   <div class='card card3'>
                           <div class='content'>
-                            <h2><span class='precentage' style='color:#000;font-size:1.5rem'><b>".round($persentage,2)."%</b></span><br/> <span class='precentage'>Trust for Approvement</span></h2>
+                            <h2><span class='precentage' style='color:#000;font-size:1.5rem'><b>";
+                              if($total == 0){
+                                echo "0";
+                              }else{
+                                echo round($persentage,2);
+                              }
+                            echo "%</b></span><br/> <span class='precentage'>Trust for Approvement</span></h2>
                             <br>
                             
                           </div>
@@ -185,13 +195,18 @@ echo "
         }
 
 echo "
-<div class='top_side'>
+<div class='top_side'>";
 
-          <img src='data:image/".$text.";base64,".$img."'/ style='transform:scale(0.7);margin-top:-3rem;border-radius:10%;'>
-          <p style='margin-top:-3rem;'>".$first." ".$last."</p>
-
-</div>
-";
+        if($img != NULL){
+            echo "<img src='data:image/".$text.";base64,".$img."'/ style='transform:scale(0.7);margin-top:-3rem;border-radius:10%;'>";
+          }
+        else{
+            echo "<img src='../images/Profile.svg' style='transform:scale(2);margin-bottom:3rem;'>";
+          }
+      
+        echo  "<p style='margin-top:-3rem;'>".$first." ".$last."</p>";
+      
+echo "</div>";
 
 ?>
 

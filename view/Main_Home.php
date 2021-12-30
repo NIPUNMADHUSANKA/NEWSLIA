@@ -88,7 +88,7 @@ session_start();
 
   .inpu2{
     width:6.8rem;
-    margin-left:1.2rem;
+    margin-left:1.4rem;
   }
 
   .otp_btn{
@@ -218,6 +218,188 @@ session_start();
 
 
 
+/*Form validation*/
+          /* The message box is shown when the user clicks on the password field */
+          .message {
+            display:block;
+            background: #f1f1f1;
+            color: #000;
+            width: 80%;
+            position: relative;
+            padding: 5px;
+            margin-top: 10px;
+            top:-4rem;
+            left:9.7rem;
+            border-radius: 10px;
+          }
+
+          .message::before{
+              content: "";
+              position: absolute;
+              right: 100%;
+              top: 20px;
+              width: 0;
+              height: 0;
+              border-top: 13px solid transparent;
+              border-right: 26px solid #f1f1f1;
+              border-bottom: 13px solid transparent;
+          }
+
+
+
+          .message p {
+            padding: 5px 5px;
+            font-size: 12px;
+          }
+
+
+          .pass2{
+            position: relative;
+            top:-19.6rem;
+            left:9rem;
+            z-index: -1;
+          }
+
+          .comment_btn{
+            position: relative;
+            top:-19rem;
+            z-index: -1;
+          }
+
+          .comment_btn_2{
+            position: relative;
+            top:-4rem;
+          }
+
+
+          #msg1{
+            display:none;
+            padding: 12px;
+          }
+
+          #msg2{
+            display:none;
+            left:18rem;
+          }
+          #msg2 p{
+            font-size:14px;
+          }
+
+          #msg3{
+            display:none;
+            top:-3.5rem;
+            left:18rem;
+          }
+          .rqs1{
+            position: relative;
+            top:-4.2rem;
+          }
+
+          #msg4{
+            display:none;
+            top:-3.5rem;
+            left:18rem;
+          }
+          .rqs2{
+            position: relative;
+            top:-4.2rem;
+          }
+
+          #msg5{
+            display:none;
+            top:-3.5rem;
+            left:18rem;
+          }
+          .rqs3{
+            position: relative;
+            top:-4.2rem;
+          }
+
+          #msg6{
+            display:none;
+            top:-3.5rem;
+            left:15rem;
+          }
+          .rqs4{
+            position: relative;
+            top:-4.4rem;
+          }
+
+          #msg7{
+            display:none;
+            top:-3.5rem;
+            left:15rem;
+          }
+
+          .rqs5{
+            position: relative;
+            top:-17rem;
+          }
+
+          #msg8{ 
+            display:none;
+            top:-3.5rem;
+            left:15rem;
+          }
+
+          .rqs6{
+            position: relative;
+            top:-5rem;
+          }
+
+
+          /* Add a green text color and a checkmark when the requirements are right */
+          .valid {
+            color: green;
+          }
+
+          .valid:before {
+            position: relative;
+            left: -4px;
+            content: "✔";
+          }
+
+          /* Add a red text color and an "x" when the requirements are wrong */
+          .invalid {
+            color: red;
+          }
+
+          .invalid:before {
+            position: relative;
+            left: -4px;
+            content: "✖";
+          }
+
+/*Form validation End*/
+
+.OTP_VERIFY_FORGOT{
+  position: relative;
+  top:-1.9rem;
+  margin-left:5rem;
+}
+
+.otp_btn3{
+
+  margin-left:2.8rem;
+}
+
+.Search_contact{
+  height:2rem;
+  cursor: pointer;
+  margin-left:1rem;
+}
+
+.admin_details{
+  height:250px;
+}
+.reporter_details{
+  height:250px;
+}
+
+.moderator_details{
+  height:250px;
+}
+
 </style>
 
 <body>
@@ -229,8 +411,6 @@ session_start();
         <div class="left">
             <img src="../images/Name.svg" alt="" srcset="">
         </div>
-
-        
 
         <div class="right">
 
@@ -268,47 +448,35 @@ session_start();
             <img src="../images/background.svg" alt="" srcset="">
         </div>
 
-  </div>
-
-
-
-
-<div class="about_us">
-<a name="aboutus"></a>
-    <div class="para-box">
-        <div class="head-para-type">
-           <h1>About Us ...</h1>
-        </div>
-        
-
-        <div>
-            <p class="body-para">There is a great demand for people to know accurate and trustworthy news about their specific areas.The majority of that news is similar to gossip, which has a huge problem with accuracy as well as reliability.
-              <br>
-            Furthermore, there is no efficient way for them to receive information pertaining to their grama niladhari or Divisional Secretariat regions, such as vaccination programs, payments, and so forth.
-            Furthermore, when people do not receive accurate news on time, they suffer a slew of problems.
-            Some of the issues include wasting time and missing chances since they do not receive news/announcements at the appropriate moment.
-            <br>
-
-            Even though individuals are alerted, they might quickly forget about important occasions and activities since they do not receive any reminders.
-            <br>
-
-            So, with our system, users can able to get such information on time, as well as many other features such   as reminding about special events, reading / creating articles, and obtaining vital contact numbers. 
-            </p>
-        </div>
-
-       
-
-       
-    </div>
-
-    <div class="top_icon" id="btnscrollToTop">
-         <i class="fa fa-arrow-up"></i>
-    </div>
-
-    
-
 </div>
 
+<div class="about_us">
+  <a name="aboutus"></a>
+      <div class="para-box">
+          <div class="head-para-type">
+            <h1>About Us ...</h1>
+          </div>
+
+          <div>
+              <p class="body-para">There is a great demand for people to know accurate and trustworthy news about their specific areas.The majority of that news is similar to gossip, which has a huge problem with accuracy as well as reliability.
+                <br>
+              Furthermore, there is no efficient way for them to receive information pertaining to their grama niladhari or Divisional Secretariat regions, such as vaccination programs, payments, and so forth.
+              Furthermore, when people do not receive accurate news on time, they suffer a slew of problems.
+              Some of the issues include wasting time and missing chances since they do not receive news/announcements at the appropriate moment.
+              <br>
+
+              Even though individuals are alerted, they might quickly forget about important occasions and activities since they do not receive any reminders.
+              <br>
+
+              So, with our system, users can able to get such information on time, as well as many other features such   as reminding about special events, reading / creating articles, and obtaining vital contact numbers. 
+              </p>
+          </div>       
+      </div>
+
+      <div class="top_icon" id="btnscrollToTop">
+          <i class="fa fa-arrow-up"></i>
+      </div>
+</div>
 
 <script>
  const btnscrollToTop = document.querySelector("#btnscrollToTop");
@@ -321,111 +489,135 @@ session_start();
  });
 </script>
 
-
-
-
-
-
-
 <div class="about_us">
-<a name="contactus"></a>
+   <a name="contactus"></a>
     <div class="para-box">
         <div class="head-para-type2">
            <h1>Contact Us ...</h1>
         </div>
         
-
-
-        <div class="contact">
-            
-          
-              
-              <?php
-                include '../Model/connect.php';
-              ?>
-
-              <select name="" id="Province" class="select_your_job inp1 sel sel2">
-              <option value="" class="ent" disabled selected hidden>Province</option>
-
-              <?php
-                $query = "SELECT * FROM dsa GROUP BY Province";
-                $query_statement = $conn->query($query);
-                $query_results = $query_statement->fetchAll(PDO::FETCH_ASSOC);
-                               
-                if($query_results){
-                    foreach($query_results as $query_result){
-                        echo "<option value=".$query_result['Province'].">".$query_result['Province']."</option>";
-                      }
-                }
-                else{
-                    echo '<option value="">Provinces not available</option>';
-                 }
-              ?>
-                          
-              </select>
-              
-              
-              <select name="" id="District" class="select_your_job inp1 sel sel2">
-                  <option value="" class="ent">District</option>
-              </select>
-                        
-              <select name="" id="DSA" class="select_your_job inp1 sel">
-                  <option value="" class="ent">Divisional Secretariat Area </option>
-              </select>  
-                
-          </ul>
-
-
-
-           
-      
-        </div>
-
+      <?php
+        include '../Model/connect.php';
+     ?>
         
-        <div class="contact_info">
-          <div class="repoter">
-              <h3>Repoter</h3>
-              <p>Kasun Chamara </p> <span class="tele_contact">0711737382</span>
-              <span class="email_contact">kasunchamara120@gmail.com</span>
+        <div class="contact_info">     
+              
+              <div class="repoter">
+                  <h3>Repoter</h3>
+                  <div class="reporter_details">
+                    <?php
 
-              <p>Nipun Chamira </p> <span class="tele_contact">0771747382</span>
-              <span class="email_contact">nipunsanjula125@gmail.com</span>
+                    $sql_repoter_lists = "SELECT * FROM report_area";
+                    $statement_repoter_lists = $conn -> query($sql_repoter_lists);
+                    $results_repoter_lists = $statement_repoter_lists->fetchAll(PDO::FETCH_ASSOC);
 
-          </div>
-          <div class="moderator">
-              <h3>Moderator</h3>
-              <p>Nipun Madhusanka </p> <span class="tele_contact">0784383142</span>
-              <span class="email_contact">nipunmadhusanka1250@gmail.com</span>
+                    if($results_repoter_lists){
+                      foreach($results_repoter_lists as $results_repoter_list){
+                        $ID = $results_repoter_list['System_Actor_Id'];
+                        $Area = $results_repoter_list['Area'];
 
-              <p>Hansika Madhuwanthi </p> <span class="tele_contact">0781532145</span>
-              <span class="email_contact">hansikamadhuwanthi5854@gmail.com</span>
+                        $repoter_details_sql = "SELECT * FROM system_actor WHERE System_Actor_Id = '$ID'";
+                        $repoter_details_statement = $conn -> query($repoter_details_sql);
+                        $repoter_details_results = $repoter_details_statement->fetchAll(PDO::FETCH_ASSOC);
 
+                        if($repoter_details_results){
+                          foreach($repoter_details_results as $repoter_details_result){
+                            echo "<p>".$repoter_details_result['FirstName']." ".$repoter_details_result['LastName']."</p> <span class='tele_contact'>".$Area."</span>";
 
-          </div>
-          <div class="admin">
-             <h3>Administrator</h3>
-             <p>Kumudu Madhuranga </p> <span class="tele_contact">0759045358</span>
-             <span class="email_contact">kumudu14@gmail.com</span>
+                               $reporter_email_sql = "SELECT * FROM login WHERE System_Actor_ID = '$ID'";
+                               $reporter_email_statement = $conn -> query($reporter_email_sql);
+                               $reporter_email_results = $reporter_email_statement->fetchAll(PDO::FETCH_ASSOC);
 
-             <p>Susara Madhusanka </p> <span class="tele_contact">0708045745</span>
-             <span class="email_contact">susaramadhusanka@gmail.com</span>
-            
-          </div>
+                               if($reporter_email_results){
+                                 foreach($reporter_email_results as $reporter_email_result){
+                                    echo "<span class='email_contact'>".$reporter_email_result['Email']."</span> ";
+                                }
+                              }                         
+                          }
+                        }
+                      }
+                    }   
+                    ?>
+                  </div>
+              </div>
+
+              <div class="moderator">
+                  <h3>Moderator</h3>
+                  <div class="moderator_details">
+                    <?php
+                    $sql_moderator_lists = "SELECT * FROM moderate_area";
+                    $statement_moderator_lists = $conn -> query($sql_moderator_lists);
+                    $results_moderator_lists = $statement_moderator_lists->fetchAll(PDO::FETCH_ASSOC);
+
+                    if($results_moderator_lists){
+                      foreach($results_moderator_lists as $results_moderator_list){
+                        $ID = $results_moderator_list['System_Actor_Id'];
+                        $Area = $results_moderator_list['Area'];
+
+                        $moderator_details_sql = "SELECT * FROM system_actor WHERE System_Actor_Id = '$ID'";
+                        $moderator_details_statement = $conn -> query($moderator_details_sql);
+                        $moderator_details_results = $moderator_details_statement->fetchAll(PDO::FETCH_ASSOC);
+
+                        if($moderator_details_results){
+                          foreach($moderator_details_results as $moderator_details_result){
+                            echo "<p>".$moderator_details_result['FirstName']." ".$moderator_details_result['LastName']."</p> <span class='tele_contact'>".$Area."</span>";
+
+                               $moderator_email_sql = "SELECT * FROM login WHERE System_Actor_ID = '$ID'";
+                               $moderator_email_statement = $conn -> query($moderator_email_sql);
+                               $moderator_email_results = $moderator_email_statement->fetchAll(PDO::FETCH_ASSOC);
+
+                               if($moderator_email_results){
+                                 foreach($moderator_email_results as $moderator_email_result){
+                                    echo "<span class='email_contact'>".$moderator_email_result['Email']."</span> ";
+                                }
+                              }                         
+                          }
+                        }
+                      }
+                    }   
+                    ?>
+                  </div>
+              </div>
+
+              <div class="admin">
+                <h3>Administrator</h3>
+                <div class="admin_details">
+                    <?php
+                        $admin_details_sql = "SELECT * FROM system_actor WHERE Position = 'A'";
+                      
+                        $admin_details_statement = $conn -> query($admin_details_sql);
+                        $admin_details_results = $admin_details_statement->fetchAll(PDO::FETCH_ASSOC);
+
+                        if($admin_details_results){
+                          foreach($admin_details_results as $admin_details_result){
+                            echo "<p>".$admin_details_result['FirstName']." ".$admin_details_result['LastName']."</p> <span class='tele_contact'>".$admin_details_result['Mobile']."</span>";
+
+                            $ID= $admin_details_result['System_Actor_Id'];
+                            
+                            $admin_email_sql = "SELECT * FROM login WHERE System_Actor_ID = '$ID'";
+                            $admin_email_statement = $conn -> query($admin_email_sql);
+                            $admin_email_results = $admin_email_statement->fetchAll(PDO::FETCH_ASSOC);
+
+                            if($admin_email_results){
+                              foreach($admin_email_results as $admin_email_result){
+                                  echo "<span class='email_contact'>".$admin_email_result['Email']."</span> ";
+                              }
+                            }
+                          }
+                        }
+                    ?>
+              </div>
+    
         </div>
-
-
-       
+        </div>       
     </div>
+
     <div class="top_icon" id="btnscrollToTopsecond">
          <i class="fa fa-arrow-up"></i>
    </div>
 
    </div>
-
-   
-
 </div>
-
 
 <script>
  const btnscrollToTop2 = document.querySelector("#btnscrollToTopsecond");
@@ -437,22 +629,6 @@ session_start();
    });
  });
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <!--Popup windows -->
@@ -582,6 +758,34 @@ session_start();
 </div>
 
 
+<div class="errorbox" id="error12">
+  <div class="content_erro">
+       <div class="error_head">NEWSLIA says</div>
+       <div class="error_body">Your NIC No is not in the System Database.</div>
+       <div class="error_foot" onclick="forget_msg1()">OK</div>
+
+  </div>
+</div>
+
+
+<div class="errorbox" id="error13">
+  <div class="content_erro">
+       <div class="error_head">NEWSLIA says</div>
+       <div class="error_body">Your OTP Code is Incorrect.</div>
+       <div class="error_foot" onclick="forget_msg2()">OK</div>
+
+  </div>
+</div>
+
+<div class="errorbox" id="error14">
+  <div class="content_erro">
+       <div class="error_head">NEWSLIA says</div>
+       <div class="error_body">Your Password and Confirmation are not same.</div>
+       <div class="error_foot" onclick="forget_msg3()">OK</div>
+
+  </div>
+</div>
+
 
 <div class="popup popup_login" id="popup-7">
 
@@ -602,7 +806,7 @@ session_start();
             <form action="./Main_Home.php" method="post" name="login_form">
 
  
-               <input type="text" name="sysactoremail" placeholder="Email" id="username" class="inp inp1" required> <span style="color:red;font-size:13px;">*</span>
+               <input type="email" name="sysactoremail" placeholder="Email" id="username" class="inp inp1" required> <span style="color:red;font-size:13px;">*</span>
                <br>
                <br>
                <input type="password" name="sysactorpassword" id="password" class="inp inp1" placeholder="Password" required> <span style="color:red;font-size:13px;">*</span>
@@ -628,82 +832,207 @@ session_start();
 
 <div class="popup popup_forget" id="popup-8">
 
-<div class="overlay"></div>
+    <div class="overlay"></div>
 
-<div class="content popup_forget_content">
-    <div class="close-btn" onclick="togglePopup_forget()">&times;</div>
+    <div class="content popup_forget_content">
+        <div class="close-btn" onclick="togglePopup_forget()">&times;</div>
 
 
-    <div class="content_body popup_forget_body">
-        <div class="popup_logo">
-             <img src="../images/Name.svg" alt="" srcset="">
+        <div class="content_body popup_forget_body">
+            <div class="popup_logo">
+                <img src="../images/Name.svg" alt="" srcset="">
+            </div>
+            <hr>
+
+            <div class="popup_form">
+                <h3 class="popup_title">Forgot Password</h3>
+                <div>
+                  
+                  <form action="./Main_Home.php" method="post">
+    
+                      <input type="text" name="sysactorforgotNIC" placeholder="NIC No" id="forget_NIC" class="inp inp1">
+                      <br>
+
+                          <div class="message" id="msg6">
+                            <p id="nic_check_forget" class="invalid">NIC number validation</p>
+                          </div> 
+          
+                      <button class="update_btn otp_btn" id="otp_forget_btn" name="SEND_OPT_FORGET">Send</button>            
+                      
+                  </form>
+                  
+                  <form action="./Main_Home.php" method="post" class="OTP_VERIFY_FORGOT">
+                        <input type="text" name="sysactorotp" id="otp" class="inp inp1 inpu2" placeholder="OTP Code" maxlength="5" required>
+                        <button name ="OTP_VERIFY" class="update_btn otp_btn2 otp_btn3" id="verify_forget_btn">Verify</button>
+                  </form>
+
+                  <br>
+                  <br>
+                </div>
+            </div>
+
         </div>
-        <hr>
-
-        <div class="popup_form">
-            <h3 class="popup_title">Forgot Password</h3>
-            <div>
-
- 
-               <input type="text" name="sysactorusername" placeholder="NIC No" id="forget_NIC" class="inp inp1">
-               <br>
-              
-               <input type="text" name="sysactorotp" id="otp" class="inp inp1 inpu2" placeholder="OTP Code">
-               <button class="update_btn otp_btn" onclick="togglePopup_forget_email()">Send</button>
-               
-               <button type="" name ="" class="update_btn otp_btn2" value="" onclick="togglePopup_reset_password()">Verify</button>
-
-               <br>
-               <br>
-</div>
-         </div>
-
     </div>
-</div>
 
 </div>
-
-
-
-
-
 
 <div class="popup popup_forget" id="popup-9">
 
-<div class="overlay"></div>
+    <div class="overlay"></div>
 
-<div class="content popup_forget_content">
-    <div class="close-btn" onclick="togglePopup_reset_save()">&times;</div>
+    <div class="content popup_forget_content">
+        <div class="close-btn" onclick="togglePopup_reset_save()">&times;</div>
 
 
-    <div class="content_body popup_forget_body">
-        <div class="popup_logo">
-             <img src="../images/Name.svg" alt="" srcset="">
+        <div class="content_body popup_forget_body">
+            <div class="popup_logo">
+                <img src="../images/Name.svg" alt="" srcset="">
+            </div>
+            <hr>
+
+            <div class="popup_form">
+                <h3 class="popup_title">Forgot Password</h3>
+                <div name="login_form">
+                
+                 <form action="./Main_Home.php" method="post" name="login_form">
+
+                        <input type="password" name="sysactor_new_psd_confirm" id="New-Forget-Password" class="inp inp1" placeholder="New Password" required>
+                              
+                              <div class="message" id="msg7">
+                                  <h4>Password must contain the following:</h4>
+                                  <p id="letter_2" class="invalid">A <b>lowercase</b> letter</p>
+                                  <p id="capital_2" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                                  <p id="number_2" class="invalid">A <b>number</b></p>
+                                  <p id="length_2" class="invalid">Minimum <b>8 characters</b></p>
+                              </div>
+
+                        <br>
+                        <br>
+                        <input type="password" name="sysactor_new_re_psd_confirm" id="Re-New-Forget-Password" class="inp inp1" placeholder="Retype New Password" required>
+                        <br>
+
+                              <div class="message" id="msg8">
+                                  <p id="confirmation_2" class="invalid">password confirmation match.</p>
+                              </div> 
+                            
+                        <button class="update_btn otp_btn2" id="save_forget_rest" name = "SAVE_Forget_PWD">Save</button> 
+                 </form>
+
+                  <br>
+                  <br> 
+            </div>
+            </div>
+
         </div>
-        <hr>
-
-        <div class="popup_form">
-            <h3 class="popup_title">Forgot Password</h3>
-            <div name="login_form">
-
- 
-               <input type="password" name="sysactor_new_psd_confirm" id="New-Forget-Password" class="inp inp1" placeholder="New Password">
-               <br>
-               <br>
-               <input type="password" name="sysactor_new_psd_confirm" id="Re-New-Forget-Password" class="inp inp1" placeholder="Retype New Password">
-               <br>
-              
-              <button class="update_btn otp_btn2" onclick="togglePopup_reset_save()">Save</button>
-
-               <br>
-               <br> 
-        </div>
-         </div>
-
     </div>
-</div>
 
 </div>
+
+
+
+<script>
+  
+  function forget_msg1(){
+      document.getElementById("error12").classList.toggle("active");
+    }
+  function forget_msg2(){
+      document.getElementById("error13").classList.toggle("active");
+    }
+
+    function forget_msg3(){
+      document.getElementById("error14").classList.toggle("active");
+    }
+
+    function forget_msg4(){
+      document.getElementById("popup-8").classList.add("active");
+    }
+  function togglePopup_reset_password(){
+
+    document.getElementById("popup-8").classList.remove("active");
+    document.getElementById("popup-9").classList.add("active");
+  }
+
+  function signup_msg1(){
+      document.getElementById("error10").classList.toggle("active");
+  }
+
+ function signup_msg2(){
+      document.getElementById("error11").classList.toggle("active");
+ }
+
+</script>
+
+
+<?php
+
+      if(isset($_POST['SEND_OPT_FORGET'])){
+          $FORGOT_NIC = $_POST['sysactorforgotNIC'];
+
+          $nic_forgot_check_sql = "SELECT * FROM system_actor WHERE NIC = '$FORGOT_NIC'";
+          $nic_forgot_check_statement = $conn -> query($nic_forgot_check_sql);
+          $nic_forgot_check_results = $nic_forgot_check_statement->fetchAll(PDO::FETCH_ASSOC);
+
+          if($nic_forgot_check_results){
+            foreach($nic_forgot_check_results as $nic_forgot_check_result){
+              
+              $System_Actor_Id = $nic_forgot_check_result['System_Actor_Id'];
+
+              $nic_forgot_email_sql = "SELECT * FROM login WHERE System_Actor_ID = '$System_Actor_Id'";
+              $nic_forgot_email_statement = $conn -> query($nic_forgot_email_sql);
+              $nic_forgot_email_results = $nic_forgot_email_statement->fetchAll(PDO::FETCH_ASSOC);
+
+              if($nic_forgot_email_results){
+                foreach($nic_forgot_email_results as $nic_forgot_email_result){
+
+                  $System_Actor_Email = $nic_forgot_email_result['Email'];
+
+                  include '../Control/login_Control.php';
+                  $_SESSION['OTP_Code'] =  OTP_Code($System_Actor_Email);
+                  echo "<script type='text/javascript'>forget_msg4();</script>";
+
+                }
+              }
+            }
+          }
+          else{ 
+            echo "<script type='text/javascript'>forget_msg1();</script>";
+          }
+
+      }
+
+
+      if(isset($_POST['OTP_VERIFY'])){
+
+  
+        $OTP = $_POST['sysactorotp'];
+        $SysOTP = $_SESSION['OTP_Code'];
+
+        if($OTP == $SysOTP){
+          echo "<script type='text/javascript'>togglePopup_reset_password();</script>";
+        }
+        else{
+          echo "<script type='text/javascript'>forget_msg2()</script>";
+        }
+
+      }
+
+
+      if(isset($_POST['SAVE_Forget_PWD'])){
+        
+        $pwd = $_POST['sysactor_new_psd_confirm'];
+        $repwd = $_POST['sysactor_new_re_psd_confirm'];
+        if($pwd == $repwd){
+          include '../Control/login_Control.php';
+          Pwd_Reset($pwd);
+        }
+        else{
+          echo "<script type='text/javascript'>forget_msg3()</script>";
+        }
+        
+      }
+
+?>
+
 
 
 
@@ -733,12 +1062,24 @@ session_start();
                         <input type="text" name="sysactor_last_name" id="new_lname" class="inp inp1 linp" placeholder="Second Name" required style="margin-left:0.5rem;"> <span style="color:red;font-size:13px;">*</span>
                           
                         <input type="text" name="sysactor_email" id="new_email" class="inp inp1 einp" placeholder="Email Address" required> <span style="color:red;font-size:13px;">*</span>
-
-                        <input type="text" name="sysactor_mobile" id="new_mobile" class="inp inp1 einp" placeholder="Mobile Number" required> <span style="color:red;font-size:13px;">*</span>
-
-                        <input type="text" name="sysactor_nic" id="new_nic" class="inp inp1 einp" placeholder="NIC Number" required> <span style="color:red;font-size:13px;">*</span>
                         
-                        <div class="update_btn next" onclick="togglePopup_sign_up_2()">Next</div>
+                            <div class="message" id="msg3">
+                               <p id="email_check" class="invalid">email address validation</p>
+                            </div> 
+
+                        <input type="text" name="sysactor_mobile" id="new_mobile" class="inp inp1 einp" placeholder="Mobile Number" required> <span style="color:red;font-size:13px;" id="new_mobile_star">*</span>
+                            
+                            <div class="message" id="msg4">
+                               <p id="mobile_check" class="invalid">mobile number validation</p>
+                            </div> 
+                            
+                        <input type="text" name="sysactor_nic" id="new_nic" class="inp inp1 einp" placeholder="NIC Number" required> <span style="color:red;font-size:13px;" id="new_nic_star" class="">*</span>
+                           
+                            <div class="message" id="msg5">
+                               <p id="nic_check" class="invalid">NIC number validation</p>
+                            </div> 
+
+                        <div class="update_btn next" id="new_next_1" onclick="togglePopup_sign_up_2()">Next</div>
 
                         <br>
                         <br> 
@@ -823,16 +1164,29 @@ session_start();
                         <br>
                         <input type="password" name="sysactor_pwd" id="new_pwd" class="inp inp1 finp pass" placeholder="Password" maxlength="15" required> <span style="color:red;font-size:13px;">*</span>
                         
+                        <div class="message" id="msg1">
+                            <h4>Password must contain the following:</h4>
+                            <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                            <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                            <p id="number" class="invalid">A <b>number</b></p>
+                            <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                        </div>
 
                         
-                        <input type="password" name="sysactor_rpwd" id="re_new_pwd" class="inp inp1 linp pass" placeholder="Retype Password" maxlength="15" style="margin-left:0.5rem;" required> <span style="color:red;font-size:13px;">*</span>
+                        <input type="password" name="sysactor_rpwd" id="re_new_pwd" class="inp inp1 linp pass" placeholder="Retype Password" maxlength="15" style="margin-left:0.5rem;" required>
+                        
                         <br>
+
+                        
+                        <div class="message" id="msg2">
+                            <p id="confirmation" class="invalid">password confirmation match.</p>
+                        </div> 
                         
                         <!--<input type="checkbox" id="privacy" name="privacy" value="1">
                         <label for="privacy" class="privacy_info"> I accept the Terms of Use & Privacy Policy.</label>-->
                         
-                        <div class="update_btn prev" onclick="togglePopup_sign_up_3()">Prev</div> 
-                        <button class="update_btn submit send" name="signup">Submit</button>
+                        <div class="update_btn prev" id="Pre_2_btn" onclick="togglePopup_sign_up_3()">Prev</div> 
+                        <button class="update_btn submit send" id="submit_2_btn" name="signup">Submit</button>
 
                         <br>
                         <br> 
@@ -849,6 +1203,322 @@ session_start();
 
 
 <script type="text/javascript">
+
+      /* Form Validation*/
+            
+            //Part 1
+            
+            var new_pwd = document.getElementById("new_pwd");
+            var re_new_pwd = document.getElementById("re_new_pwd");
+
+            var letter = document.getElementById("letter");
+            var capital = document.getElementById("capital");
+            var number = document.getElementById("number");
+            var length = document.getElementById("length");
+            var confirmation = document.getElementById("confirmation");
+
+
+            /*Password required msg*/ 
+            new_pwd.onfocus = function(){
+              document.getElementById("msg1").style.display = "block";
+              document.getElementById("re_new_pwd").classList.add("pass2");
+              document.getElementById("Pre_2_btn").classList.add("comment_btn");
+              document.getElementById("submit_2_btn").classList.add("comment_btn");
+            } 
+
+            new_pwd.onblur = function(){
+              document.getElementById("msg1").style.display = "none";
+              document.getElementById("re_new_pwd").classList.remove("pass2");
+              document.getElementById("Pre_2_btn").classList.remove("comment_btn");
+              document.getElementById("submit_2_btn").classList.remove("comment_btn");
+            } 
+
+            /*Password Confirmation msg*/ 
+            re_new_pwd.onfocus = function(){
+              document.getElementById("msg2").style.display = "block";
+              document.getElementById("Pre_2_btn").classList.add("comment_btn_2");
+              document.getElementById("submit_2_btn").classList.add("comment_btn_2");
+            } 
+
+            re_new_pwd.onblur = function(){
+              document.getElementById("msg2").style.display = "none";
+              document.getElementById("Pre_2_btn").classList.remove("comment_btn_2");
+              document.getElementById("submit_2_btn").classList.remove("comment_btn_2");
+            } 
+
+            // When the user starts to type something inside the password field
+            new_pwd.onkeyup = function() {
+              var lowerCaseLetters = /[a-z]/g;
+              if(new_pwd.value.match(lowerCaseLetters)) {  
+                letter.classList.remove("invalid");
+                letter.classList.add("valid");
+              } else {
+                letter.classList.remove("valid");
+                letter.classList.add("invalid");
+              }
+              
+              // Validate capital letters
+              var upperCaseLetters = /[A-Z]/g;
+              if(new_pwd.value.match(upperCaseLetters)) {  
+                capital.classList.remove("invalid");
+                capital.classList.add("valid");
+              } else {
+                capital.classList.remove("valid");
+                capital.classList.add("invalid");
+              }
+
+              // Validate numbers
+              var numbers = /[0-9]/g;
+              if(new_pwd.value.match(numbers)) {  
+                number.classList.remove("invalid");
+                number.classList.add("valid");
+              } else {
+                number.classList.remove("valid");
+                number.classList.add("invalid");
+              }
+              
+              // Validate length
+              if(new_pwd.value.length >= 8) {
+                length.classList.remove("invalid");
+                length.classList.add("valid");
+              } else {
+                length.classList.remove("valid");
+                length.classList.add("invalid");
+              }
+            }
+
+            // When the user starts to type something inside the confirmation password field
+            re_new_pwd.onkeyup = function(){
+              if(re_new_pwd.value == new_pwd.value) {  
+                confirmation.classList.remove("invalid");
+                confirmation.classList.add("valid");
+              } else {
+                confirmation.classList.remove("valid");
+                confirmation.classList.add("invalid");
+              }
+            }
+
+
+            //Part 2
+
+            var new_email = document.getElementById("new_email");
+            var new_mobile = document.getElementById("new_mobile");
+            var new_nic = document.getElementById("new_nic");
+            var email_check = document.getElementById("email_check");
+            var mobile_check = document.getElementById("mobile_check");
+            var nic_check = document.getElementById("nic_check");
+
+            /*email required msg*/ 
+            new_email.onfocus = function(){
+              document.getElementById("msg3").style.display = "block";
+              document.getElementById("new_mobile").classList.add("rqs1");
+              document.getElementById("new_nic").classList.add("rqs1");
+              document.getElementById("new_mobile_star").classList.add("rqs1");
+              document.getElementById("new_nic_star").classList.add("rqs1");
+              document.getElementById("new_next_1").classList.add("rqs1");
+            } 
+
+            new_email.onblur = function(){
+              document.getElementById("msg3").style.display = "none";
+              document.getElementById("new_mobile").classList.remove("rqs1");
+              document.getElementById("new_nic").classList.remove("rqs1");
+              document.getElementById("new_mobile_star").classList.remove("rqs1");
+              document.getElementById("new_nic_star").classList.remove("rqs1");
+              document.getElementById("new_next_1").classList.remove("rqs1");
+            } 
+
+
+            // When the user starts to type something inside the email field
+            new_email.onkeyup = function(){
+                const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;                  
+                if(new_email.value.match(mailformat)) {  
+                  email_check.classList.remove("invalid");
+                  email_check.classList.add("valid");
+                } else {
+                  email_check.classList.remove("valid");
+                  email_check.classList.add("invalid");
+                }
+            }
+
+
+            /*mobile required msg*/ 
+            new_mobile.onfocus = function(){
+              document.getElementById("msg4").style.display = "block";
+              document.getElementById("new_nic").classList.add("rqs2");
+              document.getElementById("new_nic_star").classList.add("rqs2");
+              document.getElementById("new_next_1").classList.add("rqs2");
+            } 
+
+            new_mobile.onblur = function(){
+              document.getElementById("msg4").style.display = "none";
+              document.getElementById("new_nic").classList.remove("rqs2");
+              document.getElementById("new_nic_star").classList.remove("rqs2");
+              document.getElementById("new_next_1").classList.remove("rqs2");
+            }
+            
+            // When the user starts to type something inside the mobile field
+            new_mobile.onkeyup = function(){
+                const mobileformat = /^(?:0|94|\+94)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|912)(0|2|3|4|5|7|9)|7(0|1|2|4|5|6|7|8)\d)\d{6}$/;                  
+                if(mobileformat.exec(new_mobile.value)) {  
+                  mobile_check.classList.remove("invalid");
+                  mobile_check.classList.add("valid");
+                } else {
+                  mobile_check.classList.remove("valid");
+                  mobile_check.classList.add("invalid");
+                }
+            }
+
+
+            /*NIC required msg*/ 
+            new_nic.onfocus = function(){
+              document.getElementById("msg5").style.display = "block";
+              document.getElementById("new_next_1").classList.add("rqs3");
+            } 
+
+            new_nic.onblur = function(){
+              document.getElementById("msg5").style.display = "none";
+              document.getElementById("new_next_1").classList.remove("rqs3");
+            } 
+
+            // When the user starts to type something inside the NIC field
+            new_nic.onkeyup = function(){
+                const nicformat = /^([0-9]{9}[v|V]|[0-9]{12})$/;
+                if(nicformat.exec(new_nic.value)) {  
+                  nic_check.classList.remove("invalid");
+                  nic_check.classList.add("valid");
+                } else {
+                  nic_check.classList.remove("valid");
+                  nic_check.classList.add("invalid");
+                }
+            }
+
+            //Part 3
+
+            var forget_NIC = document.getElementById("forget_NIC");
+            var nic_check_forget = document.getElementById("nic_check_forget");
+            
+            /*email required msg*/ 
+            forget_NIC.onfocus = function(){
+              document.getElementById("msg6").style.display = "block";
+              document.getElementById("otp").classList.add("rqs4");
+              document.getElementById("otp_forget_btn").classList.add("rqs4");
+              document.getElementById("verify_forget_btn").classList.add("rqs4");
+            } 
+
+            forget_NIC.onblur = function(){
+              document.getElementById("msg6").style.display = "none";
+              document.getElementById("otp").classList.remove("rqs4");
+              document.getElementById("otp_forget_btn").classList.remove("rqs4");
+              document.getElementById("verify_forget_btn").classList.remove("rqs4");
+            } 
+
+            // When the user starts to type something inside the NIC field forget
+            forget_NIC.onkeyup = function(){
+                const nicformat = /^([0-9]{9}[v|V]|[0-9]{12})$/;
+                if(nicformat.exec(forget_NIC.value)) {  
+                  nic_check_forget.classList.remove("invalid");
+                  nic_check_forget.classList.add("valid");
+                } else {
+                  nic_check_forget.classList.remove("valid");
+                  nic_check_forget.classList.add("invalid");
+                }
+            }
+            
+
+
+            //Part 3
+
+            var New_Forget_Password = document.getElementById("New-Forget-Password");
+            var Re_New_Forget_Password = document.getElementById("Re-New-Forget-Password");
+
+
+            var letter2 = document.getElementById("letter_2");
+            var capital2 = document.getElementById("capital_2");
+            var number2 = document.getElementById("number_2");
+            var length2 = document.getElementById("length_2");
+            var confirmation2 = document.getElementById("confirmation_2");
+            
+            /*pwd required msg*/ 
+            New_Forget_Password.onfocus = function(){
+              document.getElementById("msg7").style.display = "block";
+              document.getElementById("Re-New-Forget-Password").classList.add("rqs5");
+              document.getElementById("save_forget_rest").classList.add("rqs5");
+            } 
+
+            New_Forget_Password.onblur = function(){
+              document.getElementById("msg7").style.display = "none";
+              document.getElementById("Re-New-Forget-Password").classList.remove("rqs5");
+              document.getElementById("save_forget_rest").classList.remove("rqs5");
+            } 
+
+            // When the user starts to type something inside the forget password reset password
+            New_Forget_Password.onkeyup = function() {
+              var lowerCaseLetters = /[a-z]/g;
+              if(New_Forget_Password.value.match(lowerCaseLetters)) {  
+                letter2.classList.remove("invalid");
+                letter2.classList.add("valid");
+              } else {
+                letter2.classList.remove("valid");
+                lette2.classList.add("invalid");
+              }
+              
+              // Validate capital letters
+              var upperCaseLetters = /[A-Z]/g;
+              if(New_Forget_Password.value.match(upperCaseLetters)) {  
+                capital2.classList.remove("invalid");
+                capital2.classList.add("valid");
+              } else {
+                capital2.classList.remove("valid");
+                capital2.classList.add("invalid");
+              }
+
+              // Validate numbers
+              var numbers = /[0-9]/g;
+              if(New_Forget_Password.value.match(numbers)) {  
+                number2.classList.remove("invalid");
+                number2.classList.add("valid");
+              } else {
+                number2.classList.remove("valid");
+                number2.classList.add("invalid");
+              }
+              
+              // Validate length
+              if(New_Forget_Password.value.length >= 8) {
+                length2.classList.remove("invalid");
+                length2.classList.add("valid");
+              } else {
+                length2.classList.remove("valid");
+                length2.classList.add("invalid");
+              }
+            }
+
+
+        /*re pwd required msg*/ 
+        Re_New_Forget_Password.onfocus = function(){
+            document.getElementById("msg8").style.display = "block";
+            document.getElementById("save_forget_rest").classList.add("rqs6");
+          } 
+
+          Re_New_Forget_Password.onblur = function(){
+            document.getElementById("msg8").style.display = "none";
+            document.getElementById("save_forget_rest").classList.remove("rqs6");
+          } 
+
+        // When the user starts to type something inside the confirmation password field in forget password reset
+        Re_New_Forget_Password.onkeyup = function(){
+            if(Re_New_Forget_Password.value == New_Forget_Password.value) {  
+              confirmation.classList.remove("invalid");
+              confirmation.classList.add("valid");
+            } else {
+              confirmation.classList.remove("valid");
+              confirmation.classList.add("invalid");
+            }
+         }
+
+      
+      /* Form Validation End*/
+
+      
 
       $(document).ready(function(){
         $("#Province").on("change",function(){
@@ -920,7 +1590,7 @@ session_start();
 
 
 
-<script>
+<script type="text/javascript">
     function togglePopup_login(){
       document.getElementById("popup-7").classList.toggle("active");
     }
@@ -1027,15 +1697,6 @@ session_start();
       document.getElementById("error9").classList.toggle("active");
     }
 
-    function signup_msg1(){
-      document.getElementById("error10").classList.toggle("active");
-    }
-
-    function signup_msg2(){
-      document.getElementById("error11").classList.toggle("active");
-    }
-
-    
 
 </script>
 
@@ -1045,10 +1706,11 @@ session_start();
     $pwd = $_POST['sysactorpassword'];
 
     if(filter_var($email,FILTER_VALIDATE_EMAIL) and (strlen($pwd)<=15 and strlen($pwd)>=8)){
-        echo '<script type="text/javascript">remove_error_login();</script>';
+       // echo '<script type="text/javascript">remove_error_login();</script>';
         include '../Control/login_Control.php';
         $connect =  login($email,$pwd);
         if($connect == 'false'){
+          echo '<script type="text/javascript">alert("Nowork");</script>';
           echo '<script type="text/javascript">error_login();</script>';
         }
         elseif($connect == 'M'){
@@ -1057,6 +1719,7 @@ session_start();
         
     }
     else{
+        echo '<script type="text/javascript">alert("work");</script>';
         echo '<script type="text/javascript">error_login();</script>';
     }
 
@@ -1154,14 +1817,14 @@ session_start();
             else{
               include '../Control/login_Control.php';
 
-              echo '<script>alert("Work")</script>'; 
+              
 
               $signup_connection =  signup($first,$last,$email,$mobile,$nic,$job,$dsa,$username_new,$pwd);
               if ($signup_connection == "User"){
-                echo '<script type="text/javascript">signup_msg1();</script>'; 
+                echo "<script type='text/javascript'>signup_msg1();</script>";
               }
               elseif ($signup_connection == "Staff"){
-                echo '<script type="text/javascript">signup_msg2();</script>'; 
+                echo "<script type='text/javascript'>signup_msg2();</script>";
               }
               
 

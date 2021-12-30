@@ -3,6 +3,9 @@
 
     include '../Model/connect.php';
 
+
+    //News
+
     $pending_post_sql = "SELECT * FROM news_pending";
     $pending_post_statement = $conn -> query($pending_post_sql);
     $pending_post_results = $pending_post_statement->fetchAll(PDO::FETCH_ASSOC);
@@ -14,6 +17,9 @@
           $img = base64_encode($img);
           $text = pathinfo($pending_post_result['Post_ID'], PATHINFO_EXTENSION);
 
+          $Post_ID = $pending_post_result['Post_ID'];
+          $Creator_ID = $pending_post_result['Creator_ID'];
+
           echo "
           <div class='box-container'>
               <div class='box_head'>
@@ -21,12 +27,33 @@
                 <div class='tag'>
                   <div class='tag_text'>News</div>
                 </div>
+
+                <div class='middle'>
+                    <div class='view_btn'>
+                       <ul>
+                         <li><a href='#'>View</a></li>
+                       </ul>
+                    </div>            
+                 </div>
+
               </div>
 
               <div class='box_body'>
-                <h3>".$pending_post_result['Title']."</h3>
-                <p>Electricity Board - Negombo</p>
-              </div>
+                <h3>".$pending_post_result['Title']."</h3>";
+                
+                $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+                $post_from_state = $conn->query($post_from_sql);
+                $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
+
+                if($post_from_results){
+                   echo "<b><i>-</i>";
+                   foreach($post_from_results as $post_from_result){
+                      echo "<i>".$post_from_result['Area']." - ";
+                      echo "</i>";
+                    }
+                }
+             
+              echo "</b></div>
 
               <div class='more'>
                 <p>".$pending_post_result['Calendar_Date']."</p>
@@ -39,7 +66,11 @@
       }
     }
 
-    /*echo "
+    //Article
+
+
+    /*
+    echo "
           
 
           <div class='box-container'>
@@ -88,6 +119,6 @@
           </div>
         ";
 
-        */
+*/        
 
           ?>

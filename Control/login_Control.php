@@ -44,7 +44,7 @@ function login($email,$pwd){
                     
                     // execute the statement
                     if ($remove_statement->execute()) {
-                        echo 'The deactivation has been deleted successfully!';
+                        echo 'The deactivation has been delete successfully!';
                     }
 
                 }
@@ -94,8 +94,9 @@ function signup($first,$last,$email,$mobile,$nic,$job,$dsa,$username_new,$pwd){
         }
     }
 
+
     $TYPE = strtoupper($job);
-    $stmt = $conn->prepare("INSERT INTO `system_actor` VALUES(?,?,?,?,?,?,?,?)");
+    $stmt = $conn->prepare("INSERT INTO `system_actor` (`System_Actor_Id`, `FirstName`, `LastName`, `UserName`, `NIC`, `Mobile`, `DSA`, `Position`) VALUES(?,?,?,?,?,?,?,?)");
     $stmt->execute([$ID,$first,$last,$username_new,$nic,$mobile,$dsa,$TYPE]);
 
     
@@ -105,8 +106,8 @@ function signup($first,$last,$email,$mobile,$nic,$job,$dsa,$username_new,$pwd){
     $post_stmt = $conn->prepare("INSERT INTO `post_type` VALUES(?,?,?,?,?,?)");
     $post_stmt->execute([$ID,1,1,1,1,1]);
 
-    $new_type_stmt = $conn->prepare("INSERT INTO `news_type` VALUES(?,?,?,?,?,?,?,?,?)");
-    $new_type_stmt->execute([$ID,1,1,1,1,1,1,1,1]);
+    $new_type_stmt = $conn->prepare("INSERT INTO `news_type` VALUES(?,?,?,?,?,?,?,?,?,?)");
+    $new_type_stmt->execute([$ID,1,1,1,1,1,1,1,1,1]);
 
 
 
@@ -133,12 +134,54 @@ function signup($first,$last,$email,$mobile,$nic,$job,$dsa,$username_new,$pwd){
         return "User";
     }
 
-    
-
-
-
 }
 
+
+function OTP_Code($Email){
+
+    $OTP = rand(10000,99999);   
+    $_SESSION['Email'] = $Email; 
+
+    //the subject
+    $sub = "Rest Your NEWSLIA Password";
+    //the message
+    $msg = "Dear Sir/Madam,
+
+    Your OTP Code is ".$OTP."
+
+    Regards,
+    The NEWSLIA team.
+    ";
+
+    //send email
+    $send_result = mail($Email,$sub,$msg);
+
+    return $OTP;
+    
+}
+
+
+function Pwd_Reset($pwd){
+    
+    include '../Model/connect.php';
+    $Password = md5($pwd);
+    $Email = $_SESSION['Email'];
+
+    $systemuser =[
+        'Email' => $Email,
+        'Password' => $Password
+    ];
+
+    $sql = 'UPDATE login
+            SET Password = :Password
+            WHERE Email = :Email';
+    
+    $statement = $conn->prepare($sql);
+    $statement->bindParam(':Email', $systemuser['Email']);
+    $statement->bindParam(':Password', $systemuser['Password']);
+
+    return $statement->execute();
+}
 
 
 

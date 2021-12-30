@@ -117,9 +117,16 @@
                       <div class='card'>
 
                             <div class='content'>
-                              <div class='imgBx'>
-                                  <img src='data:image/".$text.";base64,".$img."'/ style='transform:scale(1);'>
-                              </div>
+                              <div class='imgBx'>";
+
+                                if($img != NULL){
+                                  echo "<img src='data:image/".$text.";base64,".$img."'/ style='transform:scale(1);'>";
+                                }
+                                else{
+                                  echo "<img src='../images/Profile.svg' style='transform:scale(1);'>";
+                                }
+      
+                    echo  " </div>
                               <h2 onclick=toggle_view_insight('$Reporters_In_Area','$first','$last');>".$first." ".$last."</h2>
                               </div>
                           </div>
