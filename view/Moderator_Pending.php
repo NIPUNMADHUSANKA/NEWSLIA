@@ -34,7 +34,7 @@
   .more{
       font-size:14px;
       text-align:right;
-      margin-top:-14%;
+      margin-top:-9%;
       display:flex;
       flex-direction:row;
       
@@ -44,13 +44,13 @@
   }
 
   .box_head:hover img{
-    opacity: 0.3;
+    opacity: 1;
   }
 
   .setting_close{
     transform:scale(1.2);
     margin-left:87%;
-    margin-top :-7%;
+    margin-top :-12%;
   }
   .setting_close img{
     transition: 0.25s ease;
@@ -146,21 +146,16 @@
     
 </div>
 
-<div class="posts_content_view_body">
+<div class="content_posts_view">
 
-    <div class="body_information">
+    <div class="posts_content_view_head">
          
-      <?php include 'Moderator_Peding_Content.php'; ?>
-
-         
-
+        <?php
+            include './Moderator_Peding_Content.php';
+        ?>
+          
     </div>
-
-    
 </div>
-
-
-
 
 <script>
     function showsort() {
