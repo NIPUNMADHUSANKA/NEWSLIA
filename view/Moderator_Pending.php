@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <style>
@@ -23,7 +24,7 @@
       padding-left:80px;
   }
   .box-container{
-    height: 290px;
+    height: 300px;
     margin-left:1rem;
   }
 
@@ -161,6 +162,48 @@
     function showsort() {
       document.getElementById("sortdrop").classList.toggle("show");
     }
+
+
+    function toggle_view_News(View_News_ID){
+      $.ajax({
+        url:"../Control/Pending_SetTime.php",
+        type:"post",
+        data:{
+          View_News_ID : View_News_ID
+        },
+        success:function(data){
+          window.open('./Moderator_Check_News.php','_self');
+        }
+      });
+    }
+
+    function toggle_view_Articles(View_Article_ID){
+      $.ajax({
+        url:"../Control/Pending_SetTime.php",
+        type:"post",
+        data:{
+          View_Article_ID : View_Article_ID
+        },
+        success:function(data){
+          window.open('./Moderator_Check_Articles.php','_self');
+        }
+      });
+    }
+
+    function toggle_view_Ads(View_Ads_ID,Type){
+      $.ajax({
+        url:"../Control/Pending_SetTime.php",
+        type:"post",
+        data:{
+          View_Ads_ID : View_Ads_ID,
+          Type : Type
+        },
+        success:function(data){
+          
+          window.open('./Moderator_Check_Ads.php','_self');
+        }
+      });
+    };
 
     function filterFunction() {
       var input, filter, ul, li, a, i;

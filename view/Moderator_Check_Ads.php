@@ -31,9 +31,9 @@
   }
 
   .more{
-      font-size:14px;
+      font-size:11px;
       text-align:right;
-      margin-top:-12%;
+      margin-top:-11%;
       display:flex;
       flex-direction:row;
       
@@ -225,58 +225,206 @@
 
 <!-- Moderator Notices View -->
 
-<div class="posts_content_view_body">
+<?php
 
-    <div class="body_information">
-         
-          <div class="box-container">
+      include '../Model/connect.php';
 
-              <div class="box_head">
-               <img src="../images/pending/cafe_shop.jpg" alt="">
-              </div>
-
-              <div class="box_body">
-                <h3>Candy Cafe</h3>
-                <p>Candy Cafe Team</p>
-              </div>
-
-              <div class="more">
-                    <p>2022:01:17</p>
-                    <p>00:00</p>
-              </div>
-
-          </div>
+      $Post_ID = $_SESSION['SAVE_READ_Post_Ads_ID'];
+      $Type = $_SESSION['Ads_Type'];
+      
+      $Post = [
+        'Post_ID' => $Post_ID,
+        'System_User_Can_Edit' => '0'
+      ];
 
 
+      if($Type =="Notices"){
 
-          <div class="box-read">
-             <h2>Candy Cafe</h2>
-             <p>
-             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        $sql = 'UPDATE notices_pending
+        SET System_User_Can_Edit = :System_User_Can_Edit
+        WHERE Post_ID = :Post_ID';
+        
+      }
+      elseif($Type =="Vacancies"){
 
-             Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+        $sql = 'UPDATE job_vacancies_pending
+        SET System_User_Can_Edit = :System_User_Can_Edit
+        WHERE Post_ID = :Post_ID';
+
+      }
+      else{
+
+        $sql = 'UPDATE com_ads_pending
+        SET System_User_Can_Edit = :System_User_Can_Edit
+        WHERE Post_ID = :Post_ID';
+
+      }
+     
+      
+      $statement = $conn->prepare($sql);
+      
+      $statement->bindParam(':Post_ID', $Post['Post_ID']);
+      $statement->bindParam(':System_User_Can_Edit', $Post['System_User_Can_Edit']);
+      
+      $statement->execute();
 
 
-            
-             </p>
-          </div>
-    </div>
+      if($Type =="Notices"){
+        $pending_read_sql = "SELECT * FROM notices_pending WHERE Post_ID='$Post_ID'";
+      }
+      elseif($Type =="Vacancies"){
+        $pending_read_sql = "SELECT * FROM job_vacancies_pending WHERE Post_ID='$Post_ID'";
+      }
+      else{
+        $pending_read_sql = "SELECT * FROM com_ads_pending WHERE Post_ID='$Post_ID'";
+      }
 
-    <div class="button-set">
+      
+      $pending_read_statement = $conn->query($pending_read_sql);
+      $pending_read_results = $pending_read_statement->fetchAll(PDO::FETCH_ASSOC);
+
+      if($pending_read_results){
+        foreach($pending_read_results as $pending_read_result){
+          
+          $img_X = $pending_read_result['Image'];
+          $img = base64_encode($img_X);
+          $text = pathinfo($pending_read_result['Post_ID'], PATHINFO_EXTENSION);
+
+          $Creator_ID = $pending_read_result['Creator_ID'];
+          
+          $msg = $pending_read_result['Details'];
+          
+
+          if($Type == "Vacancies"){
+            $Title = $pending_read_result['Position'];
+            $Company = $pending_read_result['Company'];
+            $Deadline_Date = $pending_read_result['Deadline_Date'];
+          }
+          else{
+            $Title = $pending_read_result['Title'];
+          }
+          
+
+          if($Type == "Notices"){
+            $Date = $pending_read_result['Publish Date'];	 
+            $Time = $pending_read_result['Publish Time'];	
+          }
+          else{
+            $Date = $pending_read_result['Set_Date'];	 
+            $Time = $pending_read_result['Set_Time'];	 
+          }
+          
+          $save_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
+          $save_who_state = $conn->query($save_who_sql);
+          $save_who_results = $save_who_state->fetchAll(PDO::FETCH_ASSOC);
+
+          if($save_who_results){
+              foreach($save_who_results as $save_who_result){
+                $First = $save_who_result['FirstName'];
+                $Last = $save_who_result['LastName'];   
+              }
+          }
+
+        }
+      }
+
+      echo "<div class='posts_content_view_body'>
+
+          <div class='body_information'>
+              
+                <div class='box-container'>
+
+                    <div class='box_head'>
+                       <img src='data:image/".$text.";base64,".$img."'/>
+                    </div>
+
+                    <div class='box_body'>";
+                    
+                      if($Type == "Vacancies"){
+                        echo "<h3>".$Title." (".$Company.")</h3>";
+                      }
+                      else{
+                        echo "<h3>".$Title."</h3>";
+                      }
+
+                     echo "<p>".$First." ".$Last."</p>
+                    </div>
+
+                    <div class='more'>
+                          <p>".$Date."</p>
+                          <p>".$Time."</p>
+                    </div>
+
+                </div>
+
+                <div class='box-read'>";
+                  
+                  if($Type == "Vacancies"){
+                    echo "<h2>".$Title." (".$Company.")</h2>";
+                  }
+                  else{
+                    echo "<h2>".$Title."</h2>";
+                  }
+                  echo "<p>".$msg."</p>
+                </div>
+          </div>";
+?>
+   
+   <div class="button-set">
         <div class="view_btn update_btn" onclick="togglePopup_select_option()">Accept</div>
-        <div class="view_btn remove_btn" onclick="window.open('./Moderator_Pending.php', '_self')">Reject</div>
+        <form action="" method="post">
+                  <button class="view_btn remove_btn" name = "Reject" style = "border:none;">Reject</button>
+        </form>
         <div class="view_btn back_btn" onclick="window.open('./Moderator_Pending.php', '_self')">Back</div>
     </div>
 </div>
 
 
+<?php
+
+    if(isset($_POST['Reject'])){
+      
+      if($Type =="Notices"){
+        $pending_read_sql = "DELETE FROM notices_pending WHERE Post_ID= :Post_ID";
+      }
+      elseif($Type =="Vacancies"){
+        $pending_read_sql = "DELETE FROM job_vacancies_pending WHERE Post_ID= :Post_ID";
+      }
+      else{
+        $pending_read_sql = "DELETE FROM com_ads_pending WHERE Post_ID= :Post_ID";
+      }
+
+      // prepare the statement for execution
+      $statement = $conn->prepare($pending_read_sql);
+      $statement->bindParam(':Post_ID', $Post_ID);
+
+      // execute the statement  
+      if($statement->execute()){
+
+        $sql_Area = 'DELETE FROM post_area
+        WHERE Post_ID = :Post_ID';
+        
+        // prepare the statement for execution
+        $statement_Area = $conn->prepare($sql_Area);
+        $statement_Area->bindParam(':Post_ID', $Post_ID);
+
+        // execute the statement
+        if($statement_Area->execute()){
+          echo $statement_Area->rowCount();
+        }  
+        echo "<script>window.open('Moderator_Pending.php','_self')</script>";
+      } 
+    }
+
+
+?>
 
 
 
 
 
 
-<div class="popup popup_set_time" id="popup-6">
+<div class="popup popup_set_time" id="popup-5">
 
       <div class="overlay"></div>
 
@@ -294,7 +442,7 @@
                   <h3 class="popup_title">Select Option to Publish</h3>
                   <div class="btn_set_option">
                           <div class="select_option" onclick="set_time_to_publish_Popup()">Set Time</div>
-                          <div class="select_option"  onclick="window.open('Moderator_Pending.php','_self')">Publish Now</div>
+                          <div class="select_option"  onclick="select_mode_Popup()">Publish Now</div>
                   </div>
                   
 
@@ -305,9 +453,7 @@
       
 </div>
 
-
-
-<div class="popup popup_set_time" id="popup-8">
+<div class="popup popup_set_time" id="popup-6">
 
       <div class="overlay"></div>
 
@@ -327,23 +473,280 @@
 
                   
                     <label for="new-date" class="lbl"> Date</label>
-                    <input type="date" name="" id="new-date" class="inp inp1" value="2022-01-17">
+                    <input type="date" name="set_date" id="new-date" class="inp inp1" value = "<?php echo $Date; ?>">
                       <br>
                       <br>
 
                     <label for="new-time" class="lbl"> Time</label>
                   
-                    <input type="time" name="" id="new-time" class="inp inp1" value="00:00">
+                    <input type="time" name="set_time" id="new-time" class="inp inp1" value = "<?php echo $Time; ?>">
                     <br>
-                    <div class="publish_btn" onclick="window.open('Moderator_Pending.php','_self')">Set</div>
+                    <div class="publish_btn" onclick="select_mode_Popup()">Set</div>
               
-                   </form>
+                   
                </div>
 
           </div>
       </div>
       
 </div>
+
+
+
+<div class="popup popup_set_time" id="popup-7">
+
+      <div class="overlay"></div>
+
+      <div class="content popup_set_time">
+          <div class="close-btn" onclick="remove_mode_Popup()">&times;</div>
+
+
+          <div class="content_body popup_set_time_body">
+              <div class="popup_logo">
+                   <img src="../images/Name.svg" alt="" srcset="">
+              </div>
+              <hr>
+
+              <div class="popup_form">
+                  <h3 class="popup_title">Select Publish Mode</h3>
+                  <div class="btn_set_option">
+                      
+                      
+                          <div class="select_option" onclick="auto_mode_Popup()">Auto Delete Mode</div>
+                          <button class="select_option" style="border:none;font-size:15px;" name="Normal">Normal Mode</button>  
+                  </div>
+                  
+
+               </div>
+
+          </div>
+      </div>
+      
+</div>
+
+
+<div class="popup popup_smart" id="popup-8">
+
+      <div class="overlay"></div>
+
+      <div class="content popup_smart_content" style="height:290px;">
+          <div class="close-btn" onclick="auto_mode_Popup()">&times;</div>
+
+
+          <div class="content_body popup_smart_body">
+              <div class="popup_logo">
+                   <img src="../images/Name.svg" alt="" srcset="">
+              </div>
+              <hr>
+
+              <div class="popup_form">
+                  <h3 class="popup_title">Select Auto Delete Date</h3>
+                  
+
+                     <label for="new-date" class="lbl"> Date</label>
+                  
+                     <input type="date" name="Auto_Date" id="new-date" class="inp inp1">
+                     <br>
+                     <br>
+                     <label for="new-time" class="lbl"> Time</label>
+                  
+                    <input type="time" name="Auto_time" id="" class="inp inp1">
+                    
+
+                     <button class="publish_btn" style="border:none;font-size:15px;" name="Auto">Publish</button>  
+              
+                 
+               </div>
+
+          </div>
+      </div>
+      
+</div>
+</form>
+
+
+
+<?php
+
+      if(isset($_POST['Normal'])){
+
+        $P_Date = date("Y-m-d");
+        $set_date = $_POST['set_date'];
+        $set_time = $_POST['set_time'];
+
+
+        if($Type =="Notices"){
+
+          if($set_date == NULL and $set_time == NULL){
+            $Accept_stmt = $conn->prepare("INSERT INTO `notices`(`Post_ID`, `Title`, `Publish_Date`, `Image`, `Details`, `Creator_ID`) VALUES(?,?,?,?,?,?)");
+            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID]);
+          }
+          elseif($set_date != NULL and $set_time != NULL){
+            $Accept_stmt = $conn->prepare("INSERT INTO `notices` VALUES(?,?,?,?,?,?,?,?)");
+            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
+          }
+
+          $sql = 'DELETE FROM notices_pending
+          WHERE Post_ID = :Post_ID';
+
+          // prepare the statement for execution
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+
+          // execute the statement  
+          if($statement->execute()){
+            echo "<script>window.open('Moderator_Pending.php','_self')</script>";
+          }
+
+        }
+        elseif($Type =="Vacancies"){
+
+          if($set_date == NULL and $set_time == NULL){
+            $Accept_stmt = $conn->prepare("INSERT INTO `job_vacancies`(`Post_ID`,`Company`,`Title`,`Publish_Date`,`Deadline_Date`,`Image`,`Details`,`Creator_ID`) VALUES(?,?,?,?,?,?,?,?)");
+            $Accept_stmt->execute([$Post_ID,$Company,$Title,$P_Date,$Deadline_Date,$img_X,$msg,$Creator_ID]);
+          }
+          elseif($set_date != NULL and $set_time != NULL){
+            $Accept_stmt = $conn->prepare("INSERT INTO `job_vacancies` VALUES(?,?,?,?,?,?,?,?,?,?)");
+            $Accept_stmt->execute([$Post_ID,$Company,$Title,$P_Date,$Deadline_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
+          }
+
+          $sql = 'DELETE FROM job_vacancies_pending
+          WHERE Post_ID = :Post_ID';
+
+          // prepare the statement for execution
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+
+          // execute the statement  
+          if($statement->execute()){
+            echo "<script>window.open('Moderator_Pending.php','_self')</script>";
+          }
+
+        }
+        else{
+          
+          if($set_date == NULL and $set_time == NULL){
+            $Accept_stmt = $conn->prepare("INSERT INTO `com_ads`(`Post_ID`,`Title`,`Publish_Date`,`Image`,`Details`,`Creator_ID`) VALUES(?,?,?,?,?,?)");
+            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID]);
+          }
+          elseif($set_date != NULL and $set_time != NULL){
+            $Accept_stmt = $conn->prepare("INSERT INTO `com_ads` VALUES(?,?,?,?,?,?,?,?)");
+            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
+          }
+
+          $sql = 'DELETE FROM com_ads_pending
+          WHERE Post_ID = :Post_ID';
+
+          // prepare the statement for execution
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+
+          // execute the statement  
+          if($statement->execute()){
+            echo "<script>window.open('Moderator_Pending.php','_self')</script>";
+          }
+
+        }  
+      }
+
+
+      if(isset($_POST['Auto'])){
+
+        $P_Date = date("Y-m-d");
+        $set_date = $_POST['set_date'];
+        $set_time = $_POST['set_time'];
+        $Date_Auto = $_POST['Auto_Date'];
+        $Time_Auto = $_POST['Auto_time'];
+        $Cat = "";
+
+
+        if($Type =="Notices"){
+
+          $Cat = "Notices";
+
+          if($set_date == NULL and $set_time == NULL){
+            $Accept_stmt = $conn->prepare("INSERT INTO `notices`(`Post_ID`, `Title`, `Publish_Date`, `Image`, `Details`, `Creator_ID`) VALUES(?,?,?,?,?,?)");
+            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID]);
+          }
+          elseif($set_date != NULL and $set_time != NULL){
+            $Accept_stmt = $conn->prepare("INSERT INTO `notices` VALUES(?,?,?,?,?,?,?,?)");
+            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
+          }
+
+
+
+          $sql = 'DELETE FROM notices_pending
+          WHERE Post_ID = :Post_ID';
+
+          // prepare the statement for execution
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+
+          // execute the statement  
+          if($statement->execute()){
+            echo "<script>window.open('Moderator_Pending.php','_self')</script>";
+          }
+
+        }
+        elseif($Type =="Vacancies"){
+
+          $Cat = "Vacancies";
+          if($set_date == NULL and $set_time == NULL){
+            $Accept_stmt = $conn->prepare("INSERT INTO `job_vacancies`(`Post_ID`,`Company`,`Title`,`Publish_Date`,`Deadline_Date`,`Image`,`Details`,`Creator_ID`) VALUES(?,?,?,?,?,?,?,?)");
+            $Accept_stmt->execute([$Post_ID,$Company,$Title,$P_Date,$Deadline_Date,$img_X,$msg,$Creator_ID]);
+          }
+          elseif($set_date != NULL and $set_time != NULL){
+            $Accept_stmt = $conn->prepare("INSERT INTO `job_vacancies` VALUES(?,?,?,?,?,?,?,?,?,?)");
+            $Accept_stmt->execute([$Post_ID,$Company,$Title,$P_Date,$Deadline_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
+          }
+
+          $sql = 'DELETE FROM job_vacancies_pending
+          WHERE Post_ID = :Post_ID';
+
+          // prepare the statement for execution
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+
+          // execute the statement  
+          if($statement->execute()){
+            echo "<script>window.open('Moderator_Pending.php','_self')</script>";
+          }
+
+        }
+        else{
+          $Cat = "C.Ads";
+          if($set_date == NULL and $set_time == NULL){
+            $Accept_stmt = $conn->prepare("INSERT INTO `com_ads`(`Post_ID`,`Title`,`Publish_Date`,`Image`,`Details`,`Creator_ID`) VALUES(?,?,?,?,?,?)");
+            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID]);
+          }
+          elseif($set_date != NULL and $set_time != NULL){
+            $Accept_stmt = $conn->prepare("INSERT INTO `com_ads` VALUES(?,?,?,?,?,?,?,?)");
+            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
+          }
+
+          $sql = 'DELETE FROM com_ads_pending
+          WHERE Post_ID = :Post_ID';
+
+          // prepare the statement for execution
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+
+          // execute the statement  
+          if($statement->execute()){
+            echo "<script>window.open('Moderator_Pending.php','_self')</script>";
+          }
+
+        }  
+
+        $Auto_delete_stmt = $conn->prepare("INSERT INTO `post_auto_delete` VALUES(?,?,?,?)");
+        $Auto_delete_stmt->execute([$Post_ID,$Date_Auto,$Time_Auto,$Cat]);
+
+      }
+
+?>
+
+
+
 
 
 
@@ -354,11 +757,25 @@
 
 
     function togglePopup_select_option(){
-      document.getElementById("popup-6").classList.toggle("active");
+      document.getElementById("popup-5").classList.toggle("active");
     } 
     function set_time_to_publish_Popup(){
+      document.getElementById("popup-5").classList.toggle("active");
       document.getElementById("popup-6").classList.toggle("active");
+    }   
+    function select_mode_Popup(){
+      document.getElementById("popup-5").classList.remove("active");
+      document.getElementById("popup-6").classList.remove("active");
+      document.getElementById("popup-7").classList.add("active");
+    }   
+    
+    function remove_mode_Popup(){
+      document.getElementById("popup-7").classList.remove("active");
+    }   
+
+    function auto_mode_Popup(){
       document.getElementById("popup-8").classList.toggle("active");
+      document.getElementById("popup-7").classList.remove("active");
     }   
 
 </script>

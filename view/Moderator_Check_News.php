@@ -17,7 +17,7 @@
 
 <style>
   body {
-    overflow: hidden; /* Hide scrollbars */
+     overflow: hidden; /* Hide scrollbars */
   }
   .box_head:hover img{
     opacity: 1;
@@ -219,59 +219,132 @@
 
 <!--End of Navigation-Bar-->
 
-
-
-
-
-
 <!-- Moderator Notices View -->
 
-<div class="posts_content_view_body">
+<?php
 
-    <div class="body_information">
-         
-          <div class="box-container">
+      include '../Model/connect.php';
 
-              <div class="box_head">
-                <img src="../images/pending/powercut.jpg" alt="">
-              </div>
+      $Post_ID = $_SESSION['SAVE_READ_Post_News_ID'];
+      
+      $Post = [
+        'Post_ID' => $Post_ID,
+        'Reporter_Can_Edit' => '0'
+      ];
+      
+      $sql = 'UPDATE news_pending
+              SET Reporter_Can_Edit = :Reporter_Can_Edit
+              WHERE Post_ID = :Post_ID';
+      
+      $statement = $conn->prepare($sql);
+      
+      $statement->bindParam(':Post_ID', $Post['Post_ID']);
+      $statement->bindParam(':Reporter_Can_Edit', $Post['Reporter_Can_Edit']);
+      
+      $statement->execute();
 
-              <div class="box_body">
-                <h3>Power Cut</h3>
-                <p>Electricity Board - Negombo</p>
-              </div>
+      $pending_read_sql = "SELECT * FROM news_pending WHERE Post_ID='$Post_ID'";
+      $pending_read_statement = $conn->query($pending_read_sql);
+      $pending_read_results = $pending_read_statement->fetchAll(PDO::FETCH_ASSOC);
 
-              <div class="more">
-                    <p>2022:01:17</p>
-              </div>
+      if($pending_read_results){
+        foreach($pending_read_results as $pending_read_result){
+          
+          $img_X = $pending_read_result['Image'];
+          $img = base64_encode($img_X);
+          $text = pathinfo($pending_read_result['Post_ID'], PATHINFO_EXTENSION);
 
+          $Creator_ID = $pending_read_result['Creator_ID'];
+          $Title = $pending_read_result['Title'];
+          $msg = $pending_read_result['Details'];
+          $Smart = $pending_read_result['Calendar_Date'];	 
+          $News_Category = $pending_read_result['News_Category'];	 
+          
+          $save_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
+          $save_who_state = $conn->query($save_who_sql);
+          $save_who_results = $save_who_state->fetchAll(PDO::FETCH_ASSOC);
+
+          if($save_who_results){
+              foreach($save_who_results as $save_who_result){
+                $First = $save_who_result['FirstName'];
+                $Last = $save_who_result['LastName'];   
+              }
+          }
+
+        }
+      }
+
+      echo "<div class='posts_content_view_body'>
+
+          <div class='body_information'>
+              
+                <div class='box-container'>
+
+                    <div class='box_head'>
+                       <img src='data:image/".$text.";base64,".$img."'/>
+                    </div>
+
+                    <div class='box_body'>
+                      <h3>".$Title."</h3>
+                      <p>".$First." ".$Last."</p>
+                    </div>
+
+                    <div class='more'>
+                          <p>".$Smart."</p>
+                    </div>
+
+                </div>
+
+                <div class='box-read'>
+                  <h2>".$Title."</h2>
+                  <p>".$msg."</p>
+                </div>
+          </div>";
+?>
+        
+        
+        <div class='button-set'>
+              <div class='view_btn update_btn' onclick='togglePopup_select_option()'>Accept</div>
+              <form action="" method="post">
+                  <button class="view_btn remove_btn" name = "Reject" style = "border:none;">Reject</button>
+              </form>
+              <div class="view_btn back_btn" onclick="window.open('./Moderator_Pending.php', '_self')">Back</div>
           </div>
+          
+      </div>
 
 
+<?php
 
-          <div class="box-read">
-             <h2>Power Cut</h2>
-             <p>
-             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    if(isset($_POST['Reject'])){
+      
+      $sql = 'DELETE FROM news_pending
+        WHERE Post_ID = :Post_ID';
 
-             Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+      // prepare the statement for execution
+      $statement = $conn->prepare($sql);
+      $statement->bindParam(':Post_ID', $Post_ID);
+
+      // execute the statement  
+      if($statement->execute()){
+
+        $sql_Area = 'DELETE FROM post_area
+        WHERE Post_ID = :Post_ID';
+
+        // prepare the statement for execution
+        $statement_Area = $conn->prepare($sql_Area);
+        $statement_Area->bindParam(':Post_ID', $Post_ID);
+
+        // execute the statement  
+        if($statement_Area->execute()){
+          echo $statement_Area->rowCount();
+        }
+        echo "<script>window.open('Moderator_Pending.php','_self')</script>";
+      } 
+    }
 
 
-            
-             </p>
-          </div>
-    </div>
-
-    <div class="button-set">
-        <div class="view_btn update_btn" onclick="togglePopup_select_option()">Accept</div>
-        <div class="view_btn remove_btn" onclick="window.open('./Moderator_Pending.php', '_self')">Reject</div>
-        <div class="view_btn back_btn" onclick="window.open('./Moderator_Pending.php', '_self')">Back</div>
-    </div>
-    
-</div>
-
-
-
+?>
 
 
 
@@ -295,7 +368,7 @@
                   <h3 class="popup_title">Select Option to Publish</h3>
                   <div class="btn_set_option">
                           <div class="select_option" onclick="add_smart_calendar_Popup()">Add into the Calendar</div>
-                          <div class="select_option"  onclick="window.open('Moderator_Pending.php','_self')">Publish Now</div>
+                          <div class="select_option" onclick="select_mode_Popup()">Publish Now</div>  
                   </div>
                   
 
@@ -305,7 +378,6 @@
       </div>
       
 </div>
-
 
 
 
@@ -329,12 +401,12 @@
 
                      <label for="new-date" class="lbl"> Date</label>
                   
-                     <input type="date" name="" id="new-date" class="inp inp1" value="2022-01-17">
+                     <input type="date" name="Smart_Date" id="new-date" class="inp inp1" value="<?php echo $Smart; ?>">
                      <br>
 
-                     <div class="publish_btn" onclick="window.open('Moderator_Pending.php','_self')">Publish</div>
+                     <div class="publish_btn" onclick="select_mode_Popup()">Publish</div>
               
-                   </form>
+                   
                </div>
 
           </div>
@@ -342,6 +414,170 @@
       
 </div>
 
+
+<div class="popup popup_set_time" id="popup-8">
+
+      <div class="overlay"></div>
+
+      <div class="content popup_set_time">
+          <div class="close-btn" onclick="remove_mode_Popup()">&times;</div>
+
+
+          <div class="content_body popup_set_time_body">
+              <div class="popup_logo">
+                   <img src="../images/Name.svg" alt="" srcset="">
+              </div>
+              <hr>
+
+              <div class="popup_form">
+                  <h3 class="popup_title">Select Publish Mode</h3>
+                  <div class="btn_set_option">
+                      
+                      
+                          <div class="select_option" onclick="auto_mode_Popup()">Auto Delete Mode</div>
+                          <button class="select_option" style="border:none;font-size:15px;" name="Normal">Normal Mode</button>  
+                  </div>
+                  
+
+               </div>
+
+          </div>
+      </div>
+      
+</div>
+
+
+<div class="popup popup_smart" id="popup-9">
+
+      <div class="overlay"></div>
+
+      <div class="content popup_smart_content" style="height:290px;">
+          <div class="close-btn" onclick="auto_mode_Popup()">&times;</div>
+
+
+          <div class="content_body popup_smart_body">
+              <div class="popup_logo">
+                   <img src="../images/Name.svg" alt="" srcset="">
+              </div>
+              <hr>
+
+              <div class="popup_form">
+                  <h3 class="popup_title">Select Auto Delete Date</h3>
+                  
+
+                     <label for="new-date" class="lbl"> Date</label>
+                  
+                     <input type="date" name="Auto_Date" id="new-date" class="inp inp1">
+                     <br>
+                     <br>
+                     <label for="new-time" class="lbl"> Time</label>
+                  
+                    <input type="time" name="Auto_time" id="" class="inp inp1">
+                    
+
+                     <button class="publish_btn" style="border:none;font-size:15px;" name="Auto">Publish</button>  
+              
+                   
+               </div>
+
+          </div>
+      </div>
+      
+</div>
+</form>
+
+<?php
+
+    if(isset($_POST['Normal'])){
+
+          $P_Date = date("Y-m-d");
+          $Smart_Date = $_POST['Smart_Date'];
+          $Up = 0;
+          $Down = 0;
+
+          if($Smart_Date == NULL){
+            $Accept_stmt = $conn->prepare("INSERT INTO `news`(`Post_ID`,`Title`,`Publish_Date`,`Image`,`Details`,`News_Category`,`Creator_ID`,`up_count`,`down_count`) VALUES(?,?,?,?,?,?,?,?,?)");
+            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$News_Category,$Creator_ID,$Up,$Down]);
+          }
+          else{
+            $Accept_stmt = $conn->prepare("INSERT INTO `news` VALUES(?,?,?,?,?,?,?,?,?,?)");
+            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$News_Category,$Creator_ID,$Smart_Date,$Up,$Down]);
+
+            $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+            $post_from_state = $conn->query($post_from_sql);
+            $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
+
+            if($post_from_results){
+                foreach($post_from_results as $post_from_result){
+                  $smart_calandar_stmt = $conn->prepare("INSERT INTO `smart_calendar` (`evt_start`,`evt_end`,`Post_Id`,`Area`) VALUES(?,?,?,?)");
+                  $smart_calandar_stmt->execute([$Smart_Date,$Smart_Date,$Post_ID,$post_from_result['Area']]);
+               }
+            }
+          }
+
+          $sql = 'DELETE FROM news_pending
+          WHERE Post_ID = :Post_ID';
+
+          // prepare the statement for execution
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+
+          // execute the statement  
+          if($statement->execute()){
+            echo "<script>window.open('Moderator_Pending.php','_self')</script>";
+          }
+  }
+    if(isset($_POST['Auto'])){
+
+          $P_Date = date("Y-m-d");
+          $Smart_Date = $_POST['Smart_Date'];
+          $Date = $_POST['Auto_Date'];
+          $Time = $_POST['Auto_time'];
+          $Cat = "News";
+          $Up = 0;
+          $Down = 0;
+
+          
+
+          if($Smart_Date == NULL){
+            $Accept_stmt = $conn->prepare("INSERT INTO `news`(`Post_ID`,`Title`,`Publish_Date`,`Image`,`Details`,`News_Category`,`Creator_ID`,`up_count`,`down_count`) VALUES(?,?,?,?,?,?,?,?,?)");
+            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$News_Category,$Creator_ID,$Up,$Down]);
+          }
+          else{
+            $Accept_stmt = $conn->prepare("INSERT INTO `news` VALUES(?,?,?,?,?,?,?,?,?,?)");
+            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$News_Category,$Creator_ID,$Smart_Date,$Up,$Down]);
+
+            $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+            $post_from_state = $conn->query($post_from_sql);
+            $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
+
+            if($post_from_results){
+                foreach($post_from_results as $post_from_result){
+                  $smart_calandar_stmt = $conn->prepare("INSERT INTO `smart_calendar` (`evt_start`,`evt_end`,`Post_Id`,`Area`) VALUES(?,?,?,?)");
+                  $smart_calandar_stmt->execute([$Smart_Date,$Smart_Date,$Post_ID,$post_from_result['Area']]);
+               }
+            }
+          }
+
+        
+          $Auto_delete_stmt = $conn->prepare("INSERT INTO `post_auto_delete` VALUES(?,?,?,?)");
+          $Auto_delete_stmt->execute([$Post_ID,$Date,$Time,$Cat]);
+
+         
+          
+          $sql = 'DELETE FROM news_pending
+          WHERE Post_ID = :Post_ID';
+
+          // prepare the statement for execution
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+
+          // execute the statement  
+          if($statement->execute()){
+            echo "<script>window.open('Moderator_Pending.php','_self')</script>";
+          }
+    }
+?>  
 
 
 
@@ -356,6 +592,20 @@
       document.getElementById("popup-7").classList.toggle("active");
     }   
 
+    function select_mode_Popup(){
+      document.getElementById("popup-6").classList.remove("active");
+      document.getElementById("popup-7").classList.remove("active");
+      document.getElementById("popup-8").classList.add("active");
+    }   
+    
+    function remove_mode_Popup(){
+      document.getElementById("popup-8").classList.remove("active");
+    }   
+
+    function auto_mode_Popup(){
+      document.getElementById("popup-9").classList.toggle("active");
+      document.getElementById("popup-8").classList.remove("active");
+    }   
 </script>
     
 

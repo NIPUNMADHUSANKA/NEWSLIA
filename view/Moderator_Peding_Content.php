@@ -75,17 +75,18 @@
                           }
                             
                           echo "<div class='setting_close'>
-                          <img src='../images/Check.svg' alt='' srcset='' onclick='window.open('Moderator_Check_Ads.php','_self')'>
+                             
+                             <ul style='list-style:none;'>
+                               <li onclick=toggle_view_News('$Post_ID');><a href='#'><img src='../images/Check.svg'></a></li>
+                             </ul>
+                             
                           </div>";
                             
                           echo "</div>
                           </div>";
                   }   
               }
-            }
-
-   
-   
+            }   
    
 //Article
         $pending_post_sql = "SELECT * FROM articles_pending";
@@ -134,7 +135,11 @@
                       }
                               
                       echo "<div class='setting_close'>
-                         <img src='../images/Check.svg' alt='' srcset='' onclick='window.open('Moderator_Check_Ads.php','_self')'>
+                            
+                            <ul style='list-style:none;'>
+                                <li onclick=toggle_view_Articles('$Post_ID');><a href='#'><img src='../images/Check.svg'></a></li>
+                            </ul>
+
                       </div>";
                               
                        echo "</div>
@@ -218,7 +223,9 @@
                           echo "<p>".$Publish_Date." ".$Publish_Time."</p>";
                             
                           echo "<div class='setting_close'>
-                          <img src='../images/Check.svg' alt='' srcset='' onclick='window.open('Moderator_Check_Ads.php','_self')'>
+                              <ul style='list-style:none;'>
+                                <li onclick=toggle_view_Ads('$Post_ID','Notices');><a href='#'><img src='../images/Check.svg'></a></li>
+                            </ul>
                           </div>";
                             
                           echo "</div>
@@ -306,7 +313,9 @@
                           echo "<p>".$Publish_Date." ".$Publish_Time."</p>";
                             
                           echo "<div class='setting_close'>
-                          <img src='../images/Check.svg' alt='' srcset='' onclick='window.open('Moderator_Check_Ads.php','_self')'>
+                              <ul style='list-style:none;'>
+                                <li onclick=toggle_view_Ads('$Post_ID','Vacancies');><a href='#'><img src='../images/Check.svg'></a></li>
+                              </ul>
                           </div>";
                             
                           echo "</div>
@@ -392,7 +401,9 @@
                             echo "<p>".$Publish_Date." ".$Publish_Time."</p>";
                               
                             echo "<div class='setting_close'>
-                            <img src='../images/Check.svg' alt='' srcset='' onclick='window.open('Moderator_Check_Ads.php','_self')'>
+                                    <ul style='list-style:none;'>
+                                      <li onclick=toggle_view_Ads('$Post_ID','C.Ads');><a href='#'><img src='../images/Check.svg'></a></li>
+                                    </ul>
                             </div>";
                               
                             echo "</div>

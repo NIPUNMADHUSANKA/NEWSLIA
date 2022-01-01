@@ -189,42 +189,128 @@
 
 
 <!-- Moderator Notices View -->
+<?php
+      include '../Model/connect.php';
 
-<div class="posts_content_view_body">
+      $Post_ID = $_SESSION['SAVE_READ_Post_Article_ID'];
+      
+      $Post = [
+        'Post_ID' => $Post_ID,
+        'NormalUser_Can_Edit' => '0'
+      ];
+      
+      $sql = 'UPDATE articles_pending
+              SET NormalUser_Can_Edit = :NormalUser_Can_Edit
+              WHERE Post_ID = :Post_ID';
+      
+      $statement = $conn->prepare($sql);
+      
+      $statement->bindParam(':Post_ID', $Post['Post_ID']);
+      $statement->bindParam(':NormalUser_Can_Edit', $Post['NormalUser_Can_Edit']);
+      
+      $statement->execute();
 
-    <div class="body_information">
-         
-          <div class="box-container">
-              <div class="box_head">
-                <img src="../images/pending/kandy_perehera.jpg" alt="">
-              </div>
-              <div class="box_body">
-                <h3>Kandy Perahera</h3>
-                <p>Amith Malsanka</p>
-              </div>
-          </div>
+      $pending_read_sql = "SELECT * FROM articles_pending WHERE Post_ID='$Post_ID'";
+      $pending_read_statement = $conn->query($pending_read_sql);
+      $pending_read_results = $pending_read_statement->fetchAll(PDO::FETCH_ASSOC);
 
+      if($pending_read_results){
+        foreach($pending_read_results as $pending_read_result){
+          
+          $img_X = $pending_read_result['Image'];
+          $img = base64_encode($img_X);
+          $text = pathinfo($pending_read_result['Post_ID'], PATHINFO_EXTENSION);
 
+          $Creator_ID = $pending_read_result['Creator_ID'];
+          $Title = $pending_read_result['Title'];
+          $msg = $pending_read_result['Details'];	 
+          
+          $save_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
+          $save_who_state = $conn->query($save_who_sql);
+          $save_who_results = $save_who_state->fetchAll(PDO::FETCH_ASSOC);
 
-          <div class="box-read">
-             <h2>Kandy Perahera</h2>
-             <p>
-             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          if($save_who_results){
+              foreach($save_who_results as $save_who_result){
+                $First = $save_who_result['FirstName'];
+                $Last = $save_who_result['LastName'];   
+              }
+          }
 
-             Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+        }
+      }
 
+      echo "<div class='posts_content_view_body'>
 
-            
-             </p>
-          </div>
-    </div>
+          <div class='body_information'>
+              
+                <div class='box-container'>
+
+                    <div class='box_head'>
+                       <img src='data:image/".$text.";base64,".$img."'/>
+                    </div>
+
+                    <div class='box_body'>
+                      <h3>".$Title."</h3>
+                      <p>".$First." ".$Last."</p>
+                    </div>
+
+                </div>
+
+                <div class='box-read'>
+                  <h2>".$Title."</h2>
+                  <p>".$msg."</p>
+                </div>
+          </div>";
+?>
 
     <div class="button-set">
-        <div class="view_btn update_btn" onclick="window.open('./Moderator_Pending.php', '_self')">Accept</div>
-        <div class="view_btn remove_btn" onclick="window.open('./Moderator_Pending.php', '_self')">Reject</div>
+        <form action="" method="post">
+                  <button class="view_btn update_btn" name = "Accept" style = "border:none;">Accept</button>
+        </form>
+        <form action="" method="post">
+                  <button class="view_btn remove_btn" name = "Reject" style = "border:none;">Reject</button>
+        </form>
         <div class="view_btn back_btn" onclick="window.open('./Moderator_Pending.php', '_self')">Back</div>
     </div>
 </div>
+
+<?php
+
+    if(isset($_POST['Reject'])){
+      
+      $sql = 'DELETE FROM articles_pending
+        WHERE Post_ID = :Post_ID';
+
+      // prepare the statement for execution
+      $statement = $conn->prepare($sql);
+      $statement->bindParam(':Post_ID', $Post_ID);
+
+      // execute the statement  
+      if($statement->execute()){
+        echo "<script>window.open('Moderator_Pending.php','_self')</script>";
+      } 
+    }
+
+    if(isset($_POST['Accept'])){
+          $P_Date = date("Y-m-d");
+          $Approve_stmt = $conn->prepare("INSERT INTO `articles` VALUES(?,?,?,?,?,?)");
+          $Approve_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID]);
+
+          $sql = 'DELETE FROM articles_pending
+          WHERE Post_ID = :Post_ID';
+
+          // prepare the statement for execution
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+
+          // execute the statement  
+          if($statement->execute()){
+            echo "<script>window.open('Moderator_Pending.php','_self')</script>";
+          } 
+    }
+
+
+?>
 
 
 </body>
