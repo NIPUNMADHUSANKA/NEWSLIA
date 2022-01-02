@@ -24,7 +24,7 @@
       padding-left:80px;
   }
   .box-container{
-    height: 240px;
+    height: 290px;
   }
 
   .more{
@@ -40,9 +40,9 @@
   }
 
   .setting_close{
-    transform:scale(1.5);
+    transform:scale(2);
     margin-left:78%;
-    margin-top :-5%;
+    margin-top :-7%;
   }
   .setting_close img{
     padding-right:5px;
@@ -62,6 +62,44 @@
     transform:scale(1.07);
   
   }
+
+  .tag {
+      position: absolute;
+      top: 1.3%;
+      bottom: 0;
+      left: 20;
+      right: 1%;
+      height: 15%;
+      width: 30%;
+      opacity: 1;
+      transition: .5s ease;
+      background-color: #ACE0B8;
+      cursor: pointer;
+      border-radius:0px 0px 0px 20px;
+  }
+  .box_head:hover .tag{
+      opacity: 1;
+  } 
+
+  .tag_text{
+      color: #555;
+      font-weight:bold;
+      font-size: 15px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+  }
+
+  .view_btn ul{
+    list-style-type: none;
+  }
+
+  .view_btn ul a{
+    text-decoration:none;
+    color:#333;
+  }
+
 
 
 
@@ -113,33 +151,285 @@
 
     <div class="body_information">
          
-          <div class="box-container">
-              <div class="box_head">
-                <img src="../images/settime/newyear.jpg" alt="">
-              
-                <div class="middle">
-                     <div class="view_btn" onclick="window.open('./Moderator_set_read.php', '_self')">View</div>
-                </div>
+          <?php
+            include '../Model/connect.php';
+            $Moderator_Area = $_SESSION['moderate_area'];
 
-              </div>
-              <div class="box_body">
-                <h3>New Year</h3>
-                <p>ABC Company</p>
-              </div>
+            
+//Notices
+      $pending_post_sql = "SELECT * FROM notices_pending";
+      $pending_post_statement = $conn -> query($pending_post_sql);
+      $pending_post_results = $pending_post_statement->fetchAll(PDO::FETCH_ASSOC);
 
-              <div class="more">
-                  <p>2022:01:01</p>
-                  <p>00:00</p>
-              </div>
+      if($pending_post_results){
+        foreach($pending_post_results as $pending_post_result){
+            $Post_ID = $pending_post_result['Post_ID'];
+                  
+            $flag = 0;
+            $Area = array();
+            $y=0;
 
-              <div class="setting_close">
-                  <img src="../images/Setting.svg" alt="" srcset="" onclick="togglePopup()">
-                  <img src="../images/Close.svg" alt="" srcset="">
-              
-              </div>
+            $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+            $post_from_state = $conn->query($post_from_sql);
+            $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
 
-          </div>
+            if($post_from_results){
+                foreach($post_from_results as $post_from_result){
+                  if($post_from_result['Area'] == $Moderator_Area){
+                      $flag = 1;
+                  }
+                  $Area[$y] = $post_from_result['Area'];
+                  $y++;
+                }
+            }
+                  
+            if($flag == 1){
+                $img = $pending_post_result['Image'];
+                $img = base64_encode($img);
+                $text = pathinfo($pending_post_result['Post_ID'], PATHINFO_EXTENSION);
 
+                $Creator_ID = $pending_post_result['Creator_ID'];
+                $Title = $pending_post_result['Title'];
+                $Publish_Date = $pending_post_result['Publish Date'];
+                $Publish_Time = $pending_post_result['Publish Time'];
+
+                echo "
+                  <div class='box-container'>
+                      <div class='box_head'>
+                        
+                        <img src='data:image/".$text.";base64,".$img."'/>
+                        
+                        <div class='tag'>
+                            <div class='tag_text'>Notices</div>
+                        </div>
+
+                        
+
+                      </div>
+
+                      <div class='box_body'>
+                        <h3>".$Title."</h3>";
+                      
+                          echo "<p><b><i>-</i>";
+                            foreach ($Area as $value) {
+                                echo "<i>".$value." - ";
+                                echo "</i>";
+                            } 
+                          echo "</b></p>";
+
+                          $save_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
+                          $save_who_state = $conn->query($save_who_sql);
+                          $save_who_results = $save_who_state->fetchAll(PDO::FETCH_ASSOC);
+
+                          if($save_who_results){
+                            foreach($save_who_results as $save_who_result){
+                              echo "<p>".$save_who_result['FirstName']." ".$save_who_result['LastName']."</p>";    
+                            }
+                          }
+
+                          echo "<p>".$Publish_Date." ".$Publish_Time."</p>";
+                            
+                          echo "<div class='setting_close'>
+                              <ul style='list-style:none;'>
+                                <li onclick=toggle_view_Ads('$Post_ID','Notices');><a href='#'><img src='../images/Check.svg'></a></li>
+                            </ul>
+                          </div>";
+                            
+                          echo "</div>
+                          </div>";
+                  }   
+              }
+            }
+
+
+
+
+
+//Job Vacancies
+      $pending_post_sql = "SELECT * FROM job_vacancies_pending";
+      $pending_post_statement = $conn -> query($pending_post_sql);
+      $pending_post_results = $pending_post_statement->fetchAll(PDO::FETCH_ASSOC);
+
+      if($pending_post_results){
+        foreach($pending_post_results as $pending_post_result){
+            $Post_ID = $pending_post_result['Post_ID'];
+                  
+            $flag = 0;
+            $Area = array();
+            $y=0;
+
+            $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+            $post_from_state = $conn->query($post_from_sql);
+            $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
+
+            if($post_from_results){
+                foreach($post_from_results as $post_from_result){
+                  if($post_from_result['Area'] == $Moderator_Area){
+                      $flag = 1;
+                  }
+                  $Area[$y] = $post_from_result['Area'];
+                  $y++;
+                }
+            }
+                  
+            if($flag == 1){
+                $img = $pending_post_result['Image'];
+                $img = base64_encode($img);
+                $text = pathinfo($pending_post_result['Post_ID'], PATHINFO_EXTENSION);
+
+                $Creator_ID = $pending_post_result['Creator_ID'];
+                $Title = $pending_post_result['Position'];
+                $Company = $pending_post_result['Company'];
+                $Publish_Date = $pending_post_result['Set_Date'];
+                $Publish_Time = $pending_post_result['Set_Time'];
+                
+                echo "
+                  <div class='box-container'>
+                      <div class='box_head'>
+                        
+                        <img src='data:image/".$text.";base64,".$img."'/>
+                        
+                        <div class='tag'>
+                            <div class='tag_text'>Vacancies</div>
+                        </div>
+
+                        
+
+                      </div>
+
+                      <div class='box_body'>
+                        <h3>".$Title." (".$Company.")</h3>";
+                      
+                          echo "<p><b><i>-</i>";
+                            foreach ($Area as $value) {
+                                echo "<i>".$value." - ";
+                                echo "</i>";
+                            } 
+                          echo "</b></p>";
+
+                          $save_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
+                          $save_who_state = $conn->query($save_who_sql);
+                          $save_who_results = $save_who_state->fetchAll(PDO::FETCH_ASSOC);
+
+                          if($save_who_results){
+                            foreach($save_who_results as $save_who_result){
+                              echo "<p>".$save_who_result['FirstName']." ".$save_who_result['LastName']."</p>";    
+                            }
+                          }
+
+                          echo "<p>".$Publish_Date." ".$Publish_Time."</p>";
+                            
+                          echo "<div class='setting_close'>
+                              <ul style='list-style:none;'>
+                                <li onclick=toggle_view_Ads('$Post_ID','Vacancies');><a href='#'><img src='../images/Check.svg'></a></li>
+                              </ul>
+                          </div>";
+                            
+                          echo "</div>
+                          </div>";
+                  }   
+              }
+            }
+
+
+
+
+//Com. Advertisment
+        $pending_post_sql = "SELECT * FROM com_ads_pending";
+        $pending_post_statement = $conn -> query($pending_post_sql);
+        $pending_post_results = $pending_post_statement->fetchAll(PDO::FETCH_ASSOC);
+
+        if($pending_post_results){
+          foreach($pending_post_results as $pending_post_result){
+              $Post_ID = $pending_post_result['Post_ID'];
+                    
+              $flag = 0;
+              $Area = array();
+              $y=0;
+
+              $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+              $post_from_state = $conn->query($post_from_sql);
+              $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
+
+              if($post_from_results){
+                  foreach($post_from_results as $post_from_result){
+                    if($post_from_result['Area'] == $Moderator_Area){
+                        $flag = 1;
+                    }
+                    $Area[$y] = $post_from_result['Area'];
+                    $y++;
+                  }
+              }
+                    
+              if($flag == 1){
+                  $img = $pending_post_result['Image'];
+                  $img = base64_encode($img);
+                  $text = pathinfo($pending_post_result['Post_ID'], PATHINFO_EXTENSION);
+
+                  $Creator_ID = $pending_post_result['Creator_ID'];
+                  $Title = $pending_post_result['Title'];
+                  $Publish_Date = $pending_post_result['Set_Date'];
+                  $Publish_Time = $pending_post_result['Set_Time'];
+                  
+                  echo "
+                    <div class='box-container'>
+                        <div class='box_head'>
+                          
+                          <img src='data:image/".$text.";base64,".$img."'/>
+                          
+                          <div class='tag'>
+                              <div class='tag_text'>Ads</div>
+                          </div>
+
+                          <div class='middle'>
+                              <div class='view_btn'>
+                                   <ul>
+                                      <li onclick=toggle_view('$Post_ID');><a href='#'>View</a></li>
+                                   </ul>   
+                               </div>  
+                          </div>
+                          
+
+                        </div>
+
+                        <div class='box_body'>
+                          <h3>".$Title."</h3>";
+                        
+                            echo "<p><b><i>-</i>";
+                              foreach ($Area as $value) {
+                                  echo "<i>".$value." - ";
+                                  echo "</i>";
+                              } 
+                            echo "</b></p>";
+
+                            $save_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
+                            $save_who_state = $conn->query($save_who_sql);
+                            $save_who_results = $save_who_state->fetchAll(PDO::FETCH_ASSOC);
+
+                            if($save_who_results){
+                              foreach($save_who_results as $save_who_result){
+                                echo "<p>".$save_who_result['FirstName']." ".$save_who_result['LastName']."</p>";    
+                              }
+                            }
+
+                            echo "<p>".$Publish_Date." ".$Publish_Time."</p>
+                                  <p>2022:01:01
+                                  00:00</p>";
+
+                            echo "<div class='setting_close'>
+                              <img src='../images/Setting.svg' onclick='togglePopup()'>
+                              <img src='../images/Close.svg'>
+                            </div>";
+                              
+                            echo "</div>
+                            </div>";
+                    }   
+                }
+              }
+                
+
+
+          ?>
          
 
           
