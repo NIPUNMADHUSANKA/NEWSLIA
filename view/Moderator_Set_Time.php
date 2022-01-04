@@ -1,5 +1,6 @@
 <?php
   session_start();
+  date_default_timezone_set("Asia/Calcutta");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +14,7 @@
     <link rel="stylesheet" href="../css/search.css">
     <link rel="stylesheet" href="../css/popup.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <style>
@@ -157,17 +159,19 @@
 
             
 //Notices
-      $pending_post_sql = "SELECT * FROM notices_pending";
-      $pending_post_statement = $conn -> query($pending_post_sql);
-      $pending_post_results = $pending_post_statement->fetchAll(PDO::FETCH_ASSOC);
+      $settime_post_sql = "SELECT * FROM notices";
+      $settime_post_statement = $conn -> query($settime_post_sql);
+      $settime_post_results = $settime_post_statement->fetchAll(PDO::FETCH_ASSOC);
 
-      if($pending_post_results){
-        foreach($pending_post_results as $pending_post_result){
-            $Post_ID = $pending_post_result['Post_ID'];
+      if($settime_post_results){
+        foreach($settime_post_results as $settime_post_result){
+            $Post_ID = $settime_post_result['Post_ID'];
                   
             $flag = 0;
+            $Availble = 0;
             $Area = array();
             $y=0;
+            $Type = "Notices";
 
             $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
             $post_from_state = $conn->query($post_from_sql);
@@ -176,22 +180,40 @@
             if($post_from_results){
                 foreach($post_from_results as $post_from_result){
                   if($post_from_result['Area'] == $Moderator_Area){
-                      $flag = 1;
+                      $Availble = 1;
                   }
                   $Area[$y] = $post_from_result['Area'];
                   $y++;
                 }
             }
-                  
-            if($flag == 1){
-                $img = $pending_post_result['Image'];
-                $img = base64_encode($img);
-                $text = pathinfo($pending_post_result['Post_ID'], PATHINFO_EXTENSION);
 
-                $Creator_ID = $pending_post_result['Creator_ID'];
-                $Title = $pending_post_result['Title'];
-                $Publish_Date = $pending_post_result['Publish Date'];
-                $Publish_Time = $pending_post_result['Publish Time'];
+            if($Availble == 1){
+
+              $System_Date = date("Y-m-d");
+              $Set_Date = $settime_post_result['Set_Date'];
+
+
+              $System_Time = date("H:i:s");
+              $Set_Time = $settime_post_result['Set_Time'];
+
+              if($Set_Time != NULL and $Set_Date != NULL){
+                  if($System_Date<$Set_Date){
+                    $flag = 1;
+                  }
+                  elseif($System_Date == $Set_Date and $System_Time < $Set_Time){
+                    $flag = 1;
+                  }
+              }
+            }                
+            if($flag == 1){
+                $img = $settime_post_result['Image'];
+                $img = base64_encode($img);
+                $text = pathinfo($settime_post_result['Post_ID'], PATHINFO_EXTENSION);
+
+                $Creator_ID = $settime_post_result['Creator_ID'];
+                $Title = $settime_post_result['Title'];
+                $Publish_Date = $settime_post_result['Set_Date'];
+                $Publish_Time = $settime_post_result['Set_Time'];
 
                 echo "
                   <div class='box-container'>
@@ -203,6 +225,13 @@
                             <div class='tag_text'>Notices</div>
                         </div>
 
+                        <div class='middle'>
+                              <div class='view_btn'>
+                                   <ul>
+                                      <li onclick=toggle_view('$Post_ID','Notices');><a href='#'>View</a></li>
+                                   </ul>   
+                               </div>  
+                        </div>
                         
 
                       </div>
@@ -217,23 +246,22 @@
                             } 
                           echo "</b></p>";
 
-                          $save_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
-                          $save_who_state = $conn->query($save_who_sql);
-                          $save_who_results = $save_who_state->fetchAll(PDO::FETCH_ASSOC);
+                          $set_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
+                          $set_who_state = $conn->query($set_who_sql);
+                          $set_who_results = $set_who_state->fetchAll(PDO::FETCH_ASSOC);
 
-                          if($save_who_results){
-                            foreach($save_who_results as $save_who_result){
-                              echo "<p>".$save_who_result['FirstName']." ".$save_who_result['LastName']."</p>";    
+                          if($set_who_results){
+                            foreach($set_who_results as $set_who_result){
+                              echo "<p>".$set_who_result['FirstName']." ".$set_who_result['LastName']."</p>";    
                             }
                           }
 
                           echo "<p>".$Publish_Date." ".$Publish_Time."</p>";
                             
                           echo "<div class='setting_close'>
-                              <ul style='list-style:none;'>
-                                <li onclick=toggle_view_Ads('$Post_ID','Notices');><a href='#'><img src='../images/Check.svg'></a></li>
-                            </ul>
-                          </div>";
+                                <img src='../images/Setting.svg' onclick = togglePopupUpdate_add('$Post_ID','Notices','$Publish_Date','$Publish_Time')>
+                                <img src='../images/Close.svg' onclick = togglePopupremove_add('$Post_ID','Notices')>
+                              </div>";
                             
                           echo "</div>
                           </div>";
@@ -244,19 +272,20 @@
 
 
 
-
 //Job Vacancies
-      $pending_post_sql = "SELECT * FROM job_vacancies_pending";
-      $pending_post_statement = $conn -> query($pending_post_sql);
-      $pending_post_results = $pending_post_statement->fetchAll(PDO::FETCH_ASSOC);
+      $settime_post_sql = "SELECT * FROM job_vacancies";
+      $settime_post_statement = $conn -> query($settime_post_sql);
+      $settime_post_results = $settime_post_statement->fetchAll(PDO::FETCH_ASSOC);
 
-      if($pending_post_results){
-        foreach($pending_post_results as $pending_post_result){
-            $Post_ID = $pending_post_result['Post_ID'];
+      if($settime_post_results){
+        foreach($settime_post_results as $settime_post_result){
+            $Post_ID = $settime_post_result['Post_ID'];
                   
             $flag = 0;
+            $Availble = 0;
             $Area = array();
             $y=0;
+            $Type = "Vacancies";
 
             $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
             $post_from_state = $conn->query($post_from_sql);
@@ -265,23 +294,43 @@
             if($post_from_results){
                 foreach($post_from_results as $post_from_result){
                   if($post_from_result['Area'] == $Moderator_Area){
-                      $flag = 1;
+                      $Availble = 1;
                   }
                   $Area[$y] = $post_from_result['Area'];
                   $y++;
                 }
             }
-                  
-            if($flag == 1){
-                $img = $pending_post_result['Image'];
-                $img = base64_encode($img);
-                $text = pathinfo($pending_post_result['Post_ID'], PATHINFO_EXTENSION);
 
-                $Creator_ID = $pending_post_result['Creator_ID'];
-                $Title = $pending_post_result['Position'];
-                $Company = $pending_post_result['Company'];
-                $Publish_Date = $pending_post_result['Set_Date'];
-                $Publish_Time = $pending_post_result['Set_Time'];
+
+            if($Availble == 1){
+
+              $System_Date = date("Y-m-d");
+              $Set_Date = $settime_post_result['Set_Date'];
+
+
+              $System_Time = date("H:i:s");
+              $Set_Time = $settime_post_result['Set_Time'];
+
+              if($Set_Time != NULL and $Set_Date != NULL){
+                  if($System_Date<$Set_Date){
+                    $flag = 1;
+                  }
+                  elseif($System_Date == $Set_Date and $System_Time < $Set_Time){
+                    $flag = 1;
+                  }
+              }
+            }
+       
+            if($flag == 1){
+                $img = $settime_post_result['Image'];
+                $img = base64_encode($img);
+                $text = pathinfo($settime_post_result['Post_ID'], PATHINFO_EXTENSION);
+
+                $Creator_ID = $settime_post_result['Creator_ID'];
+                $Title = $settime_post_result['Title'];
+                $Company = $settime_post_result['Company'];
+                $Publish_Date = $settime_post_result['Set_Date'];
+                $Publish_Time = $settime_post_result['Set_Time'];
                 
                 echo "
                   <div class='box-container'>
@@ -293,6 +342,14 @@
                             <div class='tag_text'>Vacancies</div>
                         </div>
 
+                        <div class='middle'>
+                              <div class='view_btn'>
+                                   <ul>
+                                      <li onclick=toggle_view('$Post_ID','Vacancies');><a href='#'>View</a></li>
+                                   </ul>   
+                               </div>  
+                        </div>
+                          
                         
 
                       </div>
@@ -318,11 +375,10 @@
                           }
 
                           echo "<p>".$Publish_Date." ".$Publish_Time."</p>";
-                            
+                                
                           echo "<div class='setting_close'>
-                              <ul style='list-style:none;'>
-                                <li onclick=toggle_view_Ads('$Post_ID','Vacancies');><a href='#'><img src='../images/Check.svg'></a></li>
-                              </ul>
+                            <img src='../images/Setting.svg' onclick = togglePopupUpdate_add('$Post_ID','Vacancies','$Publish_Date','$Publish_Time')>
+                            <img src='../images/Close.svg' onclick = togglePopupremove_add('$Post_ID','Vacancies')>
                           </div>";
                             
                           echo "</div>
@@ -331,21 +387,20 @@
               }
             }
 
-
-
-
 //Com. Advertisment
-        $pending_post_sql = "SELECT * FROM com_ads_pending";
-        $pending_post_statement = $conn -> query($pending_post_sql);
-        $pending_post_results = $pending_post_statement->fetchAll(PDO::FETCH_ASSOC);
+        $settime_post_sql = "SELECT * FROM com_ads";
+        $settime_post_statement = $conn -> query($settime_post_sql);
+        $settime_post_results = $settime_post_statement->fetchAll(PDO::FETCH_ASSOC);
 
-        if($pending_post_results){
-          foreach($pending_post_results as $pending_post_result){
-              $Post_ID = $pending_post_result['Post_ID'];
+        if($settime_post_results){
+          foreach($settime_post_results as $settime_post_result){
+              $Post_ID = $settime_post_result['Post_ID'];
                     
               $flag = 0;
+              $Availble = 0;
               $Area = array();
               $y=0;
+              $Type = "C.Ads";
 
               $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
               $post_from_state = $conn->query($post_from_sql);
@@ -354,22 +409,41 @@
               if($post_from_results){
                   foreach($post_from_results as $post_from_result){
                     if($post_from_result['Area'] == $Moderator_Area){
-                        $flag = 1;
+                        $Availble = 1;
                     }
                     $Area[$y] = $post_from_result['Area'];
                     $y++;
                   }
               }
+
+
+              if($Availble == 1){
+
+                $System_Date = date("Y-m-d");
+                $Set_Date = $settime_post_result['Set_Date'];
+  
+                $System_Time = date("H:i:s");
+                $Set_Time = $settime_post_result['Set_Time'];
+  
+                if($Set_Time != NULL and $Set_Date != NULL){
+                    if($System_Date<$Set_Date){
+                      $flag = 1;
+                    }
+                    elseif($System_Date == $Set_Date and $System_Time < $Set_Time){
+                      $flag = 1;
+                    }
+                }
+              }
                     
               if($flag == 1){
-                  $img = $pending_post_result['Image'];
+                  $img = $settime_post_result['Image'];
                   $img = base64_encode($img);
-                  $text = pathinfo($pending_post_result['Post_ID'], PATHINFO_EXTENSION);
+                  $text = pathinfo($settime_post_result['Post_ID'], PATHINFO_EXTENSION);
 
-                  $Creator_ID = $pending_post_result['Creator_ID'];
-                  $Title = $pending_post_result['Title'];
-                  $Publish_Date = $pending_post_result['Set_Date'];
-                  $Publish_Time = $pending_post_result['Set_Time'];
+                  $Creator_ID = $settime_post_result['Creator_ID'];
+                  $Title = $settime_post_result['Title'];
+                  $Publish_Date = $settime_post_result['Set_Date'];
+                  $Publish_Time = $settime_post_result['Set_Time'];
                   
                   echo "
                     <div class='box-container'>
@@ -384,7 +458,7 @@
                           <div class='middle'>
                               <div class='view_btn'>
                                    <ul>
-                                      <li onclick=toggle_view('$Post_ID');><a href='#'>View</a></li>
+                                      <li onclick=toggle_view('$Post_ID','C.Ads');><a href='#'>View</a></li>
                                    </ul>   
                                </div>  
                           </div>
@@ -412,13 +486,11 @@
                               }
                             }
 
-                            echo "<p>".$Publish_Date." ".$Publish_Time."</p>
-                                  <p>2022:01:01
-                                  00:00</p>";
+                            echo "<p>".$Publish_Date." ".$Publish_Time."</p>";
 
                             echo "<div class='setting_close'>
-                              <img src='../images/Setting.svg' onclick='togglePopup()'>
-                              <img src='../images/Close.svg'>
+                              <img src='../images/Setting.svg' onclick = togglePopupUpdate_add('$Post_ID','C.Ads','$Publish_Date','$Publish_Time')>
+                              <img src='../images/Close.svg' onclick = togglePopupremove_add('$Post_ID','C.Ads')>
                             </div>";
                               
                             echo "</div>
@@ -426,9 +498,6 @@
                     }   
                 }
               }
-                
-
-
           ?>
          
 
@@ -436,11 +505,56 @@
     </div>
 
     
-</div>
+
+    </div>
 
 
 
 <!--create popup window-->
+
+
+<script>
+  
+  function togglePopupremove_add(Delete_ID,Type){
+      $.ajax({
+        url: "../Control/Pending_SetTime.php",
+        type: "post",
+        data: {Delete_ID:Delete_ID,
+        Type:Type},
+        success:function(data){
+          console.log("correct");
+          window.open('../view/Moderator_Set_Time.php','_self');
+        }
+      });
+  }
+
+  function togglePopupUpdate_add(Update_ID,Type,Date,Time){
+      const xhttp = new XMLHttpRequest();
+      xhttp.onload = function(){
+        document.getElementById("current_post_id").value = Update_ID;
+        document.getElementById("current_post_type").value = Type;
+        document.getElementById("update-date").value = Date;
+        document.getElementById("update-time").value = Time;
+      }
+      xhttp.open("GET",Update_ID);
+      xhttp.send();
+      document.getElementById("popup-1").classList.toggle("active");
+  }
+
+  function toggle_view(View_ID,Type){
+    $.ajax({
+        url :"../Control/Pending_SetTime.php",
+        type:"POST",
+        data:{
+          View_ID: View_ID,
+          Type: Type
+        },
+        success:function(data){
+          window.open('./Moderator_Set_Time_Read.php','_self');
+        }
+      });
+  }
+</script>
 
 
 <div class="popup" id="popup-1">
@@ -459,23 +573,29 @@
 
               <div class="popup_form">
                   <h3 class="popup_title">Update Publish Date & Time</h3>
-                  <form action="" method="post">
+                  
+                  <form action="../Control/Pending_SetTime.php" method="post">
+
+                     <input type="text" name="ID" id="current_post_id" style="display:none;">
+
+                     <input type="text" name="Type" id="current_post_type" style="display:none;">
 
                      <label for="update-date" class="lbl">Date</label>
                   
-                     <input type="date" name="" id="update-date" class="inp" required value="2022-01-01">
+                     <input type="date" name="update_set_time_date" id="update-date" class="inp" required>
                      <br>
                      <br>
 
                      <label for="update-time" class="lbl">Time</label>
                      
-                     <input type="time" name="" id="update-time" class="inp" required value="00:00">
+                     <input type="time" name="update_set_time_time" id="update-time" class="inp" required>
                      <br>
                      <br>
 
-                     <button type="submit" name ="login" class="update_btn" value="LOGIN">Update</button>
+                     <button type="submit" name ="Update_Set_Time" class="update_btn" value="LOGIN">Update</button>
               
                    </form>
+
                </div>
 
           </div>

@@ -631,6 +631,31 @@ session_start();
 </script>
 
 
+
+<?php
+  $Date = date("Y-m-d");
+  
+  $sql_deactivate_list = "SELECT * FROM deactivate WHERE Date = '$Date'";
+  $statement_deactivate_list = $conn->query($sql_deactivate_list);
+  $results_deactivate_list = $statement_deactivate_list->fetchAll(PDO::FETCH_ASSOC);
+  if($results_deactivate_list){
+    foreach($results_deactivate_list as $value){
+      $ID = $value['System_Actor_ID'];
+      $sql = 'DELETE FROM system_actor WHERE System_Actor_Id = :System_Actor_Id';
+      $statement = $conn->prepare($sql);
+      $statement->bindParam(':System_Actor_Id', $ID); 
+      if ($statement->execute()) {
+        $sql_de = 'DELETE FROM deactivate WHERE System_Actor_ID = :System_Actor_ID';
+        $statement_de = $conn->prepare($sql_de);
+        $statement_de->bindParam(':System_Actor_ID', $ID); 
+        $statement_de->execute();
+      }
+    }
+  }
+
+
+?>
+
 <!--Popup windows -->
 
 <div class="errorbox" id="error1">
