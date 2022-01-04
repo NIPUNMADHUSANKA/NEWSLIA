@@ -1,5 +1,6 @@
 <?php
   session_start();
+  date_default_timezone_set("Asia/Calcutta");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +25,8 @@
       padding-left:80px;
   }
   .box-container{
-    height: 240px;
+    height: 310px;
+    margin-left:1rem;
   }
 
   .posts_content_view_head{
@@ -33,8 +35,8 @@
   }
 
 .body_information{
-      margin-left:-3rem;
-       margin-top:-1rem;
+  margin-left:-3rem;
+  margin-top:-1rem;
        /*padding: 1.2vw; */     
 }
 
@@ -59,7 +61,43 @@
     margin-left: 5rem;
   }
 
+  
+  .tag {
+      position: absolute;
+      top: 1.3%;
+      bottom: 0;
+      left: 20;
+      right: 1%;
+      height: 15%;
+      width: 30%;
+      opacity: 1;
+      transition: .5s ease;
+      background-color: #ACE0B8;
+      cursor: pointer;
+      border-radius:0px 0px 0px 20px;
+  }
+  .box_head:hover .tag{
+      opacity: 1;
+  } 
 
+  .tag_text{
+      color: #555;
+      font-weight:bold;
+      font-size: 15px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+  }
+
+  .view_btn ul{
+    list-style-type: none;
+  }
+
+  .view_btn ul a{
+    text-decoration:none;
+    color:#333;
+  }
 
 </style>
 
@@ -72,6 +110,93 @@
   include 'nav.php'; ?>
 
 <!--End of Navigation-Bar-->
+
+
+<!-- Start Auto Delete Posts -->
+
+<?php
+  include '../Model/connect.php';
+
+  $Type = "Notices";
+  $System_Date = date("Y-m-d");
+  $System_Time = date("H:i:s");
+
+  $post_delete = "SELECT * FROM post_auto_delete WHERE Type='$Type' AND Date <= '$System_Date'";
+  $post_delete_state = $conn->query($post_delete);
+  $post_delete_results = $post_delete_state->fetchAll(PDO::FETCH_ASSOC);
+
+  if($post_delete_results){
+      foreach($post_delete_results as $post_delete_result){
+        $flag = 0;
+        
+        if($post_delete_result['Date'] == $System_Date and $post_delete_result['Time'] < $System_Time){
+          $flag = 1;
+        }
+        elseif($post_delete_result['Date'] < $System_Date){
+          $flag = 1; 
+        }
+        
+        if($flag == 1){
+          $Post_ID = $post_delete_result['Post_ID'];
+          
+          /////////////////////////////////////////////////////////////////////////////
+          $sql = 'DELETE FROM read_time WHERE Post_ID = :Post_ID';
+          
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+          $statement->execute();
+
+          /////////////////////////////////////////////////////////////////////////////
+          $sql = 'DELETE FROM reminder WHERE Post_ID = :Post_ID';
+          
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+          $statement->execute();
+
+          /////////////////////////////////////////////////////////////////////////////
+          $sql = 'DELETE FROM hidden WHERE Post_ID = :Post_ID';
+          
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+          $statement->execute();
+
+          /////////////////////////////////////////////////////////////////////////////
+          $sql = 'DELETE FROM save WHERE Post_ID = :Post_ID';
+          
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+          $statement->execute();
+
+          /////////////////////////////////////////////////////////////////////////////
+          $sql = 'DELETE FROM post_area WHERE Post_ID = :Post_ID';
+          
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+          if($statement->execute()){
+            echo $statement_Area->rowCount();
+          }
+
+          /////////////////////////////////////////////////////////////////////////////
+          $sql = 'DELETE FROM notices WHERE Post_ID = :Post_ID';
+          
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+          $statement->execute();
+
+          /////////////////////////////////////////////////////////////////////////////
+          $sql = 'DELETE FROM post_auto_delete WHERE Post_ID = :Post_ID';
+          
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+          $statement->execute();
+
+        }
+        
+      }
+  }
+?>
+
+<!-- End Auto Delete Posts -->
 
 
 <!-- Moderator Notices View -->
@@ -103,45 +228,130 @@
     
 </div>
 
+
 <div class="posts_content_view_body">
 
     <div class="body_information">
          
-          <div class="box-container normal_box">
-              <div class="box_head">
-                <img src="../images/save/blood.jpg" alt="">
-              
-                <div class="middle">
-                     <div class="view_btn" onclick="window.open('./Moderator_read_notice.php', '_self')">View</div>
-                </div>
-
-              </div>
-              <div class="box_body">
-                <h3>Blood Donation</h3>
-                <p>2021-10-15</p>
-                <p>Nilu Perera</p>
-              </div>
-
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="">
-                <ul class ="more_post">
+        <?php
+        
+            
+            $table = 'Notices';
+            $notice_info_sql = "SELECT * FROM notices";
+                
+            $notice_info_state = $conn->query($notice_info_sql);
+            $notice_info_results = $notice_info_state->fetchAll(PDO::FETCH_ASSOC);
+                
+            if($notice_info_results){
+              foreach($notice_info_results as $notice_info_result){
                   
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hide</a></li>
-                      <li onclick="set_time_to_publish_Popup()"><a href="#">Reminder</a></li>
-          
-              </ul>
-              </div>
-          </div>
+                  $Post_ID = $notice_info_result['Post_ID'];
+                  $Type = $table;
 
-         
+                  $img = $notice_info_result['Image'];
+                  $img = base64_encode($img);
+                  $text = pathinfo($notice_info_result['Post_ID'], PATHINFO_EXTENSION);
 
+                  $TITLE = $notice_info_result['Title'];
+                  $P_DATE = $notice_info_result['Publish_Date'];
+                  $Creator_ID = $notice_info_result['Creator_ID'];
+                        
 
+                  echo "<div class='box-container'>
+                        <div class='box_head'>
+                          <img src='data:image/".$text.";base64,".$img."'/>
+                          
+                          <div class='tag'>
+                            <div class='tag_text'>".$Type."</div>
+                          </div>
+                          
+                          <div class='middle'>
+                               <div class='view_btn'>
+                                   <ul>
+                                      <li onclick=toggle_view('$Post_ID');><a href='#'>View</a></li>
+                                   </ul>
+                                          
+                               </div>
+                               
+                          </div>
+                        </div>
+                        
+                        <div class='box_body'>";
+
+                        $notice_read_time_sql = "SELECT * FROM read_time WHERE Post_ID='$Post_ID'";
+                        $notice_read_time_state = $conn->query($notice_read_time_sql);
+                        $notice_read_time_results = $notice_read_time_state->fetchAll(PDO::FETCH_ASSOC);
+
+                        if($notice_read_time_results){
+                          foreach($notice_read_time_results as $notice_read_time_result){
+
+                            $Read_Time = strtotime($notice_read_time_result['Last_Read_Time']);
+                           // $System_Time = strtotime(date("H:i:s"));
+
+                            /*$CAP = $System_Time - $Read_Time;
+
+                            /*echo $CAP;
+                            echo "<br>";
+                           echo $System_Time;
+
+                            /*echo "<i><span style='font-size:13px;color:#888;'>".$notice_read_time_result['Last_Read_Date']." </span>
+                                  <span style='font-size:13px; margin-left:1rem;color:#888;'> ".."</span></i>"; */
+
+                          }
+                        }
+                          
+                        echo "<h3>".$TITLE."</h3>";
+                          
+                          
+                        echo "<p>".$P_DATE."</p>";
+                          
+
+                          $notice_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+                          $notice_from_state = $conn->query($notice_from_sql);
+                          $notice_from_results = $notice_from_state->fetchAll(PDO::FETCH_ASSOC);
+
+                          if($notice_from_results){
+                              echo "<b><i>-</b></i>";
+                            foreach($notice_from_results as $notice_from_result){
+                              echo "<i>".$notice_from_result['Area']." - ";
+                              echo "</i>";
+                            }
+                          }
+
+                          echo "<br>";
+                        
+                          $notice_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
+                          $notice_who_state = $conn->query($notice_who_sql);
+                          $notice_who_results = $notice_who_state->fetchAll(PDO::FETCH_ASSOC);
+
+                          if($notice_who_results){
+                            foreach($notice_who_results as $notice_who_result){
+                              echo "<p>".$notice_who_result['FirstName']." ".$notice_who_result['LastName']."</p>";    
+                            }
+                          }
+
+                         echo "
+                        </div>
+                        <div class='more'>
+                          <img src='../images/More.svg'>
+                          <ul class ='more_post'>
+                            <li onclick=toggle_unsave('$Post_ID');><a href='#' >Save</a></li>
+                            <li onclick=toggle_hidden('$Post_ID');><a href='#'>Hide</a></li>
+                            <li onclick='set_time_to_publish_Popup()'><a href='#'>Reminder</a></li>
+                          </ul>
+                        </div>
+                      </div>";
+
+                    }
+                }
+              
+        ?>
           
     </div>
-
-    
 </div>
+
+
+
 
 
 

@@ -1,5 +1,6 @@
 <?php
   session_start();
+  date_default_timezone_set("Asia/Calcutta");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -515,6 +516,12 @@
             }
           }
 
+          $P_Time = NULL;
+          $Count = 0;
+          $Type = "News";
+          $Readtime_stmt = $conn->prepare("INSERT INTO `read_time` VALUES(?,?,?,?,?)");
+          $Readtime_stmt->execute([$Post_ID,$Count,$P_Time,$P_Time,$Type]);
+          
           $sql = 'DELETE FROM news_pending
           WHERE Post_ID = :Post_ID';
 
@@ -563,7 +570,11 @@
           $Auto_delete_stmt = $conn->prepare("INSERT INTO `post_auto_delete` VALUES(?,?,?,?)");
           $Auto_delete_stmt->execute([$Post_ID,$Date,$Time,$Cat]);
 
-         
+          $P_Time = NULL;
+          $Count = 0;
+          $Type = "News";
+          $Readtime_stmt = $conn->prepare("INSERT INTO `read_time` VALUES(?,?,?,?,?)");
+          $Readtime_stmt->execute([$Post_ID,$Count,$P_Time,$P_Time,$Type]);
           
           $sql = 'DELETE FROM news_pending
           WHERE Post_ID = :Post_ID';

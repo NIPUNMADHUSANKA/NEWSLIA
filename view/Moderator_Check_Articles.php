@@ -1,5 +1,6 @@
 <?php
   session_start();
+  date_default_timezone_set("Asia/Calcutta");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -292,9 +293,16 @@
     }
 
     if(isset($_POST['Accept'])){
+
           $P_Date = date("Y-m-d");
+
+    
           $Approve_stmt = $conn->prepare("INSERT INTO `articles` VALUES(?,?,?,?,?,?)");
           $Approve_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID]);
+
+          $P_Time = NULL;
+          $Readtime_stmt = $conn->prepare("INSERT INTO `read_time` VALUES(?,?,?,?,?)");
+          $Readtime_stmt->execute([$Post_ID,'0',$P_Time,$P_Time,'Articles']);
 
           $sql = 'DELETE FROM articles_pending
           WHERE Post_ID = :Post_ID';
