@@ -277,8 +277,16 @@
 
 <?php
 
+    $P_Date = date("Y-m-d");
+    $System_Time = date("H:i:s");
+    $System_Actor_ID = $_SESSION['System_Actor_ID'];
+    
     if(isset($_POST['Reject'])){
-      
+
+      // Notification
+      $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`) VALUES(?,?,?,?,?,?)");
+      $notification->execute([$Post_ID,'Reject',$Creator_ID,$P_Date,$System_Time,$System_Actor_ID]);
+
       $sql = 'DELETE FROM articles_pending
         WHERE Post_ID = :Post_ID';
 
@@ -294,27 +302,61 @@
 
     if(isset($_POST['Accept'])){
 
-          $P_Date = date("Y-m-d");
+        $Approve_stmt = $conn->prepare("INSERT INTO `articles` VALUES(?,?,?,?,?,?)");
+        $Approve_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID]);
 
-    
-          $Approve_stmt = $conn->prepare("INSERT INTO `articles` VALUES(?,?,?,?,?,?)");
-          $Approve_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID]);
+        $P_Time = NULL;
+        $Readtime_stmt = $conn->prepare("INSERT INTO `read_time` VALUES(?,?,?,?,?)");
+        $Readtime_stmt->execute([$Post_ID,'0',$P_Time,$P_Time,'Articles']);
 
-          $P_Time = NULL;
-          $Readtime_stmt = $conn->prepare("INSERT INTO `read_time` VALUES(?,?,?,?,?)");
-          $Readtime_stmt->execute([$Post_ID,'0',$P_Time,$P_Time,'Articles']);
+        // Notification
+        $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`) VALUES(?,?,?,?,?,?)");
+        $notification->execute([$Post_ID,'Approve',$Creator_ID,$P_Date,$System_Time,$System_Actor_ID]);
 
-          $sql = 'DELETE FROM articles_pending
+        // Update Moderator Insights Part//
+          $Article_Count = 1;
+          $Modertsor_Ingihts_sql = "SELECT * FROM moderate_insights WHERE System_Actor_Id = '$System_Actor_ID'";
+          $Modertsor_Ingihts_statement = $conn->query($Modertsor_Ingihts_sql);
+          $Modertsor_Ingihts_results = $Modertsor_Ingihts_statement->fetchAll(PDO::FETCH_ASSOC);
+
+          if($Modertsor_Ingihts_results){
+            foreach($Modertsor_Ingihts_results as $Modertsor_Ingihts_result){
+              $Article_Count = $Modertsor_Ingihts_result['Articles'] + 1;
+              $Moderator_Insights = [
+                'System_Actor_ID' => $System_Actor_ID,
+                'Article_Count' => $Article_Count
+              ];
+              
+              $Moderator_Insights_Update_sql = 'UPDATE moderate_insights
+                                                SET Articles = :Article_Count
+                                                WHERE System_Actor_Id = :System_Actor_ID';
+              
+              $Moderator_Insights_Update_statement = $conn->prepare($Moderator_Insights_Update_sql);
+              
+              $Moderator_Insights_Update_statement->bindParam(':System_Actor_ID', $Moderator_Insights['System_Actor_ID']);
+              $Moderator_Insights_Update_statement->bindParam(':Article_Count', $Moderator_Insights['Article_Count']);
+              
+              $Moderator_Insights_Update_statement->execute();
+            }
+          }
+          else{
+            $Moderator_Insights_insert_sql = $conn->prepare("INSERT INTO `moderate_insights`(`System_Actor_Id`,`Articles`) VALUES(?,?)");
+            $Moderator_Insights_insert_sql->execute([$System_Actor_ID,$Article_Count]);
+          }
+
+        // End Update Moderator Insights Part//
+
+        $sql = 'DELETE FROM articles_pending
           WHERE Post_ID = :Post_ID';
 
-          // prepare the statement for execution
-          $statement = $conn->prepare($sql);
-          $statement->bindParam(':Post_ID', $Post_ID);
+        // prepare the statement for execution
+        $statement = $conn->prepare($sql);
+        $statement->bindParam(':Post_ID', $Post_ID);
 
           // execute the statement  
-          if($statement->execute()){
-            echo "<script>window.open('Moderator_Pending.php','_self')</script>";
-          } 
+        if($statement->execute()){
+          echo "<script>window.open('Moderator_Pending.php','_self')</script>";
+        } 
     }
 
 

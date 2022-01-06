@@ -317,7 +317,15 @@
 
 <?php
 
+    $Computer_Date = date("Y-m-d");
+    $Computer_Time = date("H:i:s");
+    $System_Actor_ID = $_SESSION['System_Actor_ID'];
+
     if(isset($_POST['Reject'])){
+      
+      // Notification
+      $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`) VALUES(?,?,?,?,?,?)");
+      $notification->execute([$Post_ID,'Reject',$Creator_ID,$Computer_Date,$Computer_Time,$System_Actor_ID]);
       
       $sql = 'DELETE FROM news_pending
         WHERE Post_ID = :Post_ID';
@@ -521,6 +529,76 @@
           $Type = "News";
           $Readtime_stmt = $conn->prepare("INSERT INTO `read_time` VALUES(?,?,?,?,?)");
           $Readtime_stmt->execute([$Post_ID,$Count,$P_Time,$P_Time,$Type]);
+
+          // Notification
+          $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`) VALUES(?,?,?,?,?,?)");
+          $notification->execute([$Post_ID,'Approve',$Creator_ID,$Computer_Date,$Computer_Time,$System_Actor_ID]);
+
+          // Update Moderator Insights Part//
+            $News_Count = 1;
+            $Modertsor_Ingihts_sql = "SELECT * FROM moderate_insights WHERE System_Actor_Id = '$System_Actor_ID'";
+            $Modertsor_Ingihts_statement = $conn->query($Modertsor_Ingihts_sql);
+            $Modertsor_Ingihts_results = $Modertsor_Ingihts_statement->fetchAll(PDO::FETCH_ASSOC);
+
+            if($Modertsor_Ingihts_results){
+              foreach($Modertsor_Ingihts_results as $Modertsor_Ingihts_result){
+                $News_Count = $Modertsor_Ingihts_result['News'] + 1;
+                $Moderator_Insights = [
+                  'System_Actor_ID' => $System_Actor_ID,
+                  'News_Count' => $News_Count
+                ];
+                
+                $Moderator_Insights_Update_sql = 'UPDATE moderate_insights
+                                                  SET News = :News_Count
+                                                  WHERE System_Actor_Id = :System_Actor_ID';
+                
+                $Moderator_Insights_Update_statement = $conn->prepare($Moderator_Insights_Update_sql);
+                
+                $Moderator_Insights_Update_statement->bindParam(':System_Actor_ID', $Moderator_Insights['System_Actor_ID']);
+                $Moderator_Insights_Update_statement->bindParam(':News_Count', $Moderator_Insights['News_Count']);
+                
+                $Moderator_Insights_Update_statement->execute();
+              }
+            }
+            else{
+              $Moderator_Insights_insert_sql = $conn->prepare("INSERT INTO `moderate_insights`(`System_Actor_Id`,`News`) VALUES(?,?)");
+              $Moderator_Insights_insert_sql->execute([$System_Actor_ID,$News_Count]);
+            }
+
+          // End Update Moderator Insights Part//
+
+          // Update Repoter Insights Part//
+            $News_Count = 1;
+            $Repoter_Ingihts_sql = "SELECT * FROM reporter_insights WHERE System_Actor_Id = '$Creator_ID'";
+            $Repoter_Ingihts_statement = $conn->query($Repoter_Ingihts_sql);
+            $Repoter_Ingihts_results = $Repoter_Ingihts_statement->fetchAll(PDO::FETCH_ASSOC);
+
+            if($Repoter_Ingihts_results){
+              foreach($Repoter_Ingihts_results as $Repoter_Ingihts_result){
+                $News_Count = $Repoter_Ingihts_result['News'] + 1;
+                $Repoter_Insights = [
+                  'System_Actor_ID' => $Creator_ID,
+                  'News_Count' => $News_Count
+                ];
+                
+                $Repoter_Insights_Update_sql = 'UPDATE reporter_insights
+                                                  SET News = :News_Count
+                                                  WHERE System_Actor_Id = :System_Actor_ID';
+                
+                $Repoter_Insights_Update_statement = $conn->prepare($Repoter_Insights_Update_sql);
+                
+                $Repoter_Insights_Update_statement->bindParam(':System_Actor_ID', $Repoter_Insights['System_Actor_ID']);
+                $Repoter_Insights_Update_statement->bindParam(':News_Count', $Repoter_Insights['News_Count']);
+                
+                $Repoter_Insights_Update_statement->execute();
+              }
+            }
+            else{
+              $Repoter_Insights_insert_sql = $conn->prepare("INSERT INTO `reporter_insights`(`System_Actor_Id`,`News`) VALUES(?,?)");
+              $Repoter_Insights_insert_sql->execute([$Creator_ID,$News_Count]);
+            }
+
+          // End Update Repoter Insights Part//
           
           $sql = 'DELETE FROM news_pending
           WHERE Post_ID = :Post_ID';
@@ -543,8 +621,6 @@
           $Cat = "News";
           $Up = 0;
           $Down = 0;
-
-          
 
           if($Smart_Date == NULL){
             $Accept_stmt = $conn->prepare("INSERT INTO `news`(`Post_ID`,`Title`,`Publish_Date`,`Image`,`Details`,`News_Category`,`Creator_ID`,`up_count`,`down_count`) VALUES(?,?,?,?,?,?,?,?,?)");
@@ -575,7 +651,77 @@
           $Type = "News";
           $Readtime_stmt = $conn->prepare("INSERT INTO `read_time` VALUES(?,?,?,?,?)");
           $Readtime_stmt->execute([$Post_ID,$Count,$P_Time,$P_Time,$Type]);
-          
+
+          // Notification
+          $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`) VALUES(?,?,?,?,?,?)");
+          $notification->execute([$Post_ID,'Approve',$Creator_ID,$Computer_Date,$Computer_Time,$System_Actor_ID]);
+
+          // Update Moderator Insights Part//
+            $News_Count = 1;
+            $Modertsor_Ingihts_sql = "SELECT * FROM moderate_insights WHERE System_Actor_Id = '$System_Actor_ID'";
+            $Modertsor_Ingihts_statement = $conn->query($Modertsor_Ingihts_sql);
+            $Modertsor_Ingihts_results = $Modertsor_Ingihts_statement->fetchAll(PDO::FETCH_ASSOC);
+
+            if($Modertsor_Ingihts_results){
+              foreach($Modertsor_Ingihts_results as $Modertsor_Ingihts_result){
+                $News_Count = $Modertsor_Ingihts_result['News'] + 1;
+                $Moderator_Insights = [
+                  'System_Actor_ID' => $System_Actor_ID,
+                  'News_Count' => $News_Count
+                ];
+                
+                $Moderator_Insights_Update_sql = 'UPDATE moderate_insights
+                                                  SET News = :News_Count
+                                                  WHERE System_Actor_Id = :System_Actor_ID';
+                
+                $Moderator_Insights_Update_statement = $conn->prepare($Moderator_Insights_Update_sql);
+                
+                $Moderator_Insights_Update_statement->bindParam(':System_Actor_ID', $Moderator_Insights['System_Actor_ID']);
+                $Moderator_Insights_Update_statement->bindParam(':News_Count', $Moderator_Insights['News_Count']);
+                
+                $Moderator_Insights_Update_statement->execute();
+              }
+            }
+            else{
+              $Moderator_Insights_insert_sql = $conn->prepare("INSERT INTO `moderate_insights`(`System_Actor_Id`,`News`) VALUES(?,?)");
+              $Moderator_Insights_insert_sql->execute([$System_Actor_ID,$News_Count]);
+            }
+
+          // End Update Moderator Insights Part//
+
+         // Update Repoter Insights Part//
+          $News_Count = 1;
+          $Repoter_Ingihts_sql = "SELECT * FROM reporter_insights WHERE System_Actor_Id = '$Creator_ID'";
+          $Repoter_Ingihts_statement = $conn->query($Repoter_Ingihts_sql);
+          $Repoter_Ingihts_results = $Repoter_Ingihts_statement->fetchAll(PDO::FETCH_ASSOC);
+
+          if($Repoter_Ingihts_results){
+            foreach($Repoter_Ingihts_results as $Repoter_Ingihts_result){
+              $News_Count = $Repoter_Ingihts_result['News'] + 1;
+              $Repoter_Insights = [
+                'System_Actor_ID' => $Creator_ID,
+                'News_Count' => $News_Count
+              ];
+              
+              $Repoter_Insights_Update_sql = 'UPDATE reporter_insights
+                                                SET News = :News_Count
+                                                WHERE System_Actor_Id = :System_Actor_ID';
+              
+              $Repoter_Insights_Update_statement = $conn->prepare($Repoter_Insights_Update_sql);
+              
+              $Repoter_Insights_Update_statement->bindParam(':System_Actor_ID', $Repoter_Insights['System_Actor_ID']);
+              $Repoter_Insights_Update_statement->bindParam(':News_Count', $Repoter_Insights['News_Count']);
+              
+              $Repoter_Insights_Update_statement->execute();
+            }
+          }
+          else{
+            $Repoter_Insights_insert_sql = $conn->prepare("INSERT INTO `reporter_insights`(`System_Actor_Id`,`News`) VALUES(?,?)");
+            $Repoter_Insights_insert_sql->execute([$Creator_ID,$News_Count]);
+          }
+ 
+         // End Update Repoter Insights Part//
+           
           $sql = 'DELETE FROM news_pending
           WHERE Post_ID = :Post_ID';
 

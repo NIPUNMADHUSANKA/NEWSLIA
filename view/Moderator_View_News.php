@@ -1,5 +1,6 @@
 <?php
   session_start();
+  date_default_timezone_set("Asia/Calcutta");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -132,6 +133,44 @@
     margin-top: 20px;
     margin-left: 5rem;
   }
+
+  .tag {
+      position: absolute;
+      top: 1.3%;
+      bottom: 0;
+      left: 20;
+      right: 1%;
+      height: 15%;
+      width: 30%;
+      opacity: 1;
+      transition: .5s ease;
+      background-color: #ACE0B8;
+      cursor: pointer;
+      border-radius:0px 0px 0px 20px;
+  }
+  .box_head:hover .tag{
+      opacity: 1;
+  } 
+
+  .tag_text{
+      color: #555;
+      font-weight:bold;
+      font-size: 15px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+  }
+
+  .view_btn ul{
+    list-style-type: none;
+  }
+
+  .view_btn ul a{
+    text-decoration:none;
+    color:#333;
+  }
+
 </style>
 
 <body>
@@ -143,6 +182,107 @@
   include 'nav.php'; ?>
 
 <!--End of Navigation-Bar-->
+
+<!-- Start Auto Delete Posts -->
+
+<?php
+  include '../Model/connect.php';
+
+  $Type = "News";
+  $System_Date = date("Y-m-d");
+  $System_Time = date("H:i:s");
+
+  $post_delete = "SELECT * FROM post_auto_delete WHERE Type='$Type' AND Date <= '$System_Date'";
+  $post_delete_state = $conn->query($post_delete);
+  $post_delete_results = $post_delete_state->fetchAll(PDO::FETCH_ASSOC);
+
+  if($post_delete_results){
+      foreach($post_delete_results as $post_delete_result){
+        $flag = 0;
+        
+        if($post_delete_result['Date'] == $System_Date and $post_delete_result['Time'] < $System_Time){
+          $flag = 1;
+        }
+        elseif($post_delete_result['Date'] < $System_Date){
+          $flag = 1; 
+        }
+        
+        if($flag == 1){
+          $Post_ID = $post_delete_result['Post_ID'];
+          
+          /////////////////////////////////////////////////////////////////////////////
+          $sql = 'DELETE FROM read_time WHERE Post_ID = :Post_ID';
+          
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+          $statement->execute();
+
+          /////////////////////////////////////////////////////////////////////////////
+          $sql = 'DELETE FROM reminder WHERE Post_ID = :Post_ID';
+          
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+          $statement->execute();
+
+          /////////////////////////////////////////////////////////////////////////////
+          $sql = 'DELETE FROM hidden WHERE Post_ID = :Post_ID';
+          
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+          $statement->execute();
+
+          /////////////////////////////////////////////////////////////////////////////
+          $sql = 'DELETE FROM save WHERE Post_ID = :Post_ID';
+          
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+          $statement->execute();
+
+          /////////////////////////////////////////////////////////////////////////////
+          $sql = 'DELETE FROM post_area WHERE Post_ID = :Post_ID';
+          
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+          if($statement->execute()){
+            echo $statement_Area->rowCount();
+          }
+
+          /////////////////////////////////////////////////////////////////////////////
+          $sql = 'DELETE FROM news WHERE Post_ID = :Post_ID';
+          
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+          $statement->execute();
+
+          /////////////////////////////////////////////////////////////////////////////
+          $sql = 'DELETE FROM post_auto_delete WHERE Post_ID = :Post_ID';
+          
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+          $statement->execute();
+
+          /////////////////////////////////////////////////////////////////////////////
+          $sql = 'DELETE FROM smart_calendar WHERE Post_Id = :Post_ID';
+          
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+          $statement->execute();
+
+          /////////////////////////////////////////////////////////////////////////////
+          $sql = 'DELETE FROM vote WHERE Post_ID = :Post_ID';
+          
+          $statement = $conn->prepare($sql);
+          $statement->bindParam(':Post_ID', $Post_ID);
+          $statement->execute();
+
+        }
+        
+      }
+  }
+?>
+
+<!-- End Auto Delete Posts -->
+
 
 
 <!-- Moderator Notices View -->
@@ -381,33 +521,7 @@
 
     <div class="body_information">
          
-          <div class="box-container normal_box">
-              <div class="box_head">
-                <img src="../images/save/exam.jpg" alt="" class="picture">
-              
-                <div class="middle">
-                <div class="view_btn" onclick="window.open('./Moderator_Read_News.php', '_self')">View</div>
-                </div>
-
-              </div>
-              <div class="box_body">
-                <h3>Exam Results</h3>
-                <p>2021-10-25</p>
-                <p>Samith Dilshan</p>
-              </div>
-
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
-                      <li onclick="set_time_to_publish_Popup()"><a href="#">Reminder</a></li>
-
           
-              </ul>
-              </div>
-          </div>
 
           
 

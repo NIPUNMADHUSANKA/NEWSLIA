@@ -1,5 +1,6 @@
 <?php
   session_start();
+  date_default_timezone_set("Asia/Calcutta");
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +19,7 @@
 
 <style>
   body {
-    /*overflow: hidden; /* Hide scrollbars */
+    overflow: hidden; /* Hide scrollbars */
   }
   .box_head:hover img{
     opacity: 1;
@@ -382,7 +383,15 @@
 
 <?php
 
+    $Computer_Date = date("Y-m-d");
+    $Computer_Time = date("H:i:s");
+    $System_Actor_ID = $_SESSION['System_Actor_ID'];
+    
     if(isset($_POST['Reject'])){
+
+      // Notification
+      $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`) VALUES(?,?,?,?,?,?)");
+      $notification->execute([$Post_ID,'Reject',$Creator_ID,$Computer_Date,$Computer_Time,$System_Actor_ID]);
       
       if($Type =="Notices"){
         $pending_read_sql = "DELETE FROM notices_pending WHERE Post_ID= :Post_ID";
@@ -574,7 +583,6 @@
         $set_date = $_POST['set_date'];
         $set_time = $_POST['set_time'];
 
-
         if($Type =="Notices"){
 
           if($set_date == NULL and $set_time == NULL){
@@ -586,6 +594,73 @@
             $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
           }
 
+
+          // Update Moderator Insights Part//
+            $Notices_Count = 1;
+            $Modertsor_Ingihts_sql = "SELECT * FROM moderate_insights WHERE System_Actor_Id = '$System_Actor_ID'";
+            $Modertsor_Ingihts_statement = $conn->query($Modertsor_Ingihts_sql);
+            $Modertsor_Ingihts_results = $Modertsor_Ingihts_statement->fetchAll(PDO::FETCH_ASSOC);
+
+            if($Modertsor_Ingihts_results){
+              foreach($Modertsor_Ingihts_results as $Modertsor_Ingihts_result){
+                $Notices_Count = $Modertsor_Ingihts_result['Notices'] + 1;
+                $Moderator_Insights = [
+                  'System_Actor_ID' => $System_Actor_ID,
+                  'Notices_Count' => $Notices_Count
+                ];
+                
+                $Moderator_Insights_Update_sql = 'UPDATE moderate_insights
+                                                  SET Notices = :Notices_Count
+                                                  WHERE System_Actor_Id = :System_Actor_ID';
+                
+                $Moderator_Insights_Update_statement = $conn->prepare($Moderator_Insights_Update_sql);
+                
+                $Moderator_Insights_Update_statement->bindParam(':System_Actor_ID', $Moderator_Insights['System_Actor_ID']);
+                $Moderator_Insights_Update_statement->bindParam(':Notices_Count', $Moderator_Insights['Notices_Count']);
+                
+                $Moderator_Insights_Update_statement->execute();
+              }
+            }
+            else{
+              $Moderator_Insights_insert_sql = $conn->prepare("INSERT INTO `moderate_insights`(`System_Actor_Id`,`Notices`) VALUES(?,?)");
+              $Moderator_Insights_insert_sql->execute([$System_Actor_ID,$Notices_Count]);
+            }
+
+          // End Update Moderator Insights Part//
+
+          // Update Repoter Insights Part//
+            $Notices_Count = 1;
+            $Repoter_Ingihts_sql = "SELECT * FROM reporter_insights WHERE System_Actor_Id = '$Creator_ID'";
+            $Repoter_Ingihts_statement = $conn->query($Repoter_Ingihts_sql);
+            $Repoter_Ingihts_results = $Repoter_Ingihts_statement->fetchAll(PDO::FETCH_ASSOC);
+
+            if($Repoter_Ingihts_results){
+              foreach($Repoter_Ingihts_results as $Repoter_Ingihts_result){
+                $Notices_Count = $Repoter_Ingihts_result['Notices'] + 1;
+                $Repoter_Insights = [
+                  'System_Actor_ID' => $Creator_ID,
+                  'Notices_Count' => $Notices_Count
+                ];
+                
+                $Repoter_Insights_Update_sql = 'UPDATE reporter_insights
+                                                  SET Notices = :Notices_Count
+                                                  WHERE System_Actor_Id = :System_Actor_ID';
+                
+                $Repoter_Insights_Update_statement = $conn->prepare($Repoter_Insights_Update_sql);
+                
+                $Repoter_Insights_Update_statement->bindParam(':System_Actor_ID', $Repoter_Insights['System_Actor_ID']);
+                $Repoter_Insights_Update_statement->bindParam(':Notices_Count', $Repoter_Insights['Notices_Count']);
+                
+                $Repoter_Insights_Update_statement->execute();
+              }
+            }
+            else{
+              $Repoter_Insights_insert_sql = $conn->prepare("INSERT INTO `reporter_insights`(`System_Actor_Id`,`Notices`) VALUES(?,?)");
+              $Repoter_Insights_insert_sql->execute([$Creator_ID,$Notices_Count]);
+            }
+
+          // End Update Repoter Insights Part//
+
           $sql = 'DELETE FROM notices_pending
           WHERE Post_ID = :Post_ID';
 
@@ -594,9 +669,8 @@
           $statement->bindParam(':Post_ID', $Post_ID);
 
           // execute the statement  
-          if($statement->execute()){
-            echo "<script>window.open('Moderator_Pending.php','_self')</script>";
-          }
+          $statement->execute();
+          
 
         }
         elseif($Type =="Vacancies"){
@@ -610,6 +684,72 @@
             $Accept_stmt->execute([$Post_ID,$Company,$Title,$P_Date,$Deadline_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
           }
 
+          // Update Moderator Insights Part//
+              $Job_Count = 1;
+              $Modertsor_Ingihts_sql = "SELECT * FROM moderate_insights WHERE System_Actor_Id = '$System_Actor_ID'";
+              $Modertsor_Ingihts_statement = $conn->query($Modertsor_Ingihts_sql);
+              $Modertsor_Ingihts_results = $Modertsor_Ingihts_statement->fetchAll(PDO::FETCH_ASSOC);
+
+              if($Modertsor_Ingihts_results){
+                foreach($Modertsor_Ingihts_results as $Modertsor_Ingihts_result){
+                  $Job_Count = $Modertsor_Ingihts_result['Job Vacancies'] + 1;
+                  $Moderator_Insights = [
+                    'System_Actor_ID' => $System_Actor_ID,
+                    'Job_Count' => $Job_Count
+                  ];
+                  
+                  $Moderator_Insights_Update_sql = 'UPDATE moderate_insights
+                                                    SET `Job Vacancies` = :Job_Count
+                                                    WHERE System_Actor_Id = :System_Actor_ID';
+                  
+                  $Moderator_Insights_Update_statement = $conn->prepare($Moderator_Insights_Update_sql);
+                  
+                  $Moderator_Insights_Update_statement->bindParam(':System_Actor_ID', $Moderator_Insights['System_Actor_ID']);
+                  $Moderator_Insights_Update_statement->bindParam(':Job_Count', $Moderator_Insights['Job_Count']);
+                  
+                  $Moderator_Insights_Update_statement->execute();
+                }
+              }
+              else{
+                $Moderator_Insights_insert_sql = $conn->prepare("INSERT INTO `moderate_insights`(`System_Actor_Id`,`Job Vacancies`) VALUES(?,?)");
+                $Moderator_Insights_insert_sql->execute([$System_Actor_ID,$Job_Count]);
+              }
+
+          // End Update Moderator Insights Part//
+
+          // Update Repoter Insights Part//
+              $Job_Count = 1;
+              $Repoter_Ingihts_sql = "SELECT * FROM reporter_insights WHERE System_Actor_Id = '$Creator_ID'";
+              $Repoter_Ingihts_statement = $conn->query($Repoter_Ingihts_sql);
+              $Repoter_Ingihts_results = $Repoter_Ingihts_statement->fetchAll(PDO::FETCH_ASSOC);
+
+              if($Repoter_Ingihts_results){
+                foreach($Repoter_Ingihts_results as $Repoter_Ingihts_result){
+                  $Job_Count = $Repoter_Ingihts_result['Job Vacancies'] + 1;
+                  $Repoter_Insights = [
+                    'System_Actor_ID' => $Creator_ID,
+                    'Job_Count' => $Job_Count
+                  ];
+                  
+                  $Repoter_Insights_Update_sql = 'UPDATE reporter_insights
+                                                  SET `Job Vacancies` = :Job_Count
+                                                  WHERE System_Actor_Id = :System_Actor_ID';
+                  
+                  $Repoter_Insights_Update_statement = $conn->prepare($Repoter_Insights_Update_sql);
+                  
+                  $Repoter_Insights_Update_statement->bindParam(':System_Actor_ID', $Repoter_Insights['System_Actor_ID']);
+                  $Repoter_Insights_Update_statement->bindParam(':Job_Count', $Repoter_Insights['Job_Count']);
+                  
+                  $Repoter_Insights_Update_statement->execute();
+                }
+              }
+              else{
+                $Repoter_Insights_insert_sql = $conn->prepare("INSERT INTO `reporter_insights`(`System_Actor_Id`,`Job Vacancies`) VALUES(?,?)");
+                $Repoter_Insights_insert_sql->execute([$Creator_ID,$Job_Count]);
+              }
+
+          // End Update Repoter Insights Part//
+
           $sql = 'DELETE FROM job_vacancies_pending
           WHERE Post_ID = :Post_ID';
 
@@ -618,21 +758,87 @@
           $statement->bindParam(':Post_ID', $Post_ID);
 
           // execute the statement  
-          if($statement->execute()){
-            echo "<script>window.open('Moderator_Pending.php','_self')</script>";
-          }
-
+          $statement->execute();
+        
         }
         else{
           
-          if($set_date == NULL and $set_time == NULL){
-            $Accept_stmt = $conn->prepare("INSERT INTO `com_ads`(`Post_ID`,`Title`,`Publish_Date`,`Image`,`Details`,`Creator_ID`) VALUES(?,?,?,?,?,?)");
-            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID]);
-          }
-          elseif($set_date != NULL and $set_time != NULL){
-            $Accept_stmt = $conn->prepare("INSERT INTO `com_ads` VALUES(?,?,?,?,?,?,?,?)");
-            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
-          }
+            if($set_date == NULL and $set_time == NULL){
+              $Accept_stmt = $conn->prepare("INSERT INTO `com_ads`(`Post_ID`,`Title`,`Publish_Date`,`Image`,`Details`,`Creator_ID`) VALUES(?,?,?,?,?,?)");
+              $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID]);
+            }
+            elseif($set_date != NULL and $set_time != NULL){
+              $Accept_stmt = $conn->prepare("INSERT INTO `com_ads` VALUES(?,?,?,?,?,?,?,?)");
+              $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
+            }
+
+              // Update Moderator Insights Part//
+                $C_Count = 1;
+                $Modertsor_Ingihts_sql = "SELECT * FROM moderate_insights WHERE System_Actor_Id = '$System_Actor_ID'";
+                $Modertsor_Ingihts_statement = $conn->query($Modertsor_Ingihts_sql);
+                $Modertsor_Ingihts_results = $Modertsor_Ingihts_statement->fetchAll(PDO::FETCH_ASSOC);
+
+                if($Modertsor_Ingihts_results){
+                  foreach($Modertsor_Ingihts_results as $Modertsor_Ingihts_result){
+                    $C_Count = $Modertsor_Ingihts_result['Commercial Ads'] + 1;
+                    $Moderator_Insights = [
+                      'System_Actor_ID' => $System_Actor_ID,
+                      'C_Count' => $C_Count
+                    ];
+                    
+                    $Moderator_Insights_Update_sql = 'UPDATE moderate_insights
+                                                      SET `Commercial Ads` = :C_Count
+                                                      WHERE System_Actor_Id = :System_Actor_ID';
+                    
+                    $Moderator_Insights_Update_statement = $conn->prepare($Moderator_Insights_Update_sql);
+                    
+                    $Moderator_Insights_Update_statement->bindParam(':System_Actor_ID', $Moderator_Insights['System_Actor_ID']);
+                    $Moderator_Insights_Update_statement->bindParam(':C_Count', $Moderator_Insights['C_Count']);
+                    
+                    $Moderator_Insights_Update_statement->execute();
+                  }
+                }
+                else{
+                  $Moderator_Insights_insert_sql = $conn->prepare("INSERT INTO `moderate_insights`(`System_Actor_Id`,`Commercial Ads`) VALUES(?,?)");
+                  $Moderator_Insights_insert_sql->execute([$System_Actor_ID,$C_Count]);
+                }
+
+            // End Update Moderator Insights Part//
+
+            // Update Repoter Insights Part//
+                $C_Count = 1;
+                $Repoter_Ingihts_sql = "SELECT * FROM reporter_insights WHERE System_Actor_Id = '$Creator_ID'";
+                $Repoter_Ingihts_statement = $conn->query($Repoter_Ingihts_sql);
+                $Repoter_Ingihts_results = $Repoter_Ingihts_statement->fetchAll(PDO::FETCH_ASSOC);
+
+                if($Repoter_Ingihts_results){
+                  foreach($Repoter_Ingihts_results as $Repoter_Ingihts_result){
+                    $C_Count = $Repoter_Ingihts_result['Commercial Ads'] + 1;
+                    $Repoter_Insights = [
+                      'System_Actor_ID' => $Creator_ID,
+                      'C_Count' => $C_Count
+                    ];
+                    
+                    $Repoter_Insights_Update_sql = 'UPDATE reporter_insights
+                                                      SET `Commercial Ads` = :C_Count
+                                                      WHERE System_Actor_Id = :System_Actor_ID';
+                    
+                    $Repoter_Insights_Update_statement = $conn->prepare($Repoter_Insights_Update_sql);
+                    
+                    $Repoter_Insights_Update_statement->bindParam(':System_Actor_ID', $Repoter_Insights['System_Actor_ID']);
+                    $Repoter_Insights_Update_statement->bindParam(':C_Count', $Repoter_Insights['C_Count']);
+                    
+                    $Repoter_Insights_Update_statement->execute();
+                  }
+                }
+                else{
+                  $Repoter_Insights_insert_sql = $conn->prepare("INSERT INTO `reporter_insights`(`System_Actor_Id`,`Commercial Ads`) VALUES(?,?)");
+                  $Repoter_Insights_insert_sql->execute([$Creator_ID,$C_Count]);
+                }
+
+            // End Update Repoter Insights Part//
+        
+          
 
           $sql = 'DELETE FROM com_ads_pending
           WHERE Post_ID = :Post_ID';
@@ -642,17 +848,21 @@
           $statement->bindParam(':Post_ID', $Post_ID);
 
           // execute the statement  
-          if($statement->execute()){*/
-            echo "<script>window.open('Moderator_Pending.php','_self')</script>";
-          }
-
+          $statement->execute();
+      
         }  
 
-        $P_Time = NULL;
-        $Count = 0;
-        $Readtime_stmt = $conn->prepare("INSERT INTO `read_time` VALUES(?,?,?,?,?)");
-        $Readtime_stmt->execute([$Post_ID,$Count,$P_Time,$P_Time,$Type]);
+          $P_Time = NULL;
+          $Count = 0;
+          $Readtime_stmt = $conn->prepare("INSERT INTO `read_time` VALUES(?,?,?,?,?)");
+          $Readtime_stmt->execute([$Post_ID,$Count,$P_Time,$P_Time,$Type]);
 
+          // Notification
+          $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`) VALUES(?,?,?,?,?,?)");
+          $notification->execute([$Post_ID,'Approve',$Creator_ID,$Computer_Date,$Computer_Time,$System_Actor_ID]);
+
+          echo "<script>window.open('Moderator_Pending.php','_self')</script>";
+        
       }
 
 
@@ -668,31 +878,92 @@
 
         if($Type =="Notices"){
 
-          $Cat = "Notices";
+            $Cat = "Notices";
 
-          if($set_date == NULL and $set_time == NULL){
-            $Accept_stmt = $conn->prepare("INSERT INTO `notices`(`Post_ID`, `Title`, `Publish_Date`, `Image`, `Details`, `Creator_ID`) VALUES(?,?,?,?,?,?)");
-            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID]);
-          }
-          elseif($set_date != NULL and $set_time != NULL){
-            $Accept_stmt = $conn->prepare("INSERT INTO `notices` VALUES(?,?,?,?,?,?,?,?)");
-            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
-          }
+            if($set_date == NULL and $set_time == NULL){
+              $Accept_stmt = $conn->prepare("INSERT INTO `notices`(`Post_ID`, `Title`, `Publish_Date`, `Image`, `Details`, `Creator_ID`) VALUES(?,?,?,?,?,?)");
+              $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID]);
+            }
+            elseif($set_date != NULL and $set_time != NULL){
+              $Accept_stmt = $conn->prepare("INSERT INTO `notices` VALUES(?,?,?,?,?,?,?,?)");
+              $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
+            }
+            // Update Moderator Insights Part//
+                $Job_Count = 1;
+                $Modertsor_Ingihts_sql = "SELECT * FROM moderate_insights WHERE System_Actor_Id = '$System_Actor_ID'";
+                $Modertsor_Ingihts_statement = $conn->query($Modertsor_Ingihts_sql);
+                $Modertsor_Ingihts_results = $Modertsor_Ingihts_statement->fetchAll(PDO::FETCH_ASSOC);
 
+                if($Modertsor_Ingihts_results){
+                  foreach($Modertsor_Ingihts_results as $Modertsor_Ingihts_result){
+                    $Job_Count = $Modertsor_Ingihts_result['Job Vacancies'] + 1;
+                    $Moderator_Insights = [
+                      'System_Actor_ID' => $System_Actor_ID,
+                      'Job_Count' => $Job_Count
+                    ];
+                    
+                    $Moderator_Insights_Update_sql = 'UPDATE moderate_insights
+                                                      SET Job Vacancies = :Job_Count
+                                                      WHERE System_Actor_Id = :System_Actor_ID';
+                    
+                    $Moderator_Insights_Update_statement = $conn->prepare($Moderator_Insights_Update_sql);
+                    
+                    $Moderator_Insights_Update_statement->bindParam(':System_Actor_ID', $Moderator_Insights['System_Actor_ID']);
+                    $Moderator_Insights_Update_statement->bindParam(':Job_Count', $Moderator_Insights['Job_Count']);
+                    
+                    $Moderator_Insights_Update_statement->execute();
+                  }
+                }
+                else{
+                  $Moderator_Insights_insert_sql = $conn->prepare("INSERT INTO `moderate_insights`(`System_Actor_Id`,`Job Vacancies`) VALUES(?,?)");
+                  $Moderator_Insights_insert_sql->execute([$System_Actor_ID,$Job_Count]);
+                }
 
+            // End Update Moderator Insights Part//
 
-          $sql = 'DELETE FROM notices_pending
-          WHERE Post_ID = :Post_ID';
+            // Update Repoter Insights Part//
+                $Job_Count = 1;
+                $Repoter_Ingihts_sql = "SELECT * FROM reporter_insights WHERE System_Actor_Id = '$Creator_ID'";
+                $Repoter_Ingihts_statement = $conn->query($Repoter_Ingihts_sql);
+                $Repoter_Ingihts_results = $Repoter_Ingihts_statement->fetchAll(PDO::FETCH_ASSOC);
 
-          // prepare the statement for execution
-          $statement = $conn->prepare($sql);
-          $statement->bindParam(':Post_ID', $Post_ID);
+                if($Repoter_Ingihts_results){
+                  foreach($Repoter_Ingihts_results as $Repoter_Ingihts_result){
+                    $Job_Count = $Repoter_Ingihts_result['Job Vacancies'] + 1;
+                    $Repoter_Insights = [
+                      'System_Actor_ID' => $Creator_ID,
+                      'Job_Count' => $Job_Count
+                    ];
+                    
+                    $Repoter_Insights_Update_sql = 'UPDATE reporter_insights
+                                                      SET Job Vacancies = :Job_Count
+                                                      WHERE System_Actor_Id = :System_Actor_ID';
+                    
+                    $Repoter_Insights_Update_statement = $conn->prepare($Repoter_Insights_Update_sql);
+                    
+                    $Repoter_Insights_Update_statement->bindParam(':System_Actor_ID', $Repoter_Insights['System_Actor_ID']);
+                    $Repoter_Insights_Update_statement->bindParam(':Job_Count', $Repoter_Insights['Job_Count']);
+                    
+                    $Repoter_Insights_Update_statement->execute();
+                  }
+                }
+                else{
+                  $Repoter_Insights_insert_sql = $conn->prepare("INSERT INTO `reporter_insights`(`System_Actor_Id`,`Job Vacancies`) VALUES(?,?)");
+                  $Repoter_Insights_insert_sql->execute([$Creator_ID,$Job_Count]);
+                }
 
-          // execute the statement  
-          if($statement->execute()){
-            echo "<script>window.open('Moderator_Pending.php','_self')</script>";
-          }
+            // End Update Repoter Insights Part//
 
+            $sql = 'DELETE FROM notices_pending
+            WHERE Post_ID = :Post_ID';
+
+            // prepare the statement for execution
+            $statement = $conn->prepare($sql);
+            $statement->bindParam(':Post_ID', $Post_ID);
+
+            // execute the statement  
+            $statement->execute();
+            
         }
         elseif($Type =="Vacancies"){
 
@@ -705,6 +976,71 @@
             $Accept_stmt = $conn->prepare("INSERT INTO `job_vacancies` VALUES(?,?,?,?,?,?,?,?,?,?)");
             $Accept_stmt->execute([$Post_ID,$Company,$Title,$P_Date,$Deadline_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
           }
+                // Update Moderator Insights Part//
+                  $Job_Count = 1;
+                  $Modertsor_Ingihts_sql = "SELECT * FROM moderate_insights WHERE System_Actor_Id = '$System_Actor_ID'";
+                  $Modertsor_Ingihts_statement = $conn->query($Modertsor_Ingihts_sql);
+                  $Modertsor_Ingihts_results = $Modertsor_Ingihts_statement->fetchAll(PDO::FETCH_ASSOC);
+
+                  if($Modertsor_Ingihts_results){
+                    foreach($Modertsor_Ingihts_results as $Modertsor_Ingihts_result){
+                      $Job_Count = $Modertsor_Ingihts_result['Job Vacancies'] + 1;
+                      $Moderator_Insights = [
+                        'System_Actor_ID' => $System_Actor_ID,
+                        'Job_Count' => $Job_Count
+                      ];
+                      
+                      $Moderator_Insights_Update_sql = 'UPDATE moderate_insights
+                                                        SET `Job Vacancies` = :Job_Count
+                                                        WHERE System_Actor_Id = :System_Actor_ID';
+                      
+                      $Moderator_Insights_Update_statement = $conn->prepare($Moderator_Insights_Update_sql);
+                      
+                      $Moderator_Insights_Update_statement->bindParam(':System_Actor_ID', $Moderator_Insights['System_Actor_ID']);
+                      $Moderator_Insights_Update_statement->bindParam(':Job_Count', $Moderator_Insights['Job_Count']);
+                      
+                      $Moderator_Insights_Update_statement->execute();
+                    }
+                  }
+                  else{
+                    $Moderator_Insights_insert_sql = $conn->prepare("INSERT INTO `moderate_insights`(`System_Actor_Id`,`Job Vacancies`) VALUES(?,?)");
+                    $Moderator_Insights_insert_sql->execute([$System_Actor_ID,$Job_Count]);
+                  }
+
+              // End Update Moderator Insights Part//
+
+            // Update Repoter Insights Part//
+                $Job_Count = 1;
+                $Repoter_Ingihts_sql = "SELECT * FROM reporter_insights WHERE System_Actor_Id = '$Creator_ID'";
+                $Repoter_Ingihts_statement = $conn->query($Repoter_Ingihts_sql);
+                $Repoter_Ingihts_results = $Repoter_Ingihts_statement->fetchAll(PDO::FETCH_ASSOC);
+
+                if($Repoter_Ingihts_results){
+                  foreach($Repoter_Ingihts_results as $Repoter_Ingihts_result){
+                    $Job_Count = $Repoter_Ingihts_result['Job Vacancies'] + 1;
+                    $Repoter_Insights = [
+                      'System_Actor_ID' => $Creator_ID,
+                      'Job_Count' => $Job_Count
+                    ];
+                    
+                    $Repoter_Insights_Update_sql = 'UPDATE reporter_insights
+                                                    SET `Job Vacancies` = :Job_Count
+                                                    WHERE System_Actor_Id = :System_Actor_ID';
+                    
+                    $Repoter_Insights_Update_statement = $conn->prepare($Repoter_Insights_Update_sql);
+                    
+                    $Repoter_Insights_Update_statement->bindParam(':System_Actor_ID', $Repoter_Insights['System_Actor_ID']);
+                    $Repoter_Insights_Update_statement->bindParam(':Job_Count', $Repoter_Insights['Job_Count']);
+                    
+                    $Repoter_Insights_Update_statement->execute();
+                  }
+                }
+                else{
+                  $Repoter_Insights_insert_sql = $conn->prepare("INSERT INTO `reporter_insights`(`System_Actor_Id`,`Job Vacancies`) VALUES(?,?)");
+                  $Repoter_Insights_insert_sql->execute([$Creator_ID,$Job_Count]);
+                }
+
+            // End Update Repoter Insights Part//
 
           $sql = 'DELETE FROM job_vacancies_pending
           WHERE Post_ID = :Post_ID';
@@ -714,9 +1050,7 @@
           $statement->bindParam(':Post_ID', $Post_ID);
 
           // execute the statement  
-          if($statement->execute()){
-            echo "<script>window.open('Moderator_Pending.php','_self')</script>";
-          }
+          $statement->execute();
 
         }
         else{
@@ -730,6 +1064,72 @@
             $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
           }
 
+                // Update Moderator Insights Part//
+                $C_Count = 1;
+                $Modertsor_Ingihts_sql = "SELECT * FROM moderate_insights WHERE System_Actor_Id = '$System_Actor_ID'";
+                $Modertsor_Ingihts_statement = $conn->query($Modertsor_Ingihts_sql);
+                $Modertsor_Ingihts_results = $Modertsor_Ingihts_statement->fetchAll(PDO::FETCH_ASSOC);
+
+                if($Modertsor_Ingihts_results){
+                  foreach($Modertsor_Ingihts_results as $Modertsor_Ingihts_result){
+                    $C_Count = $Modertsor_Ingihts_result['Commercial Ads'] + 1;
+                    $Moderator_Insights = [
+                      'System_Actor_ID' => $System_Actor_ID,
+                      'C_Count' => $C_Count
+                    ];
+                    
+                    $Moderator_Insights_Update_sql = 'UPDATE moderate_insights
+                                                      SET `Commercial Ads` = :C_Count
+                                                      WHERE System_Actor_Id = :System_Actor_ID';
+                    
+                    $Moderator_Insights_Update_statement = $conn->prepare($Moderator_Insights_Update_sql);
+                    
+                    $Moderator_Insights_Update_statement->bindParam(':System_Actor_ID', $Moderator_Insights['System_Actor_ID']);
+                    $Moderator_Insights_Update_statement->bindParam(':C_Count', $Moderator_Insights['C_Count']);
+                    
+                    $Moderator_Insights_Update_statement->execute();
+                  }
+                }
+                else{
+                  $Moderator_Insights_insert_sql = $conn->prepare("INSERT INTO `moderate_insights`(`System_Actor_Id`,`Commercial Ads`) VALUES(?,?)");
+                  $Moderator_Insights_insert_sql->execute([$System_Actor_ID,$C_Count]);
+                }
+
+            // End Update Moderator Insights Part//
+
+            // Update Repoter Insights Part//
+                $C_Count = 1;
+                $Repoter_Ingihts_sql = "SELECT * FROM reporter_insights WHERE System_Actor_Id = '$Creator_ID'";
+                $Repoter_Ingihts_statement = $conn->query($Repoter_Ingihts_sql);
+                $Repoter_Ingihts_results = $Repoter_Ingihts_statement->fetchAll(PDO::FETCH_ASSOC);
+
+                if($Repoter_Ingihts_results){
+                  foreach($Repoter_Ingihts_results as $Repoter_Ingihts_result){
+                    $C_Count = $Repoter_Ingihts_result['Commercial Ads'] + 1;
+                    $Repoter_Insights = [
+                      'System_Actor_ID' => $Creator_ID,
+                      'C_Count' => $C_Count
+                    ];
+                    
+                    $Repoter_Insights_Update_sql = 'UPDATE reporter_insights
+                                                      SET `Commercial Ads` = :C_Count
+                                                      WHERE System_Actor_Id = :System_Actor_ID';
+                    
+                    $Repoter_Insights_Update_statement = $conn->prepare($Repoter_Insights_Update_sql);
+                    
+                    $Repoter_Insights_Update_statement->bindParam(':System_Actor_ID', $Repoter_Insights['System_Actor_ID']);
+                    $Repoter_Insights_Update_statement->bindParam(':C_Count', $Repoter_Insights['C_Count']);
+                    
+                    $Repoter_Insights_Update_statement->execute();
+                  }
+                }
+                else{
+                  $Repoter_Insights_insert_sql = $conn->prepare("INSERT INTO `reporter_insights`(`System_Actor_Id`,`Commercial Ads`) VALUES(?,?)");
+                  $Repoter_Insights_insert_sql->execute([$Creator_ID,$C_Count]);
+                }
+
+            // End Update Repoter Insights Part//
+
           $sql = 'DELETE FROM com_ads_pending
           WHERE Post_ID = :Post_ID';
 
@@ -738,21 +1138,23 @@
           $statement->bindParam(':Post_ID', $Post_ID);
 
           // execute the statement  
-          if($statement->execute()){
-            echo "<script>window.open('Moderator_Pending.php','_self')</script>";
-          }
+          $statement->execute();
+           
+        }
+        
+          $Auto_delete_stmt = $conn->prepare("INSERT INTO `post_auto_delete` VALUES(?,?,?,?)");
+          $Auto_delete_stmt->execute([$Post_ID,$Date_Auto,$Time_Auto,$Cat]);
 
-        }  
+          $P_Time = NULL;
+          $Count = 0;
+          $Readtime_stmt = $conn->prepare("INSERT INTO `read_time` VALUES(?,?,?,?,?)");
+          $Readtime_stmt->execute([$Post_ID,$Count,$P_Time,$P_Time,$Type]);
 
-        $Auto_delete_stmt = $conn->prepare("INSERT INTO `post_auto_delete` VALUES(?,?,?,?)");
-        $Auto_delete_stmt->execute([$Post_ID,$Date_Auto,$Time_Auto,$Cat]);
-
-        $P_Time = NULL;
-        $Count = 0;
-        $Readtime_stmt = $conn->prepare("INSERT INTO `read_time` VALUES(?,?,?,?,?)");
-        $Readtime_stmt->execute([$Post_ID,$Count,$P_Time,$P_Time,$Type]);
-
-
+          // Notification
+          $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`) VALUES(?,?,?,?,?,?)");
+          $notification->execute([$Post_ID,'Approve',$Creator_ID,$Computer_Date,$Computer_Time,$System_Actor_ID]);
+          
+          echo "<script>window.open('Moderator_Pending.php','_self')</script>";
       }
 
 ?>

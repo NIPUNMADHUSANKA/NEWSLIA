@@ -1,5 +1,6 @@
 <?php
   session_start();
+  date_default_timezone_set("Asia/Calcutta");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +23,7 @@
       padding-left:80px;
   }
   .box-container{
-    height: 240px;
+    height: 290px;
   }
   .popular_famous_container{
     height: 320px;
@@ -69,6 +70,44 @@
   margin-left:3rem;
   height:260px;
 }
+
+.tag {
+      position: absolute;
+      top: 1.3%;
+      bottom: 0;
+      left: 20;
+      right: 1%;
+      height: 15%;
+      width: 30%;
+      opacity: 1;
+      transition: .5s ease;
+      background-color: #ACE0B8;
+      cursor: pointer;
+      border-radius:0px 0px 0px 20px;
+  }
+  .box_head:hover .tag{
+      opacity: 1;
+  } 
+
+  .tag_text{
+      color: #555;
+      font-weight:bold;
+      font-size: 15px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+  }
+
+  .view_btn ul{
+    list-style-type: none;
+  }
+
+  .view_btn ul a{
+    text-decoration:none;
+    color:#333;
+  }
+
   
 </style>
 
@@ -199,31 +238,80 @@
 
     <div class="body_information">
          
-          <div class="box-container normal_box">
-              <div class="box_head">
-                <img src="../images/save/forest.jpg" alt="">
-              
-                <div class="middle">
-                     <div class="view_btn" onclick="window.open('./Moderator_Read_Articles.php', '_self')">View</div>
-                </div>
-
-              </div>
-              <div class="box_body">
-                <h3>Sinharaja Forest</h3>
-                <p>2021-05-12</p>
-                <p>Anura Malith</p>
-              </div>
-
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
-          
-              </ul>
-              </div>
-          </div>
+    <?php
+      include '../Model/connect.php';
+      $table = 'Articles';
+      $post_info_sql = "SELECT * FROM articles ORDER BY Publish_Date DESC";                        
+      $post_info_state = $conn->query($post_info_sql);
+      $post_info_results = $post_info_state->fetchAll(PDO::FETCH_ASSOC);
+     
+      if($post_info_results){
+        foreach($post_info_results as $post_info_result){
+            $Post_ID = $post_info_result['Post_ID'];
+            $Type = $table;
+      
+            $img = $post_info_result['Image'];
+            $img = base64_encode($img);
+            $text = pathinfo($post_info_result['Post_ID'], PATHINFO_EXTENSION);
+      
+            $TITLE = $post_info_result['Title'];
+            $P_DATE = $post_info_result['Publish_Date'];
+            $Creator_ID = $post_info_result['Creator_ID'];
+                                      
+            echo "<div class='box-container'>
+                    <div class='box_head'>
+                      <img src='data:image/".$text.";base64,".$img."'/>
+                              
+                        <div class='tag'>
+                          <div class='tag_text'>".$Type."</div>
+                        </div>
+                                        
+                        <div class='middle'>
+                          <div class='view_btn'>
+                          <ul>
+                            <li onclick=toggle_view('$Post_ID');><a href='#'>View</a></li>
+                          </ul>
+                        </div>
+                                            
+                      </div>
+                    </div>
+                                      
+                    <div class='box_body'>";
+      
+                      echo "<h3>".$TITLE."</h3>";
+                      echo "<p>".$P_DATE."</p>";
+                      echo "<b><i>-</b></i>";
+                      echo "<i> All Areas- ";
+                      echo "</i>";
+                      echo "<br>";
+                      
+                      $post_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
+                      $post_who_state = $conn->query($post_who_sql);
+                      $post_who_results = $post_who_state->fetchAll(PDO::FETCH_ASSOC);
+      
+                        if($post_who_results){
+                            foreach($post_who_results as $post_who_result){
+                                echo "<p>".$post_who_result['FirstName']." ".$post_who_result['LastName']."</p>";    
+                            }
+                        }
+      
+                        echo "
+                        </div>
+                          <div class='more'>
+                              <img src='../images/More.svg'>
+                                  <ul class ='more_post'>
+                                    <li onclick=toggle_unsave('$Post_ID');><a href='#' >Save</a></li>
+                                    <li onclick=toggle_hidden('$Post_ID');><a href='#'>Hide</a></li>
+                                    <li onclick='set_time_to_publish_Popup()'><a href='#'>Reminder</a></li>
+                                  </ul>
+                          </div>
+                        </div>";
+        }
+      }
+      
+                
+                                    
+  ?>
 
          
           
