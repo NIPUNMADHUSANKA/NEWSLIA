@@ -414,28 +414,7 @@
                                 
                                 <div class='box_body'>";
 
-                                /*
-                                $notice_read_time_sql = "SELECT * FROM read_time WHERE Post_ID='$Post_ID'";
-                                $notice_read_time_state = $conn->query($notice_read_time_sql);
-                                $notice_read_time_results = $notice_read_time_state->fetchAll(PDO::FETCH_ASSOC);
-
-                                if($notice_read_time_results){
-                                  foreach($notice_read_time_results as $notice_read_time_result){
-
-                                    $Read_Time = strtotime($notice_read_time_result['Last_Read_Time']);
-                                  // $System_Time = strtotime(date("H:i:s"));
-
-                                    /*$CAP = $System_Time - $Read_Time;
-
-                                    /*echo $CAP;
-                                    echo "<br>";
-                                  echo $System_Time;
-
-                                    /*echo "<i><span style='font-size:13px;color:#888;'>".$notice_read_time_result['Last_Read_Date']." </span>
-                                          <span style='font-size:13px; margin-left:1rem;color:#888;'> ".."</span></i>"; 
-
-                                  }
-                                }*/
+                                include './Last_Read.php';  
                                   
                                 echo "<h3>".$TITLE."</h3>";
                                   

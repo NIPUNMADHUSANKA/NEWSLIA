@@ -291,7 +291,9 @@
                       </div>
                                         
                       <div class='box_body'>";
-        
+                        
+                        include './Last_Read.php';  
+                       
                         echo "<h3>".$TITLE."</h3>";
                         echo "<p>".$P_DATE."</p>";
                         echo "<b><i>-</b></i>";

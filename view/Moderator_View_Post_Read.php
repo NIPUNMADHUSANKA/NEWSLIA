@@ -332,7 +332,7 @@ $Post_Type = $_SESSION['READ_VIEW_TYPE'];
       else{
             echo "<div class='body_information' style='margin-top:1rem;margin-left:1rem;'>";
       }
-  ?>
+    ?>
           <div class="box-container">
 
               <div class="box_head">
@@ -340,6 +340,7 @@ $Post_Type = $_SESSION['READ_VIEW_TYPE'];
               </div>
 
               <div class="box_body">
+                
                 <h3><?php echo $_SESSION['Title']; ?></h3>
                 <p><?php echo $_SESSION['PD_Date']; ?></p>
 
