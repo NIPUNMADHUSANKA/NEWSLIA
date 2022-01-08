@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="../css/popup.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
     <script src="https://kit.fontawesome.com/c119b7fc61.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <script src="app.js"></script>
 </head>
@@ -28,7 +29,7 @@
       padding-left:80px;
   }
   .box-container{
-    height: 240px;
+    height: 290px;
   }
   .popular_famous_container{
     height: 300px;
@@ -92,7 +93,7 @@
     margin-left:0rem;
 }
 .box_head:hover img{
-    opacity: 1;
+    opacity: 0.4;
   }
 .box_head:hover .picture{
     opacity: 0.3;
@@ -521,15 +522,149 @@
 
     <div class="body_information">
          
-          
+    <?php
+        
+        $table = 'News';
+        $USERID = $_SESSION['System_Actor_ID'];
 
-          
+        $post_area_sql = "SELECT DISTINCT post_area.Post_ID as PI FROM post_area INNER JOIN read_area ON post_area.Area = read_area.Area WHERE post_area.`Post Type` = 'NEWS' AND read_area.System_Actor_Id = '$USERID' ORDER BY post_area.Post_ID DESC";
+        $post_area_state = $conn->query($post_area_sql);
+        $post_area_results = $post_area_state->fetchAll(PDO::FETCH_ASSOC);
+        
+        if($post_area_results){
+          foreach($post_area_results as $post_area_result){
 
-         
+            $ID = $post_area_result['PI'];
+                  
+            $post_info_sql = "SELECT * FROM news WHERE Post_ID = '$ID'";                        
+            $post_info_state = $conn->query($post_info_sql);
+            $post_info_results = $post_info_state->fetchAll(PDO::FETCH_ASSOC);
+                  if($post_info_results){
+                      foreach($post_info_results as $post_info_result){
+
+                          $flag = 1;
+                          
+                          $Post_ID = $post_info_result['Post_ID'];
+
+                          $remove_hidden_info_sql = "SELECT * FROM hidden WHERE Post_ID = '$Post_ID'";                        
+                          $remove_hidden_info_state = $conn->query($remove_hidden_info_sql);
+                          $remove_hidden_info_results = $remove_hidden_info_state->fetchAll(PDO::FETCH_ASSOC);
+
+                          if($remove_hidden_info_results){
+                                $flag = 0;
+                          }
+
+                          if($flag == 1){
+                          $Type = $table;
+
+                          $img = $post_info_result['Image'];
+                          $img = base64_encode($img);
+                          $text = pathinfo($post_info_result['Post_ID'], PATHINFO_EXTENSION);
+
+                          $TITLE = $post_info_result['Title'];
+                          $P_DATE = $post_info_result['Publish_Date'];
+                          $Creator_ID = $post_info_result['Creator_ID'];
+                                
+
+                          echo "<div class='box-container'>
+                                <div class='box_head'>
+                                  <img src='data:image/".$text.";base64,".$img."'/>
+                                  
+                                  <div class='tag'>
+                                    <div class='tag_text'>".$Type."</div>
+                                  </div>
+                                  
+                                  <div class='middle'>
+                                      <div class='view_btn'>
+                                          <ul>
+                                             <li onclick=toggle_view('$Post_ID','NEWS');><a href='#'>View</a></li>
+                                          </ul>
+                                                  
+                                      </div>
+                                      
+                                  </div>
+                                </div>
+                                
+                                <div class='box_body'>";
+
+                                /*
+                                $notice_read_time_sql = "SELECT * FROM read_time WHERE Post_ID='$Post_ID'";
+                                $notice_read_time_state = $conn->query($notice_read_time_sql);
+                                $notice_read_time_results = $notice_read_time_state->fetchAll(PDO::FETCH_ASSOC);
+
+                                if($notice_read_time_results){
+                                  foreach($notice_read_time_results as $notice_read_time_result){
+
+                                    $Read_Time = strtotime($notice_read_time_result['Last_Read_Time']);
+                                  // $System_Time = strtotime(date("H:i:s"));
+
+                                    /*$CAP = $System_Time - $Read_Time;
+
+                                    /*echo $CAP;
+                                    echo "<br>";
+                                  echo $System_Time;
+
+                                    /*echo "<i><span style='font-size:13px;color:#888;'>".$notice_read_time_result['Last_Read_Date']." </span>
+                                          <span style='font-size:13px; margin-left:1rem;color:#888;'> ".."</span></i>"; 
+
+                                  }
+                                }*/
+                                  
+                                echo "<h3>".$TITLE."</h3>";
+                                  
+                                  
+                                echo "<p>".$P_DATE."</p>";
+                                  
+
+                                  $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+                                  $post_from_state = $conn->query($post_from_sql);
+                                  $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
+
+                                  if($post_from_results){
+                                      echo "<b><i>-</b></i>";
+                                    foreach($post_from_results as $post_from_result){
+                                      echo "<i>".$post_from_result['Area']." - ";
+                                      echo "</i>";
+                                    }
+                                  }
+
+                                  echo "<br>";
+                                
+                                  $post_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
+                                  $post_who_state = $conn->query($post_who_sql);
+                                  $post_who_results = $post_who_state->fetchAll(PDO::FETCH_ASSOC);
+
+                                  if($post_who_results){
+                                    foreach($post_who_results as $post_who_result){
+                                      echo "<p>".$post_who_result['FirstName']." ".$post_who_result['LastName']."</p>";    
+                                    }
+                                  }
+
+                                echo "
+                                </div>
+                                <div class='more'>
+                                  <img src='../images/More.svg'>
+                                  <ul class ='more_post'>
+                                    <li onclick=toggle_save('$Post_ID','NEWS');><a href='#'>Save</a></li>
+                                    <li onclick=toggle_hidden('$Post_ID','NEWS');><a href='#'>Hide</a></li>
+                                    <li onclick='set_time_to_publish_Popup()'><a href='#'>Reminder</a></li>
+                                  </ul>
+                                </div>
+                              </div>";
+
+                                }
+
+                            }
+                      }
+                    
+  
+          }
+        }
+                      
+    ?>
 
     </div>
 
-    
 </div>
 
 
@@ -575,6 +710,43 @@
 
 
 <script>
+
+    function toggle_save(save_post_id,Type){
+      $.ajax({
+        url : '../Control/post_control.php',
+        type: "POST",
+        data :{save_post_id:save_post_id,
+          Type:Type},
+        success:function(data){
+          window.open("./Moderator_View_News.php","_self");
+        }
+      })
+
+    }
+
+    function toggle_hidden(hidden_post_id,Type){
+      $.ajax({
+        url : "../Control/post_control.php",
+        type :"POST",
+        data :{hidden_post_id:hidden_post_id,
+          Type:Type},
+        success:function(){
+          window.open("./Moderator_View_News.php","_self");
+        }
+      })
+    }
+
+    function toggle_view(view_post_id,Type){
+      $.ajax({
+        url : "../Control/post_control.php",
+        type :"POST",
+        data :{view_post_id:view_post_id,
+          Type:Type},
+        success:function(){
+          window.open("./Moderator_View_Post_Read.php","_self");
+        }
+      })
+    }
 
     function set_time_to_publish_Popup(){
       document.getElementById("popup-8").classList.toggle("active");

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <style>
@@ -370,8 +371,17 @@
                             $flag = 1;
                           }
 
-                          if($flag == 1){
                           $Post_ID = $post_info_result['Post_ID'];
+
+                          $remove_hidden_info_sql = "SELECT * FROM hidden WHERE Post_ID = '$Post_ID'";                        
+                          $remove_hidden_info_state = $conn->query($remove_hidden_info_sql);
+                          $remove_hidden_info_results = $remove_hidden_info_state->fetchAll(PDO::FETCH_ASSOC);
+
+                          if($remove_hidden_info_results){
+                                $flag = 0;
+                          }
+
+                          if($flag == 1){
                           $Type = $table;
 
                           $img = $post_info_result['Image'];
@@ -394,7 +404,7 @@
                                   <div class='middle'>
                                       <div class='view_btn'>
                                           <ul>
-                                              <li onclick=toggle_view('$Post_ID');><a href='#'>View</a></li>
+                                             <li onclick=toggle_view('$Post_ID','C.ADS');><a href='#'>View</a></li>
                                           </ul>
                                                   
                                       </div>
@@ -462,8 +472,8 @@
                                 <div class='more'>
                                   <img src='../images/More.svg'>
                                   <ul class ='more_post'>
-                                    <li onclick=toggle_unsave('$Post_ID');><a href='#' >Save</a></li>
-                                    <li onclick=toggle_hidden('$Post_ID');><a href='#'>Hide</a></li>
+                                    <li onclick=toggle_save('$Post_ID','C.ADS');><a href='#'>Save</a></li>
+                                    <li onclick=toggle_hidden('$Post_ID','C.ADS');><a href='#'>Hide</a></li>
                                     <li onclick='set_time_to_publish_Popup()'><a href='#'>Reminder</a></li>
                                   </ul>
                                 </div>
@@ -490,6 +500,46 @@
 
 
 <script>
+
+    function toggle_save(save_post_id,Type){
+      $.ajax({
+        url : '../Control/post_control.php',
+        type: "POST",
+        data :{save_post_id:save_post_id,
+          Type:Type},
+        success:function(data){
+          window.open("./Moderator_View_Ads.php","_self");
+        }
+      })
+
+    }
+
+    function toggle_hidden(hidden_post_id,Type){
+      $.ajax({
+        url : "../Control/post_control.php",
+        type :"POST",
+        data :{hidden_post_id:hidden_post_id,
+          Type:Type},
+        success:function(){
+          window.open("./Moderator_View_Ads.php","_self");
+        }
+      })
+    }
+
+    function toggle_view(view_post_id,Type){
+      $.ajax({
+        url : "../Control/post_control.php",
+        type :"POST",
+        data :{view_post_id:view_post_id,
+          Type:Type},
+        success:function(){
+          window.open("./Moderator_View_Post_Read.php","_self");
+        }
+      })
+    }
+
+
+
     function showsort() {
       document.getElementById("sortdrop").classList.toggle("show");
     }
