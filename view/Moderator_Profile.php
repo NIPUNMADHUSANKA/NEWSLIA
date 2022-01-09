@@ -187,6 +187,93 @@ bottom: 31.43%; */
     height:420px;
   }
 
+  .message {
+      display:block;
+      background: #f1f1f1;
+      color: #000;
+      width: 80%;
+      position: relative;
+      padding: 5px;
+      margin-top: 10px;
+      top:-12rem;
+      left:9rem;
+      border-radius: 10px;
+    }
+
+  .message::before{
+    content: "";
+    position: absolute;
+    right: 100%;
+    top: 7px;
+    width: 0;
+    height: 0;
+    border-top: 13px solid transparent;
+    border-right: 26px solid #f1f1f1;
+    border-bottom: 13px solid transparent;
+    }
+
+  .message p {
+    padding: 5px 5px;
+    width:100%;
+    font-size: 13px;
+   }
+
+  #msg1{
+    display:none;
+    top:-2.8rem;
+    left:15rem;
+  }
+
+  .req1{
+    position: relative;
+    top:-4.2rem;
+  }
+
+  #msg2{
+    display:none;
+    padding:1rem;
+    top:-2.6rem;
+    left:15rem;
+  }
+
+  .req2{
+    position: relative;
+    top:-13.2rem;
+  }
+
+  #msg3{
+    display:none;
+    padding:1rem;
+    top:-2.6rem;
+    left:15rem;
+  }
+
+  .req3{
+    position: relative;
+    top:-6rem;
+  }
+
+  /* Add a green text color and a checkmark when the requirements are right */
+  .valid {
+    color: green;
+    }
+
+  .valid:before {
+     position: relative;
+     left: -4px;
+     content: "✔";
+    }
+
+  /* Add a red text color and an "x" when the requirements are wrong */
+  .invalid {
+    color: red;
+    }
+
+  .invalid:before {
+    position: relative;
+    left: -4px;
+    content: "✖";
+  }
 </style>
 
 
@@ -315,7 +402,6 @@ else{
     <div class="part">
       <p class="label">Mobile No.</p>
       <p class="ans"><?=$Mobile;?> <a href="#" class="profile-pen" onclick="togglePopup_mobile()"> <i class="fas fa-pen"></i> </a> </p>
-      <!-- <img src="images/pen.svg"> -->
       <hr>
     </div>
   
@@ -462,10 +548,15 @@ else{
                 <div name="login_form">
                   
                   <form action='Moderator_Profile.php' method='POST'>
-                    <input type='text' name='sysactor_new_mobile' class='inp inp1' placeholder='Enter Mobile Number' required>
+                    <input type='text' name='sysactor_new_mobile' id="new_mobile" class='inp inp1' placeholder='Enter Mobile Number' required>
+                    
+                    <div class="message" id="msg1">
+                      <p id="mobile_check" class="invalid">Mobile Number Validation</p>
+                    </div> 
+
                     <br>
                   
-                    <input type='submit' value='Save' class='update_btn otp_btn2' name = 'update_mobile'>
+                    <input type='submit' value='Save' class='update_btn otp_btn2' name = 'update_mobile' id="mobile_check_btn" >
                   </form>
                   
                   <br> 
@@ -474,6 +565,7 @@ else{
         </div>
     </div>
 </div>
+
 
 <div class="popup popup_forget" id="popup-4">
 
@@ -492,13 +584,27 @@ else{
                 <div name="login_form">
 
                 <form action='Moderator_Profile.php' method='POST'>
-                  <input type="password" name="sysactor_new_pwd_1" class="inp inp1" placeholder="New Password" required>
+                  <input type="password" name="sysactor_new_pwd_1" class="inp inp1" id = "rest_pwd_1" placeholder="New Password" required>
+
+                        <div class="message" id="msg2">
+                            <h4>Password must contain the following:</h4>
+                            <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                            <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                            <p id="number" class="invalid">A <b>number</b></p>
+                            <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                        </div>
+
                   <br>
-                  <br>
-                  <input type="password" name="sysactor_new_pwd_2" class="inp inp1" placeholder="Retype New Password" required>
                   <br>
                   
-                  <input type='submit' value='Save' class='update_btn otp_btn2' name = 'update_pwd'>
+                  <input type="password" name="sysactor_new_pwd_2" class="inp inp1" id = "rest_pwd_2" placeholder="Retype New Password" required>
+                      
+                        <div class="message" id="msg3">
+                            <p id="confirmation" class="invalid">password confirmation match.</p>
+                        </div> 
+                  <br>
+                  
+                  <input type='submit' value='Save' class='update_btn otp_btn2' name = 'update_pwd' id = "rest_pwd_btn">
                 </form>
 
                   <br>
@@ -508,6 +614,127 @@ else{
         </div>
     </div>
 </div>
+
+
+
+<script>
+    var new_mobile = document.getElementById("new_mobile");
+    var mobile_check = document.getElementById("mobile_check");
+
+    var new_pwd = document.getElementById("rest_pwd_1");
+    var re_new_pwd = document.getElementById("rest_pwd_2");
+
+    var letter = document.getElementById("letter");
+    var capital = document.getElementById("capital");
+    var number = document.getElementById("number");
+    var length = document.getElementById("length");
+    var confirmation = document.getElementById("confirmation");
+
+    // Mobile Number Validation
+        new_mobile.onfocus = function(){
+            document.getElementById("msg1").style.display = "block";
+            document.getElementById("mobile_check_btn").classList.add("req1");
+        }
+
+        new_mobile.onblur = function(){
+            document.getElementById("msg1").style.display = "none";
+            document.getElementById("mobile_check_btn").classList.remove("req1");
+        }
+
+        // When the user starts to type something inside the mobile field
+        new_mobile.onkeyup = function(){
+            const mobileformat = /^(?:0|94|\+94)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|912)(0|2|3|4|5|7|9)|7(0|1|2|4|5|6|7|8)\d)\d{6}$/;                  
+            if(mobileformat.exec(new_mobile.value)) {  
+                mobile_check.classList.remove("invalid");
+                mobile_check.classList.add("valid");
+            } else {
+                mobile_check.classList.remove("valid");
+                mobile_check.classList.add("invalid");
+            }
+          }
+
+
+    // Password Validation
+        
+        new_pwd.onfocus = function(){
+            document.getElementById("msg2").style.display = "block";
+            document.getElementById("rest_pwd_2").classList.add("req2");
+            document.getElementById("rest_pwd_btn").classList.add("req2");
+        } 
+
+        new_pwd.onblur = function(){
+            document.getElementById("msg2").style.display = "none";
+            document.getElementById("rest_pwd_2").classList.remove("req2");
+            document.getElementById("rest_pwd_btn").classList.remove("req2");
+        } 
+
+        re_new_pwd.onfocus = function(){
+            document.getElementById("msg3").style.display = "block";
+            document.getElementById("rest_pwd_btn").classList.add("req3");
+        } 
+
+        re_new_pwd.onblur = function(){
+            document.getElementById("msg3").style.display = "none";
+            document.getElementById("rest_pwd_btn").classList.remove("req3");
+        } 
+
+        // When the user starts to type something inside the confirmation password field
+        re_new_pwd.onkeyup = function(){
+              if(re_new_pwd.value == new_pwd.value) {  
+                confirmation.classList.remove("invalid");
+                confirmation.classList.add("valid");
+              } else {
+                confirmation.classList.remove("valid");
+                confirmation.classList.add("invalid");
+              }
+          }
+
+    
+        // When the user starts to type something inside the password field
+        new_pwd.onkeyup = function() {
+              var lowerCaseLetters = /[a-z]/g;
+              if(new_pwd.value.match(lowerCaseLetters)) {  
+                letter.classList.remove("invalid");
+                letter.classList.add("valid");
+              } else {
+                letter.classList.remove("valid");
+                letter.classList.add("invalid");
+              }
+              
+              // Validate capital letters
+              var upperCaseLetters = /[A-Z]/g;
+              if(new_pwd.value.match(upperCaseLetters)) {  
+                capital.classList.remove("invalid");
+                capital.classList.add("valid");
+              } else {
+                capital.classList.remove("valid");
+                capital.classList.add("invalid");
+              }
+
+              // Validate numbers
+              var numbers = /[0-9]/g;
+              if(new_pwd.value.match(numbers)) {  
+                number.classList.remove("invalid");
+                number.classList.add("valid");
+              } else {
+                number.classList.remove("valid");
+                number.classList.add("invalid");
+              }
+              
+              // Validate length
+              if(new_pwd.value.length >= 8) {
+                length.classList.remove("invalid");
+                length.classList.add("valid");
+              } else {
+                length.classList.remove("valid");
+                length.classList.add("invalid");
+              }
+            }
+
+  </script>
+
+
+
 
 <div class="popup popup_update_img" id="popup-5">
 

@@ -115,6 +115,66 @@ input{
     transform:scale(1.2);
   }
 
+
+  .message {
+      display:block;
+      background: #f1f1f1;
+      color: #000;
+      width: 80%;
+      position: relative;
+      padding: 5px;
+      margin-top: 10px;
+      top:-4rem;
+      left:9.7rem;
+      border-radius: 10px;
+    }
+
+  .message::before{
+    content: "";
+    position: absolute;
+    right: 100%;
+    top: 8px;
+    width: 0;
+    height: 0;
+    border-top: 13px solid transparent;
+    border-right: 26px solid #f1f1f1;
+    border-bottom: 13px solid transparent;
+    }
+
+  .message p {
+    padding: 5px 5px;
+    width:5%;
+    font-size: 15px;
+   }
+
+  #msg1{
+    display:block;
+    top:-3.5rem;
+    left:18rem;
+  }
+
+  /* Add a green text color and a checkmark when the requirements are right */
+  .valid {
+    color: green;
+    }
+
+  .valid:before {
+     position: relative;
+     left: -4px;
+     content: "✔";
+    }
+
+  /* Add a red text color and an "x" when the requirements are wrong */
+  .invalid {
+    color: red;
+    }
+
+  .invalid:before {
+    position: relative;
+    left: -4px;
+    content: "✖";
+  }
+
 </style>
 
 <body>
@@ -301,7 +361,7 @@ input{
 
   
 
-<div class="popup popup_add_new" id="popup-2">
+<div class="popup popup_add_new active" id="popup-2">
 
       <div class="overlay"></div>
 
@@ -344,8 +404,10 @@ input{
                           <label for="add-number" class="lbl">Number<span style="color:red;font-size:13px;">*</span></label>
 
                           <div id="survey_options" class="number">
-                          <input type="text" name="num1[]" id="add-number" class="inp" required>
+                              <input type="text" name="num1[]" id="add-number" class="inp" required>                              
                           </div>
+
+                         
                           
                           
                           <div class="controls">
@@ -353,6 +415,9 @@ input{
                                  <a href="#" id="remove_fields" class="mark remove_num"><i class="fa fa-minus"></i>Remove Field</a>
                           </div>
                         
+                          <div class="message" id="msg1">
+                              <p id="" class="invalid">NIC number validation</p>
+                          </div> 
                           
                           <br>
                           
