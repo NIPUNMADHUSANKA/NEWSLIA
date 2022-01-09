@@ -120,7 +120,7 @@ input{
       display:block;
       background: #f1f1f1;
       color: #000;
-      width: 80%;
+      width: 70%;
       position: relative;
       padding: 5px;
       margin-top: 10px;
@@ -143,14 +143,29 @@ input{
 
   .message p {
     padding: 5px 5px;
-    width:5%;
     font-size: 15px;
    }
 
   #msg1{
-    display:block;
-    top:-3.5rem;
-    left:18rem;
+    display:none;
+    top:-5rem;
+    left:21rem;
+  }
+
+  #msg2{
+    display:none;
+    top:-8.2rem;
+    left:21rem;
+  }
+  #msg3{
+    display:none;
+    top:-6rem;
+    left:21rem;
+  }
+
+  .req1{
+    position: relative;
+    top:-2.5rem;
   }
 
   /* Add a green text color and a checkmark when the requirements are right */
@@ -361,7 +376,7 @@ input{
 
   
 
-<div class="popup popup_add_new active" id="popup-2">
+<div class="popup popup_add_new" id="popup-2">
 
       <div class="overlay"></div>
 
@@ -416,14 +431,14 @@ input{
                           </div>
                         
                           <div class="message" id="msg1">
-                              <p id="" class="invalid">NIC number validation</p>
+                              <p id="mobile_validate" class="invalid">Mobile number validation</p>
                           </div> 
                           
                           <br>
                           
                      </div>
                      
-                     <button class="update_btn insert_btn" name="insert_i_c_n">Insert</button>
+                     <button class="update_btn insert_btn" id = "insert_btn_mobile" name="insert_i_c_n">Insert</button>
               
                    </form>
                </div>
@@ -432,10 +447,6 @@ input{
       </div>
       
 </div>
-
-
-
-
 
 <div class="popup popup_add_new" id="popup-1">
 
@@ -484,18 +495,21 @@ input{
                           <div id="survey_update_options" class="number">
                           
                           <input type="text" name="num1" id="update-number1" class="inp" required>
+
                           <input type="text" name="num2" id="update-number2" class="inp">
                           
                         </div>
-                          
-                          
-                          
-                          
-                          
                      </div>
-                     
+                            
                      <button class="update_btn insert_btn" name="update_i_c_n" style="margin-top:2px;">Update</button>
-              
+
+                        <div class="message" id="msg2">
+                            <p id="mobile_validate_2" class="invalid">Mobile number validation</p>
+                        </div> 
+                        <div class="message" id="msg3">
+                            <p id="mobile_validate_3" class="invalid">Mobile number validation</p>
+                        </div> 
+
                    </form>
                </div>
 
@@ -504,6 +518,77 @@ input{
       
 </div>
 
+
+<script>
+  var new_mobile = document.getElementById("add-number");
+  var validate_mobile = document.getElementById("mobile_validate");
+
+  var update_mobile_1 = document.getElementById("update-number1");
+  var update_mobile_2 = document.getElementById("update-number2");
+
+  var validate_mobile_2 = document.getElementById("mobile_validate_2");
+  var validate_mobile_3 = document.getElementById("mobile_validate_3");
+  
+  // Mobile Number Validation
+  new_mobile.onfocus = function(){
+      document.getElementById("msg1").style.display = "block";
+      document.getElementById("insert_btn_mobile").classList.add("req1");
+  }
+
+  new_mobile.onblur = function(){
+      document.getElementById("msg1").style.display = "none";
+      document.getElementById("insert_btn_mobile").classList.remove("req1");
+  }
+
+  // When the user starts to type something inside the mobile field
+  new_mobile.onkeyup = function(){
+      const mobileformat = /^(?:0|94|\+94)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|912)(0|2|3|4|5|7|9)|7(0|1|2|4|5|6|7|8)\d)\d{6}$/;                  
+      if(mobileformat.exec(new_mobile.value)) {  
+        validate_mobile.classList.remove("invalid");
+        validate_mobile.classList.add("valid");
+      } else {
+        validate_mobile.classList.remove("valid");
+        validate_mobile.classList.add("invalid");
+      }
+  }
+
+  update_mobile_1.onfocus = function(){
+      document.getElementById("msg2").style.display = "block";
+  }
+
+  update_mobile_1.onblur = function(){
+      document.getElementById("msg2").style.display = "none";
+  }
+  update_mobile_1.onkeyup = function(){
+      const mobileformat = /^(?:0|94|\+94)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|912)(0|2|3|4|5|7|9)|7(0|1|2|4|5|6|7|8)\d)\d{6}$/;                  
+      if(mobileformat.exec(update_mobile_1.value)) {  
+        validate_mobile_2.classList.remove("invalid");
+        validate_mobile_2.classList.add("valid");
+      } else {
+        validate_mobile_2.classList.remove("valid");
+        validate_mobile_2.classList.add("invalid");
+      }
+  }
+
+  update_mobile_2.onfocus = function(){
+      document.getElementById("msg3").style.display = "block";
+  }
+
+  update_mobile_2.onblur = function(){
+      document.getElementById("msg3").style.display = "none";
+  }
+  update_mobile_2.onkeyup = function(){
+      const mobileformat = /^(?:0|94|\+94)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|912)(0|2|3|4|5|7|9)|7(0|1|2|4|5|6|7|8)\d)\d{6}$/;                  
+      if(mobileformat.exec(update_mobile_2.value)) {  
+        validate_mobile_3.classList.remove("invalid");
+        validate_mobile_3.classList.add("valid");
+      } else {
+        validate_mobile_3.classList.remove("valid");
+        validate_mobile_3.classList.add("invalid");
+      }
+  }
+
+</script>
 
 <div class="popup popup_remove_new" id="popup-3">
 
