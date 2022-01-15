@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
     <link rel="stylesheet" href="../css/popup.css">
+    <link rel="stylesheet" href="../css/Image_Slider.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -122,6 +123,11 @@
   .view_btn ul a{
     text-decoration:none;
     color:#333;
+  }
+
+  .most_popular_recent{
+    display:flex;
+    flex-direction:row;
   }
 
 
@@ -235,81 +241,26 @@
 </div>
 
 
-<div class="posts_content_view_body popular_famous">
+<div class="most_popular_recent">
+  
+  <?php   
+    include './Moderator_View_Popular_Recent.php';
 
-    <div class="popular_famous_info">
+    echo "<div>
     
-    <div class="title">Most Recent</div>
-         
-    
-          <div class="box-container popular_famous_container">
-              <div class="box_head">
-              <img src="../images/save/baker.jpg" alt="">
-              
-                <div class="middle popular_famous_middel">
-                     <div class="right_side"><img src="../images/Right.svg" alt="" srcset=""></div>
-                     <div class="view_btn" onclick="window.open('./Moderator_Read_Job.php', '_self')" >View</div>
-                     <div class="left_side"><img src="../images/Left.svg" alt="" srcset=""></div>
-                    
-                </div>
-
-              </div>
-              <div class="box_body">
-              <h3>Pastry Shop Cashier</h3>
-                <p>closed by 2020/12/05</p>
-                <p>Kamal Kumara</p>
-              </div>
-
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="" class="pop_more">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
-                      <li onclick="set_time_to_publish_Popup()"><a href="#">Reminder</a></li>
-          
-              </ul>
-              </div>
-          </div>
-
-          <div class="title">Most Popular</div>
-          <div class="box-container popular_famous_container">
-              <div class="box_head">
-              <img src="../images/save/baker.jpg" alt="">
-
-                <div class="middle popular_famous_middel">
-                     <div class="right_side"><img src="../images/Right.svg" alt="" srcset=""></div>
-                     <div class="view_btn" onclick="window.open('./Moderator_Read_Job.php', '_self')">View</div>
-                     <div class="left_side"><img src="../images/Left.svg" alt="" srcset=""></div>
-                    
-                </div>
-
-              </div>
-              <div class="box_body">
-              <h3>Pastry Shop Cashier</h3>
-                <p>closed by 2020/12/05</p>
-                <p>Kamal Kumara</p>
-              </div>
-
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="" class="pop_more">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
-                      <li onclick="set_time_to_publish_Popup()"><a href="#">Reminder</a></li>
-                
-              </ul>
-              </div>
-
-              
-
-          </div>
-
+    ".Most_Recent("Vacancies")."
+  
     </div>
+    <div>
 
+    ".Most_Popular("Vacancies")."
     
+    </div>";
+    
+
+  ?>
 </div>
+
 
 <br>
 <hr>

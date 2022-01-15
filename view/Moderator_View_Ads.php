@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
+    <link rel="stylesheet" href="../css/Image_Slider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
@@ -112,6 +113,11 @@
   .view_btn ul a{
     text-decoration:none;
     color:#333;
+  }
+
+  .most_popular_recent{
+    display:flex;
+    flex-direction:row;
   }
 
   
@@ -226,80 +232,26 @@
 </div>
 
 
-<div class="posts_content_view_body popular_famous">
+<div class="most_popular_recent">
+  
+  <?php   
+    include './Moderator_View_Popular_Recent.php';
 
-    <div class="popular_famous_info">
+    echo "<div>
     
-    <div class="title">Most Recent</div>
-         
-    
-          <div class="box-container popular_famous_container">
-              <div class="box_head">
-                <img src="../images/save/cake.jpg" alt="">
-              
-                <div class="middle popular_famous_middel">
-                     <div class="right_side"><img src="../images/Right.svg" alt="" srcset=""></div>
-                     <div class="view_btn">View</div>
-                     <div class="left_side"><img src="../images/Left.svg" alt="" srcset=""></div>
-                    
-                </div>
-
-              </div>
-              <div class="box_body">
-                <h3>Cake Shop</h3>
-                <p>2021-02-20</p>
-                <p>Nishal Kumara</p>
-                
-              </div>
-
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="" class="pop_more">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
-          
-              </ul>
-              </div>
-          </div>
-
-          <div class="title">Most Popular</div>
-          <div class="box-container popular_famous_container">
-              <div class="box_head">
-                <img src="../images/save/cake.jpg" alt="">
-              
-                <div class="middle popular_famous_middel">
-                     <div class="right_side"><img src="../images/Right.svg" alt="" srcset=""></div>
-                     <div class="view_btn">View</div>
-                     <div class="left_side"><img src="../images/Left.svg" alt="" srcset=""></div>
-                    
-                </div>
-
-              </div>
-              <div class="box_body">
-                <h3>Cake Shop</h3>
-                <p>2021-02-20</p>
-                <p>Nishal Kumara</p>
-              </div>
-
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="" class="pop_more">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
-                
-              </ul>
-              </div>
-
-              
-
-          </div>
-
+    ".Most_Recent("Ads")."
+  
     </div>
+    <div>
 
+    ".Most_Popular("Ads")."
     
+    </div>";
+    
+
+  ?>
 </div>
+
 
 <hr>
 <div class="content_posts_view">

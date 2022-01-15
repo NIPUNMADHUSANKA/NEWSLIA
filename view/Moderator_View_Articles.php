@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
+    <link rel="stylesheet" href="../css/Image_Slider.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -25,6 +26,7 @@
   }
   .box-container{
     height: 290px;
+    margin-left:1rem;
   }
   .popular_famous_container{
     height: 320px;
@@ -62,9 +64,8 @@
 }
 
 .body_information{
-      margin-left:-3rem;
-       margin-top:-1rem;
-       /*padding: 1.2vw; */     
+     margin-left:-3rem;
+     margin-top:-1rem; 
 }
 
 .normal_box{
@@ -109,6 +110,10 @@
     color:#333;
   }
 
+  .most_popular_recent{
+    display:flex;
+    flex-direction:row;
+  }
   
 </style>
 
@@ -131,81 +136,27 @@
 </div>
 
 
-<div class="posts_content_view_body popular_famous">
+<div class="most_popular_recent">
+  
+  <?php   
+    include './Moderator_View_Popular_Recent.php';
 
-    <div class="popular_famous_info">
+    echo "<div>
     
-    <div class="title">Most Recent</div>
-         
-    
-          <div class="box-container popular_famous_container">
-              <div class="box_head">
-              <img src="../images/save/forest.jpg" alt="">
-              
-                <div class="middle popular_famous_middel">
-                     <div class="right_side"><img src="../images/Right.svg" alt="" srcset=""></div>
-                     <div class="view_btn">View</div>
-                     <div class="left_side"><img src="../images/Left.svg" alt="" srcset=""></div>
-                    
-                </div>
-
-              </div>
-              <div class="box_body">
-                <h3>Sinharaja Forest</h3>
-                <p>2021-05-12</p>
-                <p>Anura Malith</p>
-              </div>
-
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="" class="pop_more">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
-          
-              </ul>
-              </div>
-          </div>
-
-          <div class="title">Most Popular</div>
-          <div class="box-container popular_famous_container">
-              <div class="box_head">
-              <img src="../images/save/forest.jpg" alt="">
-              
-                <div class="middle popular_famous_middel">
-                     <div class="right_side"><img src="../images/Right.svg" alt="" srcset=""></div>
-                     <div class="view_btn">View</div>
-                     <div class="left_side"><img src="../images/Left.svg" alt="" srcset=""></div>
-                    
-                </div>
-
-              </div>
-              <div class="box_body">
-              <h3>Sinharaja Forest</h3>
-                <p>2021-05-12</p>
-                <p>Anura Malith</p>
-              </div>
-
-              
-
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="" class="pop_more">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
-                
-              </ul>
-              </div>
-
-              
-
-          </div>
-
+    ".Most_Recent("Articles")."
+  
     </div>
+    <div>
 
+    ".Most_Popular("Articles")."
     
+    </div>";
+    
+
+  ?>
 </div>
+
+
 
 <hr>
 <div class="content_posts_view">
@@ -318,7 +269,6 @@
                                     <ul class ='more_post'>
                                       <li onclick=toggle_save('$Post_ID','ARTICLES');><a href='#'>Save</a></li>
                                       <li onclick=toggle_hidden('$Post_ID','ARTICLES');><a href='#'>Hide</a></li>
-                                      <li onclick='set_time_to_publish_Popup()'><a href='#'>Reminder</a></li>
                                     </ul>
                             </div>
                           </div>";
@@ -376,13 +326,11 @@
         data :{view_post_id:view_post_id,
           Type:Type},
         success:function(){
+          //console.log(view_post_id);
           window.open("./Moderator_View_Post_Read.php","_self");
         }
       })
     }
-
-    
-
 
     function showsort() {
       document.getElementById("sortdrop").classList.toggle("show");
@@ -403,6 +351,8 @@
         }
       }
     }
+
+
 
 </script>
     

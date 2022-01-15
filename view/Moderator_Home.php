@@ -61,6 +61,10 @@ table, th, td {
   padding:0;
 }
 
+.content_right{
+  margin-top:-4rem;
+}
+
 </style>
 
 <body>
@@ -184,7 +188,7 @@ table, th, td {
         </div>
 
         <div class="content_right">
-            <img src="../images/background.svg" alt="" srcset="">
+            <img src="../images/Moderator.png" alt="" srcset="">
         </div>
 
   </div>
