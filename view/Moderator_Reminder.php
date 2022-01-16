@@ -13,8 +13,9 @@ session_start();
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
     <link rel="stylesheet" href="../css/popup.css">
-  <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
-  <script src="https://kit.fontawesome.com/c119b7fc61.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/c119b7fc61.js" crossorigin="anonymous"></script>
 </head>
 
 <style>
@@ -39,12 +40,11 @@ session_start();
   }
 
   .box-container {
-    height: 250px;
+    height: 290px;
+    margin-left:-2.5rem;
   }
 
-  .payment {
-    text-align: end;
-  }
+  
 
   .content_posts_view {
     display: flex;
@@ -53,20 +53,14 @@ session_start();
     justify-content: space-between;
   }
 
-  .payment a {
-    text-decoration: none;
-    color: black;
-  }
-
   .posts_content_view_head{
       font-size:x-large;
   }
 
   .setting_close{
-    transform:scale(2);
-    /*margin-left:78%;*/
-    margin-right:5%;
-    margin-top :12%;
+    transform:scale(1.2);
+    margin-left:78%;
+    margin-top :-12%;
   }
   .setting_close img{
     padding-right:5px;
@@ -87,6 +81,51 @@ session_start();
   
   }
 
+
+.tag {
+      position: absolute;
+      top: 1.3%;
+      bottom: 0;
+      left: 20;
+      right: 1%;
+      height: 15%;
+      width: 30%;
+      opacity: 1;
+      transition: .5s ease;
+      background-color: #ACE0B8;
+      cursor: pointer;
+      border-radius:0px 0px 0px 20px;
+  }
+  .box_head:hover .tag{
+      opacity: 1;
+  } 
+  .box_head:hover img{
+      opacity: 1;
+  } 
+  .tag_text{
+      color: #555;
+      font-weight:bold;
+      font-size: 15px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+  }
+
+  .view_btn ul{
+    list-style-type: none;
+  }
+
+  .view_btn ul a{
+    text-decoration:none;
+    color:#333;
+  }
+
+  .popup .content{
+    height:260px;
+  }
+
+
 </style>
 
 <body>
@@ -104,78 +143,189 @@ session_start();
 
   <div class="content_posts_view">
     <div class="posts_content_view_head">
-      Reminders
+            Reminder Posts
     </div>
-
-    <div class="post_sort" style="margin-right:30rem;">
-      <div class="post_sort_bar">
-        <button onclick="showsort()" class="drop_area_sort">Select Post Type<img src="../images/sort.svg" alt="" srcset=""></button>
-        <div class="drop_area_sort_cont" id="sortdrop">
-          <img src="../photos/search.svg" alt="" srcset="">
-          <input type="text" id="myInput" onkeyup="filterFunction()" placeholder="Search...">
-          <a href="#">News</a>
-          <a href="#">Articles</a>
-          <a href="#">Notices</a>
-          <a href="#">Job Vacancies</a>
-          <a href="#">Commercial Ads</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="payment">
-      <a href="#">Account Balance Rs. 99.99</a>
-      <img src="../images/reminder.png" alt="" style="margin-right:50px;margin-top:0rem;cursor:pointer">
-    </div>
-
   </div>
 
 
 
   <div class="posts_content_view_body">
 
-    <div class="body_information">
-
-      <div class="box-container" style="margin-bottom: 50px; margin-right: 50px;">
-        <div class="box_head">
-          <img src="../images/save/vaccine.jpg" alt="">
-
-          <div class="middle">
-            <div class="view_btn" onclick="window.open('Moderator_Read_Reminder.php','_self')">View</div>
-          </div>
-
-        </div>
-        <div style="display: flex; justify-content: space-between;">
-          <div class="box_body">
-            <h3>Vaccination Program</h3>
-            <p>2021-10-25</p>
-            <p>Anura Malshan</p>
+<div class="body_information">
 
 
+<script>
+  function togglePopupupdate_reminder(Reminder_Post_ID){
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function(){
+      document.getElementById("update_reminder_id").value = Reminder_Post_ID;
+    }
+    xhttp.open("GET",Reminder_Post_ID);
+    xhttp.send(); 
 
-          </div>
+    $.ajax({
+      url :"../Control/save_hidden.php",
+      type :"POST",
+      cache :false,
+      data:{Reminder_Post_ID : Reminder_Post_ID},
+      success:function(data){
+        var result = $.parseJSON(data);
+        document.getElementById("update_date").value = result[0];
+      }
 
-          <div class="setting_close">
-                  <img src="../images/Setting.svg" alt="" srcset="" onclick="togglePopup()">
-                  <img src="../images/Close.svg" alt="" srcset="">
+    })
+
+
+    document.getElementById("popup-1").classList.add("active");
+  }
+
+
+  function togglePopupremove_reminder(Reminder_Post_Delete_ID){
+
+    $.ajax({
+      url :"../Control/save_hidden.php",
+      type :"POST",
+      cache :false,
+      data:{Reminder_Post_Delete_ID : Reminder_Post_Delete_ID},
+      success:function(data){
+        window.open("./Moderator_Reminder.php",'_self');
+      }
+    });
+
+  }
+
+</script>
+
+
+
+<?php
+    
+    include '../Model/connect.php';
+    $System_Actor_ID = $_SESSION['System_Actor_ID'];
+
+    $reminder_sql = "SELECT * FROM reminder WHERE System_Actor_ID ='$System_Actor_ID' ORDER BY Post_ID DESC";
+
+    $reminder_state = $conn->query($reminder_sql);
+    $reminder_results = $reminder_state->fetchAll(PDO::FETCH_ASSOC);
+
+    if($reminder_results){
+      foreach($reminder_results as $reminder_result){
+
+        $Post_ID = $reminder_result['Post_ID'];
+        $Post_Type = $reminder_result['Post_Type'];
+        $Reminder_Date = $reminder_result['Reminder_Date'];
+        $table = "";
+
+        if($Post_Type == "NEWS"){
+          $table = 'NEWS';
+          $reminder_info_sql = "SELECT * FROM news WHERE Post_ID='$Post_ID'";
+        }
+        else if($Post_Type == "ARTICLES"){
+          $table = 'ARTICLES';
+          $reminder_info_sql = "SELECT * FROM articles WHERE Post_ID='$Post_ID'";
+        }
+        else if($Post_Type == "NOTICES"){
+          $table = 'NOTICES';
+          $reminder_info_sql = "SELECT * FROM notices WHERE Post_ID='$Post_ID'";
+        }
+        else if($Post_Type == "VACANCIES"){
+          $table = 'VACANCIES';
+          $reminder_info_sql = "SELECT * FROM job_vacancies WHERE Post_ID='$Post_ID'";
+        }
+        else if($Post_Type == "C.ADS"){
+          $table = 'C.ADS';
+          $reminder_info_sql = "SELECT * FROM com_ads WHERE Post_ID='$Post_ID'";
+        }
+
+        $reminder_info_state = $conn->query($reminder_info_sql);
+        $reminder_info_results = $reminder_info_state->fetchAll(PDO::FETCH_ASSOC);
+        
+        if($reminder_info_results){
+            foreach($reminder_info_results as $reminder_info_result){
+
+              $Post_ID = $reminder_info_result['Post_ID'];
+              $Type = $table;
+          
+              $img = $reminder_info_result['Image'];
+              $img = base64_encode($img);
+              $text = pathinfo($reminder_info_result['Post_ID'], PATHINFO_EXTENSION);
+
+              $TITLE = $reminder_info_result['Title'];
+              $P_DATE = $reminder_info_result['Publish_Date'];
+              $TITLE = $reminder_info_result['Title'];
+              $Creator_ID = $reminder_info_result['Creator_ID'];
+                
+
+                echo "<div class='box-container'>
+                <div class='box_head'>
+                  <img src='data:image/".$text.";base64,".$img."'/>
+                  
+                  <div class='tag'>
+                    <div class='tag_text'>".$table."</div>
+                  </div>
+                  
+                  
+                </div>
+                
+                <div class='box_body'>
+                  <h3>".$TITLE."</h3>";
+                  
+                
+                    echo "<p> Reminder Date: ".$Reminder_Date."</p>";
+                  
+
               
-              </div>
+                  $reminder_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+                  $reminder_from_state = $conn->query($reminder_from_sql);
+                  $reminder_from_results = $reminder_from_state->fetchAll(PDO::FETCH_ASSOC);
+
+                  if($reminder_from_results){
+                      echo "<b><i>-</b></i>";
+                    foreach($reminder_from_results as $reminder_from_result){
+                      echo "<i>".$reminder_from_result['Area']." - ";
+                      echo "</i>";
+                    }
+                  }
+
+                  echo "<br>";
+                
+                  $reminder_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
+                  $reminder_who_state = $conn->query($reminder_who_sql);
+                  $reminder_who_results = $reminder_who_state->fetchAll(PDO::FETCH_ASSOC);
+
+                  if($reminder_who_results){
+                    foreach($reminder_who_results as $reminder_who_result){
+                      echo "<p>".$reminder_who_result['FirstName']." ".$reminder_who_result['LastName']."</p>";    
+                    }
+                  }
+        
+                 echo "</div>";
+                
+                 echo "<div class='setting_close'>";
+                 echo "<img src='../images/pen.svg' onclick=togglePopupupdate_reminder('$Post_ID');>";
+                 echo "<img src='../images/close_large.svg' onclick = togglePopupremove_reminder('$Post_ID');>";
+                 
+                 echo "</div>";
+                 echo "</div>";
+
+            }
+        }
+      }
+    }
+
+?>
+
+</div>
+
+</div>
 
 
-        </div>
-      </div>
-
-    </div>
-
-
-  </div>
 
 
 
 
 
-
-
-  <div class="popup" id="popup-1">
+<div class="popup" id="popup-1">
 
 <div class="overlay"></div>
 
@@ -183,29 +333,25 @@ session_start();
     <div class="close-btn" onclick="togglePopup()">&times;</div>
 
 
-    <div class="content_body">
+    <div class="content_body">   
         <div class="popup_logo">
              <img src="../images/Name.svg" alt="" srcset="">
         </div>
         <hr>
 
         <div class="popup_form">
-            <h3 class="popup_title">Update Reminder Date & Time</h3>
-            <form action="" method="post">
+            <h3 class="popup_title">Update Reminder Date</h3>
+            <form action="../Control/save_hidden.php" method="post">
 
                <label for="update-date" class="lbl">Date</label>
-            
-               <input type="date" name="" id="update-date" class="inp" required value="2021-11-05">
-               <br>
-               <br>
-
-               <label for="update-time" class="lbl">Time</label>
                
-               <input type="time" name="" id="update-time" class="inp" required value="08:00">
+               <input type="text" name="reminder_id" id="update_reminder_id" class="inp" required style="display:none;">
+               
+               <input type="date" name="reminder_date" id="update_date" class="inp" required>
                <br>
                <br>
 
-               <button type="submit" name ="login" class="update_btn" value="LOGIN">Update</button>
+               <button type="submit" name ="Update_Reminder" class="update_btn" value="LOGIN">Update</button>
         
              </form>
          </div>

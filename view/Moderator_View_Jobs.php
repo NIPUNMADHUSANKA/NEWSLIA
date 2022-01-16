@@ -130,7 +130,23 @@
     flex-direction:row;
   }
 
+  .popup .content{
+    height: 270px;
+  }
 
+  .update_btn{
+      border: none;
+      width:5rem;
+      margin-top:0.5rem;
+      transition: 0.25s ease;
+      box-shadow: none;
+  }
+
+  .update_btn:hover{
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.25);
+    transform:scale(1.07);
+  
+  }
   
 </style>
 
@@ -429,7 +445,7 @@
                                   <ul class ='more_post'>
                                     <li onclick=toggle_save('$Post_ID','VACANCIES');><a href='#'>Save</a></li>
                                     <li onclick=toggle_hidden('$Post_ID','VACANCIES');><a href='#'>Hide</a></li>
-                                    <li onclick='set_time_to_publish_Popup()'><a href='#'>Reminder</a></li>
+                                    <li onclick=toggle_reminder('$Post_ID','VACANCIES');><a href='#'>Reminder</a></li>
                                   </ul>
                                 </div>
                               </div>";
@@ -468,19 +484,19 @@
 
               <div class="popup_form">
                   <h3 class="popup_title">Set Time to Reminder</h3>
-                  <form action="" method="post">
+                  <form action="../Control/save_hidden.php" method="post">
 
-                  
+
                     <label for="new-date" class="lbl"> Date</label>
-                    <input type="date" name="" id="new-date" class="inp inp1">
-                      <br>
-                      <br>
 
-                    <label for="new-time" class="lbl"> Time</label>
+                    <input type="text" name="add_reminder_id" id="reminder_ID" class="inp inp1" style="display:none;">
+                    <input type="text" name="add_reminder_type" id="reminder_Type" class="inp inp1" style="display:none;">
+                    <input type="date" name="add_reminder_date" id="new-date" class="inp inp1">
                   
-                    <input type="time" name="" id="new-time" class="inp inp1">
+
+                      <br>
                     <br>
-                    <div class="publish_btn" onclick="window.open('Moderator_View_Jobs.php','_self')">Set</div>
+                    <button type="submit" name ="Add_Reminder" class="update_btn" value="LOGIN">Set</button>
               
                    </form>
                </div>
@@ -493,6 +509,21 @@
 
 
 <script>
+
+    function toggle_reminder(Reminder_post_ID,Type){
+
+      const xhttp = new XMLHttpRequest();
+      xhttp.onload = function(){
+        document.getElementById("reminder_ID").value = Reminder_post_ID;
+        document.getElementById("reminder_Type").value = Type;
+      }
+      xhttp.open("GET",Reminder_post_ID,Type);
+      xhttp.send(); 
+      document.getElementById("popup-8").classList.add("active");
+
+    }
+      
+
 
     function toggle_save(save_post_id,Type){
       $.ajax({

@@ -81,6 +81,80 @@ table, th, td {
 <!--End of Navigation-Bar-->
 
 
+<?php
+    
+    include '../Model/connect.php';
+    $currentDate = date('Y-m-d');
+    
+    $sql_reminder = "SELECT * FROM reminder WHERE Reminder_Date = '$currentDate'";
+    $state_reminder = $conn->query($sql_reminder);
+    $results_reminder = $state_reminder -> fetchAll(PDO::FETCH_ASSOC);
+
+    if($results_reminder){
+      foreach($results_reminder as $result_reminder){
+
+        $UserID = $result_reminder['System_Actor_ID'];
+        $PostID = $result_reminder['Post_ID'];
+        $PostType = $result_reminder['Post_Type'];
+
+        $Email = "";
+        $Title = "";
+        $Details = "";
+        
+        $email_sql = "SELECT Email FROM login WHERE System_Actor_ID = '$UserID'";
+        $email_statement = $conn->query($email_sql);
+        $email_results = $email_statement -> fetchAll(PDO::FETCH_ASSOC);
+
+        if($email_results){
+          foreach($email_results as $email_result){
+            $Email = $email_result['Email'];
+          }
+        }
+
+        if($PostType == "NOTICES"){
+          $post_sql = "SELECT * FROM notices WHERE Post_ID = '$PostID'";
+        }
+        elseif($PostType == "VACANCIES"){
+          $post_sql = "SELECT * FROM job_vacancies WHERE Post_ID = '$PostID'";
+        }
+        elseif($PostType == "C.ADS"){
+          $post_sql = "SELECT * FROM com_ads WHERE Post_ID = '$PostID'";
+        }
+
+        $post_statement = $conn->query($post_sql);
+        $post_results = $post_statement -> fetchAll(PDO::FETCH_ASSOC);
+
+        if($post_results){
+          foreach($post_results as $post_result){
+              $Title = $post_result['Title'];
+              $Details = $post_result['Details'];
+          }
+        }
+
+        //the subject
+        $sub = $Title;
+        //the message
+        $msg = $Details;
+
+        //send email
+        $send_result = mail($Email,$sub,$msg);
+
+        if($send_result){
+          
+          $query = "DELETE FROM reminder WHERE Post_ID = :ID";
+          $query_statement = $conn->prepare($query);
+          $query_statement->bindParam(':ID',$PostID);
+          $query_statement->execute();    
+             
+        }
+
+      }
+    }
+    
+
+?>
+
+
 <!-- Moderator Page Content -->
 
   <div class="content">

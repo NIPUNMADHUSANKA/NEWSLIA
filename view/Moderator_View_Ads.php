@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
+    <link rel="stylesheet" href="../css/popup.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
     <link rel="stylesheet" href="../css/Image_Slider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -118,6 +119,24 @@
   .most_popular_recent{
     display:flex;
     flex-direction:row;
+  }
+
+  .popup .content{
+    height: 270px;
+  }
+
+  .update_btn{
+      border: none;
+      width:5rem;
+      margin-top:0.5rem;
+      transition: 0.25s ease;
+      box-shadow: none;
+  }
+
+  .update_btn:hover{
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.25);
+    transform:scale(1.07);
+  
   }
 
   
@@ -405,7 +424,7 @@
                                   <ul class ='more_post'>
                                     <li onclick=toggle_save('$Post_ID','C.ADS');><a href='#'>Save</a></li>
                                     <li onclick=toggle_hidden('$Post_ID','C.ADS');><a href='#'>Hide</a></li>
-                                    <li onclick='set_time_to_publish_Popup()'><a href='#'>Reminder</a></li>
+                                    <li onclick=toggle_reminder('$Post_ID','C.ADS');><a href='#'>Reminder</a></li>
                                   </ul>
                                 </div>
                               </div>";
@@ -428,9 +447,63 @@
 </div>
 
 
+<div class="popup popup_set_time" id="popup-8">
+
+      <div class="overlay"></div>
+
+      <div class="content popup_set_time">
+          <div class="close-btn" onclick="set_time_to_publish_Popup()">&times;</div>
+
+
+          <div class="content_body popup_set_time_body">
+              <div class="popup_logo">
+                   <img src="../images/Name.svg" alt="" srcset="">
+              </div>
+              <hr>
+
+              <div class="popup_form">
+                  <h3 class="popup_title">Set Time to Reminder</h3>
+                  <form action="../Control/save_hidden.php" method="post">
+               
+                  <label for="new-date" class="lbl"> Date</label>
+
+                  <input type="text" name="add_reminder_id" id="reminder_ID" class="inp inp1" style="display:none;">
+                  <input type="text" name="add_reminder_type" id="reminder_Type" class="inp inp1" style="display:none;">
+                  <input type="date" name="add_reminder_date" id="new-date" class="inp inp1">
+                
+
+                    <br>
+                  <br>
+                  <button type="submit" name ="Add_Reminder" class="update_btn" value="LOGIN">Set</button>
+              
+                 </form>
+               </div>
+
+          </div>
+      </div>
+      
+</div>
+
+
+
+
 
 
 <script>
+
+
+    function toggle_reminder(Reminder_post_ID,Type){
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function(){
+      document.getElementById("reminder_ID").value = Reminder_post_ID;
+      document.getElementById("reminder_Type").value = Type;
+    }
+    xhttp.open("GET",Reminder_post_ID,Type);
+    xhttp.send(); 
+    document.getElementById("popup-8").classList.add("active");
+
+    }
 
     function toggle_save(save_post_id,Type){
       $.ajax({
@@ -490,6 +563,11 @@
         }
       }
     }
+
+
+    function set_time_to_publish_Popup(){
+      document.getElementById("popup-8").classList.toggle("active");
+    } 
 
 </script>
     
