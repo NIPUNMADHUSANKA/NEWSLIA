@@ -63,6 +63,7 @@ table, th, td {
 
 .content_right{
   margin-top:-4rem;
+  z-index: -1;
 }
 
 </style>
