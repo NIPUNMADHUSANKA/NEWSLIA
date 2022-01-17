@@ -324,8 +324,8 @@
     if(isset($_POST['Reject'])){
       
       // Notification
-      $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`) VALUES(?,?,?,?,?,?)");
-      $notification->execute([$Post_ID,'Reject',$Creator_ID,$Computer_Date,$Computer_Time,$System_Actor_ID]);
+      $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`,`Title`) VALUES(?,?,?,?,?,?,?)");
+      $notification->execute([$Post_ID,'Reject',$Creator_ID,$Computer_Date,$Computer_Time,$System_Actor_ID,$Title]);
       
       $sql = 'DELETE FROM news_pending
         WHERE Post_ID = :Post_ID';
@@ -531,8 +531,8 @@
           $Readtime_stmt->execute([$Post_ID,$Count,$P_Time,$P_Time,$Type]);
 
           // Notification
-          $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`) VALUES(?,?,?,?,?,?)");
-          $notification->execute([$Post_ID,'Approve',$Creator_ID,$Computer_Date,$Computer_Time,$System_Actor_ID]);
+          $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`,`Title`) VALUES(?,?,?,?,?,?,?)");
+          $notification->execute([$Post_ID,'Approve',$Creator_ID,$Computer_Date,$Computer_Time,$System_Actor_ID,$Title]);
 
           // Update Moderator Insights Part//
             $News_Count = 1;
@@ -653,8 +653,8 @@
           $Readtime_stmt->execute([$Post_ID,$Count,$P_Time,$P_Time,$Type]);
 
           // Notification
-          $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`) VALUES(?,?,?,?,?,?)");
-          $notification->execute([$Post_ID,'Approve',$Creator_ID,$Computer_Date,$Computer_Time,$System_Actor_ID]);
+          $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`,`Title`) VALUES(?,?,?,?,?,?,?)");
+          $notification->execute([$Post_ID,'Approve',$Creator_ID,$Computer_Date,$Computer_Time,$System_Actor_ID,$Title]);
 
           // Update Moderator Insights Part//
             $News_Count = 1;

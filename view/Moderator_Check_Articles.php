@@ -284,8 +284,8 @@
     if(isset($_POST['Reject'])){
 
       // Notification
-      $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`) VALUES(?,?,?,?,?,?)");
-      $notification->execute([$Post_ID,'Reject',$Creator_ID,$P_Date,$System_Time,$System_Actor_ID]);
+      $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`,`Title`) VALUES(?,?,?,?,?,?,?)");
+      $notification->execute([$Post_ID,'Reject',$Creator_ID,$P_Date,$System_Time,$System_Actor_ID,$Title]);
 
       $sql = 'DELETE FROM articles_pending
         WHERE Post_ID = :Post_ID';
@@ -310,8 +310,9 @@
         $Readtime_stmt->execute([$Post_ID,'0',$P_Time,$P_Time,'Articles']);
 
         // Notification
-        $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`) VALUES(?,?,?,?,?,?)");
-        $notification->execute([$Post_ID,'Approve',$Creator_ID,$P_Date,$System_Time,$System_Actor_ID]);
+        $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`,`Title`) VALUES(?,?,?,?,?,?,?)");
+        $notification->execute([$Post_ID,'Approve',$Creator_ID,$P_Date,$System_Time,$System_Actor_ID,$Title]);
+
 
         // Update Moderator Insights Part//
           $Article_Count = 1;
