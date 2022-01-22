@@ -156,7 +156,11 @@
   <li><a href="Moderator_Profile.php"><img src="../images/other/profile.png" alt="" srcset=""><p>My Profile</p></a></li>
   <li><a href="Moderate_Area.php"><img src="../images/other/location.png" alt="" srcset=""><p>Select Area</p></a></li>
   <li><a href="Moderate_Post_Type.php"><img src="../images/other/type.png" alt="" srcset=""><p style="color: #45ADA8EB;">Select Type</p></a></li>
-  <li><a href="Moderator_Insight.php"><img src="../images/other/insights.png" alt="" srcset=""><p>Insights</p></a></li>
+  <?php
+      if($_SESSION['Actor_Type'] != "NORMALUSER"){
+          echo "<li><a href='Moderator_Insight.php'><img src='../images/other/insights.png'><p>Insights</p></a></li>";
+      }
+  ?>
   <li onclick="togglePopup_select_option('deactivate-1')"><a href="#"><img src="../images/other/deactivate.png" alt="" srcset=""><p>Deactivate</p></a></li>
   <li><a href="logout.php"><img src="../images/other/logout.png" alt="" srcset=""><p>Log Out</p></a></li>
 

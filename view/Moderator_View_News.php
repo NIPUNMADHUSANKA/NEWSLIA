@@ -12,8 +12,9 @@
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
-    <link rel="stylesheet" href="../css/calendar.css">
+    
     <link rel="stylesheet" href="../css/popup.css">
+    <link rel="stylesheet" href="../css/Image_Slider.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
     <script src="https://kit.fontawesome.com/c119b7fc61.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -172,6 +173,44 @@
     color:#333;
   }
 
+  .popup .content{
+    height: 270px;
+  }
+
+  .update_btn{
+      border: none;
+      width:5rem;
+      margin-top:0.5rem;
+      transition: 0.25s ease;
+      box-shadow: none;
+  }
+
+  .update_btn:hover{
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.25);
+    transform:scale(1.07);
+  
+  }
+
+  .most_popular_recent{
+    display:flex;
+    flex-direction:row;
+    margin-top:-5rem;
+  }
+
+  /*.slider{
+    width: 350px;
+  	height: 250px;
+  }
+
+  .slide img{
+    width: 350px;
+  	height: 250px;
+  }
+  .navigation-manual{
+	  margin-top: -300px;
+    margin-left: -240px;
+  }*/
+
 </style>
 
 <body>
@@ -276,6 +315,28 @@
           $statement->bindParam(':Post_ID', $Post_ID);
           $statement->execute();
 
+          /////////////////////////////////////////////////////////////////////////////
+          $sql_get_all_vote = "SELECT COUNT(Vote) AS COUNT_VOTE FROM vote WHERE Vote = '-1' GROUP BY = '$Post_ID'";
+          $statement_get_all_vote = $conn->query($sql_get_all_vote);
+          $results_get_all_vote = $statement_get_all_vote->fetchAll(PDO::FETCH_ASSOC);
+          
+          if($results_get_all_vote){
+            foreach($results_get_all_vote as $result_get_all_vote){
+                $count_vote = $result_get_all_vote['COUNT_VOTE'];
+                if($count_vote > 10){
+                  $Type = "News";
+                  $System_Date = date("Y-m-d");
+                  $System_Time = date("H:i:s");
+
+
+                  $Add_Vote = $conn->prepare("INSERT INTO `post_auto_delete` VALUES(?,?,?,?)");
+                  $Add_Vote->execute([$Post_ID,$System_Date,$System_Time,$Type]);
+                }
+            }
+          }
+         
+
+
         }
         
       }
@@ -296,124 +357,66 @@
 
 <div class="posts_content_view_body popular_famous">
 
-    <div class="popular_famous_info">
-    
-        <div class="title">Most Recent</div>
-         
-    
-          <div class="box-container poupular_famous">
-              <div class="box_head">
-                <img src="../images/save/exam.jpg" alt="" class="picture">
-              
-                <div class="middle popular_famous_middel">
-                     <div class="right_side arrow"><img src="../images/Right.svg" alt="" srcset=""></div>
-                     <div class="view_btn" onclick="window.open('./Moderator_Read_News.php', '_self')">View</div>
-                     <div class="left_side arrow"><img src="../images/Left.svg" alt="" srcset=""></div>
-                    
-                </div>
+      <div class="most_popular_recent">
+        
+        <?php   
+          include './Moderator_View_Popular_Recent.php';
 
-              </div>
-              <div class="box_body">
-                <h3>Exam Results</h3>
-                <p>2021-10-25</p>
-                <p>Samith Dilshan</p>
-              </div>
-
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="" class="pop_more">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
-                      <li onclick="set_time_to_publish_Popup()"><a href="#">Reminder</a></li>
+          echo "<div>
           
-              </ul>
-              </div>
+          ".Most_Recent("News")."
+        
           </div>
+          <div>
 
-          <div class="title popular_title">Most Popular</div>
-          <div class="box-container poupular_famous popular">
-              <div class="box_head">
-                <img src="../images/save/exam.jpg" alt="" class="picture">
-              
-                <div class="middle popular_famous_middel">
-                     <div class="right_side arrow"><img src="../images/Right.svg" alt="" srcset=""></div>
-                     <div class="view_btn" onclick="window.open('./Moderator_Read_News.php', '_self')">View</div>
-                     <div class="left_side arrow"><img src="../images/Left.svg" alt="" srcset=""></div>
-                    
-                </div>
+          ".Most_Popular("News")."
+          
+          </div>";
+          
 
-              </div>
-              <div class="box_body">
-                <h3>Exam Results</h3>
-                <p>2021-10-25</p>
-                <p>Samith Dilshan</p>
-              </div>
+        ?>
+      </div>
+    <br>
+    <br>
+    <center>
 
-              <div class="more">
-                <img src="../images/More.svg" alt="" srcset="" class="pop_more">
-                <ul class ="more_post">
-                  
-                      <li><a href="#">Save</a></li>
-                      <li><a href="#">Hidden</a></li>
-                      <li onclick="set_time_to_publish_Popup()"><a href="#">Reminder</a></li>
-                
-              </ul>
-              </div>
+     <div class="main" style="margin-left:-2rem;">
 
-              
+      <!-- (B) PERIOD SELECTOR -->
+      <div id="calPeriod">
+        
+        <?php
+        // (B1) MONTH SELECTOR
+        // NOTE: DEFAULT TO CURRENT SERVER MONTH YEAR
+        $months = [
+          1 => "January", 2 => "Febuary", 3 => "March", 4 => "April",
+          5 => "May", 6 => "June", 7 => "July", 8 => "August",
+          9 => "September", 10 => "October", 11 => "November", 12 => "December"
+        ];
+        $monthNow = date("m");
+        echo "<select id='calmonth'>";
+        foreach ($months as $m=>$mth) {
+          printf("<option value='%s'%s>%s</option>",
+            $m, $m==$monthNow?" selected":"", $mth
+          );
+        }
+        echo "</select>";
 
-          </div>
+        // (B2) YEAR SELECTOR
+        echo "<input type='number' id='calyear' value='".date("Y")."'/>";
+      ?>
 
+      </div>
 
+      <!-- (C) CALENDAR WRAPPER -->
+      <div id="calwrap">
+      </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="main" style="margin-left:-2rem;">
-
-<!-- (B) PERIOD SELECTOR -->
-<div id="calPeriod">
-  
-  <?php
-  // (B1) MONTH SELECTOR
-  // NOTE: DEFAULT TO CURRENT SERVER MONTH YEAR
-  $months = [
-    1 => "January", 2 => "Febuary", 3 => "March", 4 => "April",
-    5 => "May", 6 => "June", 7 => "July", 8 => "August",
-    9 => "September", 10 => "October", 11 => "November", 12 => "December"
-  ];
-  $monthNow = date("m");
-  echo "<select id='calmonth'>";
-  foreach ($months as $m=>$mth) {
-    printf("<option value='%s'%s>%s</option>",
-      $m, $m==$monthNow?" selected":"", $mth
-    );
-  }
-  echo "</select>";
-
-  // (B2) YEAR SELECTOR
-  echo "<input type='number' id='calyear' value='".date("Y")."'/>";
-?>
-
-</div>
-
-<!-- (C) CALENDAR WRAPPER -->
-<div id="calwrap">
+      </center>
 </div>
 
 
 
-</div>
 
 
 
@@ -587,28 +590,7 @@
                                 
                                 <div class='box_body'>";
 
-                                /*
-                                $notice_read_time_sql = "SELECT * FROM read_time WHERE Post_ID='$Post_ID'";
-                                $notice_read_time_state = $conn->query($notice_read_time_sql);
-                                $notice_read_time_results = $notice_read_time_state->fetchAll(PDO::FETCH_ASSOC);
-
-                                if($notice_read_time_results){
-                                  foreach($notice_read_time_results as $notice_read_time_result){
-
-                                    $Read_Time = strtotime($notice_read_time_result['Last_Read_Time']);
-                                  // $System_Time = strtotime(date("H:i:s"));
-
-                                    /*$CAP = $System_Time - $Read_Time;
-
-                                    /*echo $CAP;
-                                    echo "<br>";
-                                  echo $System_Time;
-
-                                    /*echo "<i><span style='font-size:13px;color:#888;'>".$notice_read_time_result['Last_Read_Date']." </span>
-                                          <span style='font-size:13px; margin-left:1rem;color:#888;'> ".."</span></i>"; 
-
-                                  }
-                                }*/
+                                include './Last_Read.php';  
                                   
                                 echo "<h3>".$TITLE."</h3>";
                                   
@@ -647,7 +629,7 @@
                                   <ul class ='more_post'>
                                     <li onclick=toggle_save('$Post_ID','NEWS');><a href='#'>Save</a></li>
                                     <li onclick=toggle_hidden('$Post_ID','NEWS');><a href='#'>Hide</a></li>
-                                    <li onclick='set_time_to_publish_Popup()'><a href='#'>Reminder</a></li>
+                                    <li onclick=toggle_reminder('$Post_ID','NEWS');><a href='#'>Reminder</a></li>
                                   </ul>
                                 </div>
                               </div>";
@@ -685,21 +667,20 @@
 
               <div class="popup_form">
                   <h3 class="popup_title">Set Time to Reminder</h3>
-                  <form action="" method="post">
+                  <form action="../Control/save_hidden.php" method="post">
+               
+                  <label for="new-date" class="lbl"> Date</label>
 
-                  
-                    <label for="new-date" class="lbl"> Date</label>
-                    <input type="date" name="" id="new-date" class="inp inp1">
-                      <br>
-                      <br>
+                  <input type="text" name="add_reminder_id" id="reminder_ID" class="inp inp1" style="display:none;">
+                  <input type="text" name="add_reminder_type" id="reminder_Type" class="inp inp1" style="display:none;">
+                  <input type="date" name="add_reminder_date" id="new-date" class="inp inp1">
+                
 
-                    <label for="new-time" class="lbl"> Time</label>
-                  
-                    <input type="time" name="" id="new-time" class="inp inp1">
                     <br>
-                    <div class="publish_btn" onclick="window.open('Moderator_View_News.php','_self')">Set</div>
+                  <br>
+                  <button type="submit" name ="Add_Reminder" class="update_btn" value="LOGIN">Set</button>
               
-                   </form>
+                 </form>
                </div>
 
           </div>
@@ -710,6 +691,19 @@
 
 
 <script>
+
+    function toggle_reminder(Reminder_post_ID,Type){
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function(){
+      document.getElementById("reminder_ID").value = Reminder_post_ID;
+      document.getElementById("reminder_Type").value = Type;
+    }
+    xhttp.open("GET",Reminder_post_ID,Type);
+    xhttp.send(); 
+    document.getElementById("popup-8").classList.add("active");
+
+    }
 
     function toggle_save(save_post_id,Type){
       $.ajax({

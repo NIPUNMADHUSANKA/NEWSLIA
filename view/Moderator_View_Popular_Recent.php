@@ -17,6 +17,9 @@ function Most_Recent($Type){
     else if($Type == "Vacancies"){
         $sql_most_popular = "SELECT Post_ID,Image,Title FROM job_vacancies ORDER BY Publish_Date DESC LIMIT 5";
     }
+    else if($Type == "News"){
+        $sql_most_popular = "SELECT Post_ID,Image,Title FROM news ORDER BY Publish_Date DESC LIMIT 5";
+    }
 
 
     $statement_most_popular = $conn->query($sql_most_popular);
@@ -54,6 +57,9 @@ function Most_Recent($Type){
                         else if($Type == "Vacancies"){
                             echo "<h3 onclick=toggle_view('$Most_Recent_ID[0]','VACANCIES');><u>".$Most_Recent_Title[0]."</u></h3>";
                         }
+                        else{
+                            echo "<h3 onclick=toggle_view('$Most_Recent_ID[0]','NEWS');><u>".$Most_Recent_Title[0]."</u></h3>";
+                        }
                         
 
                     echo "</div>
@@ -73,6 +79,9 @@ function Most_Recent($Type){
                         }
                         else if($Type == "Vacancies"){
                             echo "<h3 onclick=toggle_view('$Most_Recent_ID[$x]','VACANCIES');><u>".$Most_Recent_Title[$x]."</u></h3>";
+                        }
+                        else{
+                            echo "<h3 onclick=toggle_view('$Most_Recent_ID[$x]','NEWS');><u>".$Most_Recent_Title[$x]."</u></h3>";
                         }
                         
                     echo "</div>";
@@ -139,6 +148,9 @@ function Most_Popular($Type){
     else if($Type == "Ads"){
         $sql_most_popular_data = "SELECT com_ads.Post_ID as ID, com_ads.Image as IMG, com_ads.Title as TITLE FROM com_ads INNER JOIN read_time ON com_ads.Post_ID = read_time.Post_ID ORDER BY read_time.Opening_Time DESC LIMIT 5";
     }
+    else if($Type == "News"){
+        $sql_most_popular_data = "SELECT news.Post_ID as ID, news.Image as IMG, news.Title as TITLE FROM news INNER JOIN read_time ON news.Post_ID = read_time.Post_ID ORDER BY read_time.Opening_Time DESC LIMIT 5";
+    }
 
     $statement_most_popular_data = $conn->query($sql_most_popular_data);
     $results_most_popular_data  = $statement_most_popular_data->fetchAll(PDO::FETCH_ASSOC);
@@ -175,6 +187,9 @@ function Most_Popular($Type){
                         else if($Type == "Vacancies"){
                             echo "<h3 onclick=toggle_view('$Most_Popular_ID[0]','VACANCIES');><u>".$Most_Popular_Title[0]."</u></h3>";
                         }
+                        else{
+                            echo "<h3 onclick=toggle_view('$Most_Popular_ID[0]','NEWS');><u>".$Most_Popular_Title[0]."</u></h3>";
+                        }
                     echo "</div>
                 </div>";
 
@@ -192,6 +207,9 @@ function Most_Popular($Type){
                         }
                         else if($Type == "Vacancies"){
                             echo "<h3 onclick=toggle_view('$Most_Popular_ID[$x]','VACANCIES');><u>".$Most_Popular_Title[$x]."</u></h3>";
+                        }
+                        else{
+                            echo "<h3 onclick=toggle_view('$Most_Popular_ID[0]','NEWS');><u>".$Most_Popular_Title[$x]."</u></h3>";
                         }
                     echo "</div>";
                 } 

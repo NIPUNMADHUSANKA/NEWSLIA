@@ -67,4 +67,23 @@ if(isset($_POST['view_post_id'])){
 }
 
 
+if(isset($_POST['Voter_ID'])){
+
+    $Post_ID = $_POST['Post_ID'];
+    $Voter = $_POST['Voter_ID'];
+    $Vote = $_POST['Vote'];
+
+    $sql = "DELETE FROM vote WHERE Post_ID = :Post_ID AND System_Actor_ID = :System_Actor_ID";
+
+    // prepare the statement for execution
+    $statement = $conn->prepare($sql);
+    $statement->bindParam(':Post_ID', $Post_ID);
+    $statement->bindParam(':System_Actor_ID', $Voter);
+
+    // execute the statement
+    $statement->execute();
+
+    $Add_Vote = $conn->prepare("INSERT INTO `vote` VALUES(?,?,?)");
+    $Add_Vote->execute([$Post_ID,$Voter,$Vote]);
+}
 ?>

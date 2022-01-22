@@ -25,7 +25,7 @@ class Calendar {
     $dayLast = "{$year}-{$month}-{$daysInMonth}";
 
     // (E2) GET EVENTS
-    $this->stmt = $this->pdo->prepare("SELECT * FROM `events`
+    $this->stmt = $this->pdo->prepare("SELECT * FROM `smart_calendar`
     WHERE `evt_start` BETWEEN ? AND ?
     OR `evt_end` BETWEEN ? AND ?");
     $this->stmt->execute([$dayFirst, $dayLast, $dayFirst, $dayLast]);

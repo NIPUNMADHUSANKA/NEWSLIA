@@ -1738,9 +1738,13 @@ session_start();
           echo '<script type="text/javascript">error_login();</script>';
         }
         elseif($connect == 'M'){
-          echo '<script type="text/javascript">window.open("./Moderator_Home.php", "_self");</script>';
+          $_SESSION['Actor_Type'] = "MODERATOR";
+          echo '<script type="text/javascript">window.open("./Moderator_Home.php", "_self");</script>'; 
         }
-        
+        elseif($connect == 'N'){
+          $_SESSION['Actor_Type'] = "NORMALUSER";
+          echo '<script type="text/javascript">window.open("./N_User_Home.php", "_self");</script>';
+        }        
     }
     else{
         echo '<script type="text/javascript">error_login();</script>';

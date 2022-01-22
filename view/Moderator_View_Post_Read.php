@@ -318,24 +318,80 @@
 
 <?php
 
-$Post_Type = $_SESSION['READ_VIEW_TYPE'];
+    $Post_Type = $_SESSION['READ_VIEW_TYPE'];
+    $Post_ID = $_SESSION['READ_VIEW_Post_ID'];
+    $USERID = $_SESSION['System_Actor_ID'];
+    $count_vote = 0;
+    $my_vote =0;
 
     if($Post_Type == "NEWS"){
+
+        $sql_get_all_vote = "SELECT COUNT(Vote) AS COUNT_VOTE FROM vote WHERE Vote = '1' AND Post_ID = '$Post_ID'";
+        $statement_get_all_vote = $conn->query($sql_get_all_vote);
+        $results_get_all_vote = $statement_get_all_vote->fetchAll(PDO::FETCH_ASSOC);
+        
+        if($results_get_all_vote){
+          foreach($results_get_all_vote as $result_get_all_vote){
+              $count_vote = $result_get_all_vote['COUNT_VOTE'];
+          }
+        }
+
+        $sql_get_my_vote = "SELECT Vote FROM vote WHERE System_Actor_ID = '$USERID'";
+        $statement_get_my_vote = $conn->query($sql_get_my_vote);
+        $results_get_my_vote = $statement_get_my_vote->fetchAll(PDO::FETCH_ASSOC);
+        if($results_get_my_vote){
+          foreach($results_get_my_vote as $result_get_my_vote){
+              $my_vote = $result_get_my_vote['Vote'];
+          }
+        }
+
+
         echo "<div class='rate' style='text-align: center; width: 5%; background-color: #ACE0B8;border:1px solid #333;height:27rem;margin-left:2rem;margin-top:5rem;'>
         
-        <div><a href='#' style='color: black;margin-top:5rem;'>
-              <i class='fas fa-chevron-up fa-3x'></i></a>
-        </div>
+        <div><a href='#' style='color: black;margin-top:5rem;'>";
+
+            if($my_vote == 1){
+              echo "<i class='fas fa-chevron-up fa-3x' style = 'color:blue;' onclick = update_up_my('$Post_ID','$USERID','1');></i></a>";
+            }
+            else{
+              echo "<i class='fas fa-chevron-up fa-3x' onclick = update_up_my('$Post_ID','$USERID','1');></i></a>";
+            }
               
-              <h2 style='color: black;margin-top:8rem;'>246</h2>
         
-        <div style='padding-top:8rem;'><a href='#' style='color: black;margin-top:15rem;'>
-              <i class='fas fa-chevron-down fa-3x'></i></a>
-        </div>
+        echo "</div>
+              
+              <h2 style='color: black;margin-top:8rem;'>".$count_vote."</h2>
+        
+        <div style='padding-top:8rem;'><a href='#' style='color: black;margin-top:15rem;'>";
+              
+              if($my_vote == -1){
+                echo "<i class='fas fa-chevron-down fa-3x' style = 'color:blue;' onclick = update_up_my('$Post_ID','$USERID','-1');></i></a>";
+              }
+              else{
+                echo "<i class='fas fa-chevron-down fa-3x' onclick = update_up_my('$Post_ID','$USERID','-1');></i></a> ";
+              }
+
+      echo "</div>
     </div>";
     }
 
 ?>
+
+<script>
+  function update_up_my(Post_ID,Voter_ID,Vote){
+    $.ajax({
+      url : "../Control/post_control.php",
+      type :"POST",
+      data :{Post_ID:Post_ID,
+            Voter_ID:Voter_ID,
+            Vote:Vote},
+      success:function(data){
+       window.open("./Moderator_View_Post_Read.php","_self");
+      }
+    })
+  }
+
+</script>
 
 <div class="posts_content_view_body">
 

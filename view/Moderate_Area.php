@@ -100,7 +100,11 @@
   <li><a href="Moderator_Profile.php"><img src="../images/other/profile.png" alt="" srcset=""><p>My Profile</p></a></li>
   <li><a href="Moderate_Area.php"><img src="../images/other/location.png" alt="" srcset=""><p style="color: #45ADA8EB;">Select Area</p></a></li>
   <li><a href="Moderate_Post_Type.php"><img src="../images/other/type.png" alt="" srcset=""><p>Select Type</p></a></li>
-  <li><a href="Moderator_Insight.php"><img src="../images/other/insights.png" alt="" srcset=""><p>Insights</p></a></li>
+  <?php
+      if($_SESSION['Actor_Type'] != "NORMALUSER"){
+          echo "<li><a href='Moderator_Insight.php'><img src='../images/other/insights.png'><p>Insights</p></a></li>";
+      }
+  ?>
   <li onclick="togglePopup_select_option('deactivate-1')"><a href="#"><img src="../images/other/deactivate.png" alt="" srcset=""><p>Deactivate</p></a></li>
   <li><a href="logout.php"><img src="../images/other/logout.png" alt="" srcset=""><p>Log Out</p></a></li>
 
@@ -214,56 +218,62 @@ echo "<div class='right_side'>
                </form>";
       ?>
         </div>
+        
+        <?php
+        if($_SESSION['Actor_Type'] == "MODERATOR"){
+              echo "<div class='second_box'>
+              <h2>Moderating Area</h2>
 
-        <div class="second_box">
-            <h2>Moderating Area</h2>
+              <div class='second_box_area'>";
+                
+                      include '../Model/connect.php';
+                      $moderate_area_sql = "SELECT * FROM dsa ORDER BY DSA ASC";
+                    
+                      $moderate_area_statement = $conn -> query($moderate_area_sql);
+                      $moderate_area_results = $moderate_area_statement->fetchAll(PDO::FETCH_ASSOC);
 
-            <div class="second_box_area">
-              <?php
-                    include '../Model/connect.php';
-                    $moderate_area_sql = "SELECT * FROM dsa ORDER BY DSA ASC";
-                   
-                    $moderate_area_statement = $conn -> query($moderate_area_sql);
-                    $moderate_area_results = $moderate_area_statement->fetchAll(PDO::FETCH_ASSOC);
-
-                    if($moderate_area_results){
-                            
-                      $i = 1;
-                      foreach($moderate_area_results as $moderate_area_result){
+                      if($moderate_area_results){
+                              
+                        $i = 1;
+                        foreach($moderate_area_results as $moderate_area_result){
 
 
-                        $system_actor_id = $_SESSION['System_Actor_ID'];
-                        
-                        $moderate_area_check_sql = "SELECT * FROM moderate_area WHERE (System_Actor_Id = '$system_actor_id') ";
-                        $moderate_area_check_statement = $conn -> query($moderate_area_check_sql);
-                        $moderate_area_check_results = $moderate_area_check_statement->fetchAll(PDO::FETCH_ASSOC);
+                          $system_actor_id = $_SESSION['System_Actor_ID'];
+                          
+                          $moderate_area_check_sql = "SELECT * FROM moderate_area WHERE (System_Actor_Id = '$system_actor_id') ";
+                          $moderate_area_check_statement = $conn -> query($moderate_area_check_sql);
+                          $moderate_area_check_results = $moderate_area_check_statement->fetchAll(PDO::FETCH_ASSOC);
 
-                        echo "<form action='Moderate_Area.php' method='POST'>";
+                          echo "<form action='Moderate_Area.php' method='POST'>";
 
-                        if($moderate_area_check_results){
-                          foreach($moderate_area_check_results as $moderate_area_check_result){
+                          if($moderate_area_check_results){
+                            foreach($moderate_area_check_results as $moderate_area_check_result){
 
-                              echo " <input type='radio' id='".$i."' value='".$moderate_area_result['DSA']."' name='moderate_area_select' disabled class='moderator_radio'"; 
-                              if($moderate_area_check_result['Area'] == $moderate_area_result['DSA']){echo 'checked';} 
-                              echo "> 
-                              <label for='".$i."'>".$moderate_area_result['DSA']."</label>
-                              <br>";
+                                echo " <input type='radio' id='".$i."' value='".$moderate_area_result['DSA']."' name='moderate_area_select' disabled class='moderator_radio'"; 
+                                if($moderate_area_check_result['Area'] == $moderate_area_result['DSA']){echo 'checked';} 
+                                echo "> 
+                                <label for='".$i."'>".$moderate_area_result['DSA']."</label>
+                                <br>";
 
+                              }
                             }
                           }
+                          $i = $i +1;   
                         }
-                        $i = $i +1;   
-                      }
-                
-            echo "</div>  
+                  
+              echo "</div>  
 
-            <div class='btn_set'>
-                <input type='button' value='Edit' class='edit_btn_set' onclick='remove_disable()'>
-                  <br>
-                <input type='submit' value='Save' class='save_btn_set' name = 'Save_MODERATOR'>
-              </form>
-            </div>";
+              <div class='btn_set'>
+                  <input type='button' value='Edit' class='edit_btn_set' onclick='remove_disable()'>
+                    <br>
+                  <input type='submit' value='Save' class='save_btn_set' name = 'Save_MODERATOR'>
+                </form>
+              </div>";
 
+        }
+
+        
+        
 
               if(isset($_POST['Save_MODERATOR']) and isset($_POST['moderate_area_select']) ){
 

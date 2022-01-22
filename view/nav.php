@@ -207,92 +207,161 @@
               <li><a href="Moderator_Profile.php"> <img src="../images/other/profile.png" alt="" srcset=""> My Profile</a></li>
               <li><a href="Moderate_Area.php"><img src="../images/other/location.png" alt="" srcset="">Select Area</a></li>
               <li><a href="Moderate_Post_Type.php"><img src="../images/other/type.png" alt="" srcset="">Select Type</a></li>
-              <li><a href="Moderator_Insight.php"><img src="../images/other/insights.png" alt="" srcset="">Insights</a></li>
+              <?php
+                if($_SESSION['Actor_Type'] != "NORMALUSER"){
+                echo "<li><a href='Moderator_Insight.php'><img src='../images/other/insights.png'>Insights</a></li>";
+                }
+              ?>
               <li onclick="togglePopup_select_option('deactivate-1')"><a href="#"><img src="../images/other/deactivate.png" alt="" srcset="">Deactivate</a></li>
               <li><a href="logout.php"><img src="../images/other/logout.png" alt="" srcset="">Log Out</a></li>
     </ul>
   </div>
 
 </div>
+
+
+
 </div>
 
 
-<ul class="navigation-menu">
+<?php
+
+    if($_SESSION['Actor_Type'] == "MODERATOR"){
+
+      echo "<ul class='navigation-menu'>
 
 
 
-    <!-- Home -->
-    <li class="navigation-imporatnt  navigation-dropdown  <?php if ($page == 'home') {
-                                                            echo 'activate';
-                                                          } ?>">
-      <a href="Moderator_Home.php" class="navigation-dropbtn">Home</a>
-    </li>
+          <!-- Home -->
+          <li class='navigation-imporatnt  navigation-dropdown'>
+            <a href='Moderator_Home.php' class='navigation-dropbtn'>Home</a>
+          </li>
 
 
-    <!-- View -->
-    <li class="navigation-view  navigation-dropdown  <?php if ($page == 'view') {
-                                                        echo 'activate';
-                                                      } ?>">
-      <a href="Moderator_View_News.php" class="navigation-dropbtn">View</a>
-      <div class="navigation-view-content navigation-dropdown-content">
-        <a href="Moderator_View_News.php">News</a>
-        <a href="Moderator_View_Articles.php">Articles</a>
-        <a href="Moderator_View_Notices.php">Notices</a>
-        <a href="Moderator_View_Jobs.php">Job Vacancies</a>
-        <a href="Moderator_View_Ads.php">Commercial Ads</a>
-      </div>
-    </li>
+          <!-- View -->
+          <li class='navigation-view  navigation-dropdown'>
+            <a href='Moderator_View_News.php' class='navigation-dropbtn'>View</a>
+            <div class='navigation-view-content navigation-dropdown-content'>
+              <a href='Moderator_View_News.php'>News</a>
+              <a href='Moderator_View_Articles.php'>Articles</a>
+              <a href='Moderator_View_Notices.php'>Notices</a>
+              <a href='Moderator_View_Jobs.php'>Job Vacancies</a>
+              <a href='Moderator_View_Ads.php'>Commercial Ads</a>
+            </div>
+          </li>
 
 
-    <!-- Publish -->
-    <li class="navigation-view  navigation-dropdown  <?php if ($page == 'publish') {
-                                                        echo 'activate';
-                                                      } ?>">
-      <a href="Moderator_Pending.php" class="navigation-dropbtn">Publish</a>
-      <div class="navigation-view-content navigation-dropdown-content">
-        <a href="Moderator_Pending.php">Pending</a>
-        <a href="Moderator_Set_Time.php">Set Time</a>
-      </div>
-    </li>
+          <!-- Publish -->
+          <li class='navigation-view  navigation-dropdown'>
+            <a href='Moderator_Pending.php' class='navigation-dropbtn'>Publish</a>
+            <div class='navigation-view-content navigation-dropdown-content'>
+              <a href='Moderator_Pending.php'>Pending</a>
+              <a href='Moderator_Set_Time.php'>Set Time</a>
+            </div>
+          </li>
 
-    <!-- Important Contact -->
-    <li class="navigation-view  navigation-dropdown  <?php if ($page == 'important') {
-                                                        echo 'activate';
-                                                      } ?>">
-      <a href="Moderator_Important_View.php" class="navigation-dropbtn">Important Contacts</a>
-      <div class="navigation-view-content navigation-dropdown-content">
-          <a href="Moderator_Important_View.php">View Contact Numbers</a>
-          <a href="Moderator_Manage_ICN.php">Edit Contact Numbers</a>
-      </div>
-    </li>
+          <!-- Important Contact -->
+          <li class='navigation-view  navigation-dropdown'>
+            <a href='Moderator_Important_View.php' class='navigation-dropbtn'>Important Contacts</a>
+            <div class='navigation-view-content navigation-dropdown-content'>
+                <a href='Moderator_Important_View.php'>View Contact Numbers</a>
+                <a href='Moderator_Manage_ICN.php'>Edit Contact Numbers</a>
+            </div>
+          </li>
 
 
-    <!-- Insights -->
-    <li class="navigation-imporatnt navigation-dropdown  <?php if ($page == 'insights') {
-                                                            echo 'activate';
-                                                          } ?>">
-      <a href="Moderator_Reporter.php" class="navigation-dropbtn">Insights</a>
-    </li>
+          <!-- Insights -->
+          <li class='navigation-imporatnt navigation-dropdown'>
+            <a href='Moderator_Reporter.php' class='navigation-dropbtn'>Insights</a>
+          </li>
 
 
-    <!-- More -->
-    <li class="navigation-more navigation-dropdown  <?php if ($page == 'more') {
-                                                      echo 'activate';
-                                                    } ?>" style="margin-top: 0;">
-      <a href="#" class="navigation-dropbtn">More</a>
+          <!-- More -->
+          <li class='navigation-more navigation-dropdown' style='margin-top: 0;'>
+            <a href='#' class='navigation-dropbtn'>More</a>
 
-      <div class="navigation-more-content navigation-dropdown-content">
-        <a href="Moderator_save.php">Saved</a>
-        <a href="Moderator_Hidden.php">Hidden</a>
-        <a href="Moderator_Reminder.php">Reminders</a>
-      </div>
+            <div class='navigation-more-content navigation-dropdown-content'>
+              <a href='Moderator_save.php'>Saved</a>
+              <a href='Moderator_Hidden.php'>Hidden</a>
+              <a href='Moderator_Reminder.php'>Reminders</a>
+            </div>
 
-    </li>
+          </li>
 
-    <li style="visibility: hidden;"><a href="#" onclick="togglePopup_select_option('notification')"><i class="fas fa-bell fa-customize"></i></a></li>
+          <li style='visibility: hidden;'><a href='#'><i class='fas fa-bell fa-customize'></i></a></li>
 
-  </ul>
+      </ul>";
+    
+    }
 
+
+    if($_SESSION['Actor_Type'] == "NORMALUSER"){
+
+      echo "<ul class='navigation-menu'>
+
+
+
+          <!-- Home -->
+          <li class='navigation-imporatnt  navigation-dropdown'>
+            <a href='N_User_Home.php' class='navigation-dropbtn'>Home</a>
+          </li>
+
+
+          <!-- News -->
+          <li class='navigation-imporatnt  navigation-dropdown'>
+            <a href='Moderator_View_News.php' class='navigation-dropbtn'>News</a>
+          </li>
+
+
+          <!-- Articles -->
+          <li class='navigation-view  navigation-dropdown'>
+            <a href='Moderator_View_Articles.php' class='navigation-dropbtn'>Articles</a>
+            <div class='navigation-view-content navigation-dropdown-content'>
+              <a href='Moderator_View_Articles.php'>Articles</a>
+              <a href='N_User_My_Articles.php'>My Articles</a>
+              <a href='N_User_Write_Article.php'>Create Articles</a>
+            </div>
+          </li>
+
+          <!-- Ads -->
+          <li class='navigation-view  navigation-dropdown'>
+            <a href='Moderator_View_Notices.php' class='navigation-dropbtn'>Advertisements</a>
+            <div class='navigation-view-content navigation-dropdown-content'>
+              <a href='Moderator_View_Notices.php'>Notices</a>
+              <a href='Moderator_View_Jobs.php'>Job Vacancies</a>
+              <a href='Moderator_View_Ads.php'>Commercial Ads</a>
+              <a href='#' onclick=togglePopup_select_option('popup-type');>Create New</a>
+            </div>
+          </li>
+
+
+
+          <!-- Important Nuumber -->
+          <li class='navigation-imporatnt navigation-dropdown'>
+            <a href='Moderator_Important_View.php' class='navigation-dropbtn'>Important Contacts</a>
+          </li>
+
+
+          <li class='navigation-more navigation-dropdown' style='margin-top: 0;'>
+            <a href='#' class='navigation-dropbtn'>More</a>
+
+            <div class='navigation-more-content navigation-dropdown-content'>
+            <a href='N_User_Pending_Posts.php'>Pending</a>
+            <a href='Moderator_save.php'>Saved</a>
+            <a href='Moderator_Hidden.php'>Hidden</a>
+            <a href='Moderator_Reminder.php'>Reminders</a>
+            <a href='N_User_Drafted_Post.php'>Drafted</a>
+            </div>
+
+          </li>
+
+          <li><a href='#' onclick=togglePopup_select_option('notification');><i class='fas fa-bell fa-customize'></i></a></li>
+
+      </ul>";
+    
+    }
+
+?>
 
 
 
@@ -380,6 +449,102 @@
     </div>
 
   </div>
+
+
+
+
+
+  
+  <!-- notifications -->
+
+  <div class="navigation-popup  navigation-popup_set_time" id="notification">
+
+
+
+    <div class="navigation-content  navigation-popup_set_time" style="width: 500px; height: auto; top: 44.5%; left: 80%; border:1px solid gray;">
+
+      <div class="navigation-close-btn" onclick="togglePopup_select_option('notification')">&times;</div>
+
+      <div class="navigation-content_body  navigation-popup_set_time_body">
+        <div class="navigation-popup_form">
+          <div class="navigation-btn_set_option">
+            <?php
+            include '../Model/connect.php';
+
+            $USERID = $_SESSION['System_Actor_ID'];
+
+            $variable_1 = "SELECT *FROM notification WHERE System_Actor_ID = '$USERID'  ORDER BY Post_ID DESC LIMIT 5";
+            $variable_2 = $conn->query($variable_1);
+            $variable_3 = $variable_2->fetchAll(PDO::FETCH_ASSOC);
+
+            if ($variable_3) {
+              foreach ($variable_3 as $variable_4) {
+
+                $N_ID = $variable_4['Notification_ID']; 
+
+                if ($variable_4['Approve_or_Reject'] == 'Approve') {
+                  echo  "
+                  <div class='navigation-notification'> <p>Your Post on " . $variable_4['Title'] . " has been accepted. </P> <i class='fas fa-check' style='text-align: right; color: green;'></i></div>                  
+                  ";
+
+                  
+
+                } else {
+                  echo  "
+                  <div class='navigation-notification'> <p>Your Post on " . $variable_4['Title'] . " has been rejected. </P><button style = 'border: none;'><i class='fas fa-times' style='text-align: right; color: red;'></i></button></div>                  
+                  ";
+                }
+              }
+            } else {
+              echo  "
+                  <div class='navigation-notification'> <p>no notifications</p></div>                  
+                  ";
+            }
+            ?>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- select advertisement type-->
+
+  <div class="navigation-popup  navigation-popup_set_time" id="popup-type">
+
+    <div class="navigation-overlay"></div>
+
+    <div class="navigation-content  navigation-popup_set_time" style="width: 300px; height: 360px;">
+      <div class="navigation-close-btn" onclick="togglePopup_select_option('popup-type')">&times;</div>
+
+
+      <div class="navigation-content_body  navigation-popup_set_time_body">
+        <div class="navigation-popup_logo">
+        <img src='../images/Name.svg'>
+        </div>
+        <hr>
+
+        <div class="navigation-popup_form">
+          <h3 class="navigation-popup_title">Select Option to Publish</h3>
+          <div class="navigation-btn_set_option">
+
+            <div class="navigation-select_option" onclick="window.open('N_User_Write_Notice.php','_self')">Notice</div>
+            <div class="navigation-select_option" onclick="window.open('N_User_Write_Job_Vacancy.php','_self')">Job Advertisement</div>
+            <div class="navigation-select_option" onclick="window.open('N_User_Write_Commercial_Advertisement.php','_self')">Commercial Advertisement</div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
 
 
 
