@@ -69,19 +69,6 @@
             <img src="../images/search.svg" alt="" srcset="">
             <input type="text" id="myInput" onkeyup="filterFunction()" placeholder="Search...">
             
-            <?php
-              include '../Model/connect.php';
-              $USERID = $_SESSION['System_Actor_ID'];
-              $read_area_sql = "SELECT * FROM read_area WHERE (System_Actor_Id = '$USERID') ORDER BY Area";
-              $read_area_state = $conn->query($read_area_sql);
-              $read_area_results = $read_area_state->fetchAll(PDO::FETCH_ASSOC);
-
-              if($read_area_results){
-                  foreach($read_area_results as $read_area_result){
-                      echo "<a href='#'>".$read_area_result['Area']."</a>"; 
-                  }
-                }
-            ?>
 
           </div>
         </div>
@@ -93,7 +80,7 @@
 
 <div class="posts_content_view_body">
 
-    <div class="body_information">
+    <div class="body_information" id="content_sort">
          
         <?php
 
@@ -129,7 +116,7 @@
                           echo "</div>";
                           echo "<div class='box_body'>";
                           echo "<h4>".$import_result['Title']."</h4>"; 
-                          echo "<p style='margin-bottom:5px;'><b>-".$import_result['Area']."-</b></p>";
+                          echo "<p style='margin-bottom:5px;'><b>-<abc>".$import_result['Area']."<abc>-</b></p>";
               
                           $CID = $import_result['Contact_ID'];
                           $importnum_sql = "SELECT * FROM important_number_list WHERE (Contact_ID = '$CID')";
@@ -183,17 +170,22 @@
       var input, filter, ul, li, a, i;
       input = document.getElementById("myInput");
       filter = input.value.toUpperCase();
-      div = document.getElementById("sortdrop");
-      a = div.getElementsByTagName("a");
-      for (i = 0; i < a.length; i++) {
-            txtValue = a[i].textContent || a[i].innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                 a[i].style.display = "";
+      
+      div_body = document.getElementById("content_sort");
+      div_body_in = document.getElementsByClassName("box-container");
+      abc = div_body.getElementsByTagName("abc");
+
+      for (i = 0; i < abc.length; i++) {
+        txtValue = abc[i].textContent || abc[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              div_body_in[i].style.display = "";
             } else {
-                 a[i].style.display = "none";
+              div_body_in[i].style.display = "none";
         }
       }
+
     }
+
 
 </script>
     

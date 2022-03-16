@@ -503,7 +503,7 @@ session_start();
         <div class="contact_info">     
               
               <div class="repoter">
-                  <h3>Repoter</h3>
+                  <h3>Reporter</h3>
                   <div class="reporter_details">
                     <?php
 
@@ -1744,6 +1744,10 @@ session_start();
         elseif($connect == 'N'){
           $_SESSION['Actor_Type'] = "NORMALUSER";
           echo '<script type="text/javascript">window.open("./N_User_Home.php", "_self");</script>';
+        }
+        elseif($connect == 'R'){
+          $_SESSION['Actor_Type'] = "REPORTER";
+          echo '<script type="text/javascript">window.open("./Reporter-After-loged-Home.php", "_self");</script>';
         }        
     }
     else{

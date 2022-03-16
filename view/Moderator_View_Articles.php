@@ -161,26 +161,7 @@
 <hr>
 <div class="content_posts_view">
 
-      <div class="post_sort">
-        <div class="post_sort_bar">
-          <button onclick="showsort()" class="drop_area_sort">Select Area<img src="../images/sort.svg" alt="" srcset=""></button>
-          <div class="drop_area_sort_cont" id="sortdrop">
-            <img src="../images/search.svg" alt="" srcset="">
-            <input type="text" id="myInput" onkeyup="filterFunction()" placeholder="Search...">
-            <a href="#">Gampaha</a>
-            <a href="#">Minuwangoda</a>
-            <a href="#">Negombo</a>
-          </div>
-        </div>
-      </div>
       
-     
-    <form action="" class="search-bar">
-	     <input type="search" name="search" pattern=".*\S.*" required>
-	     <button class="search-btn" type="submit">
-		       <span>Search</span>
-	     </button>
-    </form>
     
 </div>
 

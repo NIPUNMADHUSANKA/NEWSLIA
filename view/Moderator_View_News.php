@@ -211,7 +211,19 @@
     margin-left: -240px;
   }*/
 
+
+  .complain_submit{
+    border: none;
+    background: #00B172EB;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+
+
 </style>
+
 
 <body>
 
@@ -481,49 +493,20 @@
           <div class="drop_area_sort_cont" id="sortdrop">
             <img src="../images/search.svg" alt="" srcset="">
             <input type="text" id="myInput" onkeyup="filterFunction()" placeholder="Search...">
-            <a href="#">Gampaha</a>
-            <a href="#">Minuwangoda</a>
-            <a href="#">Negombo</a>
+            
           </div>
         </div>
       </div>
 
 
-      <div class="post_sort news_type">
-        <div class="post_sort_bar">
-          <button onclick="show_news_sort()" class="drop_area_sort">Select News Type<img src="../images/sort.svg" alt="" srcset=""></button>
-          <div class="drop_area_sort_cont" id="sort_news_drop">
-            <img src="../images/search.svg" alt="" srcset="">
-            <input type="text" id="myInput" onkeyup="filterFunction()" placeholder="Search...">
-            <a href="#">Political</a>
-            <a href="#">Crime</a>
-            <a href="#">Investigative</a>
-            <a href="#">Arts</a>
-            <a href="#">Entertainment</a>
-            <a href="#">Education</a>
-            <a href="#">Sports</a>
-            <a href="#">Environment</a>
-            <a href="#">Other</a>
-          </div>
-        </div>
-      </div>
-
-      
      
-    <form action="" class="search-bar">
-	     <input type="search" name="search" pattern=".*\S.*" required>
-	     <button class="search-btn" type="submit">
-		       <span>Search</span>
-	     </button>
-    </form>
-    
 </div>
 
 
 
 <div class="posts_content_view_body">
 
-    <div class="body_information">
+    <div class="body_information"  id = 'content_sort'>
          
     <?php
         
@@ -567,6 +550,7 @@
                           $TITLE = $post_info_result['Title'];
                           $P_DATE = $post_info_result['Publish_Date'];
                           $Creator_ID = $post_info_result['Creator_ID'];
+                          $News_Category = $post_info_result['News_Category'];
                                 
 
                           echo "<div class='box-container'>
@@ -594,6 +578,8 @@
                                   
                                 echo "<h3>".$TITLE."</h3>";
                                   
+                                
+                                echo "<h3 style='display:none;'>".$News_Category."</h3>";
                                   
                                 echo "<p>".$P_DATE."</p>";
                                   
@@ -605,7 +591,7 @@
                                   if($post_from_results){
                                       echo "<b><i>-</b></i>";
                                     foreach($post_from_results as $post_from_result){
-                                      echo "<i>".$post_from_result['Area']." - ";
+                                      echo "<i><abc>".$post_from_result['Area']."</abc> - ";
                                       echo "</i>";
                                     }
                                   }
@@ -629,8 +615,15 @@
                                   <ul class ='more_post'>
                                     <li onclick=toggle_save('$Post_ID','NEWS');><a href='#'>Save</a></li>
                                     <li onclick=toggle_hidden('$Post_ID','NEWS');><a href='#'>Hide</a></li>
-                                    <li onclick=toggle_reminder('$Post_ID','NEWS');><a href='#'>Reminder</a></li>
-                                  </ul>
+                                    <li onclick=toggle_reminder('$Post_ID','NEWS');><a href='#'>Reminder</a></li>";
+
+                                    if($_SESSION['Actor_Type'] == "NORMALUSER" || $_SESSION['Actor_Type'] == "REPORTER"){
+
+                                      echo "<li onclick=togglePopup_Complain_News_Id('$Post_ID'); ><a href='#'>Complain</a></li>";
+
+                                    }
+
+                                echo "</ul>
                                 </div>
                               </div>";
 
@@ -648,6 +641,88 @@
     </div>
 
 </div>
+
+
+
+<div class="popup popup_set_time" id="popup-6">
+    <div class="overlay"></div>
+    <div class="content popup_set_time" style="top: 60%; width: 350px; height: 360px;">
+      <div class="close-btn" onclick="togglePopup_Complain_News_Id('popup-6')">&times;</div>
+      
+      <div class="content_body popup_set_time_body">
+          <div class="popup_logo">
+              <img src="../images/Name.svg" alt="" srcset="">
+          </div>
+          <hr>
+
+          <div class="popup_form">
+              <h3 class="popup_title">Add Your Complain</h3>
+              
+              <form action="../Control/save_hidden.php" method="post">
+               
+                  <label for="new-date" class="lbl"> Date</label>
+
+                  <input type="text" name="add_reminder_id" id="reminder_ID" class="inp inp1" style="display:none;">
+                  <input type="text" name="add_reminder_type" id="reminder_Type" class="inp inp1" style="display:none;">
+                  <input type="date" name="add_reminder_date" id="new-date" class="inp inp1">
+                
+
+                    <br>
+                  <br>
+                  <button type="submit" name ="Add_Reminder" class="update_btn" value="LOGIN">Set</button>
+              
+                 
+              </form>
+          </div>
+
+      
+      </div>
+    </div>
+</div>
+       
+
+
+
+<div class="main-container-2">
+          <div class="up-2">
+            <div class="up-left-2">
+              <img src="../images/Normal_User/17-login/logo.png" alt="">
+            </div>
+          </div>
+          <div class="down-2">
+            <form action="./N_User_View_News.php" method="post" enctype="multipart/form-data">
+            <h3 class="login-form-header-2">Add Your Complaign</h3>
+            <div style="display: flex; margin-bottom: 8px;">
+             
+              <input id="Complain_News_Id"  class="p-div-2" style="border: none; display:none;" name="NewsId" >
+            </div>
+            <div style="display: flex; margin-bottom: 8px;">
+              <div class="lable-div-2"><label for="">Complaign Type :</label></div>
+              <Select class="p-div-2" style="border: none;" style="border: none;" name="Type" required>
+                <option >Nudity</option>
+                <option >Violence</option>
+                <option >Harassment</option>
+                <option >Suicide or self-injury</option>
+                <option >False information</option>
+                <option >Spam</option>
+                <option >Unauthorised sales</option>
+                <option >Hate speech </option>
+                <option >Terrorism</option>
+                <option >Something else</option>
+              </Select>
+            </div>
+            <div class="lable-div-2"><label for="">Description :</label></div>
+            <textarea placeholder="Describe complaign" class="text-area-2" cols="30" rows="10" style="width: 240px;" name="Description" re-quired></textarea>
+            <!-- <button name="Complain" style="border: none; margin-top: 20px; cursor:pointer;"><img src="../images/16-deactivation/tick.png"></button> -->
+            <input type="submit" value="complain" name="Complain" class="complain_submit">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
 
 
 
@@ -690,18 +765,22 @@
 
 
 
+
+
+
+
 <script>
 
     function toggle_reminder(Reminder_post_ID,Type){
 
-    const xhttp = new XMLHttpRequest();
-    xhttp.onload = function(){
-      document.getElementById("reminder_ID").value = Reminder_post_ID;
-      document.getElementById("reminder_Type").value = Type;
-    }
-    xhttp.open("GET",Reminder_post_ID,Type);
-    xhttp.send(); 
-    document.getElementById("popup-8").classList.add("active");
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function(){
+          document.getElementById("reminder_ID").value = Reminder_post_ID;
+          document.getElementById("reminder_Type").value = Type;
+        }
+        xhttp.open("GET",Reminder_post_ID,Type);
+        xhttp.send(); 
+        document.getElementById("popup-8").classList.add("active");
 
     }
 
@@ -753,23 +832,49 @@
     function show_news_sort() {
       document.getElementById("sort_news_drop").classList.toggle("show");
     }
+
+
+    //complain 
+
+    function togglePopup_Complain_News_Id(Post_Id) {
+      const xhttp = new XMLHttpRequest();
+      xhttp.onload = function() {
+        document.getElementById("Complain_News_Id").value = Post_Id;
+      }
+      xhttp.open("GET", Post_Id);
+      xhttp.send();
+
+      document.getElementById('popup-6').classList.toggle("active");
+    }
+
     
 
     function filterFunction() {
       var input, filter, ul, li, a, i;
       input = document.getElementById("myInput");
       filter = input.value.toUpperCase();
-      div = document.getElementById("sortdrop");
-      a = div.getElementsByTagName("a");
-      for (i = 0; i < a.length; i++) {
-            txtValue = a[i].textContent || a[i].innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                 a[i].style.display = "";
+      
+      div_body = document.getElementById("content_sort");
+      div_body_in = document.getElementsByClassName("box-container");
+      abc = div_body.getElementsByTagName("abc");
+
+      for (i = 0; i < abc.length; i++) {
+        txtValue = abc[i].textContent || abc[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              div_body_in[i].style.display = "";
             } else {
-                 a[i].style.display = "none";
+              div_body_in[i].style.display = "none";
         }
       }
+
+
+      console.log(i); 
+
+
     }
+
+    
+
 
 </script>
 

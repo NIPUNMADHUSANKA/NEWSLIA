@@ -119,11 +119,7 @@
           <div class="drop_area_sort_cont" id="sortdrop">
             <img src="../images/search.svg" alt="" srcset="">
             <input type="text" id="myInput" onkeyup="filterFunction()" placeholder="Search...">
-            <a href="#">News</a>
-            <a href="#">Articles</a>
-            <a href="#">Notices</a>
-            <a href="#">Job Vacancies</a>
-            <a href="#">Advertisements</a>
+            
           </div>
         </div>
       </div>
@@ -138,7 +134,7 @@
 
 <div class="posts_content_view_body">
 
-    <div class="body_information">
+    <div class="body_information" id = "content_sort">
 
 
     <?php
@@ -203,7 +199,7 @@
                       <img src='data:image/".$text.";base64,".$img."'/>
                       
                       <div class='tag'>
-                        <div class='tag_text'>".$table."</div>
+                        <div class='tag_text'><abc>".$table."</abc></div>
                       </div>
                       
                       <div class='middle'>
@@ -311,20 +307,25 @@
   }
 
   function filterFunction() {
-    var input, filter, ul, li, a, i;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    div = document.getElementById("sortdrop");
-    a = div.getElementsByTagName("a");
-    for (i = 0; i < a.length; i++) {
-      txtValue = a[i].textContent || a[i].innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        a[i].style.display = "";
-      } else {
-        a[i].style.display = "none";
+      var input, filter, ul, li, a, i;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      
+      div_body = document.getElementById("content_sort");
+      div_body_in = document.getElementsByClassName("box-container");
+      abc = div_body.getElementsByTagName("abc");
+
+      for (i = 0; i < abc.length; i++) {
+        txtValue = abc[i].textContent || abc[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              div_body_in[i].style.display = "";
+            } else {
+              div_body_in[i].style.display = "none";
+        }
       }
-    }
+
   }
+
 </script>
 
 </html>

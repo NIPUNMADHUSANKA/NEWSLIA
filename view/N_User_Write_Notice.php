@@ -235,7 +235,7 @@ session_start();
                     <h3 class="navigation-popup_title" style="text-align: center;">Sure to Delete</h3>
                     <div class="navigation-btn_set_option">
 
-                        <div class="navigation-select_option" onclick="window.open('./N_User_Pending_Posts.php','_self')" style="text-align: center; font-weight: bold; background-color: #FF4444EB;">Yes</div>
+                        <div class="navigation-select_option" onclick="window.open('./Moderator_View_Notices.php','_self')" style="text-align: center; font-weight: bold; background-color: #FF4444EB;">Yes</div>
                         <div class="navigation-select_option" onclick="togglePopup_select_option('confirm_delete_article')" style="text-align: center; font-weight: bold;">No</div>
 
                     </div>

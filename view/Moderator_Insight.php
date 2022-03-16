@@ -81,9 +81,15 @@ session_start();
 <?php
 
         include '../Model/connect.php';
-        $Moderator_ID = $_SESSION['System_Actor_ID'];
+        $USER_ID = $_SESSION['System_Actor_ID'];
+        $Type = $_SESSION['Actor_Type'];
 
-        $moderator_details_sql = "SELECT * FROM moderate_insights WHERE (System_Actor_Id = '$Moderator_ID')";
+        if($Type == "MODERATOR"){
+          $moderator_details_sql = "SELECT * FROM moderate_insights WHERE (System_Actor_Id = '$USER_ID')";
+        }
+        else{
+          $moderator_details_sql = "SELECT * FROM reporter_insights WHERE (System_Actor_Id = '$USER_ID')";
+        }
         $moderator_details_statement = $conn -> query($moderator_details_sql);
         $moderator_details_results = $moderator_details_statement->fetchAll(PDO::FETCH_ASSOC);
         $news = $notice = $articles = $Job_Vacancies = $Commercial_Ads = $Complaints = 0;
@@ -92,7 +98,15 @@ session_start();
           foreach($moderator_details_results as $moderator_details_result){
 
             $news = $moderator_details_result['News'];
-            $articles = $moderator_details_result['Articles'];
+            
+            if($Type == "MODERATOR"){
+              $articles = $moderator_details_result['Articles'];
+            }
+            else{
+              $articles = 0;
+              $stars = $moderator_details_result['Stars'];
+            }            
+
             $notice = $moderator_details_result['Notices']; 
             $Job_Vacancies = $moderator_details_result['Job Vacancies']; 
             $Commercial_Ads = $moderator_details_result['Commercial Ads'];
@@ -122,9 +136,11 @@ echo "
                       <li>
                         <p>News <span>".$news."</span> </p>
                       </li>
-                      <li>
-                        <p>Articles <span>".$articles."</span> </p>
-                      </li>
+                      <li>";
+                        if($Type == "MODERATOR"){
+                        echo "<p>Articles <span>".$articles."</span> </p>";
+                        }
+                      echo"</li>
                       <li>
                         <p>Notices <span>".$notice."</span></p>
                       </li>
@@ -152,9 +168,11 @@ echo "
                         
                   </div>
 
-          </div>
-
-          <div class='trust'>
+          </div>";
+          
+          
+          if($Type == "MODERATOR"){
+          echo "<div class='trust'>
                   <div class='card card3'>
                           <div class='content'>
                             <h2><span class='precentage' style='color:#000;font-size:1.5rem'><b>";
@@ -163,22 +181,56 @@ echo "
                               }else{
                                 echo round($persentage,2);
                               }
-                            echo "%</b></span><br/> <span class='precentage'>Trust for Approvement</span></h2>
+                            if($Type == "MODERATOR"){
+                            echo "%</b></span><br/> <span class='precentage'>Trust for Approvement</span></h2>";
+                            }
+                            else{
+                              echo "%</b></span><br/> <span class='precentage'>Trust for Reporting</span></h2>";
+                            }
+
+                            echo"<br>
+                            
+                          </div>
+                        
+                  </div>
+
+          </div>";
+          }
+
+          else{
+          echo "<div class='star' style='margin-left:8rem;'>
+                  <div class='card card4'>
+                          <div class='content'>
+
+                            <h2><span class='precentage' style='color:#000;font-size:1.5rem;margin-left:0.5rem;'>";
+                            $i=0;
+                            while($i<$stars){
+                              echo "<b><img src='../images/black_star.svg'></b></span>";
+                              $i++;
+                            }
+                            
+
+                            echo"
+                            <br>
+                            <span class='precentage' style='margin-left:0.5rem;'>
+                            Black Stars</span></h2>
+
                             <br>
                             
                           </div>
                         
                   </div>
 
-          </div>
+          </div>";
+         }
 
-    </div>
+    echo "</div>
 
 </div>
 
 ";
         
-        $moderator_profile_sql = "SELECT * FROM system_actor WHERE (System_Actor_Id = '$Moderator_ID')";
+        $moderator_profile_sql = "SELECT * FROM system_actor WHERE (System_Actor_Id = '$USER_ID')";
         $moderator_profile_statement = $conn -> query($moderator_profile_sql);
         $moderator_profile_results = $moderator_profile_statement->fetchAll(PDO::FETCH_ASSOC);
         

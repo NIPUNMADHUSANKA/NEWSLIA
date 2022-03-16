@@ -116,10 +116,16 @@ function signup($first,$last,$email,$mobile,$nic,$job,$dsa,$username_new,$pwd){
     if($TYPE == 'MODERATOR'){
         $moderate_stmt = $conn->prepare("INSERT INTO `moderate_area` VALUES(?,?)");
         $moderate_stmt->execute([$ID,$dsa]);
+
+        $moderate_stmt = $conn->prepare("INSERT INTO `moderate_insights` VALUES(?,?,?,?,?,?,?)");
+        $moderate_stmt->execute([$ID,0,0,0,0,0,0]);
     }
     elseif($TYPE == 'REPORTER'){
         $report_stmt = $conn->prepare("INSERT INTO `report_area` VALUES(?,?)");
         $report_stmt->execute([$ID,$dsa]);
+
+        $report_stmt = $conn->prepare("INSERT INTO `reporter_insights` VALUES(?,?,?,?,?,?,?)");
+        $report_stmt->execute([$ID,0,0,0,0,0,0]);
     }
 
 

@@ -21,7 +21,21 @@ if ($post_Type == "Article") {
     $sql = 'DELETE FROM articles_drafted WHERE Post_Id = :G_DELETE_POST_ID';
     $statement = $conn->prepare($sql);
     if ($statement->execute([':G_DELETE_POST_ID' => $post_Id])) {
+        if($_SESSION['Actor_Type'] == "REPORTER"){
+            echo '<script type="text/javascript">window.open("../view/Repoter_Drafted_Post.php", "_self");</script>';
+        }
         echo '<script type="text/javascript">window.open("../view/N_User_Drafted_Post.php", "_self");</script>';
+    }
+}
+
+
+//delete drafted news
+
+if ($post_Type == "News") {
+    $sql = 'DELETE FROM news_drafted WHERE Post_Id = :G_DELETE_POST_ID';
+    $statement = $conn->prepare($sql);
+    if ($statement->execute([':G_DELETE_POST_ID' => $post_Id])) {
+        echo '<script type="text/javascript">window.open("../view/Repoter_Drafted_Post.php", "_self");</script>';
     }
 }
 
@@ -31,6 +45,9 @@ if ($post_Type == "D_A") {
     $sql = 'DELETE FROM articles_drafted WHERE Post_Id = :G_DELETE_POST_ID';
     $statement = $conn->prepare($sql);
     if ($statement->execute([':G_DELETE_POST_ID' => $post_Id])) {
+        if($_SESSION['Actor_Type'] == "REPORTER"){
+            echo '<script type="text/javascript">window.open("../view/Repoter_Drafted_Post.php", "_self");</script>';
+        }
         echo '<script type="text/javascript">window.open("../view/N_User_Drafted_Post.php", "_self");</script>';
     }
 }
@@ -46,6 +63,9 @@ if ($post_Type == "Commercial_Advertisement") {
     $statement_2 = $conn->prepare($sql_2);
 
     if (($statement->execute([':G_DELETE_POST_ID' => $post_Id])) && ($statement_2->execute([':G_DELETE_POST_ID' => $post_Id]))) {
+        if($_SESSION['Actor_Type'] == "REPORTER"){
+            echo '<script type="text/javascript">window.open("../view/Repoter_Drafted_Post.php", "_self");</script>';
+        }
         echo '<script type="text/javascript">window.open("../view/N_User_Drafted_Post.php", "_self");</script>';
     }
 }
@@ -61,6 +81,9 @@ if ($post_Type == "D_CA") {
     $statement_2 = $conn->prepare($sql_2);
 
     if (($statement->execute([':G_DELETE_POST_ID' => $post_Id])) && ($statement_2->execute([':G_DELETE_POST_ID' => $post_Id]))) {
+        if($_SESSION['Actor_Type'] == "REPORTER"){
+            echo '<script type="text/javascript">window.open("../view/Repoter_Drafted_Post.php", "_self");</script>';
+        }
         echo '<script type="text/javascript">window.open("../view/N_User_Drafted_Post.php", "_self");</script>';
     }
 }
@@ -76,6 +99,9 @@ if ($post_Type == "Job_Vacancy") {
     $statement_2 = $conn->prepare($sql_2);
 
     if (($statement->execute([':G_DELETE_POST_ID' => $post_Id])) && ($statement_2->execute([':G_DELETE_POST_ID' => $post_Id]))) {
+        if($_SESSION['Actor_Type'] == "REPORTER"){
+            echo '<script type="text/javascript">window.open("../view/Repoter_Drafted_Post.php", "_self");</script>';
+        }
         echo '<script type="text/javascript">window.open("../view/N_User_Drafted_Post.php", "_self");</script>';
     }
 }
@@ -91,6 +117,9 @@ if ($post_Type == "D_JV") {
     $statement_2 = $conn->prepare($sql_2);
 
     if (($statement->execute([':G_DELETE_POST_ID' => $post_Id])) && ($statement_2->execute([':G_DELETE_POST_ID' => $post_Id]))) {
+        if($_SESSION['Actor_Type'] == "REPORTER"){
+            echo '<script type="text/javascript">window.open("../view/Repoter_Drafted_Post.php", "_self");</script>';
+        }
         echo '<script type="text/javascript">window.open("../view/N_User_Drafted_Post.php", "_self");</script>';
     }
 }
@@ -106,6 +135,9 @@ if ($post_Type == "Notice") {
     $statement_2 = $conn->prepare($sql_2);
 
     if (($statement->execute([':G_DELETE_POST_ID' => $post_Id])) && ($statement_2->execute([':G_DELETE_POST_ID' => $post_Id]))) {
+        if($_SESSION['Actor_Type'] == "REPORTER"){
+            echo '<script type="text/javascript">window.open("../view/Repoter_Drafted_Post.php", "_self");</script>';
+        }
         echo '<script type="text/javascript">window.open("../view/N_User_Drafted_Post.php", "_self");</script>';
     }
 }
@@ -121,6 +153,9 @@ if ($post_Type == "D_NO") {
     $statement_2 = $conn->prepare($sql_2);
 
     if (($statement->execute([':G_DELETE_POST_ID' => $post_Id])) && ($statement_2->execute([':G_DELETE_POST_ID' => $post_Id]))) {
+        if($_SESSION['Actor_Type'] == "REPORTER"){
+            echo '<script type="text/javascript">window.open("../view/Repoter_Drafted_Post.php", "_self");</script>';
+        }
         echo '<script type="text/javascript">window.open("../view/N_User_Drafted_Post.php", "_self");</script>';
     }
 }

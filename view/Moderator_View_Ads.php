@@ -281,28 +281,20 @@
           <div class="drop_area_sort_cont" id="sortdrop">
             <img src="../images/search.svg" alt="" srcset="">
             <input type="text" id="myInput" onkeyup="filterFunction()" placeholder="Search...">
-            <a href="#">Gampaha</a>
-            <a href="#">Minuwangoda</a>
-            <a href="#">Negombo</a>
+            
           </div>
         </div>
       </div>
       
      
-    <form action="" class="search-bar">
-	     <input type="search" name="search" pattern=".*\S.*" required>
-	     <button class="search-btn" type="submit">
-		       <span>Search</span>
-	     </button>
-    </form>
-    
+  
 </div>
 
 
 
 <div class="posts_content_view_body">
 
-    <div class="body_information">
+    <div class="body_information" id = 'content_sort'>
          
   <?php
         
@@ -400,7 +392,7 @@
                                   if($post_from_results){
                                       echo "<b><i>-</b></i>";
                                     foreach($post_from_results as $post_from_result){
-                                      echo "<i>".$post_from_result['Area']." - ";
+                                      echo "<i><abc>".$post_from_result['Area']."</abc> - ";
                                       echo "</i>";
                                     }
                                   }
@@ -552,16 +544,24 @@
       var input, filter, ul, li, a, i;
       input = document.getElementById("myInput");
       filter = input.value.toUpperCase();
-      div = document.getElementById("sortdrop");
-      a = div.getElementsByTagName("a");
-      for (i = 0; i < a.length; i++) {
-            txtValue = a[i].textContent || a[i].innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                 a[i].style.display = "";
+      
+      div_body = document.getElementById("content_sort");
+      div_body_in = document.getElementsByClassName("box-container");
+      abc = div_body.getElementsByTagName("abc");
+
+      for (i = 0; i < abc.length; i++) {
+        txtValue = abc[i].textContent || abc[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              div_body_in[i].style.display = "";
             } else {
-                 a[i].style.display = "none";
+              div_body_in[i].style.display = "none";
         }
       }
+
+
+      console.log(i); 
+
+
     }
 
 

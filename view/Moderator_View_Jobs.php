@@ -147,6 +147,20 @@
     transform:scale(1.07);
   
   }
+
+  #myInput2{
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 14px 20px 12px 45px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    margin-left: 10px;
+  }
+
+  #myInput2:focus{
+      outline: 3px solid #ddd;
+  }
+
   
 </style>
 
@@ -288,9 +302,7 @@
           <div class="drop_area_sort_cont" id="sortdrop">
             <img src="../images/search.svg" alt="" srcset="">
             <input type="text" id="myInput" onkeyup="filterFunction()" placeholder="Search...">
-            <a href="#">Gampaha</a>
-            <a href="#">Minuwangoda</a>
-            <a href="#">Negombo</a>
+            
           </div>
         </div>
       </div>
@@ -301,20 +313,13 @@
           <button onclick="showsort_Type()" class="drop_area_sort">Select Job Type<img src="../images/sort.svg" alt="" srcset=""></button>
           <div class="drop_area_sort_cont" id="sortdrop_job_type">
             <img src="../images/search.svg" alt="" srcset="">
-            <input type="text" id="myInput" onkeyup="filterFunction()" placeholder="Search...">
-            <a href="#">Graphic Designer</a>
-            <a href="#">Web Designer</a>
+            <input type="text" id="myInput2" onkeyup="filterFunction2()" placeholder="Search...">
+            
           </div>
         </div>
       </div>
       
      
-    <form action="" class="search-bar">
-	     <input type="search" name="search" pattern=".*\S.*" required>
-	     <button class="search-btn" type="submit">
-		       <span>Search</span>
-	     </button>
-    </form>
     
 </div>
 
@@ -322,7 +327,7 @@
 
 <div class="posts_content_view_body">
 
-    <div class="body_information">
+    <div class="body_information" id = 'content_sort'>
          
     <?php
         
@@ -408,7 +413,7 @@
 
                                 include './Last_Read.php';  
                                   
-                                echo "<h3>".$TITLE."(".$COMPANY.")</h3>";
+                                echo "<h3><def>".$TITLE."</def>(".$COMPANY.")</h3>";
                                   
                                   
                                 echo "<p> Deadline - ".$D_DATE."</p>";
@@ -421,7 +426,7 @@
                                   if($post_from_results){
                                       echo "<b><i>-</b></i>";
                                     foreach($post_from_results as $post_from_result){
-                                      echo "<i>".$post_from_result['Area']." - ";
+                                      echo "<i><abc>".$post_from_result['Area']."</abc> - ";
                                       echo "</i>";
                                     }
                                   }
@@ -575,16 +580,48 @@
       var input, filter, ul, li, a, i;
       input = document.getElementById("myInput");
       filter = input.value.toUpperCase();
-      div = document.getElementById("sortdrop");
-      a = div.getElementsByTagName("a");
-      for (i = 0; i < a.length; i++) {
-            txtValue = a[i].textContent || a[i].innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                 a[i].style.display = "";
+      
+      div_body = document.getElementById("content_sort");
+      div_body_in = document.getElementsByClassName("box-container");
+      abc = div_body.getElementsByTagName("abc");
+
+      for (i = 0; i < abc.length; i++) {
+        txtValue = abc[i].textContent || abc[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              div_body_in[i].style.display = "";
             } else {
-                 a[i].style.display = "none";
+              div_body_in[i].style.display = "none";
         }
       }
+
+
+      console.log(i); 
+
+
+    }
+
+    function filterFunction2() {
+      var input, filter, ul, li, a, i;
+      input = document.getElementById("myInput2");
+      filter = input.value.toUpperCase();
+      
+      div_body = document.getElementById("content_sort");
+      div_body_in = document.getElementsByClassName("box-container");
+      abc = div_body.getElementsByTagName("def");
+
+      for (i = 0; i < abc.length; i++) {
+        txtValue = abc[i].textContent || abc[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              div_body_in[i].style.display = "";
+            } else {
+              div_body_in[i].style.display = "none";
+        }
+      }
+
+
+      console.log(i); 
+
+
     }
 
     function set_time_to_publish_Popup(){

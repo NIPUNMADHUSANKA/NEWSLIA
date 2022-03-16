@@ -46,7 +46,7 @@
                         <img src='data:image/".$text.";base64,".$img."'/>
                         
                         <div class='tag'>
-                            <div class='tag_text'>News</div>
+                            <div class='tag_text'><abc>News</abc></div>
                         </div>
 
                       </div>
@@ -112,7 +112,7 @@
                       <img src='data:image/".$text.";base64,".$img."'/>
                           
                       <div class='tag'>
-                           <div class='tag_text'>Articles</div>
+                           <div class='tag_text'><abc>Articles</abc></div>
                       </div>
 
                       
@@ -193,7 +193,7 @@
                         <img src='data:image/".$text.";base64,".$img."'/>
                         
                         <div class='tag'>
-                            <div class='tag_text'>Notices</div>
+                            <div class='tag_text'><abc>Notices</abc></div>
                         </div>
 
                         
@@ -283,7 +283,7 @@
                         <img src='data:image/".$text.";base64,".$img."'/>
                         
                         <div class='tag'>
-                            <div class='tag_text'>Vacancies</div>
+                            <div class='tag_text'><abc>Vacancies</abc></div>
                         </div>
 
                         
@@ -371,7 +371,7 @@
                           <img src='data:image/".$text.";base64,".$img."'/>
                           
                           <div class='tag'>
-                              <div class='tag_text'>Ads</div>
+                              <div class='tag_text'><abc>Ads</abc></div>
                           </div>
 
                           

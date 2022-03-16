@@ -52,8 +52,6 @@ session_start();
       Drafted Posts
     </div>
     
-
-   
   </div>
 
   <div class="posts_content_view_body">
@@ -63,9 +61,9 @@ session_start();
 
       $USERID = $_SESSION['System_Actor_ID'];
 
-      //Print Articles
+      //Print News
 
-      $variable_1 = "SELECT *FROM articles_drafted WHERE Creator_Id = '$USERID' ORDER BY Post_Id DESC";
+      $variable_1 = "SELECT *FROM news_drafted WHERE Creator_Id = '$USERID' ORDER BY Post_Id DESC";
       $variable_2 = $conn->query($variable_1);
       $variable_3 = $variable_2->fetchAll(PDO::FETCH_ASSOC);
 
@@ -76,7 +74,7 @@ session_start();
           $img = $variable_4['Image'];
           $img = base64_encode($img);
           $text = pathinfo($variable_4['Post_Id'], PATHINFO_EXTENSION);
-          $Type = 'Article';
+          $Type = 'News';
 
           echo  "
 
@@ -94,7 +92,7 @@ session_start();
 
                   <div class='more' style='display: flex; margin-bottom: 10px; flex-direction: column;'>
                       <img src='../images/pen.svg'   onclick=toggle_edit('$Post_ID'); style=' padding-right: 5px; cursor: pointer; margin-top: 10px; height: 37px;'>
-                      <i class='far fa-window-close fa-2x' style='color: red; cursor:pointer;'  onclick=togglePopup_Delete_Post_ID_Article('$Post_ID','$Type');></i> 
+                      <i class='far fa-window-close fa-2x' style='color: red; cursor:pointer;'  onclick=togglePopup_Delete_Post_ID_News('$Post_ID','$Type');></i> 
                   </div>
                 </div>
               </div> 
@@ -110,7 +108,7 @@ session_start();
                 <div class='navigation-content  navigation-popup_set_time' style='width: 300px; height: 280px;'>
                   <div class='navigation-content_body  navigation-popup_set_time_body'>
                       <div class='navigation-popup_logo'>
-                        <img src='../images/nav-photos/middle-nav.svg'>
+                      <img src='../images/Name.svg'>
                       </div>
                     
                       <hr>
@@ -123,7 +121,7 @@ session_start();
                           <input id='store_delete_post_type' style = 'display:none;'> 
           
                               <div class='navigation-select_option' onclick=toggle_delete(); style='text-align: center; font-weight: bold; background-color: #FF4444EB;'>Yes</div>
-                              <div class='navigation-select_option' onclick=window.open('./N_User_Drafted_Post.php','_self'); style='text-align: center; font-weight: bold;'>No</div>
+                              <div class='navigation-select_option' onclick=window.open('./Repoter_Drafted_Post.php','_self'); style='text-align: center; font-weight: bold;'>No</div>
                           </div>
                       </div>
                   </div>
@@ -187,7 +185,7 @@ session_start();
                 <div class='navigation-content  navigation-popup_set_time' style='width: 300px; height: 280px;'>
                   <div class='navigation-content_body  navigation-popup_set_time_body'>
                       <div class='navigation-popup_logo'>
-                        <img src='../images/nav-photos/middle-nav.svg'>
+                      <img src='../images/Name.svg'>
                       </div>
                     
                     <hr>
@@ -200,7 +198,7 @@ session_start();
                                <input id='store_delete_post_type' style = 'display:none;'> 
       
                     <div class='navigation-select_option' onclick=toggle_delete(); style='text-align: center; font-weight: bold; background-color: #FF4444EB;'>Yes</div>
-                     <div class='navigation-select_option' onclick=window.open('./N_User_Drafted_Post.php','_self'); style='text-align: center; font-weight: bold;'>No</div>
+                     <div class='navigation-select_option' onclick=window.open('./Repoter_Drafted_Post.php','_self'); style='text-align: center; font-weight: bold;'>No</div>
 
                           </div>
                       </div>
@@ -262,7 +260,7 @@ session_start();
                   <div class='navigation-content  navigation-popup_set_time' style='width: 300px; height: 280px;'>
                     <div class='navigation-content_body  navigation-popup_set_time_body'>
                       <div class='navigation-popup_logo'>
-                        <img src='../images/nav-photos/middle-nav.svg'>
+                      <img src='../images/Name.svg'>
                       </div>
                       
                       <hr>
@@ -275,7 +273,7 @@ session_start();
                         <input id='store_delete_post_type' style = 'display:none;'> 
         
                           <div class='navigation-select_option' onclick=toggle_delete(); style='text-align: center; font-weight: bold; background-color: #FF4444EB;'>Yes</div>
-                          <div class='navigation-select_option' onclick=window.open('./N_User_Drafted_Post.php','_self'); style='text-align: center; font-weight: bold;'>No</div>
+                          <div class='navigation-select_option' onclick=window.open('./Repoter_Drafted_Post.php','_self'); style='text-align: center; font-weight: bold;'>No</div>
 
                         </div>
                       </div>
@@ -351,7 +349,7 @@ session_start();
                     <input id='store_delete_post_type' style = 'display:none;'> 
     
                       <div class='navigation-select_option' onclick=toggle_delete(); style='text-align: center; font-weight: bold; background-color: #FF4444EB;'>Yes</div>
-                      <div class='navigation-select_option' onclick=window.open('./N_User_Pending_Posts.php','_self'); style='text-align: center; font-weight: bold;'>No</div>
+                      <div class='navigation-select_option' onclick=window.open('./Repoter_Drafted_Post.php','_self'); style='text-align: center; font-weight: bold;'>No</div>
 
                     </div>
                   </div>
@@ -404,7 +402,7 @@ session_start();
         PENDING_POST_ID: PENDING_POST_ID,
       },
       success: function(data) {
-        window.open('./N_User_Edit_Drafted_Article.php', '_self');
+        window.open('./Repoter_Edit_Drafted_News.php', '_self');
       }
     });
   }
@@ -467,7 +465,7 @@ session_start();
     });
   }
 
-  function togglePopup_Delete_Post_ID_Article(Post_Id, Post_Type){
+  function togglePopup_Delete_Post_ID_News(Post_Id, Post_Type){
     const xhttp = new XMLHttpRequest(); 
       xhttp.onload = function() {
           document.getElementById("store_delete_post_id").value = Post_Id;

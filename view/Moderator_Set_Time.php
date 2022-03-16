@@ -132,26 +132,19 @@
           <div class="drop_area_sort_cont" id="sortdrop">
             <img src="../images/search.svg" alt="" srcset="">
             <input type="text" id="myInput" onkeyup="filterFunction()" placeholder="Search...">
-            <a href="#">Notices</a>
-            <a href="#">Job Vacancies</a>
-            <a href="#">Commercial Ads</a>
+            
           </div>
         </div>
       </div>
       
      
-    <form action="" class="search-bar">
-	     <input type="search" name="search" pattern=".*\S.*" required>
-	     <button class="search-btn" type="submit">
-		       <span>Search</span>
-	     </button>
-    </form>
+  
     
 </div>
 
 <div class="posts_content_view_body">
 
-    <div class="body_information">
+    <div class="body_information" id="content_sort">
          
           <?php
             include '../Model/connect.php';
@@ -222,7 +215,7 @@
                         <img src='data:image/".$text.";base64,".$img."'/>
                         
                         <div class='tag'>
-                            <div class='tag_text'>Notices</div>
+                            <div class='tag_text'><abc>Notices</abc></div>
                         </div>
 
                         <div class='middle'>
@@ -339,7 +332,7 @@
                         <img src='data:image/".$text.";base64,".$img."'/>
                         
                         <div class='tag'>
-                            <div class='tag_text'>Vacancies</div>
+                            <div class='tag_text'><abc>Vacancies></abc></div>
                         </div>
 
                         <div class='middle'>
@@ -452,7 +445,7 @@
                           <img src='data:image/".$text.";base64,".$img."'/>
                           
                           <div class='tag'>
-                              <div class='tag_text'>Ads</div>
+                              <div class='tag_text'><abc>Ads</abc></div>
                           </div>
 
                           <div class='middle'>
@@ -623,17 +616,22 @@
       var input, filter, ul, li, a, i;
       input = document.getElementById("myInput");
       filter = input.value.toUpperCase();
-      div = document.getElementById("sortdrop");
-      a = div.getElementsByTagName("a");
-      for (i = 0; i < a.length; i++) {
-            txtValue = a[i].textContent || a[i].innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                 a[i].style.display = "";
+      
+      div_body = document.getElementById("content_sort");
+      div_body_in = document.getElementsByClassName("box-container");
+      abc = div_body.getElementsByTagName("abc");
+
+      for (i = 0; i < abc.length; i++) {
+        txtValue = abc[i].textContent || abc[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              div_body_in[i].style.display = "";
             } else {
-                 a[i].style.display = "none";
+              div_body_in[i].style.display = "none";
         }
       }
-    }
+
+  }
+
 
 </script>
     

@@ -6,10 +6,9 @@ session_start();
 <html lang="en">
 
 <head>
-    <title>Write Commercial Advertisement</title>
+    <title>Write News</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/Normal_User/navigation.css">
     <link rel="stylesheet" href="../css/popup.css">
     <link rel="stylesheet" href="../css/Send-Approve.css">
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.ico">
@@ -71,10 +70,10 @@ session_start();
         <form action="N_User_Pending_Posts.php" method="post" enctype="multipart/form-data">
             <div style="display: flex; justify-content: space-between; margin-top: 15px;">
                 <div style="width: 20%;">
-                    <h3>Advertisement Type :-</h3>
+                    <h3>Title :-</h3>
                 </div>
-                <div style="width: 80%; ">
-                    <input type="text" class="input-field" value="Commercial Advertisement" name="Advertisement_Type" readonly>
+                <div style="width: 80%;">
+                    <input type="text" class="input-field" name="Title" required>
                 </div>
             </div>
 
@@ -105,10 +104,19 @@ session_start();
 
             <div style="display: flex; justify-content: space-between; margin-top: 15px;">
                 <div style="width: 20%;">
-                    <h3>Title :-</h3>
+                    <h3>Type :-</h3>
                 </div>
                 <div style="width: 80%;">
-                    <input type="text" class="input-field" name="Title" required>
+                    <select name="Type" id="" class="input-field" required>
+                        <option>General</option>
+                        <option>Political</option>
+                        <option>Crime</option>
+                        <option>Investigative</option>
+                        <option>Entertainment</option>
+                        <option>Sports</option>
+                        <option>Enviorenmental</option>
+                        <option>Other</option>
+                    </select>
                 </div>
             </div>
 
@@ -136,10 +144,10 @@ session_start();
                 </div>
             </div>
 
-            <div style=" margin-bottom: 150px; margin-top: 40px; text-align: end; margin-right: 50px; display: flex; justify-content: flex-end;">
-                <input type="submit" value="Draft" class="write-btn" style="background-color: #45ADA8EB;" name="D_CA_Submit">
+            <div style=" margin-bottom: 150px; margin-top: 100px; text-align: end; margin-right: 50px; display: flex; justify-content: flex-end;">
+                <input type="submit" value="Draft" class="write-btn" style="background-color: #45ADA8EB;" name="D_NE_Submit">
                 <div class="write-btn" style="background-color: #00B172EB; text-align: center;" onclick="togglePopup_select_option('select-type')">Send</div>
-                <div class="write-btn" style="background-color: #FF4444EB; text-align: center;" onclick="togglePopup_select_option('confirm_delete_article')">Delete</div>
+                <div onclick="togglePopup_select_option('confirm_delete_article')" class="write-btn" style="background-color: #FF4444EB; text-align: center;">Delete</div>
             </div>
 
 
@@ -168,7 +176,7 @@ session_start();
                         <div class="select_option" style="text-align: center;" onclick="togglePopup_select_option('set-time'); hide_previous('select-type')">
                             <p style="font-size: 15px;">Set Time</p>
                         </div>
-                        <input type="submit" name="Pending_CA_Without_Time_Submit" value="Publish Now" class="select_option" style="border: none; font-size: 15px;">
+                        <input type="submit" name="Pending_NE_Without_Time_Submit" value="Publish Now" class="select_option" style="border: none; font-size: 15px;">
 
                     </div>
                 </div>
@@ -199,24 +207,22 @@ session_start();
 
 
                     <label for="new-date" class="lbl"> Date</label>
-                    <input type="date" name="Set_Date" id="new-date" class="inp inp1" value="2022-01-17" required>
+                    <input type="date" name="Set_Date" id="new-date" class="inp inp1" value="">
                     <br>
                     <br>
 
                     <label for="new-time" class="lbl"> Time</label>
 
-                    <input type="time" name="Set_Time" id="new-time" class="inp inp1" value="00:00" required>
+                    <input type="time" name="Set_Time" id="new-time" class="inp inp1" value="">
                     <br>
                     <!--<div class="update_btn" onclick="window.open('N_User_Pending_Posts.php','_self')">Set</div>-->
-                    <input type="submit" value="Set" name="Pending_CA_With_Time_Submit" class="update_btn" style="border: none;">
+                    <input type="submit" value="Set" name="Pending_NE_With_Time_Submit" class="update_btn" style="border: none;">
 
 
                 </div>
 
             </div>
         </div>
-
-        </form>
 
     </div>
 
@@ -237,7 +243,7 @@ session_start();
                     <h3 class="navigation-popup_title" style="text-align: center;">Sure to Delete</h3>
                     <div class="navigation-btn_set_option">
 
-                        <div class="navigation-select_option" onclick="window.open('./Moderator_View_Ads.php','_self')" style="text-align: center; font-weight: bold; background-color: #FF4444EB;">Yes</div>
+                        <div class="navigation-select_option" onclick="window.open('./Repoter_Drafted_Post.php','_self')" style="text-align: center; font-weight: bold; background-color: #FF4444EB;">Yes</div>
                         <div class="navigation-select_option" onclick="togglePopup_select_option('confirm_delete_article')" style="text-align: center; font-weight: bold;">No</div>
 
                     </div>
@@ -246,6 +252,8 @@ session_start();
         </div>
     </div>
 
+
+    </form>
 
 </body>
 

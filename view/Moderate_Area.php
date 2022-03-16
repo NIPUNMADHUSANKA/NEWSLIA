@@ -272,6 +272,69 @@ echo "<div class='right_side'>
 
         }
 
+        if($_SESSION['Actor_Type'] == "REPORTER"){
+          echo "<div class='second_box'>
+          <h2>Reporting Area</h2>
+
+          <div class='second_box_area'>";
+                $REPORT_AREA=array();
+                $y=0;
+
+                $system_actor_id = $_SESSION['System_Actor_ID'];
+
+                $report_area_check_sql = "SELECT * FROM report_area WHERE (System_Actor_Id = '$system_actor_id') ";
+                $report_area_check_statement = $conn -> query($report_area_check_sql);
+                $report_area_check_results = $report_area_check_statement->fetchAll(PDO::FETCH_ASSOC);
+
+                if($report_area_check_results){
+                  foreach ($report_area_check_results as $report_area_check_result){
+                      $REPORT_AREA[$y] = $report_area_check_result['Area'];
+                      $y++;
+                  }
+                }
+
+          
+                $count = count($REPORT_AREA);
+
+                $read_province_area_sql = "SELECT * FROM dsa ORDER BY DSA ASC";
+                $read_province_area_statement = $conn -> query($read_province_area_sql);
+                $read_province_area_results = $read_province_area_statement->fetchAll(PDO::FETCH_ASSOC);
+                
+                echo "<form action='Moderate_Area.php' method='POST'>";
+
+                if($read_province_area_results){
+                        
+                  $j = 350;
+                  foreach($read_province_area_results as $read_province_area_result){
+
+                    $flag = 0;
+                    for ($x = 0; $x < $count; $x++) {
+                      if($REPORT_AREA[$x] == $read_province_area_result['DSA']){
+                        $flag = 1;
+                      }
+                    } 
+                    
+                    echo " <input type='checkbox' id='".$j."' value='".$read_province_area_result['DSA']."' name='report_area_select[]' disabled class='repoter_report_radio'"; 
+                    if($flag == 1){echo 'checked';} 
+                    echo "> 
+                    <label for='".$j."'>".$read_province_area_result['DSA']."</label>
+                    <br>";
+                    
+                    $j = $j +1;  
+                  }
+            }
+                  
+              
+          echo "</div>  
+
+          <div class='btn_set'>
+              <input type='button' value='Edit' class='edit_btn_set' onclick='remove_disable_report()'>
+                <br>
+              <input type='submit' value='Save' class='save_btn_set' name = 'Save_REPORTE'>
+            </form>
+          </div>";
+
+        }
         
         
 
@@ -325,6 +388,29 @@ echo "<div class='right_side'>
                     }   
               }
 
+
+              if(isset($_POST['Save_REPORTE']) and isset($_POST['report_area_select']) ){
+                    
+                // construct the delete statement
+                $sql = 'DELETE FROM report_area
+                        WHERE System_Actor_Id = :REPORTER_ID';
+                
+                // prepare the statement for execution
+                $statement = $conn->prepare($sql);
+                $statement->bindParam(':REPORTER_ID', $Moderator_ID);
+                
+                // execute the statement
+                if ($statement->execute()) {
+                  
+                  foreach($_POST['report_area_select'] as $item) {
+                      echo "<script> alert(".$item."); </script>";
+                      $stmt = $conn->prepare("INSERT INTO `report_area` VALUES(?,?)");
+                      $stmt->execute([$Moderator_ID,$item]);
+                  }
+                  echo "<script> window.open('./Moderate_Area.php','_self'); </script>";
+                }   
+          }
+
             ?>
 
 
@@ -343,6 +429,13 @@ echo "<div class='right_side'>
 <script>
     function remove_disable(){
       var input = document.getElementsByClassName('moderator_radio');
+      for (var i = 0; i < input.length; i++) {
+                input[i].disabled = false;
+            }
+    }
+
+    function remove_disable_report(){
+      var input = document.getElementsByClassName('repoter_report_radio');
       for (var i = 0; i < input.length; i++) {
                 input[i].disabled = false;
             }

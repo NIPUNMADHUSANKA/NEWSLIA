@@ -284,6 +284,7 @@
               <a href='Moderator_save.php'>Saved</a>
               <a href='Moderator_Hidden.php'>Hidden</a>
               <a href='Moderator_Reminder.php'>Reminders</a>
+              <a href='Report.php'>Reports</a>
             </div>
 
           </li>
@@ -351,6 +352,82 @@
             <a href='Moderator_Hidden.php'>Hidden</a>
             <a href='Moderator_Reminder.php'>Reminders</a>
             <a href='N_User_Drafted_Post.php'>Drafted</a>
+            <a href='Report.php'>Reports</a>
+            </div>
+
+          </li>
+
+          <li><a href='#' onclick=togglePopup_select_option('notification');><i class='fas fa-bell fa-customize'></i></a></li>
+
+      </ul>";
+    
+    }
+
+
+
+    if($_SESSION['Actor_Type'] == "REPORTER"){
+
+      echo "<ul class='navigation-menu'>
+
+
+
+          <!-- Home -->
+          <li class='navigation-imporatnt  navigation-dropdown'>
+            <a href='Reporter-After-loged-Home.php' class='navigation-dropbtn'>Home</a>
+          </li>
+
+
+          <!-- View -->
+          <li class='navigation-view  navigation-dropdown'>
+            <a href='Moderator_View_News.php' class='navigation-dropbtn'>View</a>
+            <div class='navigation-view-content navigation-dropdown-content'>
+              <a href='Moderator_View_News.php'>News</a>
+              <a href='Moderator_View_Articles.php'>Articles</a>
+              <a href='Moderator_View_Notices.php'>Notices</a>
+              <a href='Moderator_View_Jobs.php'>Job Vacancies</a>
+              <a href='Moderator_View_Ads.php'>Commercial Ads</a>
+            </div>
+          </li>
+
+
+
+          <!-- Create -->
+          <li class='navigation-view  navigation-dropdown'>
+            <a href='#' class='navigation-dropbtn'>Create</a>
+            <div class='navigation-view-content navigation-dropdown-content'>
+              <a href='Repoter_Wrie_News.php'>Create News</a>
+              <a href='#' onclick=togglePopup_select_option('popup-type');>Create Ads</a>
+            </div>
+          </li>
+
+
+
+          <!-- My Drafts -->
+          <li class='navigation-imporatnt navigation-dropdown'>
+            <a href='Repoter_Drafted_Post.php' class='navigation-dropbtn'>My Drafts</a>
+          </li>
+
+
+
+          <!-- My Work -->
+          <li class='navigation-view  navigation-dropdown'>
+            <a href='#' class='navigation-dropbtn'>My Work</a>
+            <div class='navigation-view-content navigation-dropdown-content'>
+              <a href='Repoter_Pending_Post.php'>Pending</a>
+              <a href='N_User_Pending_Posts.php'>Completed</a>
+            </div>
+          </li>
+
+
+          <!-- More -->
+          <li class='navigation-more navigation-dropdown' style='margin-top: 0;'>
+            <a href='#' class='navigation-dropbtn'>More</a>
+
+            <div class='navigation-more-content navigation-dropdown-content'>
+            <a href='Moderator_save.php'>Saved</a>
+            <a href='Moderator_Hidden.php'>Hidden</a>
+            <a href='Moderator_Reminder.php'>Reminders</a>
+            <a href='Report.php'>Reports</a>
             </div>
 
           </li>
