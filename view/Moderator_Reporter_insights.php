@@ -176,7 +176,7 @@
     
     $persentage = 0;
 
-    if($total != 0){
+    if($total != 0 && $news != 0){
       $persentage = (($news - $Complaints)/$news)*100; 
     }
     
