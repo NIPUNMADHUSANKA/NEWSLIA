@@ -199,8 +199,42 @@
 </div>
 
 <div class="navigation-right">
-    <img src="../images/Profile.svg" alt="" srcset="">
-    <p><?php echo $_SESSION['FName']." ".$_SESSION['LName']; ?> <img src="../images/Drop-down.svg" alt="" srcset="" class="down"> </p>
+
+    <p>
+        <?php
+
+           include '../Model/connect.php';
+           $ID = $_SESSION['System_Actor_ID'];
+
+           $profile_sql = "SELECT * FROM system_actor WHERE (System_Actor_Id = '$ID')"; 
+           $profile_statement = $conn -> query($profile_sql);
+           $profile_results = $profile_statement->fetchAll(PDO::FETCH_ASSOC);      
+          
+           if($profile_results){
+            foreach($profile_results as $profile_result){
+             
+              $img = $profile_result['Profile_Img'];
+              $img = base64_encode($img);
+              $text = pathinfo($profile_result['System_Actor_Id'], PATHINFO_EXTENSION);
+
+              }
+            }
+          
+          if($img != NULL){
+              echo "<img src='data:image/".$text.";base64,".$img."'/ class='down' style='transform:scale(0.35);margin-top:-2rem;border-radius:10%;margin-bottom:-2rem;'>";
+          }
+          else{
+              echo "<img src='../images/Profile.svg' class='down' style='margin-bottom:1rem; margin-top:1rem;'>";
+          }
+
+        ?>
+
+        <p style="margin-top:-0.5rem; margin-bottom:0.5rem;">
+          <?php echo $_SESSION['FName']." ".$_SESSION['LName']; ?> 
+        </p>
+       
+
+    </p>
            
   <div class="navigation-profile-menu-container" style="margin-left:5rem;">
     <ul class="navigation-profile_menu">

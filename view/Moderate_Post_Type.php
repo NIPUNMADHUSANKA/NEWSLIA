@@ -21,7 +21,7 @@
 
 <style>
   body {
-     overflow: hidden; /* Hide scrollbars */
+     overflow-x: hidden; /* Hide scrollbars */
   }
 
   
