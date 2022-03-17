@@ -660,16 +660,34 @@
               
               <form action="../Control/save_hidden.php" method="post">
                
-                  <label for="new-date" class="lbl"> Date</label>
-
-                  <input type="text" name="add_reminder_id" id="reminder_ID" class="inp inp1" style="display:none;">
-                  <input type="text" name="add_reminder_type" id="reminder_Type" class="inp inp1" style="display:none;">
-                  <input type="date" name="add_reminder_date" id="new-date" class="inp inp1">
+                <label class="lbl"> Complain Type</label>
                 
+                <input id="Complain_News_Id"  class="p-div-2" style="border: none; display:none;" name="NewsId" >
 
-                    <br>
+                <Select class="p-div-2" style="border:none; width:16rem; height:2rem; margin-top:0.5rem; margin-left:1rem;" name="Type" required>
+                  
+                   <option >Nudity</option>
+                   <option >Violence</option>
+                   <option >Harassment</option>
+                   <option >Suicide or self-injury</option>
+                   <option >False information</option>
+                   <option >Spam</option>
+                   <option >Unauthorised sales</option>
+                   <option >Hate speech</option>
+                   <option >Terrorism</option>
+                   <option >Something else</option>
+
+                </Select>
+
+
+                <br>
+
+                <div class="lable-div-2"><label for="">Description :</label></div>
+                <textarea placeholder="Describe complaign" class="text-area-2" cols="26" rows="5" style="height: 60px;" name="Description" re-quired></textarea>
+            
+                                  
                   <br>
-                  <button type="submit" name ="Add_Reminder" class="update_btn" value="LOGIN">Set</button>
+                  <button type="submit" name ="Complain" class="update_btn" value="LOGIN">Set</button>
               
                  
               </form>
@@ -680,50 +698,6 @@
     </div>
 </div>
        
-
-
-
-<div class="main-container-2">
-          <div class="up-2">
-            <div class="up-left-2">
-              <img src="../images/Normal_User/17-login/logo.png" alt="">
-            </div>
-          </div>
-          <div class="down-2">
-            <form action="./N_User_View_News.php" method="post" enctype="multipart/form-data">
-            <h3 class="login-form-header-2">Add Your Complaign</h3>
-            <div style="display: flex; margin-bottom: 8px;">
-             
-              <input id="Complain_News_Id"  class="p-div-2" style="border: none; display:none;" name="NewsId" >
-            </div>
-            <div style="display: flex; margin-bottom: 8px;">
-              <div class="lable-div-2"><label for="">Complaign Type :</label></div>
-              <Select class="p-div-2" style="border: none;" style="border: none;" name="Type" required>
-                <option >Nudity</option>
-                <option >Violence</option>
-                <option >Harassment</option>
-                <option >Suicide or self-injury</option>
-                <option >False information</option>
-                <option >Spam</option>
-                <option >Unauthorised sales</option>
-                <option >Hate speech </option>
-                <option >Terrorism</option>
-                <option >Something else</option>
-              </Select>
-            </div>
-            <div class="lable-div-2"><label for="">Description :</label></div>
-            <textarea placeholder="Describe complaign" class="text-area-2" cols="30" rows="10" style="width: 240px;" name="Description" re-quired></textarea>
-            <!-- <button name="Complain" style="border: none; margin-top: 20px; cursor:pointer;"><img src="../images/16-deactivation/tick.png"></button> -->
-            <input type="submit" value="complain" name="Complain" class="complain_submit">
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-</div>
-
-
-
 
 
 <div class="popup popup_set_time" id="popup-8">

@@ -129,5 +129,32 @@
         echo "<script>window.open('../view/Moderator_Reminder.php','_self');</script>";
     }
 
+
+    if (isset($_POST['Complain'])) {
+
+        $USERID = $_SESSION['System_Actor_ID'];
+    
+        $last_value_sql = "SELECT Complaint_ID FROM complaint ORDER BY Complaint_ID DESC LIMIT 1";
+        $last_value_statement = $conn->query($last_value_sql);
+        $last_value_results = $last_value_statement->fetchAll(PDO::FETCH_ASSOC);
+    
+        if ($last_value_results) {
+          foreach ($last_value_results as $last_value_result) {
+            $connect = substr($last_value_result['Complaint_ID'], 4) + 1;
+            $ID = "COM-" . $connect;
+          }
+          $date = date('Y-m-d');
+          $NewsId = $_POST['NewsId'];
+          $Type = $_POST['Type'];
+          $Description = $_POST['Description'];
+    
+          $stmt = $conn->prepare("INSERT INTO `complaint`(`Complaint_ID`, `Complainer_ID`, `News_ID`, `Date`, `Category`, `Details`) VALUES (?,?,?,?,?,?)");
+          $stmt->execute([$ID, $USERID, $NewsId, $date, $Type,  $Description]);
+    
+          echo '<script type="text/javascript">window.open("../view/Moderator_View_News.php", "_self");</script>';
+
+        }
+
+    }
     
 ?>
