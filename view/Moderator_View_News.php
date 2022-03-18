@@ -390,6 +390,8 @@
       </div>
     <br>
     <br>
+
+
     <center>
 
      <div class="main" style="margin-left:-2rem;">
@@ -424,7 +426,12 @@
       <div id="calwrap">
       </div>
 
-      </center>
+    </center>
+
+
+
+
+
 </div>
 
 
@@ -852,7 +859,7 @@
 
 </script>
 
-<script src="../js/calendar.js"></script>
+
     
 </body>
 </html>

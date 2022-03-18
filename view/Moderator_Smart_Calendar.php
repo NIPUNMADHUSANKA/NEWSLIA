@@ -26,7 +26,7 @@
       padding-left:80px;
   }
   .box-container{
-    height: 230px;
+    height: 250px;
   }
 
   .more{
@@ -222,6 +222,47 @@
 
 
 
+<?php
+    include '../Model/connect.php';
+
+    $Post_ID = $_SESSION['SMART_CAL'];
+
+    $view_read_sql = "SELECT * FROM news WHERE Post_ID='$Post_ID'";
+
+    $view_read_state = $conn->query($view_read_sql);
+    $view_read_results = $view_read_state->fetchAll(PDO::FETCH_ASSOC);
+
+    if($view_read_results){
+      foreach($view_read_results as $view_read_result){
+        
+        $_SESSION['Title'] = $view_read_result['Title'];
+        $_SESSION['Img'] = $view_read_result['Image'];
+        $_SESSION['Details'] = $view_read_result['Details'];
+        $_SESSION['Creator_Id'] = $view_read_result['Creator_ID'];
+
+      }
+    }
+
+    $Creator_ID = $_SESSION['Creator_Id'];
+    $post_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
+    $post_who_state = $conn->query($post_who_sql);
+    $post_who_results = $post_who_state->fetchAll(PDO::FETCH_ASSOC);
+
+    if($post_who_results){
+        foreach($post_who_results as $post_who_result){
+            $_SESSION['FirstName'] = $post_who_result['FirstName'];
+            $_SESSION['LastName'] = $post_who_result['LastName'];    
+        }
+    }
+
+    $img = $_SESSION['Img'];
+    $img = base64_encode($img);
+    $text = pathinfo($Post_ID, PATHINFO_EXTENSION);
+
+
+?>
+
+
 <!-- Moderator Notices View -->
 
 <div class="posts_content_view_body">
@@ -231,12 +272,31 @@
           <div class="box-container">
 
               <div class="box_head">
-                <img src="../images/pending/powercut.jpg" alt="">
+                <?php echo "<img src='data:image/".$text.";base64,".$img."'/>";?>
               </div>
 
               <div class="box_body">
-                <h3>Power Cut</h3>
-                <p>Electricity Board - Negombo</p>
+                <h3><?php echo $_SESSION['Title']; ?></h3>
+                
+
+                <?php
+                    $Post_ID = $_SESSION['SMART_CAL'];
+                    $view_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+                    $view_from_state = $conn->query($view_from_sql);
+                    $view_from_results = $view_from_state->fetchAll(PDO::FETCH_ASSOC);
+
+                    if($view_from_results){
+                        echo "<h6><b><i>-</b></i>";
+                        foreach($view_from_results as $view_from_result){
+                           echo "<i>".$view_from_result['Area']." - ";
+                           echo "</i>";
+                         }
+                         echo "</h6>";
+                     }
+                ?>
+
+                <p><?php echo $_SESSION['FirstName']; echo " "; echo $_SESSION['LastName']; ?></p>
+                
               </div>
 
               
@@ -246,21 +306,26 @@
 
 
           <div class="box-read">
-             <h2>Power Cut</h2>
-             <p>
-             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 
-             Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-
-            
-             </p>
+             <h2><?php echo $_SESSION['Title']; ?></h2>
+             <p><?php echo $_SESSION['Details']; ?></p>
+             
           </div>
     </div>
 
     <div class="button-set">
-        <div class="view_btn update_btn" onclick="togglePopup()">Update</div>
-        <div class="view_btn remove_btn" onclick="window.open('./Moderator_View_News.php', '_self')">Remove</div>
+
+        <?php
+
+        if($_SESSION['Actor_Type'] != "NORMALUSER" || $_SESSION['Actor_Type'] != "REPORTER"){?>
+            <div class="view_btn update_btn" onclick="togglePopup()">Update</div>
+            
+            <form action="../Control/save_hidden.php" method="post">
+               <button class="view_btn remove_btn" name = "REMOVE_SMART">Remove</button>
+            </form>
+
+        <?php }
+        ?>
         <div class="view_btn back_btn" onclick="window.open('./Moderator_View_News.php', '_self')">Back</div>
     </div>
     
@@ -292,14 +357,14 @@
 
               <div class="popup_form">
                   <h3 class="popup_title">Update Smart Calendar</h3>
-                  <form action="" method="post">
+                  <form action="../Control/save_hidden.php" method="post">
 
                      <label for="new-date" class="lbl"> Date</label>
-                  
-                     <input type="date" name="" id="new-date" class="inp inp1" value="2022-10-28">
+                     <input type="hidden" name="smart_id" value="<?= $_SESSION['SMART_CAL']?>">
+                     <input type="date" name="smart_update" id="new-date" class="inp inp1" required>
                      <br>
 
-                     <div class="publish_btn" onclick="window.open('Moderator_Smart_Calendar.php','_self')">Publish</div>
+                     <button class="publish_btn" name="update_smart_calandar">Publish</button>
               
                    </form>
                </div>

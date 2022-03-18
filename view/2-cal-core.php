@@ -13,7 +13,8 @@ class Calendar {
           PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
         ]
       );
-    } catch (Exception $ex) { die($ex->getMessage()); }
+    } 
+    catch (Exception $ex) { die($ex->getMessage()); }
   }
 
   
@@ -42,7 +43,7 @@ class Calendar {
                : $daysInMonth ;
       for ($d=$eStartDay; $d<=$eEndDay; $d++) {
         if (!isset($events['d'][$d])) { $events['d'][$d] = []; }
-        $events['d'][$d][] = $row['evt_id'];
+        $events['d'][$d]['id'] = $row['Post_Id'];
       }
       $events['e'][$row['evt_id']] = $row;
       $events['e'][$row['evt_id']]['first'] = $eStartDay;

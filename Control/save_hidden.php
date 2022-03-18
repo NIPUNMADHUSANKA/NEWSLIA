@@ -156,5 +156,53 @@
         }
 
     }
+
+    if (isset($_POST['smart_show'])) {
+        $_SESSION['SMART_CAL'] = $_POST['smart_pid'];
+        echo '<script type="text/javascript">window.open("../view/Moderator_Smart_Calendar.php", "_self");</script>';
+
+    }
+
+    if (isset($_POST['REMOVE_SMART'])) {
+        
+        $ID = $_SESSION['SMART_CAL'];
+        
+        $query = "DELETE FROM smart_calendar WHERE Post_Id = :ID";
+        $query_statement = $conn->prepare($query);
+        $query_statement->bindParam(':ID',$ID,PDO::PARAM_STR);
+        if ($query_statement->execute()) {
+            echo '<script type="text/javascript">window.open("../view/Moderator_View_News.php", "_self");</script>';
+        }    
+
+        
+
+    }
+
+    if(isset($_POST['update_smart_calandar'])){
+        $ID = $_POST['smart_id'];
+        $Date = $_POST['smart_update'];
+
+        $Smart = [
+            'Post_ID' => $ID,
+            'Smart_Date' => $Date
+        ];
+        
+        $sql = 'UPDATE smart_calendar
+                SET evt_start = :Smart_Date,
+                evt_end = :Smart_Date
+                WHERE Post_Id = :Post_ID';
+        
+        $statement = $conn->prepare($sql);
+
+        // bind params
+        $statement->bindParam(':Smart_Date', $Smart['Smart_Date']);
+        $statement->bindParam(':Post_ID', $Smart['Post_ID']);
+
+        // execute the UPDATE statment
+        if ($statement->execute()) {
+            echo "<script>window.open('../view/Moderator_View_News.php','_self');</script>";
+        }
+
+    }
     
 ?>

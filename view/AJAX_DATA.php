@@ -39,15 +39,21 @@ switch ($_POST['req']) {
       <div class="calnum"><?=$day?></div>
         <?php 
         if (isset($events['d'][$day])) { 
-          foreach ($events['d'][$day] as $eid) 
+          foreach ($events['d'][$day] as $pid) 
           {?>
-            <div class="calevt" style="background:green;width:40px;height:5px;" onclick="window.open('./Moderator_Smart_Calendar.php', '_self')">
-            </div>
-            <!---->
-            
 
-        <?php if ($day == $events['e'][$eid]['first']) {
-        }}} ?>
+            <form action="../Control/save_hidden.php" method="post">
+
+              <input type="hidden" name = "smart_pid" id="" value = "<?= $pid ?>">
+
+              <input type="submit" name = "smart_show" class="calevt" style="background:green;width:60px;padding:1rem;margin-left:-2rem;"></button>
+              
+            </form>
+
+             
+          
+
+        <?php }} ?>
         
     </div>
    
