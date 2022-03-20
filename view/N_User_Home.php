@@ -61,6 +61,12 @@ table, th, td {
   padding:0;
 }
 
+
+.content_right{
+  /*margin-top:-4rem;*/
+  z-index: -1;
+}
+
 </style>
 
 <body>
@@ -160,7 +166,7 @@ table, th, td {
         </div>
 
         <div class="content_right">
-            <img src="../images/background.svg" alt="" srcset="">
+          <img src="../images/Normal_User.png" alt="" srcset="">
         </div>
 
   </div>

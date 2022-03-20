@@ -220,7 +220,7 @@ session_start();
     </div>
 
     <div class="content_right">
-      <img src="../images/background.svg" alt="" srcset="">
+      <img src="../images/Reporter.png" alt="" srcset="">
     </div>
 
   </div>
