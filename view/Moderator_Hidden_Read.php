@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moderator_Home</title>
+    <title>NEWSLIA</title>
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
@@ -298,7 +298,7 @@
 
 $Post_Type = $_SESSION['SAVE_READ_TYPE'];
 
-    if($Post_Type == "NEWS"){
+    /*if($Post_Type == "NEWS"){
         echo "<div class='rate' style='text-align: center; width: 5%; background-color: #ACE0B8;border:1px solid #333;height:27rem;margin-left:2rem;margin-top:5rem;'>
         
         <div><a href='#' style='color: black;margin-top:5rem;'>
@@ -311,7 +311,7 @@ $Post_Type = $_SESSION['SAVE_READ_TYPE'];
               <i class='fas fa-chevron-down fa-3x'></i></a>
         </div>
     </div>";
-    }
+    }*/
 
 ?>
 
@@ -324,12 +324,9 @@ $Post_Type = $_SESSION['SAVE_READ_TYPE'];
 
       $Post_Type = $_SESSION['SAVE_READ_TYPE'];
 
-      if($Post_Type == "NEWS"){
-            echo "<div class='body_information' style='margin-top:-32.5rem;margin-left:1rem;'>";
-      }
-      else{
+      
             echo "<div class='body_information' style='margin-top:1rem;margin-left:1rem;'>";
-      }
+      
   ?>
           <div class="box-container">
 

@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEWSLIA</title>
   <link rel="stylesheet" href="../css/nav/final-navigation.css">
   <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
 
@@ -220,12 +221,12 @@
               }
             }
           
-          if($img != NULL){
-              echo "<img src='data:image/".$text.";base64,".$img."'/ class='down' style='transform:scale(0.35);margin-top:-2rem;border-radius:10%;margin-bottom:-2rem;'>";
+          /*if($img != NULL){
+              echo "<img src='data:image/".$text.";base64,".$img."'/ class='down' style='transform:scale(0.35);margin-top:-2rem;border-radius:10%;margin-bottom:-2rem;width:100px;'>";
           }
-          else{
+          else{*/
               echo "<img src='../images/Profile.svg' class='down' style='margin-bottom:1rem; margin-top:1rem;'>";
-          }
+         // }
 
         ?>
 
@@ -353,7 +354,6 @@
             <a href='Moderator_View_Articles.php' class='navigation-dropbtn'>Articles</a>
             <div class='navigation-view-content navigation-dropdown-content'>
               <a href='Moderator_View_Articles.php'>Articles</a>
-              <a href='N_User_My_Articles.php'>My Articles</a>
               <a href='N_User_Write_Article.php'>Create Articles</a>
             </div>
           </li>
@@ -387,6 +387,7 @@
             <a href='Moderator_Reminder.php'>Reminders</a>
             <a href='N_User_Drafted_Post.php'>Drafted</a>
             <a href='Report.php'>Reports</a>
+            <a href='N_User_Completed_Post.php'>My Posts</a>
             </div>
 
           </li>
@@ -448,7 +449,7 @@
             <a href='#' class='navigation-dropbtn'>My Work</a>
             <div class='navigation-view-content navigation-dropdown-content'>
               <a href='Repoter_Pending_Post.php'>Pending</a>
-              <a href='N_User_Pending_Posts.php'>Completed</a>
+              <a href='N_User_Completed_Post.php'>My Posts</a>
             </div>
           </li>
 

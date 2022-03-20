@@ -6,7 +6,7 @@ session_start();
 <html lang="en">
 
 <head>
-  <title>My-Articles</title>
+  <title>NEWSLIA</title>
   <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">

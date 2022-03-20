@@ -7,7 +7,7 @@ session_start();
 
 <head>
   <meta charset="UTF-8">
-  <title>Home-Page</title>
+  <title>NEWSLIA</title>
   <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/navigation.css">

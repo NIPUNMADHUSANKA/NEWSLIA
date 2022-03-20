@@ -7,7 +7,7 @@ session_start();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moderator_Home</title>
+    <title>NEWSLIA</title>
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
@@ -123,12 +123,14 @@ session_start();
         }
 
 echo "
-    <div class='right_side'>
+    <div class='right_side' style='margin-top:-25rem;'>
       <div class='bottom_side'>
 
           <div class='approvement'>
 
+            
             <div class='card'>
+        
                     <div class='content'>
                       <h2>".$total."<br/><span>Approves</span></h2>
                     </div>
