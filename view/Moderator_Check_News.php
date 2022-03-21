@@ -499,6 +499,18 @@
 
     if(isset($_POST['Normal'])){
 
+       $PID = "";
+       $last_value_sql = "SELECT Post_ID FROM news ORDER BY Post_ID DESC LIMIT 1";
+       $last_value_statement = $conn->query($last_value_sql);
+       $last_value_results = $last_value_statement->fetchAll(PDO::FETCH_ASSOC);
+
+       if ($last_value_results) {
+        foreach ($last_value_results as $last_value_result) {
+          $connect = substr($last_value_result['Post_ID'], 5) + 1;
+          $PID = "NL-N-" . $connect;
+        }
+       }
+
           $P_Date = date("Y-m-d");
           $Smart_Date = $_POST['Smart_Date'];
           $Up = 0;
@@ -506,20 +518,38 @@
 
           if($Smart_Date == NULL){
             $Accept_stmt = $conn->prepare("INSERT INTO `news`(`Post_ID`,`Title`,`Publish_Date`,`Image`,`Details`,`News_Category`,`Creator_ID`,`up_count`,`down_count`) VALUES(?,?,?,?,?,?,?,?,?)");
-            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$News_Category,$Creator_ID,$Up,$Down]);
+            $Accept_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$News_Category,$Creator_ID,$Up,$Down]);
           }
           else{
             $Accept_stmt = $conn->prepare("INSERT INTO `news` VALUES(?,?,?,?,?,?,?,?,?,?)");
-            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$News_Category,$Creator_ID,$Smart_Date,$Up,$Down]);
+            $Accept_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$News_Category,$Creator_ID,$Smart_Date,$Up,$Down]);
 
-            $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+
+            $POST_AREA = [
+              'NEW_ID' => $PID,
+              'OLD_ID' => $Post_ID
+            ];
+            
+            $POST_AREA_Update_sql = 'UPDATE post_area
+                                      SET Post_ID = :NEW_ID
+                                      WHERE Post_ID = :OLD_ID';
+            
+            $POST_AREA_Update_statement = $conn->prepare($POST_AREA_Update_sql);
+            
+            $POST_AREA_Update_statement->bindParam(':NEW_ID', $POST_AREA['NEW_ID']);
+            $POST_AREA_Update_statement->bindParam(':OLD_ID', $POST_AREA['OLD_ID']);
+            
+            $POST_AREA_Update_statement->execute();
+
+
+            $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$PID'";
             $post_from_state = $conn->query($post_from_sql);
             $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
 
             if($post_from_results){
                 foreach($post_from_results as $post_from_result){
                   $smart_calandar_stmt = $conn->prepare("INSERT INTO `smart_calendar` (`evt_start`,`evt_end`,`Post_Id`,`Area`) VALUES(?,?,?,?)");
-                  $smart_calandar_stmt->execute([$Smart_Date,$Smart_Date,$Post_ID,$post_from_result['Area']]);
+                  $smart_calandar_stmt->execute([$Smart_Date,$Smart_Date,$PID,$post_from_result['Area']]);
                }
             }
           }
@@ -528,7 +558,7 @@
           $Count = 0;
           $Type = "News";
           $Readtime_stmt = $conn->prepare("INSERT INTO `read_time` VALUES(?,?,?,?,?)");
-          $Readtime_stmt->execute([$Post_ID,$Count,$P_Time,$P_Time,$Type]);
+          $Readtime_stmt->execute([$PID,$Count,$P_Time,$P_Time,$Type]);
 
           // Notification
           $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`,`Title`) VALUES(?,?,?,?,?,?,?)");
@@ -614,6 +644,18 @@
   }
     if(isset($_POST['Auto'])){
 
+          $PID = "";
+          $last_value_sql = "SELECT Post_ID FROM news ORDER BY Post_ID DESC LIMIT 1";
+          $last_value_statement = $conn->query($last_value_sql);
+          $last_value_results = $last_value_statement->fetchAll(PDO::FETCH_ASSOC);
+
+          if ($last_value_results) {
+          foreach ($last_value_results as $last_value_result) {
+            $connect = substr($last_value_result['Post_ID'], 5) + 1;
+            $PID = "NL-N-" . $connect;
+          }
+          }
+
           $P_Date = date("Y-m-d");
           $Smart_Date = $_POST['Smart_Date'];
           $Date = $_POST['Auto_Date'];
@@ -624,33 +666,52 @@
 
           if($Smart_Date == NULL){
             $Accept_stmt = $conn->prepare("INSERT INTO `news`(`Post_ID`,`Title`,`Publish_Date`,`Image`,`Details`,`News_Category`,`Creator_ID`,`up_count`,`down_count`) VALUES(?,?,?,?,?,?,?,?,?)");
-            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$News_Category,$Creator_ID,$Up,$Down]);
+            $Accept_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$News_Category,$Creator_ID,$Up,$Down]);
           }
           else{
             $Accept_stmt = $conn->prepare("INSERT INTO `news` VALUES(?,?,?,?,?,?,?,?,?,?)");
-            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$News_Category,$Creator_ID,$Smart_Date,$Up,$Down]);
+            $Accept_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$News_Category,$Creator_ID,$Smart_Date,$Up,$Down]);
 
-            $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+
+            $POST_AREA = [
+              'NEW_ID' => $PID,
+              'OLD_ID' => $Post_ID
+            ];
+            
+            $POST_AREA_Update_sql = 'UPDATE post_area
+                                      SET Post_ID = :NEW_ID
+                                      WHERE Post_ID = :OLD_ID';
+            
+            $POST_AREA_Update_statement = $conn->prepare($POST_AREA_Update_sql);
+            
+            $POST_AREA_Update_statement->bindParam(':NEW_ID', $POST_AREA['NEW_ID']);
+            $POST_AREA_Update_statement->bindParam(':OLD_ID', $POST_AREA['OLD_ID']);
+            
+            $POST_AREA_Update_statement->execute();
+
+
+
+            $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$PID'";
             $post_from_state = $conn->query($post_from_sql);
             $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
 
             if($post_from_results){
                 foreach($post_from_results as $post_from_result){
                   $smart_calandar_stmt = $conn->prepare("INSERT INTO `smart_calendar` (`evt_start`,`evt_end`,`Post_Id`,`Area`) VALUES(?,?,?,?)");
-                  $smart_calandar_stmt->execute([$Smart_Date,$Smart_Date,$Post_ID,$post_from_result['Area']]);
+                  $smart_calandar_stmt->execute([$Smart_Date,$Smart_Date,$PID,$post_from_result['Area']]);
                }
             }
           }
 
         
           $Auto_delete_stmt = $conn->prepare("INSERT INTO `post_auto_delete` VALUES(?,?,?,?)");
-          $Auto_delete_stmt->execute([$Post_ID,$Date,$Time,$Cat]);
+          $Auto_delete_stmt->execute([$PID,$Date,$Time,$Cat]);
 
           $P_Time = NULL;
           $Count = 0;
           $Type = "News";
           $Readtime_stmt = $conn->prepare("INSERT INTO `read_time` VALUES(?,?,?,?,?)");
-          $Readtime_stmt->execute([$Post_ID,$Count,$P_Time,$P_Time,$Type]);
+          $Readtime_stmt->execute([$PID,$Count,$P_Time,$P_Time,$Type]);
 
           // Notification
           $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`,`Title`) VALUES(?,?,?,?,?,?,?)");

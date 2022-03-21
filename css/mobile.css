@@ -1,0 +1,141 @@
+@media only screen and (max-width: 1500px) {
+    .posts_content_view_body{
+        margin: 1vw 2px 2vw 8vw;          
+    } 
+  }
+
+  @media only screen and (max-width: 1456px) {
+    .box-container{
+        margin-right: 5rem;
+    }
+  }
+
+  @media only screen and (max-width: 1330px) {
+    .box-container{
+        margin-right: 4rem;
+    }
+  }
+
+  @media only screen and (max-width: 1271px) {
+    .box-container{
+        margin-right: 2rem;
+    }
+  }
+
+  @media only screen and (max-width: 1163px) {
+    .box-container{
+        margin-right: 1rem;
+        width: 280px;
+    }
+  }
+
+  @media only screen and (max-width: 1041px) {
+    .box-container{
+        margin-right: 1.5rem;
+        width: 250px;
+    }
+    
+  }
+  @media only screen and (max-width: 965px) {
+    .box-container{
+        margin-right: 5rem;
+        width: 300px;
+    }
+   
+  }
+
+  @media only screen and (max-width: 867px) {
+    .box-container{
+        margin-right: 4rem;
+        width: 290px;
+    }
+    
+  }
+
+  @media only screen and (max-width: 815px) {
+    .box-container{
+        margin-right: 4rem;
+        width: 280px;
+    }
+    
+  }
+
+  @media only screen and (max-width: 786px) {
+    .box-container{
+        margin-right: 4rem;
+        width: 250px;
+    }
+   
+  }
+
+  @media only screen and (max-width: 718px) {
+    .box-container{
+        margin-right: 2rem;
+    }
+  }
+
+  @media only screen and (max-width: 718px) {
+    .box-container{
+        margin-right: 1rem;
+    }
+   
+  }
+
+  @media only screen and (max-width: 718px) {
+    .box-container{
+        margin-right: 4rem;
+        width: 300px;
+    }
+    .posts_content_view_body{
+        margin: 1vw 2px 2vw 20vw;          
+    } 
+  }
+
+
+
+
+
+
+
+
+
+
+
+  /*###############################################################################*/
+
+  @media only screen and (max-width: 1458px) {
+   .card{
+        width: 260px;
+        margin-right: 4rem;
+    }
+
+  }
+
+
+  @media only screen and (max-width: 1346px) {
+    .card{
+        width: 260px;
+        margin-right: 2rem;
+    }
+
+  }
+
+  @media only screen and (max-width: 1325px) {
+    body{
+        background-color: lightblue;
+    }
+
+    .card{
+        transform:scale(1.0);
+    }
+
+
+  }
+
+
+
+
+  
+ 
+
+ 

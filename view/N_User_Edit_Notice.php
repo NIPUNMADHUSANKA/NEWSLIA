@@ -107,7 +107,7 @@ session_start();
 
             ?>
             <select name="Area" id="" class="input-field">
-                <option value='' disable hiddenn required><?php echo $area; ?></option>
+                <option value='' disable hidden required><?php echo $area; ?></option>
                 <?php
                 include '../Model/connect.php';
                 $system_actor_id = $_SESSION['System_Actor_ID'];
@@ -117,9 +117,6 @@ session_start();
                 $reading_area_results = $reading_area_statement->fetchAll(PDO::FETCH_ASSOC);
 
                 if ($reading_area_results) {
-
-
-
                     foreach ($reading_area_results as $reading_area_result) {
                         echo "<option>" . $reading_area_result['Area'] . "</option>";
                     }

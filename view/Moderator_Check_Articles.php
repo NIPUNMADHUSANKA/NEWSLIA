@@ -302,16 +302,29 @@
 
     if(isset($_POST['Accept'])){
 
+        $PID = ""; 
+        $last_value_sql = "SELECT Post_ID FROM articles ORDER BY Post_ID DESC LIMIT 1";
+        $last_value_statement = $conn->query($last_value_sql);
+        $last_value_results = $last_value_statement->fetchAll(PDO::FETCH_ASSOC);
+  
+        if ($last_value_results) {
+          foreach ($last_value_results as $last_value_result) {
+            $connect = substr($last_value_result['Post_ID'], 5) + 1;
+            $PID = "NL-A-" . $connect;
+          }
+        }
+
+
         $Approve_stmt = $conn->prepare("INSERT INTO `articles` VALUES(?,?,?,?,?,?)");
-        $Approve_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID]);
+        $Approve_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$Creator_ID]);
 
         $P_Time = NULL;
         $Readtime_stmt = $conn->prepare("INSERT INTO `read_time` VALUES(?,?,?,?,?)");
-        $Readtime_stmt->execute([$Post_ID,'0',$P_Time,$P_Time,'Articles']);
+        $Readtime_stmt->execute([$PID,'0',$P_Time,$P_Time,'Articles']);
 
         // Notification
         $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`,`Title`) VALUES(?,?,?,?,?,?,?)");
-        $notification->execute([$Post_ID,'Approve',$Creator_ID,$P_Date,$System_Time,$System_Actor_ID,$Title]);
+        $notification->execute([$PID,'Approve',$Creator_ID,$P_Date,$System_Time,$System_Actor_ID,$Title]);
 
 
         // Update Moderator Insights Part//

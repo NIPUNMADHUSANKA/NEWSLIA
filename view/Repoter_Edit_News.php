@@ -109,7 +109,7 @@ session_start();
                 <?php
                 $post_Id = $_SESSION['G_PENDING_POST_ID'];
 
-                $variable_1 = "SELECT *FROM post_area WHERE Post_ID = '$post_Id' ";
+                $variable_1 = "SELECT * FROM post_area WHERE Post_ID = '$post_Id' ";
                 $variable_2 = $conn->query($variable_1);
                 $variable_3 = $variable_2->fetchAll(PDO::FETCH_ASSOC);
 

@@ -89,7 +89,7 @@ include '../Model/connect.php';
                     // execute the UPDATE statment
                     $statement_update_deactivate->execute();
 
-                    echo "<script> window.open('../view/Main_Home.php','_self'); </script>";
+                    echo "<script> window.open('../view/index.php','_self'); </script>";
 
                 }
                 else {

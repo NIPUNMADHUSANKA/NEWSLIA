@@ -87,7 +87,7 @@ session_start();
                         <?php
                         include '../Model/connect.php';
                         $system_actor_id = $_SESSION['System_Actor_ID'];
-                        $reading_area_sql = "SELECT * FROM read_area WHERE (System_Actor_Id = '$system_actor_id') ";
+                        $reading_area_sql = "SELECT * FROM report_area WHERE (System_Actor_Id = '$system_actor_id') ";
 
                         $reading_area_statement = $conn->query($reading_area_sql);
                         $reading_area_results = $reading_area_statement->fetchAll(PDO::FETCH_ASSOC);

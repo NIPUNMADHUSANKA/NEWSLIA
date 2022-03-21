@@ -1314,7 +1314,7 @@ session_start();
 
           $USERID = $_SESSION['System_Actor_ID'];
 
-          $last_value_sql = "SELECT Post_ID FROM notices_pending ORDER BY Post_ID DESC LIMIT 1";
+          $last_value_sql = "SELECT Post_ID FROM news_pending ORDER BY Post_ID DESC LIMIT 1";
           $last_value_statement = $conn->query($last_value_sql);
           $last_value_results = $last_value_statement->fetchAll(PDO::FETCH_ASSOC);
 

@@ -583,16 +583,45 @@
         $set_date = $_POST['set_date'];
         $set_time = $_POST['set_time'];
 
+        $PID = "";
+
         if($Type =="Notices"){
+        
+          $last_value_sql = "SELECT Post_ID FROM notices ORDER BY Post_ID DESC LIMIT 1";
+          $last_value_statement = $conn->query($last_value_sql);
+          $last_value_results = $last_value_statement->fetchAll(PDO::FETCH_ASSOC);
+
+          if ($last_value_results) {
+            foreach ($last_value_results as $last_value_result) {
+              $connect = substr($last_value_result['Post_ID'], 6) + 1;
+              $PID = "NL-NO-" . $connect;
+            }
+          }
 
           if($set_date == NULL and $set_time == NULL){
             $Accept_stmt = $conn->prepare("INSERT INTO `notices`(`Post_ID`, `Title`, `Publish_Date`, `Image`, `Details`, `Creator_ID`) VALUES(?,?,?,?,?,?)");
-            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID]);
+            $Accept_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$Creator_ID]);
           }
           elseif($set_date != NULL and $set_time != NULL){
             $Accept_stmt = $conn->prepare("INSERT INTO `notices` VALUES(?,?,?,?,?,?,?,?)");
-            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
+            $Accept_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
           }
+
+          $POST_AREA = [
+            'NEW_ID' => $PID,
+            'OLD_ID' => $Post_ID
+          ];
+          
+          $POST_AREA_Update_sql = 'UPDATE post_area
+                                    SET Post_ID = :NEW_ID
+                                    WHERE Post_ID = :OLD_ID';
+          
+          $POST_AREA_Update_statement = $conn->prepare($POST_AREA_Update_sql);
+          
+          $POST_AREA_Update_statement->bindParam(':NEW_ID', $POST_AREA['NEW_ID']);
+          $POST_AREA_Update_statement->bindParam(':OLD_ID', $POST_AREA['OLD_ID']);
+          
+          $POST_AREA_Update_statement->execute();
 
 
           // Update Moderator Insights Part//
@@ -675,14 +704,42 @@
         }
         elseif($Type =="Vacancies"){
 
+          $last_value_sql = "SELECT Post_ID FROM job_vacancies ORDER BY Post_ID DESC LIMIT 1";
+          $last_value_statement = $conn->query($last_value_sql);
+          $last_value_results = $last_value_statement->fetchAll(PDO::FETCH_ASSOC);
+
+          if ($last_value_results) {
+            foreach ($last_value_results as $last_value_result) {
+              $connect = substr($last_value_result['Post_ID'], 6) + 1;
+              $PID = "NL-JV-" . $connect;
+            }
+          }
+
           if($set_date == NULL and $set_time == NULL){
             $Accept_stmt = $conn->prepare("INSERT INTO `job_vacancies`(`Post_ID`,`Company`,`Title`,`Publish_Date`,`Deadline_Date`,`Image`,`Details`,`Creator_ID`) VALUES(?,?,?,?,?,?,?,?)");
-            $Accept_stmt->execute([$Post_ID,$Company,$Title,$P_Date,$Deadline_Date,$img_X,$msg,$Creator_ID]);
+            $Accept_stmt->execute([$PID,$Company,$Title,$P_Date,$Deadline_Date,$img_X,$msg,$Creator_ID]);
           }
           elseif($set_date != NULL and $set_time != NULL){
             $Accept_stmt = $conn->prepare("INSERT INTO `job_vacancies` VALUES(?,?,?,?,?,?,?,?,?,?)");
-            $Accept_stmt->execute([$Post_ID,$Company,$Title,$P_Date,$Deadline_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
+            $Accept_stmt->execute([$PID,$Company,$Title,$P_Date,$Deadline_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
           }
+
+          $POST_AREA = [
+            'NEW_ID' => $PID,
+            'OLD_ID' => $Post_ID
+          ];
+          
+          $POST_AREA_Update_sql = 'UPDATE post_area
+                                    SET Post_ID = :NEW_ID
+                                    WHERE Post_ID = :OLD_ID';
+          
+          $POST_AREA_Update_statement = $conn->prepare($POST_AREA_Update_sql);
+          
+          $POST_AREA_Update_statement->bindParam(':NEW_ID', $POST_AREA['NEW_ID']);
+          $POST_AREA_Update_statement->bindParam(':OLD_ID', $POST_AREA['OLD_ID']);
+          
+          $POST_AREA_Update_statement->execute();
+
 
           // Update Moderator Insights Part//
               $Job_Count = 1;
@@ -763,13 +820,24 @@
         }
         else{
           
+            $last_value_sql = "SELECT Post_ID FROM com_ads ORDER BY Post_ID DESC LIMIT 1";
+            $last_value_statement = $conn->query($last_value_sql);
+            $last_value_results = $last_value_statement->fetchAll(PDO::FETCH_ASSOC);
+        
+            if ($last_value_results) {
+              foreach ($last_value_results as $last_value_result) {
+                $connect = substr($last_value_result['Post_ID'], 6) + 1;
+                $PID = "NL-CA-" . $connect;
+              }
+            }
+
             if($set_date == NULL and $set_time == NULL){
               $Accept_stmt = $conn->prepare("INSERT INTO `com_ads`(`Post_ID`,`Title`,`Publish_Date`,`Image`,`Details`,`Creator_ID`) VALUES(?,?,?,?,?,?)");
-              $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID]);
+              $Accept_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$Creator_ID]);
             }
             elseif($set_date != NULL and $set_time != NULL){
               $Accept_stmt = $conn->prepare("INSERT INTO `com_ads` VALUES(?,?,?,?,?,?,?,?)");
-              $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
+              $Accept_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
             }
 
               // Update Moderator Insights Part//
@@ -855,11 +923,11 @@
           $P_Time = NULL;
           $Count = 0;
           $Readtime_stmt = $conn->prepare("INSERT INTO `read_time` VALUES(?,?,?,?,?)");
-          $Readtime_stmt->execute([$Post_ID,$Count,$P_Time,$P_Time,$Type]);
+          $Readtime_stmt->execute([$PID,$Count,$P_Time,$P_Time,$Type]);
 
           // Notification 
           $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`,`Title`) VALUES(?,?,?,?,?,?,?)");
-          $notification->execute([$Post_ID,'Approve',$Creator_ID,$Computer_Date,$Computer_Time,$System_Actor_ID,$Title]);
+          $notification->execute([$PID,'Approve',$Creator_ID,$Computer_Date,$Computer_Time,$System_Actor_ID,$Title]);
           echo "<script>window.open('Moderator_Pending.php','_self')</script>";
         
       }
@@ -874,19 +942,50 @@
         $Time_Auto = $_POST['Auto_time'];
         $Cat = "";
 
+        $PID = "";
+
 
         if($Type =="Notices"){
 
             $Cat = "Notices";
 
+            $last_value_sql = "SELECT Post_ID FROM notices ORDER BY Post_ID DESC LIMIT 1";
+            $last_value_statement = $conn->query($last_value_sql);
+            $last_value_results = $last_value_statement->fetchAll(PDO::FETCH_ASSOC);
+
+            if ($last_value_results) {
+              foreach ($last_value_results as $last_value_result) {
+                $connect = substr($last_value_result['Post_ID'], 6) + 1;
+                $PID = "NL-NO-" . $connect;
+              }
+            }
+
             if($set_date == NULL and $set_time == NULL){
               $Accept_stmt = $conn->prepare("INSERT INTO `notices`(`Post_ID`, `Title`, `Publish_Date`, `Image`, `Details`, `Creator_ID`) VALUES(?,?,?,?,?,?)");
-              $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID]);
+              $Accept_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$Creator_ID]);
             }
             elseif($set_date != NULL and $set_time != NULL){
               $Accept_stmt = $conn->prepare("INSERT INTO `notices` VALUES(?,?,?,?,?,?,?,?)");
-              $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
+              $Accept_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
             }
+
+            $POST_AREA = [
+              'NEW_ID' => $PID,
+              'OLD_ID' => $Post_ID
+            ];
+            
+            $POST_AREA_Update_sql = 'UPDATE post_area
+                                      SET Post_ID = :NEW_ID
+                                      WHERE Post_ID = :OLD_ID';
+            
+            $POST_AREA_Update_statement = $conn->prepare($POST_AREA_Update_sql);
+            
+            $POST_AREA_Update_statement->bindParam(':NEW_ID', $POST_AREA['NEW_ID']);
+            $POST_AREA_Update_statement->bindParam(':OLD_ID', $POST_AREA['OLD_ID']);
+            
+            $POST_AREA_Update_statement->execute();
+
+
             // Update Moderator Insights Part//
                 $Job_Count = 1;
                 $Modertsor_Ingihts_sql = "SELECT * FROM moderate_insights WHERE System_Actor_Id = '$System_Actor_ID'";
@@ -967,15 +1066,45 @@
         elseif($Type =="Vacancies"){
 
           $Cat = "Vacancies";
+
+          $last_value_sql = "SELECT Post_ID FROM job_vacancies ORDER BY Post_ID DESC LIMIT 1";
+          $last_value_statement = $conn->query($last_value_sql);
+          $last_value_results = $last_value_statement->fetchAll(PDO::FETCH_ASSOC);
+
+          if ($last_value_results) {
+            foreach ($last_value_results as $last_value_result) {
+              $connect = substr($last_value_result['Post_ID'], 6) + 1;
+              $PID = "NL-JV-" . $connect;
+            }
+          }
+
           if($set_date == NULL and $set_time == NULL){
             $Accept_stmt = $conn->prepare("INSERT INTO `job_vacancies`(`Post_ID`,`Company`,`Title`,`Publish_Date`,`Deadline_Date`,`Image`,`Details`,`Creator_ID`) VALUES(?,?,?,?,?,?,?,?)");
-            $Accept_stmt->execute([$Post_ID,$Company,$Title,$P_Date,$Deadline_Date,$img_X,$msg,$Creator_ID]);
+            $Accept_stmt->execute([$PID,$Company,$Title,$P_Date,$Deadline_Date,$img_X,$msg,$Creator_ID]);
           }
           elseif($set_date != NULL and $set_time != NULL){
             $Accept_stmt = $conn->prepare("INSERT INTO `job_vacancies` VALUES(?,?,?,?,?,?,?,?,?,?)");
-            $Accept_stmt->execute([$Post_ID,$Company,$Title,$P_Date,$Deadline_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
+            $Accept_stmt->execute([$PID,$Company,$Title,$P_Date,$Deadline_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
           }
-                // Update Moderator Insights Part//
+
+
+          $POST_AREA = [
+            'NEW_ID' => $PID,
+            'OLD_ID' => $Post_ID
+          ];
+          
+          $POST_AREA_Update_sql = 'UPDATE post_area
+                                    SET Post_ID = :NEW_ID
+                                    WHERE Post_ID = :OLD_ID';
+          
+          $POST_AREA_Update_statement = $conn->prepare($POST_AREA_Update_sql);
+          
+          $POST_AREA_Update_statement->bindParam(':NEW_ID', $POST_AREA['NEW_ID']);
+          $POST_AREA_Update_statement->bindParam(':OLD_ID', $POST_AREA['OLD_ID']);
+          
+          $POST_AREA_Update_statement->execute();
+                
+          // Update Moderator Insights Part//
                   $Job_Count = 1;
                   $Modertsor_Ingihts_sql = "SELECT * FROM moderate_insights WHERE System_Actor_Id = '$System_Actor_ID'";
                   $Modertsor_Ingihts_statement = $conn->query($Modertsor_Ingihts_sql);
@@ -1054,13 +1183,25 @@
         }
         else{
           $Cat = "C.Ads";
+
+            $last_value_sql = "SELECT Post_ID FROM com_ads ORDER BY Post_ID DESC LIMIT 1";
+            $last_value_statement = $conn->query($last_value_sql);
+            $last_value_results = $last_value_statement->fetchAll(PDO::FETCH_ASSOC);
+        
+            if ($last_value_results) {
+              foreach ($last_value_results as $last_value_result) {
+                $connect = substr($last_value_result['Post_ID'], 6) + 1;
+                $PID = "NL-CA-" . $connect;
+              }
+            }
+
           if($set_date == NULL and $set_time == NULL){
             $Accept_stmt = $conn->prepare("INSERT INTO `com_ads`(`Post_ID`,`Title`,`Publish_Date`,`Image`,`Details`,`Creator_ID`) VALUES(?,?,?,?,?,?)");
-            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID]);
+            $Accept_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$Creator_ID]);
           }
           elseif($set_date != NULL and $set_time != NULL){
             $Accept_stmt = $conn->prepare("INSERT INTO `com_ads` VALUES(?,?,?,?,?,?,?,?)");
-            $Accept_stmt->execute([$Post_ID,$Title,$P_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
+            $Accept_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
           }
 
                 // Update Moderator Insights Part//
@@ -1142,16 +1283,16 @@
         }
         
           $Auto_delete_stmt = $conn->prepare("INSERT INTO `post_auto_delete` VALUES(?,?,?,?)");
-          $Auto_delete_stmt->execute([$Post_ID,$Date_Auto,$Time_Auto,$Cat]);
+          $Auto_delete_stmt->execute([$PID,$Date_Auto,$Time_Auto,$Cat]);
 
           $P_Time = NULL;
           $Count = 0;
           $Readtime_stmt = $conn->prepare("INSERT INTO `read_time` VALUES(?,?,?,?,?)");
-          $Readtime_stmt->execute([$Post_ID,$Count,$P_Time,$P_Time,$Type]);
+          $Readtime_stmt->execute([$PID,$Count,$P_Time,$P_Time,$Type]);
 
           // Notification
           $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`,`Title`) VALUES(?,?,?,?,?,?,?)");
-          $notification->execute([$Post_ID,'Approve',$Creator_ID,$Computer_Date,$Computer_Time,$System_Actor_ID,$Title]);
+          $notification->execute([$PID,'Approve',$Creator_ID,$Computer_Date,$Computer_Time,$System_Actor_ID,$Title]);
           
           echo "<script>window.open('Moderator_Pending.php','_self')</script>";
       }

@@ -287,7 +287,7 @@ session_start();
 
       //print CA
 
-      $table = 'Advertisement';
+      $table = 'Ads';
       $post_info_sql = "SELECT * FROM com_ads WHERE Creator_ID = '$USERID' ORDER BY Publish_Date DESC";                        
       $post_info_state = $conn->query($post_info_sql);
       $post_info_results = $post_info_state->fetchAll(PDO::FETCH_ASSOC);
@@ -359,7 +359,7 @@ session_start();
 
       //print JV
 
-      $table = 'Job Vacancy';
+      $table = 'Vacancies';
       $post_info_sql = "SELECT * FROM job_vacancies WHERE Creator_ID = '$USERID' ORDER BY Publish_Date DESC";                        
       $post_info_state = $conn->query($post_info_sql);
       $post_info_results = $post_info_state->fetchAll(PDO::FETCH_ASSOC);
@@ -431,7 +431,7 @@ session_start();
 
       // print notices
 
-      $table = 'Notice';
+      $table = 'Notices';
       $post_info_sql = "SELECT * FROM notices WHERE Creator_ID = '$USERID' ORDER BY Publish_Date DESC";                        
       $post_info_state = $conn->query($post_info_sql);
       $post_info_results = $post_info_state->fetchAll(PDO::FETCH_ASSOC);

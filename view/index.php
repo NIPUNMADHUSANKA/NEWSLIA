@@ -828,7 +828,7 @@ session_start();
 
         <div class="popup_form">
             <h3 class="popup_title">Login</h3>
-            <form action="./Main_Home.php" method="post" name="login_form">
+            <form action="./index.php" method="post" name="login_form">
 
  
                <input type="email" name="sysactoremail" placeholder="Email" id="username" class="inp inp1" required> <span style="color:red;font-size:13px;">*</span>
@@ -873,7 +873,7 @@ session_start();
                 <h3 class="popup_title">Forgot Password</h3>
                 <div>
                   
-                  <form action="./Main_Home.php" method="post">
+                  <form action="./index.php" method="post">
     
                       <input type="text" name="sysactorforgotNIC" placeholder="NIC No" id="forget_NIC" class="inp inp1">
                       <br>
@@ -886,7 +886,7 @@ session_start();
                       
                   </form>
                   
-                  <form action="./Main_Home.php" method="post" class="OTP_VERIFY_FORGOT">
+                  <form action="./index.php" method="post" class="OTP_VERIFY_FORGOT">
                         <input type="text" name="sysactorotp" id="otp" class="inp inp1 inpu2" placeholder="OTP Code" maxlength="5" required>
                         <button name ="OTP_VERIFY" class="update_btn otp_btn2 otp_btn3" id="verify_forget_btn">Verify</button>
                   </form>
@@ -919,7 +919,7 @@ session_start();
                 <h3 class="popup_title">Forgot Password</h3>
                 <div name="login_form">
                 
-                 <form action="./Main_Home.php" method="post" name="login_form">
+                 <form action="./index.php" method="post" name="login_form">
 
                         <input type="password" name="sysactor_new_psd_confirm" id="New-Forget-Password" class="inp inp1" placeholder="New Password" required>
                               
@@ -1061,7 +1061,7 @@ session_start();
 
 
 
-<form action="./Main_Home.php" method = "POST">
+<form action="./index.php" method = "POST">
 
           <div class="popup popup_signup" id="popup-10">
 
