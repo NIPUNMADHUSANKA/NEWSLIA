@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
-    <link rel="stylesheet" href="../css/popup.css">
-    <link rel="stylesheet" href="../css/mobile.css">
+    <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -119,6 +119,26 @@
   
   }
 
+  .card:hover{
+    transform:scale(1.1);
+  }
+
+  .card{
+    transition:0.5s ease;
+    cursor: pointer;
+    float: left;
+    margin-right:1.5rem;
+    margin-top:2rem;
+    overflow-y:scroll;
+    
+  }
+
+  .toggle{
+    position: sticky;
+    margin-left:14rem;
+  }
+
+  
 </style>
 
 <body>
@@ -138,86 +158,220 @@
     </div>    
 </div>
 
+<?php
+     $USERID = $_SESSION['System_Actor_ID'];
+     $Area = [];
+
+     $from_sql = "SELECT * FROM read_area WHERE System_Actor_Id ='$USERID'";
+     $from_state = $conn->query($from_sql);
+     $from_results = $from_state->fetchAll(PDO::FETCH_ASSOC);
+
+     if($from_results){
+         $i = 0;
+         foreach($from_results as $from_result){
+             $Area[$i] = $from_result['Area'];
+             $i++;
+         }
+     }
+?>
+
 
 <div class="posts_content_view_body">
 
     <div class="body_information">
          
+
         <?php
 
-            $Catogory = ["Power Cut","Water Cut","Samurdhi Payment","Curfew","Blood Donation","vaccination Program"];
-            $Area = [];
-            
-            $USERID = $_SESSION['System_Actor_ID'];
+           
+            echo"
+            <div class='card'>
+                    <div class='content'>
+                      <h2>News</h2>
+                      <br>
+                    </div>
+                    <ul class='navigation'>";
+                      
+                      $Catogory = ["Power Cut","Water Cut","Samurdhi Payment","Curfew","Vaccination Program"];
 
-            $from_sql = "SELECT * FROM read_area WHERE System_Actor_Id ='$USERID'";
-            $from_state = $conn->query($from_sql);
-            $from_results = $from_state->fetchAll(PDO::FETCH_ASSOC);
+                      foreach($Area as $item){
+                        echo "<li>
+                              <p><b>".$item."</b></p>";
 
-            if($from_results){
-                $i = 0;
-                foreach($from_results as $from_result){
-                    $Area[$i] = $from_result['Area'];
-                    $i++;
-                }
-            }
+                        foreach($Catogory as $type_cat){
+                          $Number = 0;
+                                               
+                          $post_count_sql = "SELECT count(DISTINCT news.Post_ID) as PI FROM post_area INNER JOIN news ON post_area.Post_ID = news.Post_ID WHERE post_area.Area = '$item' AND news.Title LIKE '%$type_cat%'";
+                        
+                          $post_count_state = $conn->query($post_count_sql);
+                          $post_count_results = $post_count_state->fetchAll(PDO::FETCH_ASSOC);
+                      
+      
+                          if($post_count_results){
+                              foreach($post_count_results as $post_count_result){
+                                  $Number = $Number + $post_count_result['PI'];
+                              }
+                          }
 
-            foreach($Area as $item){
-  
+                          echo "
+                          <ul style = 'margin-left:2rem;'>
+                            <li><p>".$type_cat."<span>".$Number."</span> </p></li>
+                          </ul>";
 
-                foreach($Catogory as $type_cat){
-
-                    $Number = 0;
-                    // Notice
-                    $post_count_sql = "SELECT count(DISTINCT notices.Post_ID) as PI FROM post_area INNER JOIN notices ON post_area.Post_ID = notices.Post_ID WHERE post_area.Area = '$item' AND notices.Title LIKE '%$type_cat%'";
-                  
-                    $post_count_state = $conn->query($post_count_sql);
-                    $post_count_results = $post_count_state->fetchAll(PDO::FETCH_ASSOC);
-                
-
-                    if($post_count_results){
-                        foreach($post_count_results as $post_count_result){
-                            $Number = $Number + $post_count_result['PI'];
                         }
-                    }
+                         
 
-
-                     // News
-                     $post_count_sql = "SELECT count(DISTINCT news.Post_ID) as PI FROM post_area INNER JOIN news ON post_area.Post_ID = news.Post_ID WHERE post_area.Area = '$item' AND news.Title LIKE '%$type_cat%'";
-                  
-                     $post_count_state = $conn->query($post_count_sql);
-                     $post_count_results = $post_count_state->fetchAll(PDO::FETCH_ASSOC);
-                 
- 
-                     if($post_count_results){
-                         foreach($post_count_results as $post_count_result){
-                             $Number = $Number + $post_count_result['PI'];
-                         }
-                     }
-
-                    echo "<div class='box-container'>
-                                   
-                                    
-                    <div class='box_body'>
-                          <h3 style='color:#888;'>".$item." </h3>
-                          <h2 style='color:#888;'><center>".$Number."</center></h2>
-                          <h3 style='color:#888; text-transform: capitalize;'>".$type_cat."</h3>
-                          
-                          
-                          
-                   </div>
-                    </div>";
-
-
-                }
-                
-            }
-
-
-                          
-        ?>
+                        echo"</li>";
+                      } 
+                      
+                    
+                      
+                    echo"</ul>
+                    <div class='toggle'>
+                      <i class='fa fa-chevron-down'></i>
+                    </div>
+              </div>
+          "; 
           
-    </div>
+          echo"
+          <div class='card card1'>
+                  <div class='content'>
+                    <h2>Notics</h2>
+                    <br>
+                  </div>
+                  <ul class='navigation'>";
+                        $Catogory = ["Blood Donation","Lost Pets","Sharmadhana Program"];
+
+                        foreach($Area as $item){
+                          echo "<li>
+                                <p><b>".$item."</b></p>";
+
+                          foreach($Catogory as $type_cat){
+                            $Number = 0;
+                                                
+                            $post_count_sql = "SELECT count(DISTINCT notices.Post_ID) as PI FROM post_area INNER JOIN notices ON post_area.Post_ID = notices.Post_ID WHERE post_area.Area = '$item' AND notices.Title LIKE '%$type_cat%'";
+                          
+                            $post_count_state = $conn->query($post_count_sql);
+                            $post_count_results = $post_count_state->fetchAll(PDO::FETCH_ASSOC);
+                        
+        
+                            if($post_count_results){
+                                foreach($post_count_results as $post_count_result){
+                                    $Number = $Number + $post_count_result['PI'];
+                                }
+                            }
+
+                            echo "
+                            <ul style = 'margin-left:2rem;'>
+                              <li><p>".$type_cat."<span>".$Number."</span> </p></li>
+                            </ul>";
+
+                          }
+                          
+
+                          echo"</li>";
+                        } 
+                        
+                  echo "</ul>
+                  <div class='toggle toggle1'>
+                    <i class='fa fa-chevron-down'></i>
+                  </div>
+            </div>
+        ";
+
+        echo"
+          <div class='card card2'>
+                  <div class='content'>
+                    <h2 style='margin-left:3rem;'>Jab Vacancies</h2>
+                    <br>
+                  </div>
+                  <ul class='navigation'>";
+                      
+                      $Catogory = ["Software Engineer","Graphic Designer","Web Designer"];
+
+                      foreach($Area as $item){
+                        echo "<li>
+                              <p><b>".$item."</b></p>";
+                              
+
+                        foreach($Catogory as $type_cat){
+                          $Number = 0;
+                                              
+                          $post_count_sql = "SELECT count(DISTINCT job_vacancies.Post_ID) as PI FROM post_area INNER JOIN job_vacancies ON post_area.Post_ID = job_vacancies.Post_ID WHERE post_area.Area = '$item' AND job_vacancies.Title LIKE '%$type_cat%'";
+                        
+                          $post_count_state = $conn->query($post_count_sql);
+                          $post_count_results = $post_count_state->fetchAll(PDO::FETCH_ASSOC);
+                      
+      
+                          if($post_count_results){
+                              foreach($post_count_results as $post_count_result){
+                                  $Number = $Number + $post_count_result['PI'];
+                              }
+                          }
+
+                          echo "
+                          <ul style = 'margin-left:2rem;'>
+                            <li><p>".$type_cat."<span>".$Number."</span> </p></li>
+                          </ul>";
+
+                        }}
+                
+                  echo "</ul>
+                  <div class='toggle toggle2'>
+                    <i class='fa fa-chevron-down'></i>
+                  </div>
+            </div>
+        ";
+
+
+        echo"
+          <div class='card card4'>
+                  <div class='content'>
+                    <h2>C.Ads</h2>
+                    <br>
+                  </div>
+                  <ul class='navigation'>";
+
+                    $Catogory = ["Coffe Shop","Tea Shop","grocery shop"];
+
+                    foreach($Area as $item){
+                      echo "<li>
+                            <p><b>".$item."</b></p>";
+                            
+
+                      foreach($Catogory as $type_cat){
+                        $Number = 0;
+                                            
+                        $post_count_sql = "SELECT count(DISTINCT com_ads.Post_ID) as PI FROM post_area INNER JOIN com_ads ON post_area.Post_ID = com_ads.Post_ID WHERE post_area.Area = '$item' AND com_ads.Title LIKE '%$type_cat%'";
+                      
+                        $post_count_state = $conn->query($post_count_sql);
+                        $post_count_results = $post_count_state->fetchAll(PDO::FETCH_ASSOC);
+                    
+    
+                        if($post_count_results){
+                            foreach($post_count_results as $post_count_result){
+                                $Number = $Number + $post_count_result['PI'];
+                            }
+                        }
+
+                        echo "
+                        <ul style = 'margin-left:2rem;'>
+                          <li><p>".$type_cat."<span>".$Number."</span> </p></li>
+                        </ul>";
+
+                      }}
+                    
+                  echo "</ul>
+                  <div class='toggle toggle4'>
+                    <i class='fa fa-chevron-down'></i>
+                  </div>
+            </div>
+        ";
+
+        
+        
+        ?>
+      
 </div>
 
 
@@ -225,6 +379,48 @@
 
 <script>
     
+   
+    const card = document.querySelector(".card");
+    const cardToggle = document.querySelector(".toggle");
+
+    cardToggle.onclick = () => {
+	      card.classList.toggle("active");
+    };
+
+
+
+
+
+    const card1 = document.querySelector(".card1");
+    const cardToggle1 = document.querySelector(".toggle1");
+
+    cardToggle1.onclick = () => {
+	      card1.classList.toggle("active");
+    };
+
+
+
+
+
+    const card2 = document.querySelector(".card2");
+    const cardToggle2 = document.querySelector(".toggle2");
+
+    cardToggle2.onclick = () => {
+	      card2.classList.toggle("active");
+    
+    };
+
+
+    const card4 = document.querySelector(".card4");
+    const cardToggle4 = document.querySelector(".toggle4");
+
+    cardToggle4.onclick = () => {
+	      card4.classList.toggle("active");
+    
+    };
+
+
+
 
     function toggle_reminder(Reminder_post_ID,Type){
 

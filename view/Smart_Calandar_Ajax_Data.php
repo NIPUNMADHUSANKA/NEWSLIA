@@ -1,7 +1,7 @@
 <?php
 // (A) INVALID AJAX REQUEST
 if (!isset($_POST['req'])) { die("INVALID REQUEST"); }
-require "2-cal-core.php";
+require "Smart_Cal-Core.php";
 
 switch ($_POST['req']) {
   // (B) DRAW CALENDAR FOR MONTH
@@ -34,8 +34,9 @@ switch ($_POST['req']) {
     $nowMonth = date("n");
     $nowYear = date("Y");
     $nowDay = ($nowMonth==$_POST['month'] && $nowYear==$_POST['year']) ? date("j") : 0 ;
+
     for ($day=1; $day<=$daysInMonth; $day++) { ?>
-    <div class="calsq day<?=$day==$nowDay?" today":""?>" data-day="<?=$day?>" style="overflow: hidden;">
+    <div class="calsq day<?=$day==$nowDay?" today":""?>" data-day="<?=$day?>">
       <div class="calnum"><?=$day?></div>
         <?php 
         if (isset($events['d'][$day])) { 
@@ -46,7 +47,7 @@ switch ($_POST['req']) {
 
               <input type="hidden" name = "smart_pid" id="" value = "<?= $pid ?>">
 
-              <input type="submit" name = "smart_show" class="calevt" style="background:green;width:60px;padding:1rem;margin-left:-2rem;"></button>
+              <input type="submit" name = "smart_show" class="calevt" style="background:green;width:60px;padding:1rem;margin-left:-2rem;" value = "">
               
             </form>
 

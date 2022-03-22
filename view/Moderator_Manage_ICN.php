@@ -431,7 +431,7 @@ input{
                           </div>
                         
                           <div class="message" id="msg1">
-                              <p id="mobile_validate" class="invalid">Mobile number validation</p>
+                              <p id="mobile_validate" class="invalid">Mobile number</p>
                           </div> 
                           
                           <br>
@@ -504,10 +504,10 @@ input{
                      <button class="update_btn insert_btn" name="update_i_c_n" style="margin-top:2px;">Update</button>
 
                         <div class="message" id="msg2">
-                            <p id="mobile_validate_2" class="invalid">Mobile number validation</p>
+                            <p id="mobile_validate_2" class="invalid">Mobile number </p>
                         </div> 
                         <div class="message" id="msg3">
-                            <p id="mobile_validate_3" class="invalid">Mobile number validation</p>
+                            <p id="mobile_validate_3" class="invalid">Mobile number </p>
                         </div> 
 
                    </form>

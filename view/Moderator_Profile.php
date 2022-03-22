@@ -556,7 +556,7 @@ else{
                     <input type='text' name='sysactor_new_mobile' id="new_mobile" class='inp inp1' placeholder='Enter Mobile Number' required>
                     
                     <div class="message" id="msg1">
-                      <p id="mobile_check" class="invalid">Mobile Number Validation</p>
+                      <p id="mobile_check" class="invalid">Mobile Number</p>
                     </div> 
 
                     <br>

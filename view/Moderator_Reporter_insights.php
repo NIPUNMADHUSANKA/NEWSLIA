@@ -254,6 +254,10 @@ echo "<div class='right_side'>
 
                             <h2><span class='precentage' style='color:#000;font-size:1.5rem;margin-left:0.5rem;'>";
                             $i=0;
+
+                            if($Stars==0){
+                              echo "<b>-</b>";
+                            }
                             while($i<$Stars){
                               echo "<b><img src='../images/black_star.svg'></b></span>";
                               $i++;

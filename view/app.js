@@ -2,7 +2,7 @@ var cal = {
   // (A) SUPPORT FUNCTION - AJAX CALL
   ajax : function (data, load) {
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "AJAX_DATA.php");
+    xhr.open("POST", "Smart_Calandar_Ajax_Data.php");
     if (load) { xhr.onload = load; }
     xhr.send(data);
   },

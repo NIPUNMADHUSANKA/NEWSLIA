@@ -87,8 +87,8 @@ session_start();
   }
 
   .inpu2{
-    width:6.8rem;
-    margin-left:1.4rem;
+    margin-top:1rem;
+    margin-left:-4rem;
   }
 
   .otp_btn{
@@ -289,6 +289,7 @@ session_start();
             display:none;
             top:-3.5rem;
             left:18rem;
+            width:8rem;
           }
           .rqs1{
             position: relative;
@@ -299,6 +300,7 @@ session_start();
             display:none;
             top:-3.5rem;
             left:18rem;
+            width:8rem;
           }
           .rqs2{
             position: relative;
@@ -309,6 +311,7 @@ session_start();
             display:none;
             top:-3.5rem;
             left:18rem;
+            width:8rem;
           }
           .rqs3{
             position: relative;
@@ -319,6 +322,7 @@ session_start();
             display:none;
             top:-3.5rem;
             left:15rem;
+            width:8rem;
           }
           .rqs4{
             position: relative;
@@ -391,6 +395,7 @@ session_start();
 
 .admin_details{
   height:250px;
+  overflow-y:scroll;
 }
 .reporter_details{
   height:250px;
@@ -398,6 +403,10 @@ session_start();
 
 .moderator_details{
   height:250px;
+}
+
+.show_forget{
+  display:none;
 }
 
 </style>
@@ -502,83 +511,7 @@ session_start();
         
         <div class="contact_info">     
               
-              <div class="repoter">
-                  <h3>Reporter</h3>
-                  <div class="reporter_details">
-                    <?php
-
-                    $sql_repoter_lists = "SELECT * FROM report_area";
-                    $statement_repoter_lists = $conn -> query($sql_repoter_lists);
-                    $results_repoter_lists = $statement_repoter_lists->fetchAll(PDO::FETCH_ASSOC);
-
-                    if($results_repoter_lists){
-                      foreach($results_repoter_lists as $results_repoter_list){
-                        $ID = $results_repoter_list['System_Actor_Id'];
-                        $Area = $results_repoter_list['Area'];
-
-                        $repoter_details_sql = "SELECT * FROM system_actor WHERE System_Actor_Id = '$ID'";
-                        $repoter_details_statement = $conn -> query($repoter_details_sql);
-                        $repoter_details_results = $repoter_details_statement->fetchAll(PDO::FETCH_ASSOC);
-
-                        if($repoter_details_results){
-                          foreach($repoter_details_results as $repoter_details_result){
-                            echo "<p>".$repoter_details_result['FirstName']." ".$repoter_details_result['LastName']."</p> <span class='tele_contact'>".$Area."</span>";
-
-                               $reporter_email_sql = "SELECT * FROM login WHERE System_Actor_ID = '$ID'";
-                               $reporter_email_statement = $conn -> query($reporter_email_sql);
-                               $reporter_email_results = $reporter_email_statement->fetchAll(PDO::FETCH_ASSOC);
-
-                               if($reporter_email_results){
-                                 foreach($reporter_email_results as $reporter_email_result){
-                                    echo "<span class='email_contact'>".$reporter_email_result['Email']."</span> ";
-                                }
-                              }                         
-                          }
-                        }
-                      }
-                    }   
-                    ?>
-                  </div>
-              </div>
-
-              <div class="moderator">
-                  <h3>Moderator</h3>
-                  <div class="moderator_details">
-                    <?php
-                    $sql_moderator_lists = "SELECT * FROM moderate_area";
-                    $statement_moderator_lists = $conn -> query($sql_moderator_lists);
-                    $results_moderator_lists = $statement_moderator_lists->fetchAll(PDO::FETCH_ASSOC);
-
-                    if($results_moderator_lists){
-                      foreach($results_moderator_lists as $results_moderator_list){
-                        $ID = $results_moderator_list['System_Actor_Id'];
-                        $Area = $results_moderator_list['Area'];
-
-                        $moderator_details_sql = "SELECT * FROM system_actor WHERE System_Actor_Id = '$ID'";
-                        $moderator_details_statement = $conn -> query($moderator_details_sql);
-                        $moderator_details_results = $moderator_details_statement->fetchAll(PDO::FETCH_ASSOC);
-
-                        if($moderator_details_results){
-                          foreach($moderator_details_results as $moderator_details_result){
-                            echo "<p>".$moderator_details_result['FirstName']." ".$moderator_details_result['LastName']."</p> <span class='tele_contact'>".$Area."</span>";
-
-                               $moderator_email_sql = "SELECT * FROM login WHERE System_Actor_ID = '$ID'";
-                               $moderator_email_statement = $conn -> query($moderator_email_sql);
-                               $moderator_email_results = $moderator_email_statement->fetchAll(PDO::FETCH_ASSOC);
-
-                               if($moderator_email_results){
-                                 foreach($moderator_email_results as $moderator_email_result){
-                                    echo "<span class='email_contact'>".$moderator_email_result['Email']."</span> ";
-                                }
-                              }                         
-                          }
-                        }
-                      }
-                    }   
-                    ?>
-                  </div>
-              </div>
-
+              
               <div class="admin">
                 <h3>Administrator</h3>
                 <div class="admin_details">
@@ -590,7 +523,7 @@ session_start();
 
                         if($admin_details_results){
                           foreach($admin_details_results as $admin_details_result){
-                            echo "<p>".$admin_details_result['FirstName']." ".$admin_details_result['LastName']."</p> <span class='tele_contact'>".$admin_details_result['Mobile']."</span>";
+                            echo "<p>".$admin_details_result['FirstName']." ".$admin_details_result['LastName']."</p>";
 
                             $ID= $admin_details_result['System_Actor_Id'];
                             
@@ -600,7 +533,8 @@ session_start();
 
                             if($admin_email_results){
                               foreach($admin_email_results as $admin_email_result){
-                                  echo "<span class='email_contact'>".$admin_email_result['Email']."</span> ";
+                                  echo "<p class='email_contact'>".$admin_email_result['Email']."</p> ";
+                                  
                               }
                             }
                           }
@@ -854,7 +788,6 @@ session_start();
 </div>
 
 
-
 <div class="popup popup_forget" id="popup-8">
 
     <div class="overlay"></div>
@@ -871,15 +804,17 @@ session_start();
 
             <div class="popup_form">
                 <h3 class="popup_title">Forgot Password</h3>
+                
                 <div>
                   
                   <form action="./index.php" method="post">
-    
+                      
+                  
                       <input type="text" name="sysactorforgotNIC" placeholder="NIC No" id="forget_NIC" class="inp inp1">
                       <br>
 
                           <div class="message" id="msg6">
-                            <p id="nic_check_forget" class="invalid">NIC number validation</p>
+                            <p id="nic_check_forget" class="invalid">NIC number</p>
                           </div> 
           
                       <button class="update_btn otp_btn" id="otp_forget_btn" name="SEND_OPT_FORGET">Send</button>            
@@ -969,7 +904,16 @@ session_start();
     }
 
     function forget_msg4(){
+
       document.getElementById("popup-8").classList.add("active");
+      
+      document.getElementById("forget_NIC").classList.add("show_forget");
+      document.getElementById("otp_forget_btn").classList.add("show_forget");
+
+      document.getElementById("otp").classList.remove("show_forget");
+      document.getElementById("verify_forget_btn").classList.remove("show_forget");
+
+
     }
   function togglePopup_reset_password(){
 
@@ -1089,19 +1033,19 @@ session_start();
                         <input type="text" name="sysactor_email" id="new_email" class="inp inp1 einp" placeholder="Email Address" required> <span style="color:red;font-size:13px;">*</span>
                         
                             <div class="message" id="msg3">
-                               <p id="email_check" class="invalid">email address validation</p>
+                               <p id="email_check" class="invalid">email address</p>
                             </div> 
 
                         <input type="text" name="sysactor_mobile" id="new_mobile" class="inp inp1 einp" placeholder="Mobile Number" required> <span style="color:red;font-size:13px;" id="new_mobile_star">*</span>
                             
                             <div class="message" id="msg4">
-                               <p id="mobile_check" class="invalid">mobile number validation</p>
+                               <p id="mobile_check" class="invalid">mobile number</p>
                             </div> 
                             
                         <input type="text" name="sysactor_nic" id="new_nic" class="inp inp1 einp" placeholder="NIC Number" required> <span style="color:red;font-size:13px;" id="new_nic_star" class="">*</span>
                            
                             <div class="message" id="msg5">
-                               <p id="nic_check" class="invalid">NIC number validation</p>
+                               <p id="nic_check" class="invalid">NIC number</p>
                             </div> 
 
                         <div class="update_btn next" id="new_next_1" onclick="togglePopup_sign_up_2()">Next</div>
@@ -1623,6 +1567,14 @@ session_start();
     function togglePopup_forget(){
       document.getElementById("popup-7").classList.toggle("active");
       document.getElementById("popup-8").classList.toggle("active");
+
+      document.getElementById("forget_NIC").classList.remove("show_forget");
+      document.getElementById("otp_forget_btn").classList.remove("show_forget");
+
+      document.getElementById("otp").classList.add("show_forget");
+      document.getElementById("verify_forget_btn").classList.add("show_forget");
+
+
     }
     function togglePopup_forget_email(){
       document.getElementById("popup-8").classList.add("active");
