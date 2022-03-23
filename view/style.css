@@ -4,8 +4,8 @@
 
 #calPeriod input, #calPeriod select {
   padding: 10px;
-  font-size: 1.5em;
-  border: 0;
+  font-size: 15px;
+  border: none;
   outline: none;
   cursor: pointer;
 }
@@ -17,16 +17,17 @@
 #calwrap {
   display: flex;
   flex-wrap: wrap;
+  width: 400px;
 }
 
-/*.main{
+.main{
   width: 23%;
-}*/
+}
 
 
 .calsq {
   box-sizing: border-box;
-  width: 14.28%;
+  width: 13%;
   padding: 5px;
   background-color: #ACE0B8;
  
@@ -38,7 +39,7 @@
   text-align: center;
 }
 .calsq.blank, .calsq.day {
-  height: 120px;
+  height: 40px;
   overflow-y: auto;
   border: 1px solid #eee;
   border-radius: 3px;
@@ -49,18 +50,15 @@
   }
 
 .calsq.today { 
-  /*background: #000;*/
-  color: rgb(255, 0, 0); 
+  background: #fff; 
 }
 
 .calnum { color: #888; }
 
 
 .calevt {
-  height: 20px;
   font-size: 0.8em;
   cursor: pointer;
-  overflow: hidden;
 }
 
 .calninja { display: none; }

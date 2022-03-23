@@ -149,7 +149,7 @@ function OTP_Code($Email){
     $_SESSION['Email'] = $Email; 
 
     //the subject
-    $sub = "Rest Your NEWSLIA Password";
+    $sub = "Reset Your NEWSLIA Password";
     //the message
     $msg = "Dear Sir/Madam,
 
@@ -162,8 +162,17 @@ function OTP_Code($Email){
     //send email
     $send_result = mail($Email,$sub,$msg);
 
-    return $OTP;
     
+   /* if($send_result){
+        echo '<script>alert("Welcome to Geeks for Geeks")</script>';
+        return $OTP;
+    }
+    else{
+        echo '<script>alert("Not Work")</script>';
+        return $OTP;
+    }*/
+    
+    return $OTP;
 }
 
 

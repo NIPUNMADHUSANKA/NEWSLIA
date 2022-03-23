@@ -1188,12 +1188,13 @@ session_start();
 
 
             /*Password required msg*/ 
-            new_pwd.onfocus = function(){
+            
+            /*new_pwd.onfocus = function(){
               document.getElementById("msg1").style.display = "block";
               document.getElementById("re_new_pwd").classList.add("pass2");
               document.getElementById("Pre_2_btn").classList.add("comment_btn");
               document.getElementById("submit_2_btn").classList.add("comment_btn");
-            } 
+            }*/ 
 
             new_pwd.onblur = function(){
               document.getElementById("msg1").style.display = "none";
@@ -1203,11 +1204,11 @@ session_start();
             } 
 
             /*Password Confirmation msg*/ 
-            re_new_pwd.onfocus = function(){
+            /*re_new_pwd.onfocus = function(){
               document.getElementById("msg2").style.display = "block";
               document.getElementById("Pre_2_btn").classList.add("comment_btn_2");
               document.getElementById("submit_2_btn").classList.add("comment_btn_2");
-            } 
+            }*/ 
 
             re_new_pwd.onblur = function(){
               document.getElementById("msg2").style.display = "none";
@@ -1217,6 +1218,12 @@ session_start();
 
             // When the user starts to type something inside the password field
             new_pwd.onkeyup = function() {
+
+              document.getElementById("msg1").style.display = "block";
+              document.getElementById("re_new_pwd").classList.add("pass2");
+              document.getElementById("Pre_2_btn").classList.add("comment_btn");
+              document.getElementById("submit_2_btn").classList.add("comment_btn");
+
               var lowerCaseLetters = /[a-z]/g;
               if(new_pwd.value.match(lowerCaseLetters)) {  
                 letter.classList.remove("invalid");
@@ -1258,6 +1265,11 @@ session_start();
 
             // When the user starts to type something inside the confirmation password field
             re_new_pwd.onkeyup = function(){
+
+              document.getElementById("msg2").style.display = "block";
+              document.getElementById("Pre_2_btn").classList.add("comment_btn_2");
+              document.getElementById("submit_2_btn").classList.add("comment_btn_2");
+
               if(re_new_pwd.value == new_pwd.value) {  
                 confirmation.classList.remove("invalid");
                 confirmation.classList.add("valid");
@@ -1278,14 +1290,15 @@ session_start();
             var nic_check = document.getElementById("nic_check");
 
             /*email required msg*/ 
-            new_email.onfocus = function(){
+            
+            /*new_email.onfocus = function(){
               document.getElementById("msg3").style.display = "block";
               document.getElementById("new_mobile").classList.add("rqs1");
               document.getElementById("new_nic").classList.add("rqs1");
               document.getElementById("new_mobile_star").classList.add("rqs1");
               document.getElementById("new_nic_star").classList.add("rqs1");
               document.getElementById("new_next_1").classList.add("rqs1");
-            } 
+            }*/ 
 
             new_email.onblur = function(){
               document.getElementById("msg3").style.display = "none";
@@ -1299,6 +1312,14 @@ session_start();
 
             // When the user starts to type something inside the email field
             new_email.onkeyup = function(){
+
+                document.getElementById("msg3").style.display = "block";
+                document.getElementById("new_mobile").classList.add("rqs1");
+                document.getElementById("new_nic").classList.add("rqs1");
+                document.getElementById("new_mobile_star").classList.add("rqs1");
+                document.getElementById("new_nic_star").classList.add("rqs1");
+                document.getElementById("new_next_1").classList.add("rqs1");
+                
                 const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;                  
                 if(new_email.value.match(mailformat)) {  
                   email_check.classList.remove("invalid");
@@ -1311,12 +1332,12 @@ session_start();
 
 
             /*mobile required msg*/ 
-            new_mobile.onfocus = function(){
+            /*new_mobile.onfocus = function(){
               document.getElementById("msg4").style.display = "block";
               document.getElementById("new_nic").classList.add("rqs2");
               document.getElementById("new_nic_star").classList.add("rqs2");
               document.getElementById("new_next_1").classList.add("rqs2");
-            } 
+            }*/ 
 
             new_mobile.onblur = function(){
               document.getElementById("msg4").style.display = "none";
@@ -1327,6 +1348,12 @@ session_start();
             
             // When the user starts to type something inside the mobile field
             new_mobile.onkeyup = function(){
+
+                document.getElementById("msg4").style.display = "block";
+                document.getElementById("new_nic").classList.add("rqs2");
+                document.getElementById("new_nic_star").classList.add("rqs2");
+                document.getElementById("new_next_1").classList.add("rqs2");
+                
                 const mobileformat = /^(?:0|94|\+94)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|912)(0|2|3|4|5|7|9)|7(0|1|2|4|5|6|7|8)\d)\d{6}$/;                  
                 if(mobileformat.exec(new_mobile.value)) {  
                   mobile_check.classList.remove("invalid");

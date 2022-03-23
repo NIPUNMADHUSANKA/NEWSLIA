@@ -367,6 +367,45 @@
 </div>
 
 
+
+<center>
+
+<div class="main" style="margin-left:-2rem;">
+
+ <!-- (B) PERIOD SELECTOR -->
+ <div id="calPeriod">
+   
+   <?php
+   // (B1) MONTH SELECTOR
+   // NOTE: DEFAULT TO CURRENT SERVER MONTH YEAR
+   $months = [
+     1 => "January", 2 => "Febuary", 3 => "March", 4 => "April",
+     5 => "May", 6 => "June", 7 => "July", 8 => "August",
+     9 => "September", 10 => "October", 11 => "November", 12 => "December"
+   ];
+   $monthNow = date("m");
+   echo "<select id='calmonth'>";
+   foreach ($months as $m=>$mth) {
+     printf("<option value='%s'%s>%s</option>",
+       $m, $m==$monthNow?" selected":"", $mth
+     );
+   }
+   echo "</select>";
+
+   // (B2) YEAR SELECTOR
+   echo "<input type='number' id='calyear' value='".date("Y")."'/>";
+ ?>
+
+ </div>
+
+ <!-- (C) CALENDAR WRAPPER -->
+ <div id="calwrap">
+ </div>
+
+</center>
+
+
+
 <div class="posts_content_view_body popular_famous">
 
       <div class="most_popular_recent">
@@ -392,41 +431,7 @@
     <br>
 
 
-    <center>
-
-     <div class="main" style="margin-left:-2rem;">
-
-      <!-- (B) PERIOD SELECTOR -->
-      <div id="calPeriod">
-        
-        <?php
-        // (B1) MONTH SELECTOR
-        // NOTE: DEFAULT TO CURRENT SERVER MONTH YEAR
-        $months = [
-          1 => "January", 2 => "Febuary", 3 => "March", 4 => "April",
-          5 => "May", 6 => "June", 7 => "July", 8 => "August",
-          9 => "September", 10 => "October", 11 => "November", 12 => "December"
-        ];
-        $monthNow = date("m");
-        echo "<select id='calmonth'>";
-        foreach ($months as $m=>$mth) {
-          printf("<option value='%s'%s>%s</option>",
-            $m, $m==$monthNow?" selected":"", $mth
-          );
-        }
-        echo "</select>";
-
-        // (B2) YEAR SELECTOR
-        echo "<input type='number' id='calyear' value='".date("Y")."'/>";
-      ?>
-
-      </div>
-
-      <!-- (C) CALENDAR WRAPPER -->
-      <div id="calwrap">
-      </div>
-
-    </center>
+   
 
 
 
