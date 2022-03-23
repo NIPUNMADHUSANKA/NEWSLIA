@@ -636,10 +636,10 @@ else{
     var confirmation = document.getElementById("confirmation");
 
     // Mobile Number Validation
-        new_mobile.onfocus = function(){
+        /*new_mobile.onfocus = function(){
             document.getElementById("msg1").style.display = "block";
             document.getElementById("mobile_check_btn").classList.add("req1");
-        }
+        }*/
 
         new_mobile.onblur = function(){
             document.getElementById("msg1").style.display = "none";
@@ -648,6 +648,8 @@ else{
 
         // When the user starts to type something inside the mobile field
         new_mobile.onkeyup = function(){
+           document.getElementById("msg1").style.display = "block";
+            document.getElementById("mobile_check_btn").classList.add("req1");
             const mobileformat = /^(?:0|94|\+94)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|912)(0|2|3|4|5|7|9)|7(0|1|2|4|5|6|7|8)\d)\d{6}$/;                  
             if(mobileformat.exec(new_mobile.value)) {  
                 mobile_check.classList.remove("invalid");
@@ -661,11 +663,11 @@ else{
 
     // Password Validation
         
-        new_pwd.onfocus = function(){
+        /*new_pwd.onfocus = function(){
             document.getElementById("msg2").style.display = "block";
             document.getElementById("rest_pwd_2").classList.add("req2");
             document.getElementById("rest_pwd_btn").classList.add("req2");
-        } 
+        }*/ 
 
         new_pwd.onblur = function(){
             document.getElementById("msg2").style.display = "none";
@@ -673,10 +675,10 @@ else{
             document.getElementById("rest_pwd_btn").classList.remove("req2");
         } 
 
-        re_new_pwd.onfocus = function(){
+        /*re_new_pwd.onfocus = function(){
             document.getElementById("msg3").style.display = "block";
             document.getElementById("rest_pwd_btn").classList.add("req3");
-        } 
+        }*/ 
 
         re_new_pwd.onblur = function(){
             document.getElementById("msg3").style.display = "none";
@@ -685,6 +687,8 @@ else{
 
         // When the user starts to type something inside the confirmation password field
         re_new_pwd.onkeyup = function(){
+            document.getElementById("msg3").style.display = "block";
+            document.getElementById("rest_pwd_btn").classList.add("req3");
               if(re_new_pwd.value == new_pwd.value) {  
                 confirmation.classList.remove("invalid");
                 confirmation.classList.add("valid");
@@ -697,6 +701,9 @@ else{
     
         // When the user starts to type something inside the password field
         new_pwd.onkeyup = function() {
+              document.getElementById("msg2").style.display = "block";
+              document.getElementById("rest_pwd_2").classList.add("req2");
+              document.getElementById("rest_pwd_btn").classList.add("req2");
               var lowerCaseLetters = /[a-z]/g;
               if(new_pwd.value.match(lowerCaseLetters)) {  
                 letter.classList.remove("invalid");

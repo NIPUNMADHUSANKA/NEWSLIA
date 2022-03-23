@@ -530,10 +530,10 @@ input{
   var validate_mobile_3 = document.getElementById("mobile_validate_3");
   
   // Mobile Number Validation
-  new_mobile.onfocus = function(){
+  /*new_mobile.onfocus = function(){
       document.getElementById("msg1").style.display = "block";
       document.getElementById("insert_btn_mobile").classList.add("req1");
-  }
+  }*/
 
   new_mobile.onblur = function(){
       document.getElementById("msg1").style.display = "none";
@@ -542,6 +542,8 @@ input{
 
   // When the user starts to type something inside the mobile field
   new_mobile.onkeyup = function(){
+      document.getElementById("msg1").style.display = "block";
+      document.getElementById("insert_btn_mobile").classList.add("req1");
       const mobileformat = /^(?:0|94|\+94)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|912)(0|2|3|4|5|7|9)|7(0|1|2|4|5|6|7|8)\d)\d{6}$/;                  
       if(mobileformat.exec(new_mobile.value)) {  
         validate_mobile.classList.remove("invalid");
@@ -552,14 +554,15 @@ input{
       }
   }
 
-  update_mobile_1.onfocus = function(){
+  /*update_mobile_1.onfocus = function(){
       document.getElementById("msg2").style.display = "block";
-  }
+  }*/
 
   update_mobile_1.onblur = function(){
       document.getElementById("msg2").style.display = "none";
   }
   update_mobile_1.onkeyup = function(){
+      document.getElementById("msg2").style.display = "block";
       const mobileformat = /^(?:0|94|\+94)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|912)(0|2|3|4|5|7|9)|7(0|1|2|4|5|6|7|8)\d)\d{6}$/;                  
       if(mobileformat.exec(update_mobile_1.value)) {  
         validate_mobile_2.classList.remove("invalid");
@@ -570,14 +573,15 @@ input{
       }
   }
 
-  update_mobile_2.onfocus = function(){
+  /*update_mobile_2.onfocus = function(){
       document.getElementById("msg3").style.display = "block";
-  }
+  }*/
 
   update_mobile_2.onblur = function(){
       document.getElementById("msg3").style.display = "none";
   }
   update_mobile_2.onkeyup = function(){
+    document.getElementById("msg3").style.display = "block";
       const mobileformat = /^(?:0|94|\+94)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|912)(0|2|3|4|5|7|9)|7(0|1|2|4|5|6|7|8)\d)\d{6}$/;                  
       if(mobileformat.exec(update_mobile_2.value)) {  
         validate_mobile_3.classList.remove("invalid");

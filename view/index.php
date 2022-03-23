@@ -1366,10 +1366,10 @@ session_start();
 
 
             /*NIC required msg*/ 
-            new_nic.onfocus = function(){
+            /*new_nic.onfocus = function(){
               document.getElementById("msg5").style.display = "block";
               document.getElementById("new_next_1").classList.add("rqs3");
-            } 
+            }*/ 
 
             new_nic.onblur = function(){
               document.getElementById("msg5").style.display = "none";
@@ -1378,6 +1378,8 @@ session_start();
 
             // When the user starts to type something inside the NIC field
             new_nic.onkeyup = function(){
+                document.getElementById("msg5").style.display = "block";
+                document.getElementById("new_next_1").classList.add("rqs3");
                 const nicformat = /^([0-9]{9}[v|V]|[0-9]{12})$/;
                 if(nicformat.exec(new_nic.value)) {  
                   nic_check.classList.remove("invalid");
@@ -1394,12 +1396,12 @@ session_start();
             var nic_check_forget = document.getElementById("nic_check_forget");
             
             /*email required msg*/ 
-            forget_NIC.onfocus = function(){
+            /*forget_NIC.onfocus = function(){
               document.getElementById("msg6").style.display = "block";
               document.getElementById("otp").classList.add("rqs4");
               document.getElementById("otp_forget_btn").classList.add("rqs4");
               document.getElementById("verify_forget_btn").classList.add("rqs4");
-            } 
+            }*/ 
 
             forget_NIC.onblur = function(){
               document.getElementById("msg6").style.display = "none";
@@ -1410,6 +1412,12 @@ session_start();
 
             // When the user starts to type something inside the NIC field forget
             forget_NIC.onkeyup = function(){
+
+                document.getElementById("msg6").style.display = "block";
+                document.getElementById("otp").classList.add("rqs4");
+                document.getElementById("otp_forget_btn").classList.add("rqs4");
+                document.getElementById("verify_forget_btn").classList.add("rqs4");
+                
                 const nicformat = /^([0-9]{9}[v|V]|[0-9]{12})$/;
                 if(nicformat.exec(forget_NIC.value)) {  
                   nic_check_forget.classList.remove("invalid");
@@ -1435,11 +1443,11 @@ session_start();
             var confirmation2 = document.getElementById("confirmation_2");
             
             /*pwd required msg*/ 
-            New_Forget_Password.onfocus = function(){
+            /*New_Forget_Password.onfocus = function(){
               document.getElementById("msg7").style.display = "block";
               document.getElementById("Re-New-Forget-Password").classList.add("rqs5");
               document.getElementById("save_forget_rest").classList.add("rqs5");
-            } 
+            }*/ 
 
             New_Forget_Password.onblur = function(){
               document.getElementById("msg7").style.display = "none";
@@ -1449,6 +1457,11 @@ session_start();
 
             // When the user starts to type something inside the forget password reset password
             New_Forget_Password.onkeyup = function() {
+              
+              document.getElementById("msg7").style.display = "block";
+              document.getElementById("Re-New-Forget-Password").classList.add("rqs5");
+              document.getElementById("save_forget_rest").classList.add("rqs5");
+
               var lowerCaseLetters = /[a-z]/g;
               if(New_Forget_Password.value.match(lowerCaseLetters)) {  
                 letter2.classList.remove("invalid");
@@ -1490,10 +1503,10 @@ session_start();
 
 
         /*re pwd required msg*/ 
-        Re_New_Forget_Password.onfocus = function(){
+        /*Re_New_Forget_Password.onfocus = function(){
             document.getElementById("msg8").style.display = "block";
             document.getElementById("save_forget_rest").classList.add("rqs6");
-          } 
+          }*/ 
 
           Re_New_Forget_Password.onblur = function(){
             document.getElementById("msg8").style.display = "none";
@@ -1502,6 +1515,8 @@ session_start();
 
         // When the user starts to type something inside the confirmation password field in forget password reset
         Re_New_Forget_Password.onkeyup = function(){
+            document.getElementById("msg8").style.display = "block";
+            document.getElementById("save_forget_rest").classList.add("rqs6");
             if(Re_New_Forget_Password.value == New_Forget_Password.value) {  
               confirmation.classList.remove("invalid");
               confirmation.classList.add("valid");
