@@ -41,7 +41,7 @@
 
 <!--Admin Page Content -->
 <?php
-  echo "<form action='../Control/Moderator_delete.php' method='post' class = 'complaint_list'>";
+  echo "<form action='./Moderator Details.php' method='post' class = 'complaint_list'>";
             
 ?>
 
@@ -117,10 +117,13 @@
 
 
           echo "
-             <td><form action='' method='POST'>
-             <input type='hidden' name='ID' value=".$ID." > 
-             <input type='submit' name='remove' value='Remove' class='remove'>
-          </form></td>
+             <td>
+                <form action='./Moderator Details.php' method='POST'>
+                    <input type='hidden' name='ID' value=".$ID." > 
+                    <input type='hidden' name='Email' value=".$moderator_info_result['Email']." > 
+                    <input type='submit' name='remove_moderator' value='Remove' class='remove'>
+                </form>
+            </td>
          </tr>";
        
 
@@ -134,6 +137,41 @@
 
 
  ?>
+
+
+
+<?php
+  if(isset($_POST['remove_moderator'])){
+    $ID = $_POST['ID'];
+    $Email = $_POST['Email'];
+  
+    $sql = 'DELETE FROM system_actor WHERE System_Actor_Id = :System_Actor_Id';
+    $statement = $conn->prepare($sql);
+    $statement->bindParam(':System_Actor_Id', $ID); 
+    
+    if($statement->execute()){
+        //the subject
+        $sub = "Delete The Account";
+        //the message
+        $msg = "Dear Sir/Madam,
+
+        Your account has been deleted. Due to some reasons. 
+        
+        Thank you for join with us.
+
+        Regards,
+        The NEWSLIA team.
+        ";
+
+        //send email
+        $send_result = mail($Email,$sub,$msg);
+
+        echo "<script>window.open('./Moderator Details.php','_self')</script>";
+    }
+   
+  }
+
+?>
 
 
 </table>

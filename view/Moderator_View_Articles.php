@@ -251,7 +251,8 @@
                                       <li onclick=toggle_save('$Post_ID','ARTICLES');><a href='#'>Save</a></li>
                                       <li onclick=toggle_hidden('$Post_ID','ARTICLES');><a href='#'>Hide</a></li>";
                                       if($_SESSION['Actor_Type'] == "ADMIN"){
-                                      echo "<li onclick=toggle_delete('$Post_ID','NOTICES');><a href='#'>Delete</a></li>";
+                                        //First call toggle_delete function in this file
+                                      echo "<li onclick=toggle_delete('$Post_ID','ARTICLES');><a href='#'>Delete</a></li>";
                                       }
                                     echo"</ul>
                             </div>
@@ -273,10 +274,58 @@
     
 </div>
 
+<?php
 
+//third step
+
+if(isset($_POST['delete_articles_post_id'])){
+
+  $Post_ID = $_POST['delete_articles_post_id'];
+
+  //If anyone save this articles
+  $sql1 = "DELETE FROM save WHERE Post_ID = :Post_ID";
+  $statement1 = $conn->prepare($sql1);
+  $statement1->bindParam(':Post_ID', $Post_ID);
+  $statement1->execute();
+
+  //If anyone hidden this articles
+  $sql2 = "DELETE FROM hidden WHERE Post_ID = :Post_ID";
+  $statement2 = $conn->prepare($sql2);
+  $statement2->bindParam(':Post_ID', $Post_ID);
+  $statement2->execute();
+
+  //remove read time of the articles
+  $sql3 = "DELETE FROM read_time WHERE Post_ID = :Post_ID";
+  $statement3 = $conn->prepare($sql3);
+  $statement3->bindParam(':Post_ID', $Post_ID);
+  $statement3->execute();
+
+  //remove articles from main table
+  $sql4 = "DELETE FROM articles WHERE Post_ID = :Post_ID";
+  $statement4 = $conn->prepare($sql4);
+  $statement4->bindParam(':Post_ID', $Post_ID);
+  $statement4->execute();
+
+}
+
+?>
 
 
 <script>
+
+    //sencond step
+    // After call php function in this file (above) if(delete_articles_post_id) function
+    function toggle_delete(delete_articles_post_id,Type){
+        $.ajax({
+          url : './Moderator_View_Articles.php',
+          type: "POST",
+          data :{delete_articles_post_id:delete_articles_post_id,
+            Type:Type},
+          success:function(data){
+            window.open("./Moderator_View_Articles.php","_self");
+          }
+        })
+    }
 
     function toggle_save(save_post_id,Type){
       $.ajax({

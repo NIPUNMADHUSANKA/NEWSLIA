@@ -89,17 +89,4 @@ if(isset($_POST['Voter_ID'])){
 
 
 
-if(isset($_POST['delete_post_id'])){
-     
-     $POST_ID = $_POST['delete_post_id'];
-
-     //news table
-     $sql = "DELETE FROM news WHERE Post_ID  = :POST_ID";
-     $statement = $conn->prepare($sql);
-     $statement->bindParam(':Post_ID', $POST_ID);
-     $statement->execute();
- 
-    
-}
-
 ?>

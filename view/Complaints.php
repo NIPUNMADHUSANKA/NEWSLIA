@@ -41,7 +41,7 @@
 
 
 <!--Admin Page Content -->
-<form action="../Control/complaint_control.php"method="post" class = "complaint_list">
+<form action="./Complaints.php" method="POST" class = "complaint_list">
 
 
 <div class="title"><center><h3>COMPLAINTS</h3></center></div>
@@ -50,7 +50,7 @@
  <tr><th>Complaint ID</th><th>Date</th><th>Complainer_ID</th><th>News_ID</th><th>Details</th><th></th><th></th></tr>
 
  <?php
- include '../model/connect.php';
+include '../Model/connect.php';
 
 try {
     $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -70,7 +70,7 @@ try {
      <td><?php echo $row['Complaint_ID']; ?></td>
      <td><?php echo $row['Date']; ?></td>
      <td> <?php echo $row['Complainer_ID'] ?></td>
-     <td><?php echo $row['News_ID']; ?></td>
+     
      <td><textarea rows="4" cols="80" disabled class="input1" id="description" name="Details" ><?php echo $row['Details']; ?></textarea></td>
      
      <td>
@@ -81,10 +81,19 @@ try {
     </td>
     
     <td>
+
       <form action='./Complaints.php' method='POST'>
+
          <input type="hidden" name="Complaint_ID" value="<?php echo $row['Complaint_ID']?>" >
+         <input type="hidden" name="Complainer_ID" value="<?php echo $row['Complainer_ID']?>" >
+         <input type="hidden" name="News_ID" value="<?php echo $row['News_ID']?>" >
+         <input type="hidden" name="Date" value="<?php echo $row['Date']?>" >
+         <input type="hidden" name="Details" value="<?php echo $row['Details']?>" >
+
          <input type="submit" name="Reject_Complaint" value="Reject" class="reject">
+
       </form>
+      
     </td>
 
 
@@ -97,14 +106,25 @@ try {
 
 <?php
   
-  if(isset($_POST['Accept_Complaint'])){
+  if(isset($_POST['Reject_Complaint'])){
       
-      $UserID = $_POST['Complaint_ID'];
-     
+      $CID = $_POST['Complaint_ID'];
+      $UID = $_POST['Complainer_ID'];
+      $NID = $_POST['News_ID'];
+      $Date = $_POST['Date'];
+      $Details = $_POST['Details'];
+
+      $reject_sql = $conn->prepare("INSERT INTO `reject_complaint` VALUES(?,?,?,?,?)");
+      $result = $reject_sql->execute([$CID,$UID,$NID,$Date,$Details]);
+
+      if($result){
+        $query = "DELETE FROM complaint WHERE Complaint_ID  = :CID";
+        $query_statement = $conn->prepare($query);
+        $query_statement->bindParam(':CID',$CID);
+        $query_statement->execute();
+      }
       
-
-
-      echo "<script>window.open('./Blacklist.php','_self')</script>";
+      echo "<script>window.open('./Rejected Complaints.php','_self')</script>";
 
   }
 

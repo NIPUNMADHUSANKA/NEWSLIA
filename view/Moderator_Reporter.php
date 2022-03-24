@@ -85,7 +85,7 @@
         $reporters_in_area_sql = "SELECT * FROM report_area WHERE (Area = '$Moderator_Area')";
     }
     else{
-        $reporters_in_area_sql = "SELECT * FROM report_area";
+        $reporters_in_area_sql = "SELECT DISTINCT System_Actor_Id FROM report_area";
     }
 
     $reporters_in_area_statement = $conn -> query($reporters_in_area_sql);

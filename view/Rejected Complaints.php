@@ -46,7 +46,7 @@
 <div class="title"><center><h3>REJECTED COMPLAINTS</h3></center></div>
   <div class="content">
   <table>
- <tr><th>Complaint ID</th><th>Date</th><th>Complainer_ID</th><th>News_ID</th><th>Details</th><th></th><th></th></tr>
+ <tr><th>News_ID</th><th>Date</th><th>Complainer_ID</th><th>Details</th><th></th><th></th></tr>
 
  <?php
  include '../model/connect.php';
@@ -66,10 +66,9 @@ try {
 <?php while ($row = $q->fetch()): ?>           
 
  <tr>
-   <td><?php echo $row['Complaint_ID']; ?></td>
+   <td><?php echo $row['News_ID']; ?></td>
    <td><?php echo $row['date']; ?></td>
    <td> <?php echo $row['Complainer_ID'] ?></td>
-   <td><?php echo $row['News_ID']; ?></td>
    <td><textarea rows="4" cols="80" disabled class="input1" id="description" name="Details" ><?php echo $row['Details']; ?></textarea></td>
  </tr>
 

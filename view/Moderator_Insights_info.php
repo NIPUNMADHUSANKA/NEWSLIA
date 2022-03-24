@@ -10,7 +10,6 @@ session_start();
     <title>NEWSLIA</title>
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/moderator.css">
-    <link rel="stylesheet" href="../css/search.css">
     <link rel="stylesheet" href="../css/profile.css">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
@@ -63,21 +62,10 @@ session_start();
 <?php
 
         include '../Model/connect.php';
-        $USER_ID = $_SESSION['System_Actor_ID'];
-        $Type = $_SESSION['Actor_Type'];
-
-        if($Type == "ADMIN"){
-            $USER_ID = $_SESSION['INSIGHT_MODERATOR_ID'];
-            $Type = "MODERATOR";
-        }
-
-        if($Type == "MODERATOR"){
-          $moderator_details_sql = "SELECT * FROM moderate_insights WHERE (System_Actor_Id = '$USER_ID')";
-        }
+        $USER_ID = $_SESSION['INSIGHT_MODERATOR_ID'];
+            
+        $moderator_details_sql = "SELECT * FROM moderate_insights WHERE (System_Actor_Id = '$USER_ID')";
         
-        else{
-          $moderator_details_sql = "SELECT * FROM reporter_insights WHERE (System_Actor_Id = '$USER_ID')";
-        }
         $moderator_details_statement = $conn -> query($moderator_details_sql);
         $moderator_details_results = $moderator_details_statement->fetchAll(PDO::FETCH_ASSOC);
         $news = $notice = $articles = $Job_Vacancies = $Commercial_Ads = $Complaints = 0;
@@ -86,15 +74,7 @@ session_start();
           foreach($moderator_details_results as $moderator_details_result){
 
             $news = $moderator_details_result['News'];
-            
-            if($Type == "MODERATOR"){
-              $articles = $moderator_details_result['Articles'];
-            }
-            else{
-              $articles = 0;
-              $stars = $moderator_details_result['Stars'];
-            }            
-
+            $articles = $moderator_details_result['Articles'];
             $notice = $moderator_details_result['Notices']; 
             $Job_Vacancies = $moderator_details_result['Job Vacancies']; 
             $Commercial_Ads = $moderator_details_result['Commercial Ads'];
@@ -111,7 +91,7 @@ session_start();
         }
 
 echo "
-    <div class='right_side' style='margin-top:-25rem;'>
+    <div class='right_side' style='margin-top:15rem;margin-left:10rem;'>
       <div class='bottom_side'>
 
           <div class='approvement'>
@@ -126,11 +106,9 @@ echo "
                       <li>
                         <p>News <span>".$news."</span> </p>
                       </li>
-                      <li>";
-                        if($Type == "MODERATOR"){
-                        echo "<p>Articles <span>".$articles."</span> </p>";
-                        }
-                      echo"</li>
+                      <li>
+                        <p>Articles <span>".$articles."</span> </p>
+                      </li>
                       <li>
                         <p>Notices <span>".$notice."</span></p>
                       </li>
@@ -161,7 +139,7 @@ echo "
           </div>";
           
           
-          if($Type == "MODERATOR"){
+         
           echo "<div class='trust'>
                   <div class='card card3'>
                           <div class='content'>
@@ -171,12 +149,9 @@ echo "
                               }else{
                                 echo round($persentage,2);
                               }
-                            if($Type == "MODERATOR"){
+                            
                             echo "%</b></span><br/> <span class='precentage'>Trust for Approvement</span></h2>";
-                            }
-                            else{
-                              echo "%</b></span><br/> <span class='precentage'>Trust for Reporting</span></h2>";
-                            }
+                           
 
                             echo"<br>
                             
@@ -185,38 +160,9 @@ echo "
                   </div>
 
           </div>";
-          }
+          
 
-          else{
-          echo "<div class='star' style='margin-left:8rem;'>
-                  <div class='card card4'>
-                          <div class='content'>
-
-                            <h2><span class='precentage' style='color:#000;font-size:1.5rem;margin-left:0.5rem;'>";
-                            $i=0;
-                            if($Stars==0){
-                              echo "<b>-</b>";
-                            }
-                            while($i<$stars){
-                              echo "<b><img src='../images/black_star.svg'></b></span>";
-                              $i++;
-                            }
-                            
-
-                            echo"
-                            <br>
-                            <span class='precentage' style='margin-left:0.5rem;'>
-                            Black Stars</span></h2>
-
-                            <br>
-                            
-                          </div>
-                        
-                  </div>
-
-          </div>";
-         }
-
+          
     echo "</div>
 
 </div>
@@ -240,7 +186,7 @@ echo "
         }
 
 echo "
-<div class='top_side'>";
+<div class='top_side' style='margin-top:1rem;'>";
 
         if($img != NULL){
             echo "<img src='data:image/".$text.";base64,".$img."'/ style='transform:scale(0.7);margin-top:-3rem;border-radius:10%;'>";
