@@ -59,6 +59,12 @@
         $_SESSION['INSIGHT_REPORTER_LAST'] = $_POST['LAST'];
     }
 
+    if(isset($_POST['MODERATOR_Insight_ID'])){
+        $_SESSION['INSIGHT_MODERATOR_ID'] = $_POST['MODERATOR_Insight_ID'];
+        $_SESSION['INSIGHT_MODERATOR_FIRST'] = $_POST['FIRST'];
+        $_SESSION['INSIGHT_MODERATOR_LAST'] = $_POST['LAST'];
+    }
+
 
     if(isset($_POST['Reminder_Post_ID'])){
         $Reminder_Post_ID = $_POST['Reminder_Post_ID'];

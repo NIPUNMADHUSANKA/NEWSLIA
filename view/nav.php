@@ -7,7 +7,7 @@
   <title>NEWSLIA</title>
   <link rel="stylesheet" href="../css/nav/final-navigation.css">
   <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
-
+  <link rel="stylesheet" href="../css/nav/Mobile.css">
   <script src="https://kit.fontawesome.com/c119b7fc61.js" crossorigin="anonymous"></script>
 </head>
 
@@ -231,7 +231,7 @@
         ?>
 
         <p style="margin-top:-0.5rem; margin-bottom:0.5rem;">
-          <?php echo $_SESSION['FName']." ".$_SESSION['LName']; ?> 
+          <a href="Moderator_Profile.php" style="text-decoration:none;"><?php echo $_SESSION['FName']." ".$_SESSION['LName']; ?> </a>
         </p>
        
 
@@ -240,13 +240,21 @@
   <div class="navigation-profile-menu-container" style="margin-left:5rem;">
     <ul class="navigation-profile_menu">
               <li><a href="Moderator_Profile.php"> <img src="../images/other/profile.png" alt="" srcset=""> My Profile</a></li>
-              <li><a href="Moderate_Area.php"><img src="../images/other/location.png" alt="" srcset="">Select Area</a></li>
-              <li><a href="Moderate_Post_Type.php"><img src="../images/other/type.png" alt="" srcset="">Select Type</a></li>
+            
               <?php
-                if($_SESSION['Actor_Type'] != "NORMALUSER"){
+                if($_SESSION['Actor_Type'] != "ADMIN"){
+                  echo "<li><a href='Moderate_Area.php'><img src='../images/other/location.png'>Select Area</a></li>";
+                }
+              ?>
+              
+              <li><a href="Moderate_Post_Type.php"><img src="../images/other/type.png" alt="" srcset="">Select Type</a></li>
+              
+              <?php
+                if($_SESSION['Actor_Type'] != "NORMALUSER" AND $_SESSION['Actor_Type'] != "ADMIN"){
                 echo "<li><a href='Moderator_Insight.php'><img src='../images/other/insights.png'>Insights</a></li>";
                 }
               ?>
+              
               <li onclick="togglePopup_select_option('deactivate-1')"><a href="#"><img src="../images/other/deactivate.png" alt="" srcset="">Deactivate</a></li>
               <li><a href="logout.php"><img src="../images/other/logout.png" alt="" srcset="">Log Out</a></li>
     </ul>
@@ -324,7 +332,8 @@
 
           </li>
 
-          <li style='visibility: hidden;'><a href='#'><i class='fas fa-bell fa-customize'></i></a></li>
+          <li class='bell_icon' style='visibility: hidden;'><a href='#'><i class='fas fa-bell fa-customize'></i></a></li>
+          <li class='menu_icon'><a href='#'><i class='fas fa-thin fa-bars' style='color:black;'></i></a></li>
 
       </ul>";
     
@@ -392,8 +401,9 @@
 
           </li>
 
-          <li><a href='#' onclick=togglePopup_select_option('notification');><i class='fas fa-bell fa-customize'></i></a></li>
-
+          <li class='bell_icon'><a href='#' onclick=togglePopup_select_option('notification');><i class='fas fa-bell fa-customize'></i></a></li>
+          <li class='menu_icon'><a href='#'><i class='fas fa-thin fa-bars' style='color:black;'></i></a></li>
+         
       </ul>";
     
     }
@@ -467,11 +477,110 @@
 
           </li>
 
-          <li><a href='#' onclick=togglePopup_select_option('notification');><i class='fas fa-bell fa-customize'></i></a></li>
+          <li class='bell_icon'><a href='#' onclick=togglePopup_select_option('notification');><i class='fas fa-bell fa-customize'></i></a></li>
+          <li class='menu_icon'><a href='#'><i class='fas fa-thin fa-bars' style='color:black;'></i></a></li>
 
       </ul>";
     
     }
+
+
+    if($_SESSION['Actor_Type'] == "ADMIN"){
+
+      echo "<ul class='navigation-menu'>
+
+
+
+          <!-- Home -->
+          <li class='navigation-imporatnt  navigation-dropdown'>
+            <a href='Admin_home.php' class='navigation-dropbtn'>Home</a>
+          </li>
+
+
+          <!-- View -->
+          <li class='navigation-view  navigation-dropdown'>
+            <a href='Moderator_View_News.php' class='navigation-dropbtn'>View</a>
+            <div class='navigation-view-content navigation-dropdown-content'>
+              <a href='Moderator_View_News.php'>News</a>
+              <a href='Moderator_View_Articles.php'>Articles</a>
+              <a href='Moderator_View_Notices.php'>Notices</a>
+              <a href='Moderator_View_Jobs.php'>Job Vacancies</a>
+              <a href='Moderator_View_Ads.php'>Commercial Ads</a>
+              <a href='Moderator_Important_View.php' class='navigation-dropbtn'>Important Contacts</a>
+            </div>
+          </li>
+
+          
+
+
+
+          <!-- Insights -->
+          <li class='navigation-view  navigation-dropdown'>
+            <a href='Moderator_Reporter.php' class='navigation-dropbtn'>Insights</a>
+            <div class='navigation-view-content navigation-dropdown-content'>
+              <a href='Moderator_Reporter.php'>Reporter</a>
+              <a href='Moderator_List.php'>Moderator</a>
+            </div>
+          </li>
+
+
+          <!-- Complain -->
+          <li class='navigation-view  navigation-dropdown'>
+            <a href='Complaints.php' class='navigation-dropbtn'>Complaints</a>
+            <div class='navigation-view-content navigation-dropdown-content'>
+              <a href='Complaints.php'>Complaints</a>
+              <a href='Accepted Complaints.php'>Accept</a>
+              <a href='Rejected Complaints.php'>Reject</a>
+            </div>
+          </li>
+
+
+          <!-- Blacklist -->
+          <li class='navigation-imporatnt  navigation-dropdown'>
+            <a href='Blacklist.php' class='navigation-dropbtn'>Black List</a>
+          </li>
+
+
+          <!-- User Management -->
+          <li class='navigation-view  navigation-dropdown'>
+            <a href='Normal User Details.php' class='navigation-dropbtn'>User Management</a>
+            <div class='navigation-view-content navigation-dropdown-content'>
+              <a href='Normal User Details.php'>Normal User</a>
+              <a href='Reporter Details.php'>Reporter</a>
+              <a href='Moderator Details.php'>Moderator</a>
+            </div>
+          </li>
+
+          <!-- Staff Registration -->
+          
+          <li class='navigation-imporatnt  navigation-dropdown'>
+            <a href='Staff_Registration_Moderator.php' class='navigation-dropbtn'>Staff Registration</a>
+          </li>
+
+
+          <!-- More -->
+          
+          <li class='navigation-more navigation-dropdown' style='margin-top: 0;'>
+            <a href='#' class='navigation-dropbtn'>More</a>
+
+            <div class='navigation-more-content navigation-dropdown-content'>
+            
+            <a href='Moderator_save.php'>Saved</a>
+            <a href='Moderator_Hidden.php'>Hidden</a>
+            <a href='Moderator_Reminder.php'>Reminders</a>
+      
+            </div>
+
+          </li>
+
+          <li class='bell_icon' style='visibility: hidden;'><a href='#' onclick=togglePopup_select_option('notification');><i class='fas fa-bell fa-customize'></i></a></li>
+          <li class='menu_icon'><a href='#'><i class='fas fa-thin fa-bars' style='color:black;'></i></a></li>
+         
+      </ul>";
+    
+    }
+
+   
 
 ?>
 

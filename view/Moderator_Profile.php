@@ -298,10 +298,17 @@ bottom: 31.43%; */
   <div class="icon_left_side">
 
   <li><a href="Moderator_Profile.php"><img src="../images/other/profile.png" alt="" srcset=""><p style="color: #45ADA8EB;">My Profile</p></a></li>
-  <li><a href="Moderate_Area.php"><img src="../images/other/location.png" alt="" srcset=""><p>Select Area</p></a></li>
-  <li><a href="Moderate_Post_Type.php"><img src="../images/other/type.png" alt="" srcset=""><p>Select Type</p></a></li>
+  
   <?php
-      if($_SESSION['Actor_Type'] != "NORMALUSER"){
+      if($_SESSION['Actor_Type'] != "ADMIN"){
+        echo "<li><a href='Moderate_Area.php'><img src='../images/other/location.png'><p>Select Area</p></a></li>";
+      }
+  ?>
+
+  <li><a href="Moderate_Post_Type.php"><img src="../images/other/type.png" alt="" srcset=""><p>Select Type</p></a></li>
+  
+  <?php
+      if($_SESSION['Actor_Type'] != "NORMALUSER" and $_SESSION['Actor_Type'] != "ADMIN"){
           echo "<li><a href='Moderator_Insight.php'><img src='../images/other/insights.png'><p>Insights</p></a></li>";
                 }
   ?>

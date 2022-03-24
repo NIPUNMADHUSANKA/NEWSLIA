@@ -63,7 +63,7 @@
 <!-- Moderator Notices View -->
 <div class="content_posts_view">
     <div class="posts_content_view_head">
-        Reporters' Insights
+        Moderators' Insights
     </div>
 
       
@@ -80,35 +80,29 @@
 
     include '../Model/connect.php';
     
-    if($_SESSION['Actor_Type'] != "ADMIN"){
-        $Moderator_Area = $_SESSION['moderate_area'];
-        $reporters_in_area_sql = "SELECT * FROM report_area WHERE (Area = '$Moderator_Area')";
-    }
-    else{
-        $reporters_in_area_sql = "SELECT * FROM report_area";
-    }
+    $moderators_in_area_sql = "SELECT * FROM moderate_area";
+    
+    $moderators_in_area_statement = $conn -> query($moderators_in_area_sql);
+    $moderators_in_area_results = $moderators_in_area_statement->fetchAll(PDO::FETCH_ASSOC);
 
-    $reporters_in_area_statement = $conn -> query($reporters_in_area_sql);
-    $reporters_in_area_results = $reporters_in_area_statement->fetchAll(PDO::FETCH_ASSOC);
+    if($moderators_in_area_results){
+        foreach($moderators_in_area_results as $moderators_in_area_result){
 
-    if($reporters_in_area_results){
-        foreach($reporters_in_area_results as $reporters_in_area_result){
+            $Moderators_In_Area = $moderators_in_area_result['System_Actor_Id'];
 
-            $Reporters_In_Area = $reporters_in_area_result['System_Actor_Id'];
+            $moderator_details_sql = "SELECT * FROM system_actor WHERE (System_Actor_Id = '$Moderators_In_Area')";
+            $moderator_details_statement = $conn -> query($moderator_details_sql);
+            $moderator_details_results = $moderator_details_statement->fetchAll(PDO::FETCH_ASSOC);
 
-            $reporters_details_sql = "SELECT * FROM system_actor WHERE (System_Actor_Id = '$Reporters_In_Area')";
-            $reporters_details_statement = $conn -> query($reporters_details_sql);
-            $reporters_details_results = $reporters_details_statement->fetchAll(PDO::FETCH_ASSOC);
+            if($moderator_details_results){
+              foreach($moderator_details_results as $moderator_details_result){
 
-            if($reporters_details_results){
-              foreach($reporters_details_results as $reporters_details_result){
-
-                    $img = $reporters_details_result['Profile_Img'];
+                    $img = $moderator_details_result['Profile_Img'];
                     $img = base64_encode($img);
-                    $text = pathinfo($reporters_details_result['System_Actor_Id'], PATHINFO_EXTENSION);
+                    $text = pathinfo($moderator_details_result['System_Actor_Id'], PATHINFO_EXTENSION);
 
-                    $first = $reporters_details_result['FirstName'];
-                    $last = $reporters_details_result['LastName'];
+                    $first = $moderator_details_result['FirstName'];
+                    $last = $moderator_details_result['LastName'];
 
                     echo "
                       <div class='card'>
@@ -124,7 +118,7 @@
                                 }
       
                     echo  " </div>
-                              <h2 onclick=toggle_view_insight('$Reporters_In_Area','$first','$last');>".$first." ".$last."</h2>
+                              <h2 onclick=toggle_view_insight('$Moderators_In_Area','$first','$last');>".$first." ".$last."</h2>
                               </div>
                           </div>
                         ";
@@ -141,16 +135,16 @@
   -->                  
 <script>
     
-    function toggle_view_insight(REPORTER_Insight_ID,FIRST,LAST){
+    function toggle_view_insight(MODERATOR_Insight_ID,FIRST,LAST){
       $.ajax({
         url :"../Control/save_hidden.php",
         type:"POST",
         cache:false,
-        data:{REPORTER_Insight_ID:REPORTER_Insight_ID,
+        data:{MODERATOR_Insight_ID:MODERATOR_Insight_ID,
               FIRST:FIRST,
               LAST:LAST},
         success:function(data){
-          window.open('./Moderator_Reporter_Insights.php','_self');
+          window.open('./Moderator_Insights_info.php','_self');
         }
 
       });

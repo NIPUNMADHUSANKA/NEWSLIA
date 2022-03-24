@@ -250,7 +250,9 @@
             $table = 'Notices';
             $USERID = $_SESSION['System_Actor_ID'];
 
-  
+
+            if($_SESSION['Actor_Type'] != "ADMIN"){
+
             $post_area_sql = "SELECT DISTINCT post_area.Post_ID as PI FROM post_area INNER JOIN read_area ON post_area.Area = read_area.Area WHERE post_area.`Post Type` = 'NOTICES' AND read_area.System_Actor_Id = '$USERID' ORDER BY post_area.Post_ID DESC";
             $post_area_state = $conn->query($post_area_sql);
             $post_area_results = $post_area_state->fetchAll(PDO::FETCH_ASSOC);
@@ -378,6 +380,129 @@
                           }      
               }
             }
+          }
+            else{
+              $notice_info_sql = "SELECT * FROM notices";                        
+                $notice_info_state = $conn->query($notice_info_sql);
+                $notice_info_results = $notice_info_state->fetchAll(PDO::FETCH_ASSOC);
+                      if($notice_info_results){
+                          foreach($notice_info_results as $notice_info_result){
+
+                              $flag = 0;
+                              $System_Date = date("Y-m-d");
+                              $Set_Date = $notice_info_result['Set_Date'];
+                
+                              $System_Time = date("H:i:s");
+                              $Set_Time = $notice_info_result['Set_Time'];
+                              
+                              if($Set_Time == NULL and $Set_Date == NULL){
+                                $flag = 1;
+                              }
+                              elseif($System_Date>$Set_Date){
+                                $flag = 1;
+                              }
+                              elseif($System_Date == $Set_Date and $System_Time > $Set_Time){
+                                $flag = 1;
+                              }
+
+                              $Post_ID = $notice_info_result['Post_ID'];
+
+                              $remove_hidden_info_sql = "SELECT * FROM hidden WHERE Post_ID = '$Post_ID'";                        
+                              $remove_hidden_info_state = $conn->query($remove_hidden_info_sql);
+                              $remove_hidden_info_results = $remove_hidden_info_state->fetchAll(PDO::FETCH_ASSOC);
+
+                              if($remove_hidden_info_results){
+                                $flag = 0;
+                              }
+
+                              if($flag == 1){
+                              
+                              $Type = $table;
+
+                              $img = $notice_info_result['Image'];
+                              $img = base64_encode($img);
+                              $text = pathinfo($notice_info_result['Post_ID'], PATHINFO_EXTENSION);
+
+                              $TITLE = $notice_info_result['Title'];
+                              $P_DATE = $notice_info_result['Publish_Date'];
+                              $Creator_ID = $notice_info_result['Creator_ID'];
+                                    
+
+                              echo "<div class='box-container'>
+                                    <div class='box_head'>
+                                      <img src='data:image/".$text.";base64,".$img."'/>
+                                      
+                                      <div class='tag'>
+                                        <div class='tag_text'>".$Type."</div>
+                                      </div>
+                                      
+                                      <div class='middle'>
+                                          <div class='view_btn'>
+                                              <ul>
+                                                  <li onclick=toggle_view('$Post_ID','NOTICES');><a href='#'>View</a></li>
+                                              </ul>
+                                                      
+                                          </div>
+                                          
+                                      </div>
+                                    </div>
+                                    
+                                    <div class='box_body'>";
+                                    
+                                    
+                                    include './Last_Read.php';  
+                                   
+                                    echo "<h3>".$TITLE."</h3>";
+                                      
+                                      
+                                    echo "<p>".$P_DATE."</p>";
+                                      
+
+                                      $notice_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+                                      $notice_from_state = $conn->query($notice_from_sql);
+                                      $notice_from_results = $notice_from_state->fetchAll(PDO::FETCH_ASSOC);
+
+                                      if($notice_from_results){
+                                          echo "<b><i>-</b></i>";
+                                        foreach($notice_from_results as $notice_from_result){
+                                          echo "<i><abc>".$notice_from_result['Area']." - ";
+                                          echo "</abc></i>";
+                                        }
+                                      }
+
+                                      echo "<br>";
+                                    
+                                      $notice_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
+                                      $notice_who_state = $conn->query($notice_who_sql);
+                                      $notice_who_results = $notice_who_state->fetchAll(PDO::FETCH_ASSOC);
+
+                                      if($notice_who_results){
+                                        foreach($notice_who_results as $notice_who_result){
+                                          echo "<p>".$notice_who_result['FirstName']." ".$notice_who_result['LastName']."</p>";    
+                                        }
+                                      }
+
+                                    echo "
+                                    </div>
+                                    <div class='more'>
+                                      <img src='../images/More.svg'>
+                                      <ul class ='more_post'>
+                                        <li onclick=toggle_save('$Post_ID','NOTICES');><a href='#' >Save</a></li>
+                                        <li onclick=toggle_hidden('$Post_ID','NOTICES');><a href='#'>Hide</a></li>
+                                        <li onclick=toggle_reminder('$Post_ID','NOTICES');><a href='#'>Reminder</a></li>
+                                        <li onclick=toggle_delete('$Post_ID','NOTICES');><a href='#'>Delete</a></li>
+                                      </ul>
+                                    </div>
+                                  </div>";
+
+                                    }
+
+                                }
+                          }    
+            }
+
+
+
                           
         ?>
           

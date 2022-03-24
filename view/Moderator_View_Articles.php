@@ -249,8 +249,11 @@
                                 <img src='../images/More.svg'>
                                     <ul class ='more_post'>
                                       <li onclick=toggle_save('$Post_ID','ARTICLES');><a href='#'>Save</a></li>
-                                      <li onclick=toggle_hidden('$Post_ID','ARTICLES');><a href='#'>Hide</a></li>
-                                    </ul>
+                                      <li onclick=toggle_hidden('$Post_ID','ARTICLES');><a href='#'>Hide</a></li>";
+                                      if($_SESSION['Actor_Type'] == "ADMIN"){
+                                      echo "<li onclick=toggle_delete('$Post_ID','NOTICES');><a href='#'>Delete</a></li>";
+                                      }
+                                    echo"</ul>
                             </div>
                           </div>";
         

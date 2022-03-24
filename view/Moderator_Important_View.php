@@ -88,6 +88,9 @@
 
         $USERID = $_SESSION['System_Actor_ID'];
         
+
+        if($_SESSION['Actor_Type'] != "ADMIN"){
+
         $read_area_sql = "SELECT * FROM read_area WHERE (System_Actor_Id = '$USERID')";
 
         $read_area_state = $conn->query($read_area_sql);
@@ -136,6 +139,46 @@
               
 
           }
+        }
+
+        }
+
+        else{
+                      $import_sql = "SELECT * FROM important_number ORDER BY Contact_ID DESC";
+
+                      $import_state = $conn->query($import_sql);
+                      $import_results = $import_state->fetchAll(PDO::FETCH_ASSOC);
+              
+                      if($import_results){
+                        foreach($import_results as $import_result){
+                          $img = $import_result['Image'];
+                          $img = base64_encode($img);
+                          $ext = pathinfo($import_result['Contact_ID'], PATHINFO_EXTENSION);
+                          
+                          
+                          echo "<div class='box-container'>";
+                          echo "<div class='box_head'>";
+                          echo "<img src='data:image/".$ext.";base64,".$img."'/>"; 
+                          echo "</div>";    
+                          echo "<div class='box_body'>";
+                          echo "<h4>".$import_result['Title']."</h4>"; 
+                          echo "<p style='margin-bottom:5px;'><b>-<abc>".$import_result['Area']."<abc>-</b></p>";
+              
+                          $CID = $import_result['Contact_ID'];
+                          $importnum_sql = "SELECT * FROM important_number_list WHERE (Contact_ID = '$CID')";
+                          $importnum_state = $conn->query($importnum_sql);
+                          $importnum_results = $importnum_state->fetchAll(PDO::FETCH_ASSOC);
+              
+                          if($importnum_results){
+                              foreach($importnum_results as $importnum_result){
+                                echo "<p>".$importnum_result['Number']."</p>";
+                              }}
+              
+                          echo "</div>";
+                          echo "</div>";
+              
+                        }
+                      }
         }
 
         

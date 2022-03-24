@@ -77,7 +77,7 @@
                           echo "<div class='setting_close'>
                              
                              <ul style='list-style:none;'>
-                               <li onclick=toggle_view_News('$Post_ID');><a href='#'><img src='../images/Check.svg'></a></li>
+                               <li onclick=toggle_view_News('$Post_ID');><img src='../images/Check.svg'></li>
                              </ul>
                              
                           </div>";
@@ -137,7 +137,7 @@
                       echo "<div class='setting_close'>
                             
                             <ul style='list-style:none;'>
-                                <li onclick=toggle_view_Articles('$Post_ID');><a href='#'><img src='../images/Check.svg'></a></li>
+                                <li onclick=toggle_view_Articles('$Post_ID');><img src='../images/Check.svg'></li>
                             </ul>
 
                       </div>";
@@ -224,7 +224,7 @@
                             
                           echo "<div class='setting_close'>
                               <ul style='list-style:none;'>
-                                <li onclick=toggle_view_Ads('$Post_ID','Notices');><a href='#'><img src='../images/Check.svg'></a></li>
+                                <li onclick=toggle_view_Ads('$Post_ID','Notices');><img src='../images/Check.svg'></li>
                             </ul>
                           </div>";
                             
@@ -314,7 +314,7 @@
                             
                           echo "<div class='setting_close'>
                               <ul style='list-style:none;'>
-                                <li onclick=toggle_view_Ads('$Post_ID','Vacancies');><a href='#'><img src='../images/Check.svg'></a></li>
+                                <li onclick=toggle_view_Ads('$Post_ID','Vacancies');><img src='../images/Check.svg'></li>
                               </ul>
                           </div>";
                             
@@ -402,7 +402,7 @@
                               
                             echo "<div class='setting_close'>
                                     <ul style='list-style:none;'>
-                                      <li onclick=toggle_view_Ads('$Post_ID','C.Ads');><a href='#'><img src='../images/Check.svg'></a></li>
+                                      <li onclick=toggle_view_Ads('$Post_ID','C.Ads');><img src='../images/Check.svg'></li>
                                     </ul>
                             </div>";
                               

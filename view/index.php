@@ -822,6 +822,7 @@ session_start();
                   </form>
                   
                   <form action="./index.php" method="post" class="OTP_VERIFY_FORGOT">
+                        <p>Please Check your emails and gets the OTP code.</p>
                         <input type="text" name="sysactorotp" id="otp" class="inp inp1 inpu2" placeholder="OTP Code" maxlength="5" required>
                         <button name ="OTP_VERIFY" class="update_btn otp_btn2 otp_btn3" id="verify_forget_btn">Verify</button>
                   </form>
@@ -1049,7 +1050,6 @@ session_start();
                             </div> 
 
                         <div class="update_btn next" id="new_next_1" onclick="togglePopup_sign_up_2()">Next</div>
-
                         <br>
                         <br> 
                   </div>
@@ -1742,7 +1742,13 @@ session_start();
         elseif($connect == 'R'){
           $_SESSION['Actor_Type'] = "REPORTER";
           echo '<script type="text/javascript">window.open("./Reporter-After-loged-Home.php", "_self");</script>';
-        }        
+        }   
+
+        elseif($connect == 'A'){
+          $_SESSION['Actor_Type'] = "ADMIN";
+          echo '<script type="text/javascript">window.open("./Admin_home.php", "_self");</script>';
+        } 
+
     }
     else{
         echo '<script type="text/javascript">error_login();</script>';

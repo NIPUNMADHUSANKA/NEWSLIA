@@ -524,130 +524,246 @@
         
         $table = 'News';
         $USERID = $_SESSION['System_Actor_ID'];
-
-        $post_area_sql = "SELECT DISTINCT post_area.Post_ID as PI FROM post_area INNER JOIN read_area ON post_area.Area = read_area.Area WHERE post_area.`Post Type` = 'NEWS' AND read_area.System_Actor_Id = '$USERID' ORDER BY post_area.Post_ID DESC";
-        $post_area_state = $conn->query($post_area_sql);
-        $post_area_results = $post_area_state->fetchAll(PDO::FETCH_ASSOC);
         
-        if($post_area_results){
-          foreach($post_area_results as $post_area_result){
+        if($_SESSION['Actor_Type'] != "ADMIN"){
+              $post_area_sql = "SELECT DISTINCT post_area.Post_ID as PI FROM post_area INNER JOIN read_area ON post_area.Area = read_area.Area WHERE post_area.`Post Type` = 'NEWS' AND read_area.System_Actor_Id = '$USERID' ORDER BY post_area.Post_ID DESC";
+              $post_area_state = $conn->query($post_area_sql);
+              $post_area_results = $post_area_state->fetchAll(PDO::FETCH_ASSOC);
+              
+              if($post_area_results){
+                foreach($post_area_results as $post_area_result){
 
-            $ID = $post_area_result['PI'];
-                  
-            $post_info_sql = "SELECT * FROM news WHERE Post_ID = '$ID'";                        
-            $post_info_state = $conn->query($post_info_sql);
-            $post_info_results = $post_info_state->fetchAll(PDO::FETCH_ASSOC);
-                  if($post_info_results){
-                      foreach($post_info_results as $post_info_result){
+                  $ID = $post_area_result['PI'];
+                        
+                  $post_info_sql = "SELECT * FROM news WHERE Post_ID = '$ID'";                        
+                  $post_info_state = $conn->query($post_info_sql);
+                  $post_info_results = $post_info_state->fetchAll(PDO::FETCH_ASSOC);
+                        if($post_info_results){
+                            foreach($post_info_results as $post_info_result){
 
-                          $flag = 1;
-                          
-                          $Post_ID = $post_info_result['Post_ID'];
-
-                          $remove_hidden_info_sql = "SELECT * FROM hidden WHERE Post_ID = '$Post_ID'";                        
-                          $remove_hidden_info_state = $conn->query($remove_hidden_info_sql);
-                          $remove_hidden_info_results = $remove_hidden_info_state->fetchAll(PDO::FETCH_ASSOC);
-
-                          if($remove_hidden_info_results){
-                                $flag = 0;
-                          }
-
-                          if($flag == 1){
-                          $Type = $table;
-
-                          $img = $post_info_result['Image'];
-                          $img = base64_encode($img);
-                          $text = pathinfo($post_info_result['Post_ID'], PATHINFO_EXTENSION);
-
-                          $TITLE = $post_info_result['Title'];
-                          $P_DATE = $post_info_result['Publish_Date'];
-                          $Creator_ID = $post_info_result['Creator_ID'];
-                          $News_Category = $post_info_result['News_Category'];
+                                $flag = 1;
                                 
+                                $Post_ID = $post_info_result['Post_ID'];
 
-                          echo "<div class='box-container'>
-                                <div class='box_head'>
-                                  <img src='data:image/".$text.";base64,".$img."'/>
-                                  
-                                  <div class='tag'>
-                                    <div class='tag_text'>".$Type."</div>
-                                  </div>
-                                  
-                                  <div class='middle'>
-                                      <div class='view_btn'>
-                                          <ul>
-                                             <li onclick=toggle_view('$Post_ID','NEWS');><a href='#'>View</a></li>
-                                          </ul>
-                                                  
-                                      </div>
-                                      
-                                  </div>
-                                </div>
-                                
-                                <div class='box_body'>";
+                                $remove_hidden_info_sql = "SELECT * FROM hidden WHERE Post_ID = '$Post_ID'";                        
+                                $remove_hidden_info_state = $conn->query($remove_hidden_info_sql);
+                                $remove_hidden_info_results = $remove_hidden_info_state->fetchAll(PDO::FETCH_ASSOC);
 
-                                include './Last_Read.php';  
-                                  
-                                echo "<h3>".$TITLE."</h3>";
-                                  
-                                
-                                echo "<h3 style='display:none;'>".$News_Category."</h3>";
-                                  
-                                echo "<p>".$P_DATE."</p>";
-                                  
-
-                                  $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
-                                  $post_from_state = $conn->query($post_from_sql);
-                                  $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
-
-                                  if($post_from_results){
-                                      echo "<b><i>-</b></i>";
-                                    foreach($post_from_results as $post_from_result){
-                                      echo "<i><abc>".$post_from_result['Area']."</abc> - ";
-                                      echo "</i>";
-                                    }
-                                  }
-
-                                  echo "<br>";
-                                
-                                  $post_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
-                                  $post_who_state = $conn->query($post_who_sql);
-                                  $post_who_results = $post_who_state->fetchAll(PDO::FETCH_ASSOC);
-
-                                  if($post_who_results){
-                                    foreach($post_who_results as $post_who_result){
-                                      echo "<p>".$post_who_result['FirstName']." ".$post_who_result['LastName']."</p>";    
-                                    }
-                                  }
-
-                                echo "
-                                </div>
-                                <div class='more'>
-                                  <img src='../images/More.svg'>
-                                  <ul class ='more_post'>
-                                    <li onclick=toggle_save('$Post_ID','NEWS');><a href='#'>Save</a></li>
-                                    <li onclick=toggle_hidden('$Post_ID','NEWS');><a href='#'>Hide</a></li>
-                                    <li onclick=toggle_reminder('$Post_ID','NEWS');><a href='#'>Reminder</a></li>";
-
-                                    if($_SESSION['Actor_Type'] == "NORMALUSER" || $_SESSION['Actor_Type'] == "REPORTER"){
-
-                                      echo "<li onclick=togglePopup_Complain_News_Id('$Post_ID'); ><a href='#'>Complain</a></li>";
-
-                                    }
-
-                                echo "</ul>
-                                </div>
-                              </div>";
-
+                                if($remove_hidden_info_results){
+                                      $flag = 0;
                                 }
 
+                                if($flag == 1){
+                                $Type = $table;
+
+                                $img = $post_info_result['Image'];
+                                $img = base64_encode($img);
+                                $text = pathinfo($post_info_result['Post_ID'], PATHINFO_EXTENSION);
+
+                                $TITLE = $post_info_result['Title'];
+                                $P_DATE = $post_info_result['Publish_Date'];
+                                $Creator_ID = $post_info_result['Creator_ID'];
+                                $News_Category = $post_info_result['News_Category'];
+                                      
+
+                                echo "<div class='box-container'>
+                                      <div class='box_head'>
+                                        <img src='data:image/".$text.";base64,".$img."'/>
+                                        
+                                        <div class='tag'>
+                                          <div class='tag_text'>".$Type."</div>
+                                        </div>
+                                        
+                                        <div class='middle'>
+                                            <div class='view_btn'>
+                                                <ul>
+                                                  <li onclick=toggle_view('$Post_ID','NEWS');><a href='#'>View</a></li>
+                                                </ul>
+                                                        
+                                            </div>
+                                            
+                                        </div>
+                                      </div>
+                                      
+                                      <div class='box_body'>";
+
+                                      include './Last_Read.php';  
+                                        
+                                      echo "<h3>".$TITLE."</h3>";
+                                        
+                                      
+                                      echo "<h3 style='display:none;'>".$News_Category."</h3>";
+                                        
+                                      echo "<p>".$P_DATE."</p>";
+                                        
+
+                                        $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+                                        $post_from_state = $conn->query($post_from_sql);
+                                        $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
+
+                                        if($post_from_results){
+                                            echo "<b><i>-</b></i>";
+                                          foreach($post_from_results as $post_from_result){
+                                            echo "<i><abc>".$post_from_result['Area']."</abc> - ";
+                                            echo "</i>";
+                                          }
+                                        }
+
+                                        echo "<br>";
+                                      
+                                        $post_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
+                                        $post_who_state = $conn->query($post_who_sql);
+                                        $post_who_results = $post_who_state->fetchAll(PDO::FETCH_ASSOC);
+
+                                        if($post_who_results){
+                                          foreach($post_who_results as $post_who_result){
+                                            echo "<p>".$post_who_result['FirstName']." ".$post_who_result['LastName']."</p>";    
+                                          }
+                                        }
+
+                                      echo "
+                                      </div>
+                                      <div class='more'>
+                                        <img src='../images/More.svg'>
+                                        <ul class ='more_post'>
+                                          <li onclick=toggle_save('$Post_ID','NEWS');><a href='#'>Save</a></li>
+                                          <li onclick=toggle_hidden('$Post_ID','NEWS');><a href='#'>Hide</a></li>
+                                          <li onclick=toggle_reminder('$Post_ID','NEWS');><a href='#'>Reminder</a></li>";
+
+                                          if($_SESSION['Actor_Type'] == "NORMALUSER" || $_SESSION['Actor_Type'] == "REPORTER"){
+
+                                            echo "<li onclick=togglePopup_Complain_News_Id('$Post_ID'); ><a href='#'>Complain</a></li>";
+
+                                          }
+
+                                      echo "</ul>
+                                      </div>
+                                    </div>";
+
+                                      }
+
+                                  }
                             }
-                      }
-                    
-  
-          }
+                          
+        
+                }
+              }
+            }
+            
+        else{
+          $post_info_sql = "SELECT * FROM news";                        
+          $post_info_state = $conn->query($post_info_sql);
+          $post_info_results = $post_info_state->fetchAll(PDO::FETCH_ASSOC);
+                if($post_info_results){
+                    foreach($post_info_results as $post_info_result){
+
+                        $flag = 1;
+                        
+                        $Post_ID = $post_info_result['Post_ID'];
+
+                        $remove_hidden_info_sql = "SELECT * FROM hidden WHERE Post_ID = '$Post_ID'";                        
+                        $remove_hidden_info_state = $conn->query($remove_hidden_info_sql);
+                        $remove_hidden_info_results = $remove_hidden_info_state->fetchAll(PDO::FETCH_ASSOC);
+
+                        if($remove_hidden_info_results){
+                              $flag = 0;
+                        }
+
+                        if($flag == 1){
+                        $Type = $table;
+
+                        $img = $post_info_result['Image'];
+                        $img = base64_encode($img);
+                        $text = pathinfo($post_info_result['Post_ID'], PATHINFO_EXTENSION);
+
+                        $TITLE = $post_info_result['Title'];
+                        $P_DATE = $post_info_result['Publish_Date'];
+                        $Creator_ID = $post_info_result['Creator_ID'];
+                        $News_Category = $post_info_result['News_Category'];
+                              
+
+                        echo "<div class='box-container'>
+                              <div class='box_head'>
+                                <img src='data:image/".$text.";base64,".$img."'/>
+                                
+                                <div class='tag'>
+                                  <div class='tag_text'>".$Type."</div>
+                                </div>
+                                
+                                <div class='middle'>
+                                    <div class='view_btn'>
+                                        <ul>
+                                          <li onclick=toggle_view('$Post_ID','NEWS');><a href='#'>View</a></li>
+                                        </ul>
+                                                
+                                    </div>
+                                    
+                                </div>
+                              </div>
+                              
+                              <div class='box_body'>";
+
+                              include './Last_Read.php';  
+                                
+                              echo "<h3>".$TITLE."</h3>";
+                                
+                              
+                              echo "<h3 style='display:none;'>".$News_Category."</h3>";
+                                
+                              echo "<p>".$P_DATE."</p>";
+                                
+
+                                $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+                                $post_from_state = $conn->query($post_from_sql);
+                                $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
+
+                                if($post_from_results){
+                                    echo "<b><i>-</b></i>";
+                                  foreach($post_from_results as $post_from_result){
+                                    echo "<i><abc>".$post_from_result['Area']."</abc> - ";
+                                    echo "</i>";
+                                  }
+                                }
+
+                                echo "<br>";
+                              
+                                $post_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
+                                $post_who_state = $conn->query($post_who_sql);
+                                $post_who_results = $post_who_state->fetchAll(PDO::FETCH_ASSOC);
+
+                                if($post_who_results){
+                                  foreach($post_who_results as $post_who_result){
+                                    echo "<p>".$post_who_result['FirstName']." ".$post_who_result['LastName']."</p>";    
+                                  }
+                                }
+
+                              echo "
+                              </div>
+                              <div class='more'>
+                                <img src='../images/More.svg'>
+                                <ul class ='more_post'>
+                                  <li onclick=toggle_save('$Post_ID','NEWS');><a href='#'>Save</a></li>
+                                  <li onclick=toggle_hidden('$Post_ID','NEWS');><a href='#'>Hide</a></li>
+                                  <li onclick=toggle_reminder('$Post_ID','NEWS');><a href='#'>Reminder</a></li>
+                                  
+                                  <li onclick=toggle_delete('$Post_ID','NEWS');><a href='#'>Delete</a></li>";
+                                  
+
+                                  if($_SESSION['Actor_Type'] == "NORMALUSER" || $_SESSION['Actor_Type'] == "REPORTER"){
+
+                                    echo "<li onclick=togglePopup_Complain_News_Id('$Post_ID'); ><a href='#'>Complain</a></li>";
+
+                                  }
+
+                              echo "</ul>
+                              </div>
+                            </div>";
+
+                              }
+
+                          }
+                    }
         }
-                      
     ?>
 
     </div>
@@ -756,6 +872,20 @@
 
 
 <script>
+
+    function toggle_delete(delete_post_id,Type){
+      $.ajax({
+        url : '../Control/post_control.php',
+        type: "POST",
+        data :{delete_post_id:delete_post_id,
+          Type:Type},
+        success:function(data){
+          alert("Welcome to Geeks for Geeks work");
+          window.open("./Moderator_View_News.php","_self");
+        }
+      })
+
+    }
 
     function toggle_reminder(Reminder_post_ID,Type){
 

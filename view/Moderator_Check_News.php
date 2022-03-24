@@ -13,12 +13,13 @@
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
     <link rel="stylesheet" href="../css/popup.css">
+    <link rel="stylesheet" href="../css/mobile.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
 </head>
 
 <style>
   body {
-     overflow: hidden; /* Hide scrollbars */
+     overflow-x: hidden; /* Hide scrollbars */
   }
   .box_head:hover img{
     opacity: 1;
@@ -71,13 +72,62 @@
       font-size:0.65rem;
   }
 
+
+  @media only screen and (max-width: 715px) {
+  
+  .box_body h3{
+    font-size:0.7rem;
+  }
+
+  .box_body p{
+      font-size:0.45rem;
+  }
+
+  .more{
+      font-size:12px;
+    }
+
+    .box-container{
+      height: 200px;
+      }
+  }
+
+  @media only screen and (max-width: 626px) {
+
+    .box-container{
+      width: 40%;
+      height: 180px;
+      }
+
+      .more{
+      font-size:10px;
+    }
+
+  }
+
+  @media only screen and (max-width: 560px) {
+
+    .box-container{
+      width: 50%;
+      height: 180px;
+    }
+
+     .button-set{
+       display:none;
+     }
+     .button-set2{
+      display: block;
+    }
+  
+  }
+
+
+
+
   .box-read{
-    width:800px;
     height:400px;
-    margin-top:-1rem;
     overflow: hidden;
     overflow-y:scroll;
-    margin-left:30rem;
   }
 
 
@@ -99,10 +149,13 @@
 
   .button-set{
     margin-top:-13rem;
-    margin-left:3rem;
+    /*margin-left:3rem;*/
     display:flex;
     flex-direction:row;
+    float: right;
   }
+
+  
 
   .view_btn{
     width:100px;
@@ -208,6 +261,21 @@
 .posts_content_view_body{
   margin-top:3rem;
 }
+
+.button-set{
+  
+}
+
+.button-set2{
+  display:none;
+    margin-top:-10rem;
+    text-align:center;
+  }
+
+  .button-set2 .view_btn{
+    margin-left:5rem;
+    margin-bottom:-13rem;
+  }
 </style>
 
 <body>
@@ -309,8 +377,19 @@
               <form action="" method="post">
                   <button class="view_btn remove_btn" name = "Reject" style = "border:none;">Reject</button>
               </form>
+              
               <div class="view_btn back_btn" onclick="window.open('./Moderator_Pending.php', '_self')">Back</div>
-          </div>
+        </div>
+
+
+        <div class='button-set2'>
+              <div class='view_btn update_btn' onclick='togglePopup_select_option()'>Accept</div>
+              <form action="" method="post">
+                  <button class="view_btn remove_btn" name = "Reject" style = "border:none;">Reject</button>
+              </form>
+            
+              <div class="view_btn back_btn" onclick="window.open('./Moderator_Pending.php', '_self')">Back</div>
+        </div>
           
       </div>
 
