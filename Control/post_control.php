@@ -88,5 +88,254 @@ if(isset($_POST['Voter_ID'])){
 }
 
 
+if(isset($_POST['delete_news_post_id'])){
+    
+    $Post_ID = $_POST['delete_news_post_id'];
+
+    //If anyone save this articles
+    $sql1 = "DELETE FROM save WHERE Post_ID = :Post_ID";
+    $statement1 = $conn->prepare($sql1);
+    $statement1->bindParam(':Post_ID', $Post_ID);
+    $statement1->execute();
+
+    //If anyone hidden this articles
+    $sql2 = "DELETE FROM hidden WHERE Post_ID = :Post_ID";
+    $statement2 = $conn->prepare($sql2);
+    $statement2->bindParam(':Post_ID', $Post_ID);
+    $statement2->execute();
+
+    //remove read time of the articles
+    $sql3 = "DELETE FROM read_time WHERE Post_ID = :Post_ID";
+    $statement3 = $conn->prepare($sql3);
+    $statement3->bindParam(':Post_ID', $Post_ID);
+    $statement3->execute();
+
+    //remove news from main table
+    $sql4 = "DELETE FROM news WHERE Post_ID = :Post_ID";
+    $statement4 = $conn->prepare($sql4);
+    $statement4->bindParam(':Post_ID', $Post_ID);
+    $statement4->execute();
+
+    //remove notification from main table
+    $sql5 = "DELETE FROM notification WHERE Post_ID = :Post_ID";
+    $statement5 = $conn->prepare($sql5);
+    $statement5->bindParam(':Post_ID', $Post_ID);
+    $statement5->execute();
+
+
+    //remove post_area from main table
+    $sql6 = "DELETE FROM post_area WHERE Post_ID = :Post_ID";
+    $statement6 = $conn->prepare($sql6);
+    $statement6->bindParam(':Post_ID', $Post_ID);
+    $statement6->execute();
+
+
+    //remove post_auto_delete from main table
+    $sql7 = "DELETE FROM post_auto_delete WHERE Post_ID = :Post_ID";
+    $statement7 = $conn->prepare($sql7);
+    $statement7->bindParam(':Post_ID', $Post_ID);
+    $statement7->execute();
+
+
+    //remove reminder from main table
+    $sql8 = "DELETE FROM reminder WHERE Post_ID = :Post_ID";
+    $statement8 = $conn->prepare($sql8);
+    $statement8->bindParam(':Post_ID', $Post_ID);
+    $statement8->execute();
+
+
+    //remove smart_calendar from main table
+    $sql9 = "DELETE FROM smart_calendar WHERE Post_Id = :Post_ID";
+    $statement9 = $conn->prepare($sql9);
+    $statement9->bindParam(':Post_ID', $Post_ID);
+    $statement9->execute();
+
+
+    //remove vote from main table
+    $sql10 = "DELETE FROM vote WHERE Post_ID = :Post_ID";
+    $statement10 = $conn->prepare($sql10);
+    $statement10->bindParam(':Post_ID', $Post_ID);
+    $statement10->execute();
+
+
+
+}
+
+
+
+if(isset($_POST['delete_notices_post_id'])){
+    
+    $Post_ID = $_POST['delete_notices_post_id'];
+
+    //If anyone save this articles
+    $sql1 = "DELETE FROM save WHERE Post_ID = :Post_ID";
+    $statement1 = $conn->prepare($sql1);
+    $statement1->bindParam(':Post_ID', $Post_ID);
+    $statement1->execute();
+
+    //If anyone hidden this articles
+    $sql2 = "DELETE FROM hidden WHERE Post_ID = :Post_ID";
+    $statement2 = $conn->prepare($sql2);
+    $statement2->bindParam(':Post_ID', $Post_ID);
+    $statement2->execute();
+
+    //remove read time of the articles
+    $sql3 = "DELETE FROM read_time WHERE Post_ID = :Post_ID";
+    $statement3 = $conn->prepare($sql3);
+    $statement3->bindParam(':Post_ID', $Post_ID);
+    $statement3->execute();
+
+    //remove notices from main table
+    $sql4 = "DELETE FROM notices WHERE Post_ID = :Post_ID";
+    $statement4 = $conn->prepare($sql4);
+    $statement4->bindParam(':Post_ID', $Post_ID);
+    $statement4->execute();
+
+    //remove notification from main table
+    $sql5 = "DELETE FROM notification WHERE Post_ID = :Post_ID";
+    $statement5 = $conn->prepare($sql5);
+    $statement5->bindParam(':Post_ID', $Post_ID);
+    $statement5->execute();
+
+
+    //remove post_area from main table
+    $sql6 = "DELETE FROM post_area WHERE Post_ID = :Post_ID";
+    $statement6 = $conn->prepare($sql6);
+    $statement6->bindParam(':Post_ID', $Post_ID);
+    $statement6->execute();
+
+
+    //remove post_auto_delete from main table
+    $sql7 = "DELETE FROM post_auto_delete WHERE Post_ID = :Post_ID";
+    $statement7 = $conn->prepare($sql7);
+    $statement7->bindParam(':Post_ID', $Post_ID);
+    $statement7->execute();
+
+
+    //remove reminder from main table
+    $sql8 = "DELETE FROM reminder WHERE Post_ID = :Post_ID";
+    $statement8 = $conn->prepare($sql8);
+    $statement8->bindParam(':Post_ID', $Post_ID);
+    $statement8->execute();
+
+}
+
+
+
+if(isset($_POST['delete_vacancies_post_id'])){
+    
+    $Post_ID = $_POST['delete_vacancies_post_id'];
+
+    //If anyone save this articles
+    $sql1 = "DELETE FROM save WHERE Post_ID = :Post_ID";
+    $statement1 = $conn->prepare($sql1);
+    $statement1->bindParam(':Post_ID', $Post_ID);
+    $statement1->execute();
+
+    //If anyone hidden this articles
+    $sql2 = "DELETE FROM hidden WHERE Post_ID = :Post_ID";
+    $statement2 = $conn->prepare($sql2);
+    $statement2->bindParam(':Post_ID', $Post_ID);
+    $statement2->execute();
+
+    //remove read time of the articles
+    $sql3 = "DELETE FROM read_time WHERE Post_ID = :Post_ID";
+    $statement3 = $conn->prepare($sql3);
+    $statement3->bindParam(':Post_ID', $Post_ID);
+    $statement3->execute();
+
+    //remove notices from main table
+    $sql4 = "DELETE FROM job_vacancies WHERE Post_ID = :Post_ID";
+    $statement4 = $conn->prepare($sql4);
+    $statement4->bindParam(':Post_ID', $Post_ID);
+    $statement4->execute();
+
+    //remove notification from main table
+    $sql5 = "DELETE FROM notification WHERE Post_ID = :Post_ID";
+    $statement5 = $conn->prepare($sql5);
+    $statement5->bindParam(':Post_ID', $Post_ID);
+    $statement5->execute();
+
+
+    //remove post_area from main table
+    $sql6 = "DELETE FROM post_area WHERE Post_ID = :Post_ID";
+    $statement6 = $conn->prepare($sql6);
+    $statement6->bindParam(':Post_ID', $Post_ID);
+    $statement6->execute();
+
+
+    //remove post_auto_delete from main table
+    $sql7 = "DELETE FROM post_auto_delete WHERE Post_ID = :Post_ID";
+    $statement7 = $conn->prepare($sql7);
+    $statement7->bindParam(':Post_ID', $Post_ID);
+    $statement7->execute();
+
+
+    //remove reminder from main table
+    $sql8 = "DELETE FROM reminder WHERE Post_ID = :Post_ID";
+    $statement8 = $conn->prepare($sql8);
+    $statement8->bindParam(':Post_ID', $Post_ID);
+    $statement8->execute();
+    
+}
+
+
+if(isset($_POST['delete_c_ads_post_id'])){
+    
+    $Post_ID = $_POST['delete_c_ads_post_id'];
+
+    //If anyone save this articles
+    $sql1 = "DELETE FROM save WHERE Post_ID = :Post_ID";
+    $statement1 = $conn->prepare($sql1);
+    $statement1->bindParam(':Post_ID', $Post_ID);
+    $statement1->execute();
+
+    //If anyone hidden this articles
+    $sql2 = "DELETE FROM hidden WHERE Post_ID = :Post_ID";
+    $statement2 = $conn->prepare($sql2);
+    $statement2->bindParam(':Post_ID', $Post_ID);
+    $statement2->execute();
+
+    //remove read time of the articles
+    $sql3 = "DELETE FROM read_time WHERE Post_ID = :Post_ID";
+    $statement3 = $conn->prepare($sql3);
+    $statement3->bindParam(':Post_ID', $Post_ID);
+    $statement3->execute();
+
+    //remove notices from main table
+    $sql4 = "DELETE FROM com_ads WHERE Post_ID = :Post_ID";
+    $statement4 = $conn->prepare($sql4);
+    $statement4->bindParam(':Post_ID', $Post_ID);
+    $statement4->execute();
+
+    //remove notification from main table
+    $sql5 = "DELETE FROM notification WHERE Post_ID = :Post_ID";
+    $statement5 = $conn->prepare($sql5);
+    $statement5->bindParam(':Post_ID', $Post_ID);
+    $statement5->execute();
+
+
+    //remove post_area from main table
+    $sql6 = "DELETE FROM post_area WHERE Post_ID = :Post_ID";
+    $statement6 = $conn->prepare($sql6);
+    $statement6->bindParam(':Post_ID', $Post_ID);
+    $statement6->execute();
+
+
+    //remove post_auto_delete from main table
+    $sql7 = "DELETE FROM post_auto_delete WHERE Post_ID = :Post_ID";
+    $statement7 = $conn->prepare($sql7);
+    $statement7->bindParam(':Post_ID', $Post_ID);
+    $statement7->execute();
+
+
+    //remove reminder from main table
+    $sql8 = "DELETE FROM reminder WHERE Post_ID = :Post_ID";
+    $statement8 = $conn->prepare($sql8);
+    $statement8->bindParam(':Post_ID', $Post_ID);
+    $statement8->execute();
+    
+}
+
 
 ?>

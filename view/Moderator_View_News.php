@@ -873,14 +873,14 @@
 
 <script>
 
-    function toggle_delete(delete_post_id,Type){
+    function toggle_delete(delete_news_post_id,Type){
       $.ajax({
         url : '../Control/post_control.php',
         type: "POST",
-        data :{delete_post_id:delete_post_id,
+        data :{delete_news_post_id:delete_news_post_id,
           Type:Type},
         success:function(data){
-          alert("Welcome to Geeks for Geeks work");
+          //alert("Welcome to Geeks for Geeks work");
           window.open("./Moderator_View_News.php","_self");
         }
       })

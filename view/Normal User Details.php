@@ -102,7 +102,9 @@ include '../Model/connect.php';
           <td>
           <form action='./Normal User Details.php' method='POST'>
              <input type='hidden' name='ID' value=".$ID." > 
-             <input type='hidden' name='Email' value=".$normal_user_info_result['Email']." > 
+             <input type='hidden' name='Email' value=".$normal_user_info_result['Email']." >
+             <input type='hidden' name='FNAME' value=".$normal_user_result['FirstName']." > 
+             <input type='hidden' name='LNAME' value=".$normal_user_result['LastName']." >  
              <input type='submit' name='remove_normal_user' value='Remove' class='remove'>
           </form>
           </td>
@@ -125,6 +127,8 @@ include '../Model/connect.php';
   if(isset($_POST['remove_normal_user'])){
     $ID = $_POST['ID'];
     $Email = $_POST['Email'];
+    $FNAME = $_POST['FNAME'];
+    $LNAME = $_POST['LNAME'];
   
     $sql = 'DELETE FROM system_actor WHERE System_Actor_Id = :System_Actor_Id';
     $statement = $conn->prepare($sql);
@@ -146,6 +150,9 @@ include '../Model/connect.php';
 
         //send email
         $send_result = mail($Email,$sub,$msg);
+        
+        $read_stmt = $conn->prepare("INSERT INTO `system_actor` (`System_Actor_Id`,`FirstName`,`LastName`) VALUES(?,?,?)");
+        $read_stmt->execute([$ID,$FNAME,$LNAME]);
 
         echo "<script>window.open('./Normal User Details.php','_self')</script>";
     }

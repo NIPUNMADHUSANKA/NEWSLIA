@@ -538,7 +538,7 @@
                                 <li onclick=toggle_save('$Post_ID','C.ADS');><a href='#'>Save</a></li>
                                 <li onclick=toggle_hidden('$Post_ID','C.ADS');><a href='#'>Hide</a></li>
                                 <li onclick=toggle_reminder('$Post_ID','C.ADS');><a href='#'>Reminder</a></li>
-                                <li onclick=toggle_delete('$Post_ID','NOTICES');><a href='#'>Delete</a></li>
+                                <li onclick=toggle_delete('$Post_ID','C.ADS');><a href='#'>Delete</a></li>
                               </ul>
                             </div>
                           </div>";
@@ -602,6 +602,19 @@
 
 <script>
 
+    function toggle_delete(delete_c_ads_post_id,Type){
+          $.ajax({
+            url : '../Control/post_control.php',
+            type: "POST",
+            data :{delete_c_ads_post_id:delete_c_ads_post_id,
+              Type:Type},
+            success:function(data){
+              //alert("Welcome to Geeks for Geeks work");
+              window.open("./Moderator_View_Ads.php","_self");
+            }
+          })
+
+    }
 
     function toggle_reminder(Reminder_post_ID,Type){
 

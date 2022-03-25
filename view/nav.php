@@ -568,6 +568,7 @@
             <a href='Moderator_save.php'>Saved</a>
             <a href='Moderator_Hidden.php'>Hidden</a>
             <a href='Moderator_Reminder.php'>Reminders</a>
+            <a href='Report.php'>Reports</a>
       
             </div>
 

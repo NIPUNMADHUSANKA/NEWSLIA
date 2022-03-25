@@ -121,6 +121,8 @@
                 <form action='./Moderator Details.php' method='POST'>
                     <input type='hidden' name='ID' value=".$ID." > 
                     <input type='hidden' name='Email' value=".$moderator_info_result['Email']." > 
+                    <input type='hidden' name='FNAME' value=".$moderator_user_result['FirstName']." > 
+                    <input type='hidden' name='LNAME' value=".$moderator_user_result['LastName']." >  
                     <input type='submit' name='remove_moderator' value='Remove' class='remove'>
                 </form>
             </td>
@@ -144,6 +146,8 @@
   if(isset($_POST['remove_moderator'])){
     $ID = $_POST['ID'];
     $Email = $_POST['Email'];
+    $FNAME = $_POST['FNAME'];
+    $LNAME = $_POST['LNAME'];
   
     $sql = 'DELETE FROM system_actor WHERE System_Actor_Id = :System_Actor_Id';
     $statement = $conn->prepare($sql);
@@ -165,6 +169,9 @@
 
         //send email
         $send_result = mail($Email,$sub,$msg);
+
+        $read_stmt = $conn->prepare("INSERT INTO `system_actor` (`System_Actor_Id`,`FirstName`,`LastName`) VALUES(?,?,?)");
+        $read_stmt->execute([$ID,$FNAME,$LNAME]);
 
         echo "<script>window.open('./Moderator Details.php','_self')</script>";
     }

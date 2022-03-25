@@ -162,14 +162,27 @@
      $USERID = $_SESSION['System_Actor_ID'];
      $Area = [];
 
-     $from_sql = "SELECT * FROM read_area WHERE System_Actor_Id ='$USERID'";
+     if($_SESSION['Actor_Type'] != "ADMIN"){
+        $from_sql = "SELECT * FROM read_area WHERE System_Actor_Id ='$USERID'";
+     }
+     else{
+      $from_sql = "SELECT * FROM dsa";
+     }
+
+
      $from_state = $conn->query($from_sql);
      $from_results = $from_state->fetchAll(PDO::FETCH_ASSOC);
 
      if($from_results){
          $i = 0;
          foreach($from_results as $from_result){
+            
+          if($_SESSION['Actor_Type'] != "ADMIN"){
              $Area[$i] = $from_result['Area'];
+          }
+          else{
+             $Area[$i] = $from_result['DSA'];
+          }
              $i++;
          }
      }
