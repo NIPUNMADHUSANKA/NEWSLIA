@@ -176,8 +176,8 @@ try {
                             $black_star = $reporter_info_result['Stars'] + 1;
                             $complaint_c = $reporter_info_result['Complaints'] + 1;
  
-                            echo "<script>alert(".$complaint_c.")</script>";
-                            echo "<script>alert(".$black_star.")</script>";
+                            /*echo "<script>alert(".$complaint_c.")</script>";
+                            echo "<script>alert(".$black_star.")</script>";*/
 
                           //Update reporter insights
                             $reporterinfo =[
@@ -222,9 +222,9 @@ try {
                                   $statement->bindParam(':id', $systemuser['id']);
                                   $statement->bindParam(':active', $systemuser['active']);
                                   
-                                  if($statement->execute()){
-                                    echo '<script>alert("login_upd")</script>';
-                                  }
+                                  $statement->execute();
+                                    //echo '<script>alert("login_upd")</script>';
+                                  
 
                               }
 
