@@ -128,6 +128,30 @@ echo "<form action='./Blacklist.php' method='POST' class = 'complaint_list'>";
 
       $statement->execute();
 
+      $reporterinfo =[
+        'id' => $UserID,
+        'Complaints' => '0',
+        'Stars' => '0'
+      ];
+
+      $sql = 'UPDATE reporter_insights
+            SET Complaints = :Complaints
+            WHERE System_Actor_Id  = :id';
+    
+      $statement = $conn->prepare($sql);
+      $statement->bindParam(':id', $reporterinfo['id']);
+      $statement->bindParam(':Complaints', $reporterinfo['Complaints']);
+      $statement->execute();
+        
+      $sql = 'UPDATE reporter_insights
+            SET Stars = :Stars 
+            WHERE System_Actor_Id  = :id';
+    
+      $statement = $conn->prepare($sql);
+      $statement->bindParam(':id', $reporterinfo['id']);
+      $statement->bindParam(':Stars', $reporterinfo['Stars']);
+      $statement->execute();
+
 
       echo "<script>window.open('./Blacklist.php','_self')</script>";
 
