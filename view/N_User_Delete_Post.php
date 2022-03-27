@@ -52,7 +52,7 @@ if ($post_Type == "Commercial_Advertisement") {
     $sql = 'DELETE FROM com_ads_pending WHERE Post_ID = :G_DELETE_POST_ID';
     $statement = $conn->prepare($sql);
 
-    $sql_2 = 'DELETE FROM post_area WHERE Post_ID = :G_DELETE_POST_ID';
+    $sql_2 = 'DELETE FROM pending_post_area WHERE Post_ID = :G_DELETE_POST_ID';
     $statement_2 = $conn->prepare($sql_2);
 
     if (($statement->execute([':G_DELETE_POST_ID' => $post_Id])) && ($statement_2->execute([':G_DELETE_POST_ID' => $post_Id]))) {
@@ -68,7 +68,7 @@ if ($post_Type == "P_CA") {
     $sql = 'DELETE FROM com_ads_pending WHERE Post_ID = :G_DELETE_POST_ID';
     $statement = $conn->prepare($sql);
 
-    $sql_2 = 'DELETE FROM post_area WHERE Post_ID = :G_DELETE_POST_ID';
+    $sql_2 = 'DELETE FROM pending_post_area WHERE Post_ID = :G_DELETE_POST_ID';
     $statement_2 = $conn->prepare($sql_2);
 
     if (($statement->execute([':G_DELETE_POST_ID' => $post_Id])) && ($statement_2->execute([':G_DELETE_POST_ID' => $post_Id]))) {
@@ -86,7 +86,7 @@ if ($post_Type == "Job_Vacancy") {
     $sql = 'DELETE FROM job_vacancies_pending WHERE Post_ID = :G_DELETE_POST_ID';
     $statement = $conn->prepare($sql);
 
-    $sql_2 = 'DELETE FROM post_area WHERE Post_ID = :G_DELETE_POST_ID';
+    $sql_2 = 'DELETE FROM pending_post_area WHERE Post_ID = :G_DELETE_POST_ID';
     $statement_2 = $conn->prepare($sql_2);
 
     if (($statement->execute([':G_DELETE_POST_ID' => $post_Id])) && ($statement_2->execute([':G_DELETE_POST_ID' => $post_Id]))) {
@@ -102,7 +102,7 @@ if ($post_Type == "P_JV") {
     $sql = 'DELETE FROM job_vacancies_pending WHERE Post_ID = :G_DELETE_POST_ID';
     $statement = $conn->prepare($sql);
 
-    $sql_2 = 'DELETE FROM post_area WHERE Post_ID = :G_DELETE_POST_ID';
+    $sql_2 = 'DELETE FROM pending_post_area WHERE Post_ID = :G_DELETE_POST_ID';
     $statement_2 = $conn->prepare($sql_2);
 
     if (($statement->execute([':G_DELETE_POST_ID' => $post_Id])) && ($statement_2->execute([':G_DELETE_POST_ID' => $post_Id]))) {
@@ -120,7 +120,7 @@ if ($post_Type == "Notice") {
     $sql = 'DELETE FROM notices_pending WHERE Post_ID = :G_DELETE_POST_ID';
     $statement = $conn->prepare($sql);
 
-    $sql_2 = 'DELETE FROM post_area WHERE Post_ID = :G_DELETE_POST_ID';
+    $sql_2 = 'DELETE FROM pending_post_area WHERE Post_ID = :G_DELETE_POST_ID';
     $statement_2 = $conn->prepare($sql_2);
 
     if (($statement->execute([':G_DELETE_POST_ID' => $post_Id])) && ($statement_2->execute([':G_DELETE_POST_ID' => $post_Id]))) {
@@ -137,7 +137,7 @@ if ($post_Type == "P_NO") {
     $sql = 'DELETE FROM notices_pending WHERE Post_ID = :G_DELETE_POST_ID';
     $statement = $conn->prepare($sql);
 
-    $sql_2 = 'DELETE FROM post_area WHERE Post_ID = :G_DELETE_POST_ID';
+    $sql_2 = 'DELETE FROM pending_post_area WHERE Post_ID = :G_DELETE_POST_ID';
     $statement_2 = $conn->prepare($sql_2);
 
     if (($statement->execute([':G_DELETE_POST_ID' => $post_Id])) && ($statement_2->execute([':G_DELETE_POST_ID' => $post_Id]))) {

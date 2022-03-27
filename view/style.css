@@ -51,6 +51,11 @@
 
 .calsq.today { 
   background: #fff; 
+  color:red;
+}
+
+.today{
+  color:red;
 }
 
 .calnum { color: #888; }
