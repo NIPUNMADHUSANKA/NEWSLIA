@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="../css/error.css">
     <link rel="stylesheet" href="../css/main_home.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Notifikasi Script -->
+    <script src="../js/mynotif.js"></script>
 </head>
 
 <style>

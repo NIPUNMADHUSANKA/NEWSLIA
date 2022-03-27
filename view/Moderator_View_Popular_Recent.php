@@ -65,10 +65,12 @@ function Most_Recent($Type){
                     echo "</div>
                 </div>";
 
-            echo "<div class='slide'>";
+            
                 $Count_Slider = count($Most_Recent_Info);        
                 for ($x = 1; $x < $Count_Slider; $x++) {
-                    echo "<img src='data:image/".$Most_Recent_Info[$x].";base64,".base64_encode($Most_Recent_Img[$x])."'/>
+                    echo "<div class = 'slide'>
+                    
+                    <img src='data:image/".$Most_Recent_Info[$x].";base64,".base64_encode($Most_Recent_Img[$x])."'/>
                     <div class='text-wrap'>";
                     
                         if($Type == "Articles"){
@@ -84,9 +86,11 @@ function Most_Recent($Type){
                             echo "<h3 onclick=toggle_view('$Most_Recent_ID[$x]','NEWS');><u>".$Most_Recent_Title[$x]."</u></h3>";
                         }
                         
-                    echo "</div>";
+                    echo "</div>
+                    
+                    </div>";
                 } 
-            echo "</div>";
+            
     
             /*echo "<div class='navigation-auto'>";
                 $Count_Slider = count($Most_Recent_Info);
@@ -193,9 +197,10 @@ function Most_Popular($Type){
                     echo "</div>
                 </div>";
 
-            echo "<div class='slide'>";
+            
                 $Count_Slider_Popular = count($Most_Popular_Info);      
                 for ($x = 1; $x < $Count_Slider_Popular; $x++) {
+                    echo "<div class='slide'>";
                     echo "<img src='data:image/".$Most_Popular_Info[$x].";base64,".base64_encode($Most_Popular_Img[$x])."'/>
                     <div class='text-wrap'>";
                     
@@ -212,8 +217,9 @@ function Most_Popular($Type){
                             echo "<h3 onclick=toggle_view('$Most_Popular_ID[0]','NEWS');><u>".$Most_Popular_Title[$x]."</u></h3>";
                         }
                     echo "</div>";
+                    echo "</div>";
                 } 
-            echo "</div>";
+            
     
            /* echo "<div class='navigation-auto'>";
                 $Count_Slider_Popular = count($Most_Popular_Info);

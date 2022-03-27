@@ -410,7 +410,7 @@
       // execute the statement  
       if($statement->execute()){
 
-        $sql_Area = 'DELETE FROM post_area
+        $sql_Area = 'DELETE FROM pending_post_area
         WHERE Post_ID = :Post_ID';
         
         // prepare the statement for execution
@@ -579,6 +579,19 @@
 
       if(isset($_POST['Normal'])){
 
+
+        $Area_Peding = "";
+
+        $area_sql = "SELECT Area FROM pending_post_area WHERE Post_ID = '$Post_ID'";
+        $area_statement = $conn->query($area_sql);
+        $area_results = $area_statement->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($area_results) {
+          foreach ($area_results as $area_result) {
+              $Area_Peding = $area_result['Area'];
+          }
+        }
+
         $P_Date = date("Y-m-d");
         $set_date = $_POST['set_date'];
         $set_time = $_POST['set_time'];
@@ -606,23 +619,6 @@
             $Accept_stmt = $conn->prepare("INSERT INTO `notices` VALUES(?,?,?,?,?,?,?,?)");
             $Accept_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
           }
-
-          $POST_AREA = [
-            'NEW_ID' => $PID,
-            'OLD_ID' => $Post_ID
-          ];
-          
-          $POST_AREA_Update_sql = 'UPDATE post_area
-                                    SET Post_ID = :NEW_ID
-                                    WHERE Post_ID = :OLD_ID';
-          
-          $POST_AREA_Update_statement = $conn->prepare($POST_AREA_Update_sql);
-          
-          $POST_AREA_Update_statement->bindParam(':NEW_ID', $POST_AREA['NEW_ID']);
-          $POST_AREA_Update_statement->bindParam(':OLD_ID', $POST_AREA['OLD_ID']);
-          
-          $POST_AREA_Update_statement->execute();
-
 
           // Update Moderator Insights Part//
             $Notices_Count = 1;
@@ -690,6 +686,21 @@
 
           // End Update Repoter Insights Part//
 
+
+
+          $sql_Area = 'DELETE FROM pending_post_area WHERE Post_ID = :Post_ID';
+
+          // prepare the statement for execution
+          $statement_Area = $conn->prepare($sql_Area);
+          $statement_Area->bindParam(':Post_ID', $Post_ID);
+
+          // execute the statement  
+          $statement_Area->execute();
+
+
+
+
+
           $sql = 'DELETE FROM notices_pending
           WHERE Post_ID = :Post_ID';
 
@@ -723,22 +734,6 @@
             $Accept_stmt = $conn->prepare("INSERT INTO `job_vacancies` VALUES(?,?,?,?,?,?,?,?,?,?)");
             $Accept_stmt->execute([$PID,$Company,$Title,$P_Date,$Deadline_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
           }
-
-          $POST_AREA = [
-            'NEW_ID' => $PID,
-            'OLD_ID' => $Post_ID
-          ];
-          
-          $POST_AREA_Update_sql = 'UPDATE post_area
-                                    SET Post_ID = :NEW_ID
-                                    WHERE Post_ID = :OLD_ID';
-          
-          $POST_AREA_Update_statement = $conn->prepare($POST_AREA_Update_sql);
-          
-          $POST_AREA_Update_statement->bindParam(':NEW_ID', $POST_AREA['NEW_ID']);
-          $POST_AREA_Update_statement->bindParam(':OLD_ID', $POST_AREA['OLD_ID']);
-          
-          $POST_AREA_Update_statement->execute();
 
 
           // Update Moderator Insights Part//
@@ -806,6 +801,23 @@
               }
 
           // End Update Repoter Insights Part//
+
+
+          ///////////////////////
+          
+
+          $sql_Area = 'DELETE FROM pending_post_area WHERE Post_ID = :Post_ID';
+
+          // prepare the statement for execution
+          $statement_Area = $conn->prepare($sql_Area);
+          $statement_Area->bindParam(':Post_ID', $Post_ID);
+
+          // execute the statement  
+          $statement_Area->execute();
+
+
+
+
 
           $sql = 'DELETE FROM job_vacancies_pending
           WHERE Post_ID = :Post_ID';
@@ -907,6 +919,16 @@
             // End Update Repoter Insights Part//
         
           
+          $sql_Area = 'DELETE FROM pending_post_area WHERE Post_ID = :Post_ID';
+
+          // prepare the statement for execution
+          $statement_Area = $conn->prepare($sql_Area);
+          $statement_Area->bindParam(':Post_ID', $Post_ID);
+  
+          // execute the statement  
+          $statement_Area->execute();
+  
+  
 
           $sql = 'DELETE FROM com_ads_pending
           WHERE Post_ID = :Post_ID';
@@ -925,6 +947,12 @@
           $Readtime_stmt = $conn->prepare("INSERT INTO `read_time` VALUES(?,?,?,?,?)");
           $Readtime_stmt->execute([$PID,$Count,$P_Time,$P_Time,$Type]);
 
+
+          $post_area_stmt = $conn->prepare("INSERT INTO `post_area` VALUES(?,?,?)");
+          $post_area_stmt->execute([$PID,$Area_Peding,$Type]);
+
+
+
           // Notification 
           $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`,`Title`) VALUES(?,?,?,?,?,?,?)");
           $notification->execute([$PID,'Approve',$Creator_ID,$Computer_Date,$Computer_Time,$System_Actor_ID,$Title]);
@@ -934,6 +962,19 @@
 
 
       if(isset($_POST['Auto'])){
+
+        $Area_Peding = "";
+
+        $area_sql = "SELECT Area FROM pending_post_area WHERE Post_ID = '$Post_ID'";
+        $area_statement = $conn->query($area_sql);
+        $area_results = $area_statement->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($area_results) {
+          foreach ($area_results as $area_result) {
+              $Area_Peding = $area_result['Area'];
+          }
+        }
+
 
         $P_Date = date("Y-m-d");
         $set_date = $_POST['set_date'];
@@ -968,22 +1009,6 @@
               $Accept_stmt = $conn->prepare("INSERT INTO `notices` VALUES(?,?,?,?,?,?,?,?)");
               $Accept_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
             }
-
-            $POST_AREA = [
-              'NEW_ID' => $PID,
-              'OLD_ID' => $Post_ID
-            ];
-            
-            $POST_AREA_Update_sql = 'UPDATE post_area
-                                      SET Post_ID = :NEW_ID
-                                      WHERE Post_ID = :OLD_ID';
-            
-            $POST_AREA_Update_statement = $conn->prepare($POST_AREA_Update_sql);
-            
-            $POST_AREA_Update_statement->bindParam(':NEW_ID', $POST_AREA['NEW_ID']);
-            $POST_AREA_Update_statement->bindParam(':OLD_ID', $POST_AREA['OLD_ID']);
-            
-            $POST_AREA_Update_statement->execute();
 
 
             // Update Moderator Insights Part//
@@ -1052,6 +1077,18 @@
 
             // End Update Repoter Insights Part//
 
+
+            $sql_Area = 'DELETE FROM pending_post_area WHERE Post_ID = :Post_ID';
+
+            // prepare the statement for execution
+            $statement_Area = $conn->prepare($sql_Area);
+            $statement_Area->bindParam(':Post_ID', $Post_ID);
+
+            // execute the statement  
+            $statement_Area->execute();
+
+            
+
             $sql = 'DELETE FROM notices_pending
             WHERE Post_ID = :Post_ID';
 
@@ -1087,22 +1124,6 @@
             $Accept_stmt->execute([$PID,$Company,$Title,$P_Date,$Deadline_Date,$img_X,$msg,$Creator_ID,$set_date,$set_time]);
           }
 
-
-          $POST_AREA = [
-            'NEW_ID' => $PID,
-            'OLD_ID' => $Post_ID
-          ];
-          
-          $POST_AREA_Update_sql = 'UPDATE post_area
-                                    SET Post_ID = :NEW_ID
-                                    WHERE Post_ID = :OLD_ID';
-          
-          $POST_AREA_Update_statement = $conn->prepare($POST_AREA_Update_sql);
-          
-          $POST_AREA_Update_statement->bindParam(':NEW_ID', $POST_AREA['NEW_ID']);
-          $POST_AREA_Update_statement->bindParam(':OLD_ID', $POST_AREA['OLD_ID']);
-          
-          $POST_AREA_Update_statement->execute();
                 
           // Update Moderator Insights Part//
                   $Job_Count = 1;
@@ -1135,7 +1156,7 @@
                     $Moderator_Insights_insert_sql->execute([$System_Actor_ID,$Job_Count]);
                   }
 
-              // End Update Moderator Insights Part//
+            // End Update Moderator Insights Part//
 
             // Update Repoter Insights Part//
                 $Job_Count = 1;
@@ -1168,7 +1189,18 @@
                   $Repoter_Insights_insert_sql->execute([$Creator_ID,$Job_Count]);
                 }
 
-            // End Update Repoter Insights Part//
+          // End Update Repoter Insights Part//
+
+          $sql_Area = 'DELETE FROM pending_post_area WHERE Post_ID = :Post_ID';
+
+          // prepare the statement for execution
+          $statement_Area = $conn->prepare($sql_Area);
+          $statement_Area->bindParam(':Post_ID', $Post_ID);
+
+          // execute the statement  
+          $statement_Area->execute();
+
+
 
           $sql = 'DELETE FROM job_vacancies_pending
           WHERE Post_ID = :Post_ID';
@@ -1268,7 +1300,18 @@
                   $Repoter_Insights_insert_sql->execute([$Creator_ID,$C_Count]);
                 }
 
-            // End Update Repoter Insights Part//
+          // End Update Repoter Insights Part//
+
+          $sql_Area = 'DELETE FROM pending_post_area WHERE Post_ID = :Post_ID';
+
+          // prepare the statement for execution
+          $statement_Area = $conn->prepare($sql_Area);
+          $statement_Area->bindParam(':Post_ID', $Post_ID);
+  
+          // execute the statement  
+          $statement_Area->execute();
+
+
 
           $sql = 'DELETE FROM com_ads_pending
           WHERE Post_ID = :Post_ID';
@@ -1290,6 +1333,10 @@
           $Readtime_stmt = $conn->prepare("INSERT INTO `read_time` VALUES(?,?,?,?,?)");
           $Readtime_stmt->execute([$PID,$Count,$P_Time,$P_Time,$Type]);
 
+          $post_area_stmt = $conn->prepare("INSERT INTO `post_area` VALUES(?,?,?)");
+          $post_area_stmt->execute([$PID,$Area_Peding,$Type]);
+
+          
           // Notification
           $notification = $conn->prepare("INSERT INTO `notification`(`Post_ID`,`Approve_or_Reject`,`System_Actor_ID`,`Date`,`Time`,`Moderator_ID`,`Title`) VALUES(?,?,?,?,?,?,?)");
           $notification->execute([$PID,'Approve',$Creator_ID,$Computer_Date,$Computer_Time,$System_Actor_ID,$Title]);

@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="../css/nav/final-navigation.css">
   <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
   <link rel="stylesheet" href="../css/nav/Mobile.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script src="https://kit.fontawesome.com/c119b7fc61.js" crossorigin="anonymous"></script>
 </head>
 
@@ -184,6 +185,12 @@
     margin-top: 20px;
   }
 
+  .notification-button {
+      background-color: #ace0b8;
+      outline: none;
+      border: none;
+      margin-top: 8px;
+  }
 
 </style>
 
@@ -399,10 +406,27 @@
             <a href='N_User_Completed_Post.php'>My Posts</a>
             </div>
 
-          </li>
+          </li>";
 
-          <li class='bell_icon'><a href='#' onclick=togglePopup_select_option('notification');><i class='fas fa-bell fa-customize'></i></a></li>
-          <li class='menu_icon'><a href='#'><i class='fas fa-thin fa-bars' style='color:black;'></i></a></li>
+          $count_notification = 0;
+          $number_notifications = "SELECT COUNT(Notification_ID) AS COUNT_NOTIFICATION FROM notification WHERE System_Actor_ID = '$ID'";
+          $statement_get_count = $conn->query($number_notifications);
+          $results_get_count = $statement_get_count->fetchAll(PDO::FETCH_ASSOC);
+
+          if ($results_get_count) {
+            foreach ($results_get_count as $result_get_count) {
+              $count_notification = $result_get_count['COUNT_NOTIFICATION'];
+            }
+          }
+          echo "
+                <li>
+                  <button onclick=togglePopup_select_option('notification'); class='notification-button'>
+                    <span class='material-icons' style='background:none;'>notifications</span>
+                    <span class='icon-button__badge' >" . $count_notification . "<span>
+                  </button>
+                </li>";
+          
+          echo "<li class='menu_icon'><a href='#'><i class='fas fa-thin fa-bars' style='color:black;'></i></a></li>
          
       </ul>";
     
@@ -475,10 +499,27 @@
             <a href='Report.php'>Reports</a>
             </div>
 
-          </li>
+          </li>";
 
-          <li class='bell_icon'><a href='#' onclick=togglePopup_select_option('notification');><i class='fas fa-bell fa-customize'></i></a></li>
-          <li class='menu_icon'><a href='#'><i class='fas fa-thin fa-bars' style='color:black;'></i></a></li>
+          $count_notification = 0;
+          $number_notifications = "SELECT COUNT(Notification_ID) AS COUNT_NOTIFICATION FROM notification WHERE System_Actor_ID = '$ID'";
+          $statement_get_count = $conn->query($number_notifications);
+          $results_get_count = $statement_get_count->fetchAll(PDO::FETCH_ASSOC);
+
+          if ($results_get_count) {
+            foreach ($results_get_count as $result_get_count) {
+              $count_notification = $result_get_count['COUNT_NOTIFICATION'];
+            }
+          }
+          echo "
+                <li>
+                  <button onclick=togglePopup_select_option('notification'); class='notification-button'>
+                    <span class='material-icons' style='background:none;'>notifications</span>
+                    <span class='icon-button__badge' >" . $count_notification . "<span>
+                  </button>
+                </li>";
+
+          echo "<li class='menu_icon'><a href='#'><i class='fas fa-thin fa-bars' style='color:black;'></i></a></li>
 
       </ul>";
     

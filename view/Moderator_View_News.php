@@ -406,6 +406,7 @@
 
 
 
+
 <div class="posts_content_view_body popular_famous">
 
       <div class="most_popular_recent">
@@ -811,7 +812,7 @@
                 <br>
 
                 <div class="lable-div-2"><label for="">Description :</label></div>
-                <textarea placeholder="Describe complaign" class="text-area-2" cols="26" rows="5" style="height: 60px;" name="Description" re-quired></textarea>
+                <textarea placeholder="Describe complaign" class="text-area-2" cols="26" rows="5" style="height: 60px;" name="Description" required></textarea>
             
                                   
                   <br>

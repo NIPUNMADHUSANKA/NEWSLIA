@@ -16,7 +16,7 @@
             $Area = array();
             $y=0;
 
-            $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+            $post_from_sql = "SELECT * FROM pending_post_area WHERE Post_ID='$Post_ID'";
             $post_from_state = $conn->query($post_from_sql);
             $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
 
@@ -162,7 +162,7 @@
             $Area = array();
             $y=0;
 
-            $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+            $post_from_sql = "SELECT * FROM pending_post_area WHERE Post_ID='$Post_ID'";
             $post_from_state = $conn->query($post_from_sql);
             $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
 
@@ -251,7 +251,7 @@
             $Area = array();
             $y=0;
 
-            $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+            $post_from_sql = "SELECT * FROM pending_post_area WHERE Post_ID='$Post_ID'";
             $post_from_state = $conn->query($post_from_sql);
             $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
 
@@ -340,7 +340,7 @@
               $Area = array();
               $y=0;
 
-              $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+              $post_from_sql = "SELECT * FROM pending_post_area WHERE Post_ID='$Post_ID'";
               $post_from_state = $conn->query($post_from_sql);
               $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
 

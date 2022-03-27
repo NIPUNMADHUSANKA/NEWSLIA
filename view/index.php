@@ -447,7 +447,7 @@ session_start();
               </div>
 
               <div class="button_set">
-                  <div class="button_login" onclick="togglePopup_login()">Login</div>
+                  <div class="button_login" onclick="togglePopupLogin()">Login</div>
                   <div class="button_login" onclick="togglePopup_sign_up()">Sign Up</div>
               </div>
 
@@ -751,7 +751,7 @@ session_start();
 <div class="overlay"></div>
 
 <div class="content popup_login_content">
-    <div class="close-btn" onclick="togglePopup_login()">&times;</div>
+    <div class="close-btn" onclick="togglePopupLogin()">&times;</div>
 
 
     <div class="content_body popup_login_body">
@@ -1049,7 +1049,7 @@ session_start();
                                <p id="nic_check" class="invalid">NIC number</p>
                             </div> 
 
-                        <div class="update_btn next" id="new_next_1" onclick="togglePopup_sign_up_2()">Next</div>
+                        <button class="update_btn next" id="new_next_1" type="button">Next</button>
                         <br>
                         <br> 
                   </div>
@@ -1172,6 +1172,19 @@ session_start();
 
 
 <script type="text/javascript">
+
+     
+      const nextButton = document.getElementById("new_next_1");
+      nextButton.addEventListener("click", (event) => {
+        let fName = document.getElementById("new_fname").value;
+        let lName = document.getElementById("new_lname").value;
+        let email = document.getElementById("new_email").value;
+        let mobile = document.getElementById("new_mobile").value;
+        let nic = document.getElementById("new_nic").value;
+        if (fName != "" && lName != "" && email != "" && mobile != "" && nic != "") {
+              togglePopup_sign_up_2();
+            }
+        });
 
       /* Form Validation*/
             
@@ -1602,7 +1615,8 @@ session_start();
 
 
 <script type="text/javascript">
-    function togglePopup_login(){
+    function togglePopupLogin(){
+      console.log("test");
       document.getElementById("popup-7").classList.toggle("active");
     }
 

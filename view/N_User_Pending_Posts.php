@@ -258,7 +258,7 @@ session_start();
 
       //Insert Area
 
-      $stmt = $conn->prepare("INSERT INTO `post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
+      $stmt = $conn->prepare("INSERT INTO `pending_post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
       $stmt->execute([$ID, $_POST['Area'], $type]);
 
       if($_SESSION['Actor_Type'] == "REPORTER"){
@@ -300,7 +300,7 @@ session_start();
       $stmt->execute([$ID, $_POST['Title'], $date, file_get_contents($_FILES['Image']['tmp_name']), $_POST['content'], $USERID, NULL,  NULL, '1']);
 
       //Insert Area
-      $stmt = $conn->prepare("INSERT INTO `post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
+      $stmt = $conn->prepare("INSERT INTO `pending_post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
       $stmt->execute([$ID, $_POST['Area'], $type]);
 
       if($_SESSION['Actor_Type'] == "REPORTER"){
@@ -333,7 +333,7 @@ session_start();
     $statement = $conn->prepare($sql);
     $statement->execute([':Title' => $title, ':Details' => $content, ':Create_Date' => $date, ':Image' => $Image, ':Set_Date' => $P_date, ':Set_Time' => $P_time, ':Post_ID' => $post_Id]);
 
-    $sql_2 = 'UPDATE post_area SET Area=:Area  WHERE Post_ID = :Post_ID';
+    $sql_2 = 'UPDATE pending_post_area SET Area=:Area  WHERE Post_ID = :Post_ID';
     $statement_2 = $conn->prepare($sql_2);
     $statement_2->execute([':Area' => $area, ':Post_ID' => $post_Id]);
   }
@@ -364,7 +364,7 @@ session_start();
     $statement->execute([':Title' => $title, ':Details' => $content, ':Create_Date' => $date, ':Image' => $Image, ':Set_Date' => $P_date, ':Set_Time' => $P_time, ':Post_ID' => $post_Id]);
 
 
-    $sql_2 = 'UPDATE post_area SET Area=:Area  WHERE Post_ID = :Post_ID';
+    $sql_2 = 'UPDATE pending_post_area SET Area=:Area  WHERE Post_ID = :Post_ID';
     $statement_2 = $conn->prepare($sql_2);
     $statement_2->execute([':Area' => $area, ':Post_ID' => $post_Id]);
   }
@@ -459,7 +459,7 @@ session_start();
 
       //Insert Area
 
-      $stmt = $conn->prepare("INSERT INTO `post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
+      $stmt = $conn->prepare("INSERT INTO `pending_post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
       $stmt->execute([$ID, $_POST['Area'], $type]);
 
 
@@ -508,7 +508,7 @@ session_start();
       $stmt->execute([$ID, $_POST['Title'], $date, file_get_contents($_FILES['Image']['tmp_name']), $_POST['content'], $USERID, NULL,  NULL, '1']);
 
       //Insert Area
-      $stmt = $conn->prepare("INSERT INTO `post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
+      $stmt = $conn->prepare("INSERT INTO `pending_post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
       $stmt->execute([$ID, $_POST['Area'], $type]);
 
 
@@ -554,7 +554,7 @@ session_start();
       $statement = $conn->prepare($sql);
       $statement->execute([':G_DELETE_POST_ID' => $post_Id]);
 
-      $sql_2 = 'DELETE FROM post_area WHERE Post_ID = :G_DELETE_POST_ID';
+      $sql_2 = 'DELETE FROM pending_post_area WHERE Post_ID = :G_DELETE_POST_ID';
       $statement_2 = $conn->prepare($sql_2);
       $statement_2->execute([':G_DELETE_POST_ID' => $post_Id]);
 
@@ -601,7 +601,7 @@ session_start();
 
       //Insert Area
 
-      $stmt = $conn->prepare("INSERT INTO `post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
+      $stmt = $conn->prepare("INSERT INTO `pending_post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
       $stmt->execute([$ID, $_POST['Area'], $type]);
 
       if($_SESSION['Actor_Type'] == "REPORTER"){
@@ -644,7 +644,7 @@ session_start();
 
       //Insert Area
 
-      $stmt = $conn->prepare("INSERT INTO `post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
+      $stmt = $conn->prepare("INSERT INTO `pending_post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
       $stmt->execute([$ID, $_POST['Area'], $type]);
 
       if($_SESSION['Actor_Type'] == "REPORTER"){
@@ -679,7 +679,7 @@ session_start();
     $statement = $conn->prepare($sql);
     $statement->execute([':Company' => $Company, ':Position' => $Position, ':Create_Date' => $date, ':Deadline_Date' => $Deadline_Date, ':Image' => $Image, ':Details' => $content,   ':Set_Date' => $P_date, ':Set_Time' => $P_time, ':Post_ID' => $post_Id]);
 
-    $sql_2 = 'UPDATE post_area SET Area=:Area  WHERE Post_ID = :Post_ID';
+    $sql_2 = 'UPDATE pending_post_area SET Area=:Area  WHERE Post_ID = :Post_ID';
     $statement_2 = $conn->prepare($sql_2);
     $statement_2->execute([':Area' => $area, ':Post_ID' => $post_Id]);
   }
@@ -708,7 +708,7 @@ session_start();
     $statement = $conn->prepare($sql);
     $statement->execute([':Company' => $Company, ':Position' => $Position, ':Create_Date' => $date, ':Deadline_Date' => $Deadline_Date, ':Image' => $Image, ':Details' => $content,   ':Set_Date' => $P_date, ':Set_Time' => $P_time, ':Post_ID' => $post_Id]);
 
-    $sql_2 = 'UPDATE post_area SET Area=:Area  WHERE Post_ID = :Post_ID';
+    $sql_2 = 'UPDATE pending_post_area SET Area=:Area  WHERE Post_ID = :Post_ID';
     $statement_2 = $conn->prepare($sql_2);
     $statement_2->execute([':Area' => $area, ':Post_ID' => $post_Id]);
   }
@@ -812,7 +812,7 @@ session_start();
 
       //Insert Area
 
-      $stmt = $conn->prepare("INSERT INTO `post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
+      $stmt = $conn->prepare("INSERT INTO `pending_post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
       $stmt->execute([$ID, $_POST['Area'], $type]);
 
 
@@ -864,7 +864,7 @@ session_start();
 
       //Insert Area
 
-      $stmt = $conn->prepare("INSERT INTO `post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
+      $stmt = $conn->prepare("INSERT INTO `pending_post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
       $stmt->execute([$ID, $_POST['Area'], $type]);
 
       //delete from drafts
@@ -918,7 +918,7 @@ session_start();
       $statement = $conn->prepare($sql);
       $statement->execute([':G_DELETE_POST_ID' => $post_Id]);
 
-      $sql_2 = 'DELETE FROM post_area WHERE Post_ID = :G_DELETE_POST_ID';
+      $sql_2 = 'DELETE FROM pending_post_area WHERE Post_ID = :G_DELETE_POST_ID';
       $statement_2 = $conn->prepare($sql_2);
       $statement_2->execute([':G_DELETE_POST_ID' => $post_Id]);
 
@@ -968,7 +968,7 @@ session_start();
 
       //Insert Area
 
-      $stmt = $conn->prepare("INSERT INTO `post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
+      $stmt = $conn->prepare("INSERT INTO `pending_post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
       $stmt->execute([$ID, $_POST['Area'], $type]);
 
       if($_SESSION['Actor_Type'] == "REPORTER"){
@@ -1010,7 +1010,7 @@ session_start();
 
       //Insert Area
 
-      $stmt = $conn->prepare("INSERT INTO `post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
+      $stmt = $conn->prepare("INSERT INTO `pending_post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
       $stmt->execute([$ID, $_POST['Area'], $type]);
 
       if($_SESSION['Actor_Type'] == "REPORTER"){
@@ -1050,7 +1050,7 @@ session_start();
     $statement->execute([':Title' => $title,  ':Image' => $Image, ':Details' => $content, ':Create_Date' => $date, ':Publish_Date' => $P_date, ':Publish_Time' => $P_time, ':Post_ID' => $post_Id]);
 
 
-    $sql_2 = 'UPDATE post_area SET Area=:Area  WHERE Post_ID = :Post_ID';
+    $sql_2 = 'UPDATE pending_post_area SET Area=:Area  WHERE Post_ID = :Post_ID';
     $statement_2 = $conn->prepare($sql_2);
     $statement_2->execute([':Area' => $area, ':Post_ID' => $post_Id]);
   }
@@ -1083,7 +1083,7 @@ session_start();
 
 
 
-    $sql_2 = 'UPDATE post_area SET Area=:Area  WHERE Post_ID = :Post_ID';
+    $sql_2 = 'UPDATE pending_post_area SET Area=:Area  WHERE Post_ID = :Post_ID';
     $statement_2 = $conn->prepare($sql_2);
     $statement_2->execute([':Area' => $area, ':Post_ID' => $post_Id]);
   }
@@ -1183,7 +1183,7 @@ session_start();
 
       //Insert Area
 
-      $stmt = $conn->prepare("INSERT INTO `post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
+      $stmt = $conn->prepare("INSERT INTO `pending_post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
       $stmt->execute([$ID, $_POST['Area'], $type]);
 
       //delete from drafts
@@ -1232,7 +1232,7 @@ session_start();
 
       //Insert Area
 
-      $stmt = $conn->prepare("INSERT INTO `post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
+      $stmt = $conn->prepare("INSERT INTO `pending_post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
       $stmt->execute([$ID, $_POST['Area'], $type]);
 
 
@@ -1282,7 +1282,7 @@ session_start();
       $statement = $conn->prepare($sql);
       $statement->execute([':G_DELETE_POST_ID' => $post_Id]);
 
-      $sql_2 = 'DELETE FROM post_area WHERE Post_ID = :G_DELETE_POST_ID';
+      $sql_2 = 'DELETE FROM pending_post_area WHERE Post_ID = :G_DELETE_POST_ID';
       $statement_2 = $conn->prepare($sql_2);
       $statement_2->execute([':G_DELETE_POST_ID' => $post_Id]);
 
@@ -1334,7 +1334,7 @@ session_start();
 
             //Insert Area
 
-            $stmt = $conn->prepare("INSERT INTO `post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
+            $stmt = $conn->prepare("INSERT INTO `pending_post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
             $stmt->execute([$ID, $_POST['Area'], $type]);
 
 
@@ -1373,7 +1373,7 @@ session_start();
 
             //Insert Area
 
-            $stmt = $conn->prepare("INSERT INTO `post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
+            $stmt = $conn->prepare("INSERT INTO `pending_post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
             $stmt->execute([$ID, $_POST['Area'], $type]);
 
 
@@ -1410,7 +1410,7 @@ session_start();
           $statement->execute([':Title' => $title,  ':Image' => $Image, ':Details' => $content, ':Create_Date' => $date, ':Publish_Date' => $P_date, ':News_Category' => $category, ':Post_ID' => $post_Id]);
 
 
-          $sql_2 = 'UPDATE post_area SET Area=:Area  WHERE Post_ID = :Post_ID';
+          $sql_2 = 'UPDATE pending_post_area SET Area=:Area  WHERE Post_ID = :Post_ID';
           $statement_2 = $conn->prepare($sql_2);
           $statement_2->execute([':Area' => $area, ':Post_ID' => $post_Id]);
         }
@@ -1444,7 +1444,7 @@ session_start();
 
 
 
-          $sql_2 = 'UPDATE post_area SET Area=:Area  WHERE Post_ID = :Post_ID';
+          $sql_2 = 'UPDATE pending_post_area SET Area=:Area  WHERE Post_ID = :Post_ID';
           $statement_2 = $conn->prepare($sql_2);
           $statement_2->execute([':Area' => $area, ':Post_ID' => $post_Id]);
         }
@@ -1539,7 +1539,7 @@ session_start();
 
             //Insert Area
 
-            $stmt = $conn->prepare("INSERT INTO `post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
+            $stmt = $conn->prepare("INSERT INTO `pending_post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
             $stmt->execute([$ID, $_POST['Area'], $type]);
 
 
@@ -1589,7 +1589,7 @@ session_start();
 
             //Insert Area
 
-            $stmt = $conn->prepare("INSERT INTO `post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
+            $stmt = $conn->prepare("INSERT INTO `pending_post_area`(`Post_ID`, `Area`, `Post Type`) VALUES (?,?,?)");
             $stmt->execute([$ID, $_POST['Area'], $type]);
 
 
@@ -1641,7 +1641,7 @@ session_start();
             $statement = $conn->prepare($sql);
             $statement->execute([':G_DELETE_POST_ID' => $post_Id]);
 
-            $sql_2 = 'DELETE FROM post_area WHERE Post_ID = :G_DELETE_POST_ID';
+            $sql_2 = 'DELETE FROM pending_post_area WHERE Post_ID = :G_DELETE_POST_ID';
             $statement_2 = $conn->prepare($sql_2);
             $statement_2->execute([':G_DELETE_POST_ID' => $post_Id]);
 

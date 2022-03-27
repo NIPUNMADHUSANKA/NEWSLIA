@@ -350,12 +350,18 @@
         
         <div><a href='#' style='color: black;margin-top:5rem;'>";
 
-            if($my_vote == 1){
-              echo "<i class='fas fa-chevron-up fa-3x' style = 'color:blue;' onclick = update_up_my('$Post_ID','$USERID','1');></i></a>";
-            }
-            else{
-              echo "<i class='fas fa-chevron-up fa-3x' onclick = update_up_my('$Post_ID','$USERID','1');></i></a>";
-            }
+        if ($my_vote == 1) {
+          echo "<i class='fas fa-chevron-up fa-3x' style='color:blue;' ></i></a>";
+        } else {
+          
+          if($_SESSION['Actor_Type'] == "NORMALUSER"){
+            echo "<i class='fas fa-chevron-up fa-3x' onclick = update_up_my('$Post_ID','$USERID','1');></i></a>";
+          }
+          else{
+            echo "<i class='fas fa-chevron-up fa-3x' ></i></a>";
+  
+          }
+        }
               
         
         echo "</div>
@@ -364,12 +370,17 @@
         
         <div style='padding-top:8rem;'><a href='#' style='color: black;margin-top:15rem;'>";
               
-              if($my_vote == -1){
-                echo "<i class='fas fa-chevron-down fa-3x' style = 'color:blue;' onclick = update_up_my('$Post_ID','$USERID','-1');></i></a>";
-              }
-              else{
+            if ($my_vote == -1) {
+              echo "<i class='fas fa-chevron-down fa-3x'  ></i></a>";
+            } else {
+              if($_SESSION['Actor_Type'] == "NORMALUSER"){
                 echo "<i class='fas fa-chevron-down fa-3x' onclick = update_up_my('$Post_ID','$USERID','-1');></i></a> ";
               }
+              else{
+                echo "<i class='fas fa-chevron-down fa-3x' style='color:blue;'></i></a>";
+              }
+              
+            }
 
       echo "</div>
     </div>";

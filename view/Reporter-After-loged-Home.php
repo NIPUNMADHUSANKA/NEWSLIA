@@ -16,6 +16,10 @@ session_start();
   <link rel="stylesheet" href="../css/error.css">
   <link rel="stylesheet" href="../css/main_home.css">
   <script src="https://kit.fontawesome.com/c119b7fc61.js" crossorigin="anonymous"></script>
+  <!-- Jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Notifikasi Script -->
+    <script src="../js/mynotif.js"></script>
 </head>
 
 <style>

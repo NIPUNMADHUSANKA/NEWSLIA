@@ -416,7 +416,7 @@
       // execute the statement  
       if($statement->execute()){
 
-        $sql_Area = 'DELETE FROM post_area
+        $sql_Area = 'DELETE FROM pending_post_area
         WHERE Post_ID = :Post_ID';
 
         // prepare the statement for execution
@@ -578,6 +578,19 @@
 
     if(isset($_POST['Normal'])){
 
+       $Area_Peding = "";
+
+       $area_sql = "SELECT Area FROM pending_post_area WHERE Post_ID = '$Post_ID'";
+       $area_statement = $conn->query($area_sql);
+       $area_results = $area_statement->fetchAll(PDO::FETCH_ASSOC);
+
+       if ($area_results) {
+        foreach ($area_results as $area_result) {
+          $Area_Peding = $area_result['Area'];
+        }
+       }
+
+
        $PID = "";
        $last_value_sql = "SELECT Post_ID FROM news ORDER BY Post_ID DESC LIMIT 1";
        $last_value_statement = $conn->query($last_value_sql);
@@ -601,37 +614,17 @@
           }
           else{
             $Accept_stmt = $conn->prepare("INSERT INTO `news` VALUES(?,?,?,?,?,?,?,?,?,?)");
-            $Accept_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$News_Category,$Creator_ID,$Smart_Date,$Up,$Down]);
-
-
-            $POST_AREA = [
-              'NEW_ID' => $PID,
-              'OLD_ID' => $Post_ID
-            ];
-            
-            $POST_AREA_Update_sql = 'UPDATE post_area
-                                      SET Post_ID = :NEW_ID
-                                      WHERE Post_ID = :OLD_ID';
-            
-            $POST_AREA_Update_statement = $conn->prepare($POST_AREA_Update_sql);
-            
-            $POST_AREA_Update_statement->bindParam(':NEW_ID', $POST_AREA['NEW_ID']);
-            $POST_AREA_Update_statement->bindParam(':OLD_ID', $POST_AREA['OLD_ID']);
-            
-            $POST_AREA_Update_statement->execute();
-
-
-            $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$PID'";
-            $post_from_state = $conn->query($post_from_sql);
-            $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
-
-            if($post_from_results){
-                foreach($post_from_results as $post_from_result){
-                  $smart_calandar_stmt = $conn->prepare("INSERT INTO `smart_calendar` (`evt_start`,`evt_end`,`Post_Id`,`Area`) VALUES(?,?,?,?)");
-                  $smart_calandar_stmt->execute([$Smart_Date,$Smart_Date,$PID,$post_from_result['Area']]);
-               }
-            }
+            $Accept_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$News_Category,$Creator_ID,$Smart_Date,$Up,$Down]);     
           }
+
+
+
+          $post_area_stmt = $conn->prepare("INSERT INTO `post_area` VALUES(?,?,?)");
+          $post_area_stmt->execute([$PID,$Area_Peding,'NEWS']);
+          
+          $smart_calandar_stmt = $conn->prepare("INSERT INTO `smart_calendar` (`evt_start`,`evt_end`,`Post_Id`,`Area`) VALUES(?,?,?,?)");
+          $smart_calandar_stmt->execute([$Smart_Date,$Smart_Date,$PID,$Area_Peding]);
+          
 
           $P_Time = NULL;
           $Count = 0;
@@ -708,7 +701,47 @@
             }
 
           // End Update Repoter Insights Part//
+
+
+
+          // Send Push up message
+
+          $time = date('Y-m-d H:i:s');
           
+          $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$PID'";
+          $post_from_state = $conn->query($post_from_sql);
+          $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
+
+            if($post_from_results){
+                foreach($post_from_results as $post_from_result){
+                  $POST_AREA = $post_from_result['Area'];
+
+                  $add_push_up_message_sql = $conn->prepare("INSERT INTO `notif`(`notif_msg`, `notif_time`, `notif_repeat`, `notif_loop`, `area`) VALUES(?,?,?,?,?)");
+                  $add_push_up_message_sql->execute([$Title,$time,'1','1',$POST_AREA]);
+                  
+               }
+            }
+
+          
+          
+
+
+          ///////////////////////
+          
+
+          $sql_Area = 'DELETE FROM pending_post_area WHERE Post_ID = :Post_ID';
+
+          // prepare the statement for execution
+          $statement_Area = $conn->prepare($sql_Area);
+          $statement_Area->bindParam(':Post_ID', $Post_ID);
+
+          // execute the statement  
+          $statement_Area->execute();
+
+
+          
+      
+        
           $sql = 'DELETE FROM news_pending
           WHERE Post_ID = :Post_ID';
 
@@ -722,6 +755,19 @@
           }
   }
     if(isset($_POST['Auto'])){
+
+          $Area_Peding = "";
+
+          $area_sql = "SELECT Area FROM pending_post_area WHERE Post_ID = '$Post_ID'";
+          $area_statement = $conn->query($area_sql);
+          $area_results = $area_statement->fetchAll(PDO::FETCH_ASSOC);
+
+          if ($area_results) {
+          foreach ($area_results as $area_result) {
+            $Area_Peding = $area_result['Area'];
+            }
+          }
+
 
           $PID = "";
           $last_value_sql = "SELECT Post_ID FROM news ORDER BY Post_ID DESC LIMIT 1";
@@ -749,39 +795,16 @@
           }
           else{
             $Accept_stmt = $conn->prepare("INSERT INTO `news` VALUES(?,?,?,?,?,?,?,?,?,?)");
-            $Accept_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$News_Category,$Creator_ID,$Smart_Date,$Up,$Down]);
-
-
-            $POST_AREA = [
-              'NEW_ID' => $PID,
-              'OLD_ID' => $Post_ID
-            ];
-            
-            $POST_AREA_Update_sql = 'UPDATE post_area
-                                      SET Post_ID = :NEW_ID
-                                      WHERE Post_ID = :OLD_ID';
-            
-            $POST_AREA_Update_statement = $conn->prepare($POST_AREA_Update_sql);
-            
-            $POST_AREA_Update_statement->bindParam(':NEW_ID', $POST_AREA['NEW_ID']);
-            $POST_AREA_Update_statement->bindParam(':OLD_ID', $POST_AREA['OLD_ID']);
-            
-            $POST_AREA_Update_statement->execute();
-
-
-
-            $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$PID'";
-            $post_from_state = $conn->query($post_from_sql);
-            $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
-
-            if($post_from_results){
-                foreach($post_from_results as $post_from_result){
-                  $smart_calandar_stmt = $conn->prepare("INSERT INTO `smart_calendar` (`evt_start`,`evt_end`,`Post_Id`,`Area`) VALUES(?,?,?,?)");
-                  $smart_calandar_stmt->execute([$Smart_Date,$Smart_Date,$PID,$post_from_result['Area']]);
-               }
-            }
+            $Accept_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$News_Category,$Creator_ID,$Smart_Date,$Up,$Down]);      
           }
 
+
+          $post_area_stmt = $conn->prepare("INSERT INTO `post_area` VALUES(?,?,?)");
+          $post_area_stmt->execute([$PID,$Area_Peding,'NEWS']);
+          
+
+          $smart_calandar_stmt = $conn->prepare("INSERT INTO `smart_calendar` (`evt_start`,`evt_end`,`Post_Id`,`Area`) VALUES(?,?,?,?)");
+          $smart_calandar_stmt->execute([$Smart_Date,$Smart_Date,$PID,$Area_Peding]);
         
           $Auto_delete_stmt = $conn->prepare("INSERT INTO `post_auto_delete` VALUES(?,?,?,?)");
           $Auto_delete_stmt->execute([$PID,$Date,$Time,$Cat]);
@@ -861,6 +884,39 @@
           }
  
          // End Update Repoter Insights Part//
+
+        // Send Push up message
+
+         $time = date('Y-m-d H:i:s');
+          
+          $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$PID'";
+          $post_from_state = $conn->query($post_from_sql);
+          $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
+
+            if($post_from_results){
+                foreach($post_from_results as $post_from_result){
+                  $POST_AREA = $post_from_result['Area'];
+
+                  $add_push_up_message_sql = $conn->prepare("INSERT INTO `notif`(`notif_msg`, `notif_time`, `notif_repeat`, `notif_loop`, `area`) VALUES(?,?,?,?,?)");
+                  $add_push_up_message_sql->execute([$Title,$time,'1','1',$POST_AREA]);
+                  
+               }
+            }
+
+          ///////////////////////
+          
+
+          $sql_Area = 'DELETE FROM pending_post_area WHERE Post_ID = :Post_ID';
+
+          // prepare the statement for execution
+          $statement_Area = $conn->prepare($sql_Area);
+          $statement_Area->bindParam(':Post_ID', $Post_ID);
+
+          // execute the statement  
+          $statement_Area->execute();
+
+
+
            
           $sql = 'DELETE FROM news_pending
           WHERE Post_ID = :Post_ID';
