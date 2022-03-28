@@ -115,6 +115,16 @@ session_start();
     display:flex;
     flex-direction:row;
   }
+
+  @media only screen and (max-width:1525px) {
+
+.box-container {
+  height: 290px;
+  margin-left: 1rem;
+  margin-right: 3rem;
+}
+
+}
 </style>
 
 <body>
@@ -181,10 +191,19 @@ session_start();
                           include './Last_Read.php';  
                          
                           echo "<h3>".$TITLE."</h3>";
-                          echo "<p>".$P_DATE."</p>";
-                          echo "<b><i>-</b></i>";
-                          echo "<i> All Areas- ";
-                          echo "</i>";
+                          echo "<p>".$P_DATE."</p>"; 
+                          
+                          $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+                          $post_from_state = $conn->query($post_from_sql);
+                          $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
+
+                          if($post_from_results){
+                              echo "<b><i>-</b></i>";
+                            foreach($post_from_results as $post_from_result){
+                              echo "<i><abc>".$post_from_result['Area']."</abc> - ";
+                              echo "</i>";
+                            }
+                          }
                           echo "<br>";
                           
                           $post_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
@@ -327,10 +346,19 @@ session_start();
                         include './Last_Read.php';  
                        
                         echo "<h3>".$TITLE."</h3>";
-                        echo "<p>".$P_DATE."</p>";
-                        echo "<b><i>-</b></i>";
-                        echo "<i> All Areas- ";
-                        echo "</i>";
+                        echo "<p>".$P_DATE."</p>"; 
+                        
+                        $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+                        $post_from_state = $conn->query($post_from_sql);
+                        $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
+
+                        if($post_from_results){
+                            echo "<b><i>-</b></i>";
+                          foreach($post_from_results as $post_from_result){
+                            echo "<i><abc>".$post_from_result['Area']."</abc> - ";
+                            echo "</i>";
+                          }
+                        }
                         echo "<br>";
                         
                         $post_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
@@ -400,9 +428,18 @@ session_start();
                        
                         echo "<h3>".$TITLE."</h3>";
                         echo "<p>".$P_DATE."</p>";
-                        echo "<b><i>-</b></i>";
-                        echo "<i> All Areas- ";
-                        echo "</i>";
+
+                        $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+                        $post_from_state = $conn->query($post_from_sql);
+                        $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
+
+                        if($post_from_results){
+                            echo "<b><i>-</b></i>";
+                          foreach($post_from_results as $post_from_result){
+                            echo "<i><abc>".$post_from_result['Area']."</abc> - ";
+                            echo "</i>";
+                          }
+                        }
                         echo "<br>";
                         
                         $post_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
@@ -472,9 +509,18 @@ session_start();
                        
                         echo "<h3>".$TITLE."</h3>";
                         echo "<p>".$P_DATE."</p>";
-                        echo "<b><i>-</b></i>";
-                        echo "<i> All Areas- ";
-                        echo "</i>";
+
+                        $post_from_sql = "SELECT * FROM post_area WHERE Post_ID='$Post_ID'";
+                        $post_from_state = $conn->query($post_from_sql);
+                        $post_from_results = $post_from_state->fetchAll(PDO::FETCH_ASSOC);
+
+                        if($post_from_results){
+                            echo "<b><i>-</b></i>";
+                          foreach($post_from_results as $post_from_result){
+                            echo "<i><abc>".$post_from_result['Area']."</abc> - ";
+                            echo "</i>";
+                          }
+                        }
                         echo "<br>";
                         
                         $post_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";

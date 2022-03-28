@@ -36,8 +36,8 @@ switch ($_POST['req']) {
     $nowDay = ($nowMonth==$_POST['month'] && $nowYear==$_POST['year']) ? date("j") : 0 ;
 
     for ($day=1; $day<=$daysInMonth; $day++) { ?>
-    <div class="calsq day<?=$day==$nowDay?" today":""?>" data-day="<?=$day?>">
-      <div class="calnum"><?=$day?></div>
+    <div class="calsq day<?=$day==$nowDay?" today":""?>"  data-day="<?=$day?>">
+      <div class="calnum" style="color:<?=$day==$nowDay?"red":"#888"?>" ><?=$day?></div>
         <?php 
         if (isset($events['d'][$day])) { 
           foreach ($events['d'][$day] as $pid) 

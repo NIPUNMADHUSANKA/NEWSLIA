@@ -18,7 +18,7 @@
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
     <script src="https://kit.fontawesome.com/c119b7fc61.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/calandar.css">
     <script src="app.js"></script>
 </head>
 
@@ -222,6 +222,96 @@
   }
 
 
+  @media only screen and (max-width:1550px) {
+
+/* all */
+.box-container {
+  height: 290px;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+}
+
+@media only screen and (max-width:1150px) {
+
+/* Most popular & recent */
+.Title_slider {
+  margin-left: 10rem;
+  margin-top: 1rem;
+  width: 8rem;
+}
+
+.text-wrap {
+  margin-top: -70%;
+}
+
+/* all */
+.box-container {
+  height: 290px;
+  margin-left: 2rem;
+  margin-right: 3rem;
+}
+
+.calender {
+  text-align: left;
+  margin-left: 8rem;
+  margin-bottom: 5rem;
+}
+
+}
+
+@media only screen and (max-width:1000px) {
+
+/* Most popular & recent */
+.most_popular_recent {
+  display: flex;
+  flex-direction: column;
+}
+
+.slider {
+  margin-left: 6rem;
+}
+
+.text-wrap {
+  margin-top: -65%;
+}
+
+
+
+}
+
+
+@media only screen and (max-width:980px) {
+
+/* Most popular & recent */
+.most_popular_recent {
+  display: flex;
+  flex-direction: column;
+}
+
+.slider {
+  margin-left: 6rem;
+}
+
+.text-wrap {
+  margin-top: -65%;
+}
+
+/* all */
+.box-container {
+  height: 290px;
+  margin-left: 10rem;
+  margin-right: 3rem;
+}
+
+.post_sort {
+  padding-left: 80px;
+  margin-bottom: 2rem;
+}
+
+}
+
+
 </style>
 
 
@@ -328,7 +418,7 @@
           $statement->execute();
 
           /////////////////////////////////////////////////////////////////////////////
-          $sql_get_all_vote = "SELECT COUNT(Vote) AS COUNT_VOTE FROM vote WHERE Vote = '-1' GROUP BY = '$Post_ID'";
+          /*$sql_get_all_vote = "SELECT COUNT(Vote) AS COUNT_VOTE FROM vote WHERE Vote = '-1' GROUP BY = '$Post_ID'";
           $statement_get_all_vote = $conn->query($sql_get_all_vote);
           $results_get_all_vote = $statement_get_all_vote->fetchAll(PDO::FETCH_ASSOC);
           
@@ -345,7 +435,7 @@
                   $Add_Vote->execute([$Post_ID,$System_Date,$System_Time,$Type]);
                 }
             }
-          }
+          }*/
          
 
 

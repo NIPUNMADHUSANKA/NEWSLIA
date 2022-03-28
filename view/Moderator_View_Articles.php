@@ -114,6 +114,86 @@
     display:flex;
     flex-direction:row;
   }
+
+    /*RESPONSIVE*/
+
+    @media only screen and (max-width:1550px) {
+
+/* all */
+.box-container {
+  height: 290px;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+}
+
+@media only screen and (max-width:1150px) {
+
+/* Most popular & recent */
+.Title_slider {
+  margin-left: 10rem;
+  margin-top: 1rem;
+  width: 8rem;
+}
+
+.text-wrap {
+  margin-top: -70%;
+}
+
+/* all */
+.box-container {
+  height: 290px;
+  margin-left: 2rem;
+  margin-right: 3rem;
+}
+
+}
+
+@media only screen and (max-width:1000px) {
+
+/* Most popular & recent */
+.most_popular_recent {
+  display: flex;
+  flex-direction: column;
+}
+
+.slider {
+  margin-left: 6rem;
+}
+
+.text-wrap {
+  margin-top: -65%;
+}
+
+
+
+}
+
+
+@media only screen and (max-width:980px) {
+
+/* Most popular & recent */
+.most_popular_recent {
+  display: flex;
+  flex-direction: column;
+}
+
+.slider {
+  margin-left: 6rem;
+}
+
+.text-wrap {
+  margin-top: -65%;
+}
+
+/* all */
+.box-container {
+  height: 290px;
+  margin-left: 10rem;
+  margin-right: 3rem;
+}
+
+}
   
 </style>
 
@@ -228,10 +308,7 @@
                        
                         echo "<h3>".$TITLE."</h3>";
                         echo "<p>".$P_DATE."</p>";
-                        echo "<b><i>-</b></i>";
-                        echo "<i> All Areas- ";
-                        echo "</i>";
-                        echo "<br>";
+                       
                         
                         $post_who_sql = "SELECT * FROM system_actor WHERE System_Actor_Id='$Creator_ID'";
                         $post_who_state = $conn->query($post_who_sql);

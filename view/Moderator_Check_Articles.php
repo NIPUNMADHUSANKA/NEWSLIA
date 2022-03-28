@@ -353,10 +353,6 @@
               $Moderator_Insights_Update_statement->execute();
             }
           }
-          else{
-            $Moderator_Insights_insert_sql = $conn->prepare("INSERT INTO `moderate_insights`(`System_Actor_Id`,`Articles`) VALUES(?,?)");
-            $Moderator_Insights_insert_sql->execute([$System_Actor_ID,$Article_Count]);
-          }
 
         // End Update Moderator Insights Part//
 

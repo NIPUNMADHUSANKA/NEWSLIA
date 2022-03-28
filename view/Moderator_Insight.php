@@ -12,6 +12,7 @@ session_start();
     <link rel="stylesheet" href="../css/moderator.css">
     <link rel="stylesheet" href="../css/search.css">
     <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="../css/media_queries.css">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
 </head>
@@ -83,6 +84,7 @@ session_start();
         include '../Model/connect.php';
         $USER_ID = $_SESSION['System_Actor_ID'];
         $Type = $_SESSION['Actor_Type'];
+        $Stars = 0;
 
         if($Type == "MODERATOR"){
           $moderator_details_sql = "SELECT * FROM moderate_insights WHERE (System_Actor_Id = '$USER_ID')";

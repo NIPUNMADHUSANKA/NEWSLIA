@@ -91,6 +91,17 @@
   }
 
 
+@media only screen and (max-width:1525px) {
+
+.box-container {
+  height: 290px;
+  margin-left: 1rem;
+  margin-right: 3rem;
+}
+
+}
+
+
 </style>
 
 <body>

@@ -249,7 +249,7 @@
           echo"
           <div class='card card1'>
                   <div class='content'>
-                    <h2>Notics</h2>
+                    <h2>Notices</h2>
                     <br>
                   </div>
                   <ul class='navigation'>";
@@ -340,7 +340,7 @@
         echo"
           <div class='card card4'>
                   <div class='content'>
-                    <h2>C.Ads</h2>
+                    <h2>Ads</h2>
                     <br>
                   </div>
                   <ul class='navigation'>";

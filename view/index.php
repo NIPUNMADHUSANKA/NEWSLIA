@@ -1544,7 +1544,7 @@ session_start();
 
       
 
-      $(document).ready(function(){
+      /*$(document).ready(function(){
         $("#Province").on("change",function(){
           var Province = $(this).val();
           $.ajax({
@@ -1572,7 +1572,7 @@ session_start();
           }
         });
       }); 
-    });
+    });*/
 
 
 

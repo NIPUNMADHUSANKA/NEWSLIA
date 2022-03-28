@@ -380,17 +380,6 @@
               
               <div class="view_btn back_btn" onclick="window.open('./Moderator_Pending.php', '_self')">Back</div>
         </div>
-
-
-        <div class='button-set2'>
-              <div class='view_btn update_btn' onclick='togglePopup_select_option()'>Accept</div>
-              <form action="" method="post">
-                  <button class="view_btn remove_btn" name = "Reject" style = "border:none;">Reject</button>
-              </form>
-            
-              <div class="view_btn back_btn" onclick="window.open('./Moderator_Pending.php', '_self')">Back</div>
-        </div>
-          
       </div>
 
 
@@ -614,7 +603,12 @@
           }
           else{
             $Accept_stmt = $conn->prepare("INSERT INTO `news` VALUES(?,?,?,?,?,?,?,?,?,?)");
-            $Accept_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$News_Category,$Creator_ID,$Smart_Date,$Up,$Down]);     
+            $Accept_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$News_Category,$Creator_ID,$Smart_Date,$Up,$Down]);
+            
+            $smart_calandar_stmt = $conn->prepare("INSERT INTO `smart_calendar` (`evt_start`,`evt_end`,`Post_Id`,`Area`) VALUES(?,?,?,?)");
+            $smart_calandar_stmt->execute([$Smart_Date,$Smart_Date,$PID,$Area_Peding]);
+          
+
           }
 
 
@@ -622,8 +616,6 @@
           $post_area_stmt = $conn->prepare("INSERT INTO `post_area` VALUES(?,?,?)");
           $post_area_stmt->execute([$PID,$Area_Peding,'NEWS']);
           
-          $smart_calandar_stmt = $conn->prepare("INSERT INTO `smart_calendar` (`evt_start`,`evt_end`,`Post_Id`,`Area`) VALUES(?,?,?,?)");
-          $smart_calandar_stmt->execute([$Smart_Date,$Smart_Date,$PID,$Area_Peding]);
           
 
           $P_Time = NULL;
@@ -662,10 +654,6 @@
                 $Moderator_Insights_Update_statement->execute();
               }
             }
-            else{
-              $Moderator_Insights_insert_sql = $conn->prepare("INSERT INTO `moderate_insights`(`System_Actor_Id`,`News`) VALUES(?,?)");
-              $Moderator_Insights_insert_sql->execute([$System_Actor_ID,$News_Count]);
-            }
 
           // End Update Moderator Insights Part//
 
@@ -694,10 +682,6 @@
                 
                 $Repoter_Insights_Update_statement->execute();
               }
-            }
-            else{
-              $Repoter_Insights_insert_sql = $conn->prepare("INSERT INTO `reporter_insights`(`System_Actor_Id`,`News`) VALUES(?,?)");
-              $Repoter_Insights_insert_sql->execute([$Creator_ID,$News_Count]);
             }
 
           // End Update Repoter Insights Part//
@@ -795,7 +779,11 @@
           }
           else{
             $Accept_stmt = $conn->prepare("INSERT INTO `news` VALUES(?,?,?,?,?,?,?,?,?,?)");
-            $Accept_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$News_Category,$Creator_ID,$Smart_Date,$Up,$Down]);      
+            $Accept_stmt->execute([$PID,$Title,$P_Date,$img_X,$msg,$News_Category,$Creator_ID,$Smart_Date,$Up,$Down]);  
+
+            $smart_calandar_stmt = $conn->prepare("INSERT INTO `smart_calendar` (`evt_start`,`evt_end`,`Post_Id`,`Area`) VALUES(?,?,?,?)");
+            $smart_calandar_stmt->execute([$Smart_Date,$Smart_Date,$PID,$Area_Peding]);
+        
           }
 
 
@@ -803,9 +791,7 @@
           $post_area_stmt->execute([$PID,$Area_Peding,'NEWS']);
           
 
-          $smart_calandar_stmt = $conn->prepare("INSERT INTO `smart_calendar` (`evt_start`,`evt_end`,`Post_Id`,`Area`) VALUES(?,?,?,?)");
-          $smart_calandar_stmt->execute([$Smart_Date,$Smart_Date,$PID,$Area_Peding]);
-        
+          
           $Auto_delete_stmt = $conn->prepare("INSERT INTO `post_auto_delete` VALUES(?,?,?,?)");
           $Auto_delete_stmt->execute([$PID,$Date,$Time,$Cat]);
 
@@ -845,11 +831,7 @@
                 $Moderator_Insights_Update_statement->execute();
               }
             }
-            else{
-              $Moderator_Insights_insert_sql = $conn->prepare("INSERT INTO `moderate_insights`(`System_Actor_Id`,`News`) VALUES(?,?)");
-              $Moderator_Insights_insert_sql->execute([$System_Actor_ID,$News_Count]);
-            }
-
+            
           // End Update Moderator Insights Part//
 
          // Update Repoter Insights Part//
@@ -878,10 +860,7 @@
               $Repoter_Insights_Update_statement->execute();
             }
           }
-          else{
-            $Repoter_Insights_insert_sql = $conn->prepare("INSERT INTO `reporter_insights`(`System_Actor_Id`,`News`) VALUES(?,?)");
-            $Repoter_Insights_insert_sql->execute([$Creator_ID,$News_Count]);
-          }
+          
  
          // End Update Repoter Insights Part//
 

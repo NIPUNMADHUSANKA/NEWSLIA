@@ -646,10 +646,6 @@
                 $Moderator_Insights_Update_statement->execute();
               }
             }
-            else{
-              $Moderator_Insights_insert_sql = $conn->prepare("INSERT INTO `moderate_insights`(`System_Actor_Id`,`Notices`) VALUES(?,?)");
-              $Moderator_Insights_insert_sql->execute([$System_Actor_ID,$Notices_Count]);
-            }
 
           // End Update Moderator Insights Part//
 
@@ -679,10 +675,7 @@
                 $Repoter_Insights_Update_statement->execute();
               }
             }
-            else{
-              $Repoter_Insights_insert_sql = $conn->prepare("INSERT INTO `reporter_insights`(`System_Actor_Id`,`Notices`) VALUES(?,?)");
-              $Repoter_Insights_insert_sql->execute([$Creator_ID,$Notices_Count]);
-            }
+            
 
           // End Update Repoter Insights Part//
 
@@ -762,10 +755,7 @@
                   $Moderator_Insights_Update_statement->execute();
                 }
               }
-              else{
-                $Moderator_Insights_insert_sql = $conn->prepare("INSERT INTO `moderate_insights`(`System_Actor_Id`,`Job Vacancies`) VALUES(?,?)");
-                $Moderator_Insights_insert_sql->execute([$System_Actor_ID,$Job_Count]);
-              }
+              
 
           // End Update Moderator Insights Part//
 
@@ -795,10 +785,7 @@
                   $Repoter_Insights_Update_statement->execute();
                 }
               }
-              else{
-                $Repoter_Insights_insert_sql = $conn->prepare("INSERT INTO `reporter_insights`(`System_Actor_Id`,`Job Vacancies`) VALUES(?,?)");
-                $Repoter_Insights_insert_sql->execute([$Creator_ID,$Job_Count]);
-              }
+              
 
           // End Update Repoter Insights Part//
 
@@ -878,10 +865,7 @@
                     $Moderator_Insights_Update_statement->execute();
                   }
                 }
-                else{
-                  $Moderator_Insights_insert_sql = $conn->prepare("INSERT INTO `moderate_insights`(`System_Actor_Id`,`Commercial Ads`) VALUES(?,?)");
-                  $Moderator_Insights_insert_sql->execute([$System_Actor_ID,$C_Count]);
-                }
+                
 
             // End Update Moderator Insights Part//
 
@@ -911,11 +895,7 @@
                     $Repoter_Insights_Update_statement->execute();
                   }
                 }
-                else{
-                  $Repoter_Insights_insert_sql = $conn->prepare("INSERT INTO `reporter_insights`(`System_Actor_Id`,`Commercial Ads`) VALUES(?,?)");
-                  $Repoter_Insights_insert_sql->execute([$Creator_ID,$C_Count]);
-                }
-
+                
             // End Update Repoter Insights Part//
         
           
@@ -1037,10 +1017,7 @@
                     $Moderator_Insights_Update_statement->execute();
                   }
                 }
-                else{
-                  $Moderator_Insights_insert_sql = $conn->prepare("INSERT INTO `moderate_insights`(`System_Actor_Id`,`Job Vacancies`) VALUES(?,?)");
-                  $Moderator_Insights_insert_sql->execute([$System_Actor_ID,$Job_Count]);
-                }
+                
 
             // End Update Moderator Insights Part//
 
@@ -1069,10 +1046,6 @@
                     
                     $Repoter_Insights_Update_statement->execute();
                   }
-                }
-                else{
-                  $Repoter_Insights_insert_sql = $conn->prepare("INSERT INTO `reporter_insights`(`System_Actor_Id`,`Job Vacancies`) VALUES(?,?)");
-                  $Repoter_Insights_insert_sql->execute([$Creator_ID,$Job_Count]);
                 }
 
             // End Update Repoter Insights Part//
@@ -1151,10 +1124,7 @@
                       $Moderator_Insights_Update_statement->execute();
                     }
                   }
-                  else{
-                    $Moderator_Insights_insert_sql = $conn->prepare("INSERT INTO `moderate_insights`(`System_Actor_Id`,`Job Vacancies`) VALUES(?,?)");
-                    $Moderator_Insights_insert_sql->execute([$System_Actor_ID,$Job_Count]);
-                  }
+                  
 
             // End Update Moderator Insights Part//
 
@@ -1184,11 +1154,7 @@
                     $Repoter_Insights_Update_statement->execute();
                   }
                 }
-                else{
-                  $Repoter_Insights_insert_sql = $conn->prepare("INSERT INTO `reporter_insights`(`System_Actor_Id`,`Job Vacancies`) VALUES(?,?)");
-                  $Repoter_Insights_insert_sql->execute([$Creator_ID,$Job_Count]);
-                }
-
+                
           // End Update Repoter Insights Part//
 
           $sql_Area = 'DELETE FROM pending_post_area WHERE Post_ID = :Post_ID';
@@ -1262,10 +1228,7 @@
                     $Moderator_Insights_Update_statement->execute();
                   }
                 }
-                else{
-                  $Moderator_Insights_insert_sql = $conn->prepare("INSERT INTO `moderate_insights`(`System_Actor_Id`,`Commercial Ads`) VALUES(?,?)");
-                  $Moderator_Insights_insert_sql->execute([$System_Actor_ID,$C_Count]);
-                }
+                
 
             // End Update Moderator Insights Part//
 
@@ -1295,10 +1258,7 @@
                     $Repoter_Insights_Update_statement->execute();
                   }
                 }
-                else{
-                  $Repoter_Insights_insert_sql = $conn->prepare("INSERT INTO `reporter_insights`(`System_Actor_Id`,`Commercial Ads`) VALUES(?,?)");
-                  $Repoter_Insights_insert_sql->execute([$Creator_ID,$C_Count]);
-                }
+                
 
           // End Update Repoter Insights Part//
 

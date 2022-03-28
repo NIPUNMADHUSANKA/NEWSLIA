@@ -236,6 +236,21 @@
   
   }
 
+
+  @media only screen and (max-width:1505px) {
+    .box-read {
+      width: 650px;
+    }
+
+    .box-container {
+      width: 225px;
+    }
+
+    .back_btn {
+      margin-left: 30rem;
+    }
+  }
+
 </style>
 
 <body>

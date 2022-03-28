@@ -211,6 +211,26 @@
   margin-top:3rem;
 }
 
+@media only screen and (max-width:1525px) {
+
+.box-read {
+  width: 600px;
+  height: 400px;
+  margin-top: -1rem;
+  overflow: hidden;
+  overflow-y: scroll;
+  margin-left: 30rem;
+}
+
+.back_btn {
+  margin-top: 15.2rem;
+  background-color: #ADD8E6;
+  margin-left: 25rem;
+  color: #222;
+}
+
+}
+
 </style>
 
 <body>

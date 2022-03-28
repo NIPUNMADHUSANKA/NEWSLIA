@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../css/search.css">
     <link rel="stylesheet" href="../css/profile.css">
     <link rel="stylesheet" href="../css/select_area.css">
+    <link rel="stylesheet" href="../css/media_queries.css">
     <link rel="shortcut icon" type = "image/x-icon" href = "../images/logo.ico">
     <script src="https://kit.fontawesome.com/c119b7fc61.js" crossorigin="anonymous"></script>
    
