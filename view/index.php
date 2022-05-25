@@ -488,6 +488,7 @@ session_start();
 </div>
 
 <script>
+//getElementsByTagName
  const btnscrollToTop = document.querySelector("#btnscrollToTop");
  btnscrollToTop.addEventListener("click",function(){
    window.scrollTo({

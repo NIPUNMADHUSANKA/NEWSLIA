@@ -40,12 +40,12 @@
   }
 
   .popup_add_new .content_add_new{
-      height:450px;
+      height:600px;
       width: 400px;
   }
 
   .popup_add_new_size .content_add_new_size{
-    height:580px;
+    height:680px;
   }
 
   .popup_remove_new .content_remove_new{
@@ -190,6 +190,14 @@ input{
     content: "✖";
   }
 
+  .input_type{
+    display:none;
+  }
+
+  .input_type_show{
+    display:block;
+  }
+
 </style>
 
 <body>
@@ -239,6 +247,14 @@ input{
 
 <script>
    
+
+   function show_text(){
+      document.getElementById("add-type").classList.add("input_type_show");
+   }
+
+   function hidden_text(){
+      document.getElementById("add-type").classList.remove("input_type_show");
+   }
 
 
    ///////////Remove //////////
@@ -416,11 +432,36 @@ input{
                           <br>
                           <br>
 
+
+
+                          <label for="add-name" class="lbl">Type<span style="color:red;font-size:13px;margin-left:">*</span></label>
+                          
+                          <select name="type_cat" id="" class="select_your_job inp1 sel" required style="margin-left:1rem;"> 
+                            <option value="Owner" class="ent" onclick="hidden_text()">Owner</option>
+                            <option value="Manager" class="ent" onclick="hidden_text()">Manager</option>
+                            <option value="Other" class="ent" onclick="show_text()">Other</option>
+                          </select> <span style="color:red;font-size:13px;">*</span>
+
+                          <br>
+
+                          <input type="text" name="ic_type" id="add-type" class="inp input_type" style="margin-top:1rem;">
+
+
+
+                          <br>
+                          <br>
+                          <br>
+
+                          
+
+
+
                           <label for="add-number" class="lbl">Number<span style="color:red;font-size:13px;">*</span></label>
 
                           <div id="survey_options" class="number">
                               <input type="text" name="num1[]" id="add-number" class="inp" required>                              
                           </div>
+
 
                          
                           
@@ -777,10 +818,16 @@ input{
             }
        }    
     
+
+       $cat = $_POST['type_cat'];
+
+       if($cat == "Other"){
+         $cat = $_POST['ic_type'];
+       }
         
        
-        $stmt = $conn->prepare("INSERT INTO `important_number` VALUES(?,?,?,?)");
-        $stmt->execute([$ID,$_POST['ic_title'],$_moderate_area, file_get_contents($_FILES['upload']['tmp_name'])]);
+        $stmt = $conn->prepare("INSERT INTO `important_number` VALUES(?,?,?,?,?)");
+        $stmt->execute([$ID,$_POST['ic_title'],$_moderate_area, file_get_contents($_FILES['upload']['tmp_name']),$cat]);
         
         if ($number > 0){
             for($i=0; $i<$number; $i++){

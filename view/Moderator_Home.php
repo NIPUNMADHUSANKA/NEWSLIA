@@ -115,6 +115,7 @@ table, th, td {
           }
         }
 
+
         if($PostType == "NOTICES"){
           $post_sql = "SELECT * FROM notices WHERE Post_ID = '$PostID'";
         }
@@ -123,6 +124,9 @@ table, th, td {
         }
         elseif($PostType == "C.ADS"){
           $post_sql = "SELECT * FROM com_ads WHERE Post_ID = '$PostID'";
+        }
+        else{
+          $post_sql = "SELECT * FROM news WHERE Post_ID = '$PostID'";
         }
 
         $post_statement = $conn->query($post_sql);
@@ -154,7 +158,6 @@ table, th, td {
 
       }
     }
-    
 
 ?>
 
